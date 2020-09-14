@@ -1,29 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   mini_main.c                                        :+:    :+:            */
+/*   ft_lstnew_bonus.c                                  :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: liz <liz@student.codam.nl>                   +#+                     */
+/*   By: lbisscho <lbisscho@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/09/14 11:37:15 by liz           #+#    #+#                 */
-/*   Updated: 2020/09/14 17:13:35 by liz           ########   odam.nl         */
+/*   Created: 2019/11/15 13:08:28 by lbisscho       #+#    #+#                */
+/*   Updated: 2019/11/20 13:40:17 by lbisscho      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-int main(void)
+t_list	*ft_lstnew(void *content)
 {
-	char *input;
+	t_list *element;
 
-	// get_input(&input);
-	// printf("%s\n", input);
-	while (1)
-	{
-	show_command_prompt();
-	input = read_line();
-	which_command(input);
-		// show_command_prompt();
-
-	}
+	element = malloc(sizeof(t_list));
+	if (element == 0)
+		return (0);
+	element->content = content;
+	element->next = NULL;
+	return (element);
 }

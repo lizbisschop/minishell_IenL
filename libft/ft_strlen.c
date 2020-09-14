@@ -1,29 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   mini_main.c                                        :+:    :+:            */
+/*   ft_strlen.c                                        :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: liz <liz@student.codam.nl>                   +#+                     */
+/*   By: lbisscho <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/09/14 11:37:15 by liz           #+#    #+#                 */
-/*   Updated: 2020/09/14 17:13:35 by liz           ########   odam.nl         */
+/*   Created: 2019/10/28 13:52:01 by lbisscho       #+#    #+#                */
+/*   Updated: 2019/11/14 17:20:45 by lbisscho      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-int main(void)
+size_t	ft_strlen(const char *str)
 {
-	char *input;
+	size_t i;
 
-	// get_input(&input);
-	// printf("%s\n", input);
-	while (1)
+	i = 0;
+	while (str[i] != '\0')
 	{
-	show_command_prompt();
-	input = read_line();
-	which_command(input);
-		// show_command_prompt();
-
+		i++;
 	}
+	return (i);
 }

@@ -1,29 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   mini_main.c                                        :+:    :+:            */
+/*   ft_putchar_fd.c                                    :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: liz <liz@student.codam.nl>                   +#+                     */
+/*   By: lbisscho <lbisscho@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/09/14 11:37:15 by liz           #+#    #+#                 */
-/*   Updated: 2020/09/14 17:13:35 by liz           ########   odam.nl         */
+/*   Created: 2019/11/04 14:32:18 by lbisscho       #+#    #+#                */
+/*   Updated: 2019/11/11 13:45:48 by lbisscho      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-int main(void)
+void	ft_putchar_fd(char c, int fd)
 {
-	char *input;
-
-	// get_input(&input);
-	// printf("%s\n", input);
-	while (1)
-	{
-	show_command_prompt();
-	input = read_line();
-	which_command(input);
-		// show_command_prompt();
-
-	}
+	write(fd, &c, 1);
 }

@@ -1,29 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   mini_main.c                                        :+:    :+:            */
+/*   ft_isdigit.c                                       :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: liz <liz@student.codam.nl>                   +#+                     */
+/*   By: lbisscho <lbisscho@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/09/14 11:37:15 by liz           #+#    #+#                 */
-/*   Updated: 2020/09/14 17:13:35 by liz           ########   odam.nl         */
+/*   Created: 2019/10/28 16:41:03 by lbisscho       #+#    #+#                */
+/*   Updated: 2019/11/11 10:40:55 by lbisscho      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
-
-int main(void)
+int	ft_isdigit(int c)
 {
-	char *input;
-
-	// get_input(&input);
-	// printf("%s\n", input);
-	while (1)
-	{
-	show_command_prompt();
-	input = read_line();
-	which_command(input);
-		// show_command_prompt();
-
-	}
+	if (c >= '0' && c <= '9')
+		return (1);
+	else
+		return (0);
 }

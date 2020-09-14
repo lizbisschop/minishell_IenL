@@ -1,29 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   mini_main.c                                        :+:    :+:            */
+/*   ft_lstsize_bonus.c                                 :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: liz <liz@student.codam.nl>                   +#+                     */
+/*   By: lbisscho <lbisscho@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/09/14 11:37:15 by liz           #+#    #+#                 */
-/*   Updated: 2020/09/14 17:13:35 by liz           ########   odam.nl         */
+/*   Created: 2019/11/15 14:51:20 by lbisscho       #+#    #+#                */
+/*   Updated: 2019/11/20 13:41:45 by lbisscho      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-int main(void)
+int	ft_lstsize(t_list *lst)
 {
-	char *input;
+	int i;
 
-	// get_input(&input);
-	// printf("%s\n", input);
-	while (1)
+	i = 0;
+	if (lst)
 	{
-	show_command_prompt();
-	input = read_line();
-	which_command(input);
-		// show_command_prompt();
-
+		while (lst->next != NULL)
+		{
+			i++;
+			lst = lst->next;
+		}
+		if (lst->next == NULL)
+			i++;
 	}
+	return (i);
 }

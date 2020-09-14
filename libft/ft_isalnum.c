@@ -1,29 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   mini_main.c                                        :+:    :+:            */
+/*   ft_isalnum.c                                       :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: liz <liz@student.codam.nl>                   +#+                     */
+/*   By: lbisscho <lbisscho@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/09/14 11:37:15 by liz           #+#    #+#                 */
-/*   Updated: 2020/09/14 17:13:35 by liz           ########   odam.nl         */
+/*   Created: 2019/10/28 18:19:59 by lbisscho       #+#    #+#                */
+/*   Updated: 2019/11/09 16:00:37 by lbisscho      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
-
-int main(void)
+int	ft_isalnum(int c)
 {
-	char *input;
-
-	// get_input(&input);
-	// printf("%s\n", input);
-	while (1)
-	{
-	show_command_prompt();
-	input = read_line();
-	which_command(input);
-		// show_command_prompt();
-
-	}
+	if ((c <= '9' && c >= '0') || (c >= 'a' && c <= 'z') ||
+		(c >= 'A' && c <= 'Z'))
+		return (1);
+	else
+		return (0);
 }

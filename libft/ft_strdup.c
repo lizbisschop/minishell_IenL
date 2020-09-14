@@ -1,29 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   mini_main.c                                        :+:    :+:            */
+/*   ft_strdup.c                                        :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: liz <liz@student.codam.nl>                   +#+                     */
+/*   By: lbisscho <lbisscho@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/09/14 11:37:15 by liz           #+#    #+#                 */
-/*   Updated: 2020/09/14 17:13:35 by liz           ########   odam.nl         */
+/*   Created: 2019/11/01 13:04:21 by lbisscho       #+#    #+#                */
+/*   Updated: 2020/04/03 12:23:01 by liz           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-int main(void)
+char	*ft_strdup(const char *s1)
 {
-	char *input;
+	size_t	i;
+	char	*s2;
 
-	// get_input(&input);
-	// printf("%s\n", input);
-	while (1)
+	s2 = (char *)malloc(sizeof(char) * (ft_strlen(s1) + 1));
+	if (!s2)
+		return (0);
+	i = 0;
+	while (s1[i] != '\0')
 	{
-	show_command_prompt();
-	input = read_line();
-	which_command(input);
-		// show_command_prompt();
-
+		s2[i] = s1[i];
+		i++;
 	}
+	s2[i] = '\0';
+	return (s2);
 }

@@ -6,7 +6,7 @@
 /*   By: liz <liz@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/14 14:20:20 by liz           #+#    #+#                 */
-/*   Updated: 2020/09/14 15:41:30 by liz           ########   odam.nl         */
+/*   Updated: 2020/09/14 17:29:41 by liz           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,15 @@ void 	which_command(char *input)
 	i = 0;
 	while (input[i] != '\0')
 	{
-		// cmd = 0;
+		cmd = 0;
 		skipping_spaces(input, &i);
 		cmd = find_command(input, &i);
 		if (cmd == 1)
-			break ;
+		{
+			echo(&input[i]);
+			// break;
+		}
+		// printf("%i\n", i);
 		i++;
 	}
-	echo(&input[i]);
 }
