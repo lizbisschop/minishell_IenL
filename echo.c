@@ -6,7 +6,7 @@
 /*   By: liz <liz@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/14 14:31:44 by liz           #+#    #+#                 */
-/*   Updated: 2020/09/14 17:29:19 by liz           ########   odam.nl         */
+/*   Updated: 2020/09/14 18:03:35 by liz           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int		n_flag(char *str, int *i)
 	return (0);
 }
 
-void	echo(char *str)
+int		echo(char *str)
 {
 	int i;
 	int	flag;
@@ -65,4 +65,5 @@ void	echo(char *str)
 	}
 	if (!flag)
 		ft_putchar_fd('\n', 1);
+	return (i);
 }

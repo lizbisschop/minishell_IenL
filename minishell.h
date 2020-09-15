@@ -6,7 +6,7 @@
 /*   By: liz <liz@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/14 11:37:41 by liz           #+#    #+#                 */
-/*   Updated: 2020/09/14 17:27:17 by liz           ########   odam.nl         */
+/*   Updated: 2020/09/14 18:03:24 by liz           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void get_input(char **input);
 char 	*ft_realloc(char **str, int count);
 char *read_line(void);
 void skipping_spaces(char *str, int *count);
-void	echo(char *str);
+int		echo(char *str);
 void 	which_command(char *input);
 
 

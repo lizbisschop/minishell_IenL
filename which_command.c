@@ -6,7 +6,7 @@
 /*   By: liz <liz@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/14 14:20:20 by liz           #+#    #+#                 */
-/*   Updated: 2020/09/14 17:29:41 by liz           ########   odam.nl         */
+/*   Updated: 2020/09/14 18:10:05 by liz           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,10 @@
 
 int find_command(char *input, int *i)
 {
-	if (ft_strncmp("echo ", &input[*i], 5))
+	// printf("find command\n");
+	if (ft_strncmp("echo ", &input[*i], 5) == 0)
 	{
-		*i += 4;
+		*i += 5;
 		// printf(" echo found\n");
 		return (1);
 	}
@@ -43,11 +44,9 @@ void 	which_command(char *input)
 		skipping_spaces(input, &i);
 		cmd = find_command(input, &i);
 		if (cmd == 1)
-		{
-			echo(&input[i]);
-			// break;
-		}
-		// printf("%i\n", i);
+			i = echo(&input[i]);
+		// else if (cmd == 0)
+		// 	ft_putstr_fd("Error:\nCommand not found.\n", 1);
 		i++;
 	}
 }
