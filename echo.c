@@ -6,7 +6,7 @@
 /*   By: liz <liz@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/14 14:31:44 by liz           #+#    #+#                 */
-/*   Updated: 2020/09/14 18:03:35 by liz           ########   odam.nl         */
+/*   Updated: 2020/09/15 10:43:08 by liz           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int		n_flag(char *str, int *i)
 {
-	if (str[*i] == '-' && str[*i + 1] == 'n' && str[*i + 2] == ' ')
+	if (ft_strncmp("-n ", &str[*i], 3) == 0)
 	{
 		*i += 3;
 		return (1);
