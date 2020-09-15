@@ -1,29 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   get_input.c                                        :+:    :+:            */
+/*   pwd.c                                              :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: liz <liz@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/09/14 12:14:09 by liz           #+#    #+#                 */
-/*   Updated: 2020/09/15 11:32:33 by liz           ########   odam.nl         */
+/*   Created: 2020/09/15 10:55:49 by liz           #+#    #+#                 */
+/*   Updated: 2020/09/15 11:01:37 by liz           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char **split_input(char *str)
+void	pwd(void)
 {
-	char **input;
-	input = ft_split(str, ';');
-	return (input);
-}
-
-char	*read_line(void)
-{
-	char *line;
-
-	line = NULL;
-	get_next_line(0, &line);
-	return (line);
+	char buf[10000];
+	getcwd(buf, 10000);
+	ft_putstr_fd(buf, 1);
+	write(1, "\n", 1);
 }
