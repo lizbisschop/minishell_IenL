@@ -6,7 +6,7 @@
 /*   By: liz <liz@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/14 11:37:15 by liz           #+#    #+#                 */
-/*   Updated: 2020/09/15 17:39:07 by liz           ########   odam.nl         */
+/*   Updated: 2020/09/17 14:26:41 by liz           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void set_struct(t_mini *mini)
 {
 	mini->i = 0;
-	mini->comma = 0;
+	mini->cmds = 0;
 }
 
 int	check_syntax(char *input, t_mini *mini)
@@ -32,7 +32,7 @@ int	check_syntax(char *input, t_mini *mini)
 			input[index] <= 12) || input[index] == 32))
 				index++;
 			if (input[index + 1] != '\0')
-				mini->comma++;
+				mini->cmds++;
 			if (input[index] == ';')
 				return (1);
 		}

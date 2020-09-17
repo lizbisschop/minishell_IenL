@@ -6,7 +6,7 @@
 /*   By: liz <liz@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/14 14:20:20 by liz           #+#    #+#                 */
-/*   Updated: 2020/09/17 11:32:19 by liz           ########   odam.nl         */
+/*   Updated: 2020/09/17 14:27:07 by liz           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void 	which_command(t_mini *mini)
 	int cmd;
 
 	j = 0;
-	while (j <= mini->comma)
+	while (j <= mini->cmds)
 	{
 		cmd = 0;
 		// printf("yes\n");

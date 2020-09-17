@@ -6,7 +6,7 @@
 /*   By: liz <liz@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/15 16:45:27 by liz           #+#    #+#                 */
-/*   Updated: 2020/09/15 17:46:57 by liz           ########   odam.nl         */
+/*   Updated: 2020/09/17 14:26:13 by liz           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int		delete_quotes(t_mini *mini, char c)
 
 	// i = 0;
 	j = 0;
-	while(j < mini->comma)
+	while(j < mini->cmds)
 	{
 		if (multi_lines(mini->sp_input[j], c))
 		{

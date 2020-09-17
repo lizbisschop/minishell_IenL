@@ -5,14 +5,14 @@
 /*                                                     +:+                    */
 /*   By: liz <liz@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/09/14 11:40:18 by liz           #+#    #+#                 */
-/*   Updated: 2020/09/17 11:41:45 by liz           ########   odam.nl         */
+/*   Created: 2020/09/17 14:23:11 by liz           #+#    #+#                 */
+/*   Updated: 2020/09/17 14:36:49 by liz           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void show_command_prompt(void)
+void	show_command_prompt(void)
 {
 	char buf[10000];
 	getcwd(buf, 10000);
