@@ -6,7 +6,7 @@
 /*   By: liz <liz@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/14 11:37:15 by liz           #+#    #+#                 */
-/*   Updated: 2020/09/17 14:26:41 by liz           ########   odam.nl         */
+/*   Updated: 2020/09/17 16:18:40 by iboeters      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ void set_struct(t_mini *mini)
 {
 	mini->i = 0;
 	mini->cmds = 0;
+	mini->end_command = 0;
 }
 
 int	check_syntax(char *input, t_mini *mini)
@@ -57,8 +58,7 @@ int 	main(void)
 		else if (ft_strlen(mini.input) > 0)
 		{
 			mini.sp_input = split_input(mini.input);
-			if (!delete_quotes(&mini, '"') && !delete_quotes(&mini, 39))
-				which_command(&mini);
+			which_command(&mini);
 		}
 		// show_command_prompt();
 	}

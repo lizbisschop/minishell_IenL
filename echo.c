@@ -6,7 +6,7 @@
 /*   By: liz <liz@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/14 14:31:44 by liz           #+#    #+#                 */
-/*   Updated: 2020/09/15 15:04:58 by liz           ########   odam.nl         */
+/*   Updated: 2020/09/17 16:23:00 by iboeters      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	echo(char *str, t_mini *mini)
 			}
 			mini->i++;
 		}
-		else if (ft_isascii(str[mini->i]) && str[mini->i] != '\0')
+		if (ft_isascii(str[mini->i]) && str[mini->i] != '\0')
 		{
 			// printf("0000\n");
 			if (space == 1)

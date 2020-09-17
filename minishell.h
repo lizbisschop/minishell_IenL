@@ -6,7 +6,7 @@
 /*   By: liz <liz@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/14 11:37:41 by liz           #+#    #+#                 */
-/*   Updated: 2020/09/17 14:37:52 by liz           ########   odam.nl         */
+/*   Updated: 2020/09/17 16:18:18 by iboeters      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,12 @@
 #include <stdio.h>
 
 typedef struct 	s_mini {
-	int i;
-	int cmds;
-	char *input;
-	char **sp_input;
+	int		i;
+	int		cmds;
+	int		end_command;
+	char	*input;
+	char	**sp_input;
+	char	*command;
 }	t_mini;
 
 void	show_command_prompt(void);
@@ -35,7 +37,7 @@ void	echo(char *str, t_mini *mini);
 void 	which_command(t_mini *mini);
 void	pwd(void);
 char	**split_input(char *str);
-int		delete_quotes(t_mini *mini, char c);
+int		quotes(t_mini *mini, char c, char *line);
 void 	cd(char *str, t_mini *mini);
 
 #endif
