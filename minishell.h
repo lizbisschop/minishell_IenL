@@ -6,7 +6,7 @@
 /*   By: liz <liz@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/14 11:37:41 by liz           #+#    #+#                 */
-/*   Updated: 2020/09/15 17:46:15 by liz           ########   odam.nl         */
+/*   Updated: 2020/09/17 11:31:43 by liz           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,6 @@ void 	which_command(t_mini *mini);
 void	pwd(void);
 char	**split_input(char *str);
 int		delete_quotes(t_mini *mini, char c);
-
-
-
-
+void 	cd(char *str, t_mini *mini);
 
 #endif

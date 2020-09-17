@@ -1,23 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   show_command_prompt.c                              :+:    :+:            */
+/*   cd.c                                               :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: liz <liz@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/09/14 11:40:18 by liz           #+#    #+#                 */
-/*   Updated: 2020/09/17 11:41:45 by liz           ########   odam.nl         */
+/*   Created: 2020/09/17 11:30:01 by liz           #+#    #+#                 */
+/*   Updated: 2020/09/17 14:08:40 by liz           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void show_command_prompt(void)
+void 	cd(char *str, t_mini *mini)
 {
-	char buf[10000];
-	getcwd(buf, 10000);
-	ft_putstr_fd("\e[1;33m~", 1);
-	ft_putstr_fd(buf, 1);
-	ft_putstr_fd("\e[0m", 1);
-	write(1, "$ ", 2);
+	printf("%s\n", &str[mini->i]);
+	skip_whitespaces(str, mini);
+	if (str[mini->i] == '~')
+	{
+		printf("hello\n");
+		printf("%d\n", chdir("/home"));
+		
+		mini->i++;
+	}
+	if (str[mini->i] == '//')
+		chdir("//");
+	if (str[mini->i] == )
+	chdir(&str[mini->i]);
 }
