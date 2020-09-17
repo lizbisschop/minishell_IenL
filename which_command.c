@@ -6,7 +6,7 @@
 /*   By: liz <liz@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/14 14:20:20 by liz           #+#    #+#                 */
-/*   Updated: 2020/09/15 14:42:13 by liz           ########   odam.nl         */
+/*   Updated: 2020/09/15 16:40:53 by liz           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ int 	find_command(char *input, t_mini *mini)
 		mini->i += 3;
 		return (2);
 	}
+	else if (ft_strncmp("exit", &input[mini->i], 4) == 0)
+		exit(0);
 	return (0);
 }
 
@@ -69,8 +71,6 @@ void 	which_command(t_mini *mini)
 		}
 		else if (cmd == 0)
 		{
-			// if ()
-			// printf("%s\n", &mini->sp_input[j][i]);
 			ft_putstr_fd("Error:\nCommand not found.\n", 1);
 			skip_command(mini->sp_input[j], mini);	
 		}

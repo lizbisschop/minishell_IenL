@@ -6,7 +6,7 @@
 /*   By: liz <liz@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/14 11:37:15 by liz           #+#    #+#                 */
-/*   Updated: 2020/09/15 14:55:26 by liz           ########   odam.nl         */
+/*   Updated: 2020/09/15 17:39:07 by liz           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	check_syntax(char *input, t_mini *mini)
 	return (0);
 }
 
-int main(void)
+int 	main(void)
 {
 	t_mini mini;
 
@@ -49,7 +49,7 @@ int main(void)
 	// printf("%s\n", input);
 	while (1)
 	{
-	set_struct(&mini);
+		set_struct(&mini);
 		show_command_prompt();
 		mini.input = read_line();
 		if (check_syntax(mini.input, &mini))
@@ -57,7 +57,8 @@ int main(void)
 		else if (ft_strlen(mini.input) > 0)
 		{
 			mini.sp_input = split_input(mini.input);
-			which_command(&mini);
+			if (!delete_quotes(&mini, '"') && !delete_quotes(&mini, 39))
+				which_command(&mini);
 		}
 		// show_command_prompt();
 	}

@@ -6,7 +6,7 @@
 #    By: liz <liz@student.codam.nl>                   +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/09/14 11:50:17 by liz           #+#    #+#                  #
-#    Updated: 2020/09/15 10:58:54 by liz           ########   odam.nl          #
+#    Updated: 2020/09/15 16:43:37 by liz           ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@ LIBFT = libft.a
 GNL = ./gnl/get_next_line.c ./gnl/get_next_line_utils.c
 
 SRCS = mini_main.c show_command_prompt.c get_input.c which_command.c echo.c \
-	pwd.c
+	pwd.c delete_quotes.c
 
 OBJ = $(SRCS:.c=.o)
 
