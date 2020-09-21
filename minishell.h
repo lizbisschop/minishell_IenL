@@ -6,7 +6,7 @@
 /*   By: liz <liz@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/14 11:37:41 by liz           #+#    #+#                 */
-/*   Updated: 2020/09/17 16:18:18 by iboeters      ########   odam.nl         */
+/*   Updated: 2020/09/21 12:23:54 by iboeters      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ typedef struct 	s_mini {
 	char	*input;
 	char	**sp_input;
 	char	*command;
+	char	***envp;
 }	t_mini;
 
 void	show_command_prompt(void);
