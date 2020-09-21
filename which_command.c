@@ -6,7 +6,7 @@
 /*   By: liz <liz@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/14 14:20:20 by liz           #+#    #+#                 */
-/*   Updated: 2020/09/21 15:05:22 by iboeters      ########   odam.nl         */
+/*   Updated: 2020/09/21 18:46:52 by iboeters      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,28 +19,35 @@ void	skip_command(char *input, t_mini *mini)
 	mini->i++;
 }
 
-int		find_command(t_mini *mini)
+int		find_command(t_mini *mini, int j, char **envp)
 {
 	if (ft_strncmp("echo", mini->command, 4) == 0 &&
 	ft_strlen(mini->command) == 4)
 	{
 		mini->i += 4;
-		return (1);
+		echo(mini->sp_input[j], mini);
 	}
 	else if (ft_strncmp("pwd", mini->command, 3) == 0 &&
 	ft_strlen(mini->command) == 3)
 	{
 		mini->i += 3;
-		return (2);
+		pwd();
 	}
 	else if (ft_strncmp("exit", mini->command, 4) == 0 &&
 	ft_strlen(mini->command) == 4)
 		exit(0);
-	else if (ft_strncmp("cd", mini->command, 3) == 0 &&
+	else if (ft_strncmp("cd", mini->command, 2) == 0 &&
 	ft_strlen(mini->command) == 2)
 	{
-		mini->i += 3;
-		return (3);
+		mini->i += 2;
+		cd(mini->sp_input[j], mini, envp);
+	}
+	else
+	{
+		ft_putstr_fd("Error:\nCommand: ", 1);
+		ft_putstr_fd(mini->command, 1);
+		ft_putstr_fd(" not found.\n", 1);
+		skip_command(mini->sp_input[j], mini);
 	}
 	return (0);
 }
@@ -54,37 +61,35 @@ void	skip_whitespaces(char *str, t_mini *mini)
 	}
 }
 
+int		get_command(t_mini *mini, char *line)
+{
+	if (multi_lines(line))
+	{
+		ft_putstr_fd("Error:\nMultiline command.\n", 1);
+		return (-1);
+	}
+	mini->command = unquote(line, mini, mini->i, 1);
+	// printf("command=|%s|\n", mini->command);
+	return (0);
+}
+
 void	which_command(t_mini *mini, char **envp)
 {
 	int j;
-	int cmd;
 
 	j = 0;
 	while (j <= mini->cmds)
 	{
-		cmd = 0;
 		skip_whitespaces(mini->sp_input[j], mini);
-		if (quotes(mini, '"', mini->sp_input[j]) == -1)
+		if (get_command(mini, mini->sp_input[j]) == -1)
 			return ;
-		cmd = find_command(mini);
-		if (cmd == 1)
-		{
-			echo(mini->sp_input[j], mini);
-		}
-		else if (cmd == 2)
-		{
-			pwd();
-		}
-		else if (cmd == 0)
-		{
-			ft_putstr_fd("Error:\nCommand not found.\n", 1);
-			skip_command(mini->sp_input[j], mini);
-		}
-		else if (cmd == 3)
-		{
-			cd(mini->sp_input[j], mini, envp);
-		}
+		find_command(mini, j, envp);
 		j++;
 		mini->i = 0;
+		if (mini->command)
+		{
+			free(mini->command);
+			mini->command = NULL;
+		}
 	}
 }
