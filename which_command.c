@@ -6,7 +6,7 @@
 /*   By: liz <liz@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/14 14:20:20 by liz           #+#    #+#                 */
-/*   Updated: 2020/09/21 14:59:03 by iboeters      ########   odam.nl         */
+/*   Updated: 2020/09/21 15:05:22 by iboeters      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	skip_whitespaces(char *str, t_mini *mini)
 	}
 }
 
-void	which_command(t_mini *mini)
+void	which_command(t_mini *mini, char **envp)
 {
 	int j;
 	int cmd;
@@ -82,7 +82,7 @@ void	which_command(t_mini *mini)
 		}
 		else if (cmd == 3)
 		{
-			cd(mini->sp_input[j], mini);
+			cd(mini->sp_input[j], mini, envp);
 		}
 		j++;
 		mini->i = 0;

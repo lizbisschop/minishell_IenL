@@ -6,23 +6,36 @@
 /*   By: liz <liz@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/17 11:30:01 by liz           #+#    #+#                 */
-/*   Updated: 2020/09/21 12:26:52 by iboeters      ########   odam.nl         */
+/*   Updated: 2020/09/21 15:04:25 by iboeters      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void 	cd(char *str, t_mini *mini)
+void	cd(char *str, t_mini *mini, char **envp)
 {
+	char *home;
+	int place;
+
+	place = 0;
+	while (envp[place])
+	{
+		if (ft_strncmp("HOME=", envp[place], 5) == 0)
+		{
+			home = ft_strdup(&envp[place][5]);
+		}
+		place++;
+	}
 	skip_whitespaces(str, mini);
 	if (str[mini->i] == '~')
 	{
-		chdir("/home");
+		chdir(home);
 		mini->i++;
 	}
 	else if (str[mini->i] == '/')
 		chdir("//");
-	if (ft_strncmp("/root", &str[mini->i], 5))
+	else if (ft_strncmp("/root", &str[mini->i], 5) == 0)
 		chdir("/root");
-	chdir(&str[mini->i]);
+	else
+		chdir(&str[mini->i]);
 }
