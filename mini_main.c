@@ -6,7 +6,7 @@
 /*   By: liz <liz@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/14 11:37:15 by liz           #+#    #+#                 */
-/*   Updated: 2020/09/21 14:36:00 by liz           ########   odam.nl         */
+/*   Updated: 2020/09/21 14:56:43 by liz           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,6 @@ int 	main(int argc, char **argv, char **envp)
 			mini.sp_input = split_input(mini.input);
 			which_command(&mini, envp);
 		}
-		// show_command_prompt();
 	}
 	(void)argc;
 	(void)argv;

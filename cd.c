@@ -6,7 +6,7 @@
 /*   By: liz <liz@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/17 11:30:01 by liz           #+#    #+#                 */
-/*   Updated: 2020/09/21 14:45:33 by liz           ########   odam.nl         */
+/*   Updated: 2020/09/21 14:59:10 by liz           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ void	cd(char *str, t_mini *mini, char **envp)
 		}
 		place++;
 	}
-	printf("%s\n", home);
 	skip_whitespaces(str, mini);
 	if (str[mini->i] == '~')
 	{
