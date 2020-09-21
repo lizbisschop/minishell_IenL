@@ -6,7 +6,7 @@
 /*   By: liz <liz@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/14 11:37:15 by liz           #+#    #+#                 */
-/*   Updated: 2020/09/21 12:25:18 by iboeters      ########   odam.nl         */
+/*   Updated: 2020/09/21 14:36:00 by liz           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,7 @@ int 	main(int argc, char **argv, char **envp)
 
 	// get_input(&input);
 	// printf("%s\n", input);
-	mini.envp = &envp;
-	printf("%s\n", *(mini.envp)[0]);
+	// set_envp(&mini, envp);
 	while (1)
 	{
 		set_struct(&mini);
@@ -60,11 +59,12 @@ int 	main(int argc, char **argv, char **envp)
 		else if (ft_strlen(mini.input) > 0)
 		{
 			mini.sp_input = split_input(mini.input);
-			which_command(&mini);
+			which_command(&mini, envp);
 		}
 		// show_command_prompt();
 	}
 	(void)argc;
 	(void)argv;
+	exit(0);
 	return (0);
 }
