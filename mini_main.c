@@ -6,7 +6,7 @@
 /*   By: liz <liz@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/14 11:37:15 by liz           #+#    #+#                 */
-/*   Updated: 2020/09/21 12:58:00 by iboeters      ########   odam.nl         */
+/*   Updated: 2020/09/21 14:50:57 by iboeters      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void set_struct(t_mini *mini)
 {
 	mini->i = 0;
 	mini->cmds = 0;
-	mini->end_command = 0;
+	mini->end_string = 0;
 }
 
 int	check_syntax(char *input, t_mini *mini)

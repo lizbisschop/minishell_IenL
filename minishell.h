@@ -6,7 +6,7 @@
 /*   By: liz <liz@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/14 11:37:41 by liz           #+#    #+#                 */
-/*   Updated: 2020/09/21 12:23:54 by iboeters      ########   odam.nl         */
+/*   Updated: 2020/09/21 14:48:08 by iboeters      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 typedef struct 	s_mini {
 	int		i;
 	int		cmds;
-	int		end_command;
+	int		end_string;
 	char	*input;
 	char	**sp_input;
 	char	*command;
