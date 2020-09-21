@@ -6,7 +6,7 @@
 /*   By: liz <liz@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/14 14:20:20 by liz           #+#    #+#                 */
-/*   Updated: 2020/09/21 15:05:22 by iboeters      ########   odam.nl         */
+/*   Updated: 2020/09/21 15:15:17 by liz           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,17 @@ int		find_command(t_mini *mini)
 	else if (ft_strncmp("exit", mini->command, 4) == 0 &&
 	ft_strlen(mini->command) == 4)
 		exit(0);
-	else if (ft_strncmp("cd", mini->command, 3) == 0 &&
+	else if (ft_strncmp("cd", mini->command, 2) == 0 &&
 	ft_strlen(mini->command) == 2)
 	{
-		mini->i += 3;
+		mini->i += 2;
 		return (3);
+	}
+	else if (ft_strncmp("env", mini->command, 3) == 0 &&
+	ft_strlen(mini->command) == 3)
+	{
+		mini->i +=3;
+		return (4);
 	}
 	return (0);
 }
@@ -83,6 +89,10 @@ void	which_command(t_mini *mini, char **envp)
 		else if (cmd == 3)
 		{
 			cd(mini->sp_input[j], mini, envp);
+		}
+		else if(cmd == 4)
+		{
+			env_command(envp);
 		}
 		j++;
 		mini->i = 0;
