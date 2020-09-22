@@ -6,20 +6,34 @@
 /*   By: liz <liz@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/17 11:30:01 by liz           #+#    #+#                 */
-/*   Updated: 2020/09/22 14:15:57 by iboeters      ########   odam.nl         */
+/*   Updated: 2020/09/22 14:17:03 by iboeters      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	cd(char *str, t_mini *mini, char **envp)
+int	cd(char *str, t_mini *mini, char **envp)
 {
-	char *home;
-	int place;
-	char *word;
+	char	*home;
+	int		place;
+	char	*word;
+	int		i;
 
 	place = 0;
+	i = 0;
+	skip_whitespaces(str, mini);
 	word = unquote(&str[mini->i], mini, 0);
+	while (word[i])
+	{
+		i++;
+		mini->i++;		
+	}
+	skip_whitespaces(&str[mini->i], mini);
+	if (str[mini->i] != '\0')
+	{
+		ft_putstr_fd("Error\n Multiple arguments\n", 1);
+		return (-1);
+	}
 	while (envp[place])
 	{
 		if (ft_strncmp("HOME=", envp[place], 5) == 0)
@@ -28,19 +42,28 @@ void	cd(char *str, t_mini *mini, char **envp)
 		}
 		place++;
 	}
-	skip_whitespaces(str, mini);
-	if (str[mini->i] == '~')
+	if (word[0] == '~')
 	{
 		chdir(home);
 		mini->i++;
 	}
-	else if (str[mini->i] == '/')
+	else if (word[0] == '/' && ft_strlen(word) == 1)
 		chdir("//");
-	else if (ft_strncmp("/root", &str[mini->i], 5) == 0)
+	else if (ft_strncmp("/root", word, 5) == 0 && ft_strlen(word) == 5)
+	{
+		printf("%s\n", word);	
 		chdir("/root");
+	}
 	else
 	{
-		if (chdir(&str[mini->i]) == -1)
-			ft_putstr_fd("bash: No such file or directory\n", 1);
+		if (chdir(word) == -1)
+		{
+			ft_putstr_fd("bash: ", 1);
+			ft_putstr_fd(mini->command, 1);
+			ft_putstr_fd(": ", 1);
+			ft_putstr_fd(word, 1);			
+			ft_putstr_fd(" No such file or directory\n", 1);
+		}
 	}
+	return(0);
 }
