@@ -6,7 +6,7 @@
 /*   By: liz <liz@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/14 14:20:20 by liz           #+#    #+#                 */
-/*   Updated: 2020/09/22 11:12:07 by liz           ########   odam.nl         */
+/*   Updated: 2020/09/22 11:34:30 by liz           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ int		get_command(t_mini *mini, char *line)
 		ft_putstr_fd("Error:\nMultiline command.\n", 1);
 		return (-1);
 	}
-	mini->command = unquote(line, mini, mini->i, 1);
+	mini->command = unquote(&line[mini->i], mini, 1);
 	// printf("command=|%s|\n", mini->command);
 	return (0);
 }

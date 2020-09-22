@@ -6,7 +6,7 @@
 /*   By: iboeters <iboeters@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/17 16:04:20 by iboeters      #+#    #+#                 */
-/*   Updated: 2020/09/22 11:30:52 by liz           ########   odam.nl         */
+/*   Updated: 2020/09/22 11:33:45 by liz           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,22 +14,27 @@
 
 /*
 ** CHANGE SO THAT QUOTES IN BETWEEN OTHER QUOTES DONT GET COUNTED
+** A DIFFERENCE BETWEEN " AND ' QUOTES??
 */
 
 int		multi_lines(char *str)
 {
-	int i;
-	int	count;
+	int		double_q;
+	int		single_q;
+	int		i;
 
+	double_q = 0;
+	single_q = 0;
 	i = 0;
-	count = 0;
 	while (str[i] != '\0')
 	{
-		if (str[i] == '"')
-			count++;
+		if (str[i] == '\'' && (double_q % 2) == 0)
+			single_q++;
+		else if (str[i] == '"' && (single_q) % 2 == 0)
+			double_q++;
 		i++;
 	}
-	if (count % 2 == 1)
+	if ((single_q % 2) == 1 || (double_q % 2) == 1)
 		return (1);
 	return (0);
 }
@@ -56,7 +61,7 @@ char	*fill_string(int n_quotes, char c, char *line, t_mini *mini)
 	return (str);
 }
 
-char	*unquote(char *line, t_mini *mini, int begin, int command)
+char	*unquote(char *line, t_mini *mini, int command)
 {
 	int		n_quotes;
 	char	c;
@@ -64,8 +69,8 @@ char	*unquote(char *line, t_mini *mini, int begin, int command)
 	int		i;
 
 	n_quotes = 0;
-	mini->end_string = begin;
-	i = begin;
+	mini->end_string = 0;
+	i = 0;
 	while (line[i] != '\0' && line[i] != '\'' && line[i] != '"')
 		i++;
 	c = line[i];
