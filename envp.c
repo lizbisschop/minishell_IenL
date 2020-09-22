@@ -6,13 +6,13 @@
 /*   By: liz <liz@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/21 12:51:09 by liz           #+#    #+#                 */
-/*   Updated: 2020/09/21 15:15:45 by liz           ########   odam.nl         */
+/*   Updated: 2020/09/22 11:37:48 by liz           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void env_command(char **envp)
+void	env_command(char **envp)
 {
 	int i;
 
