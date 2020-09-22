@@ -6,7 +6,7 @@
 /*   By: liz <liz@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/17 11:30:01 by liz           #+#    #+#                 */
-/*   Updated: 2020/09/22 11:24:17 by liz           ########   odam.nl         */
+/*   Updated: 2020/09/22 14:15:57 by iboeters      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,7 @@ void	cd(char *str, t_mini *mini, char **envp)
 	char *word;
 
 	place = 0;
-	printf("%i\n", mini->i);
-	word = unquote(&str[mini->i], mini, 0, 0);
-	printf("%s\n", word);
+	word = unquote(&str[mini->i], mini, 0);
 	while (envp[place])
 	{
 		if (ft_strncmp("HOME=", envp[place], 5) == 0)

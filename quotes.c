@@ -6,7 +6,7 @@
 /*   By: iboeters <iboeters@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/17 16:04:20 by iboeters      #+#    #+#                 */
-/*   Updated: 2020/09/22 11:33:45 by liz           ########   odam.nl         */
+/*   Updated: 2020/09/22 12:06:51 by iboeters      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 /*
 ** CHANGE SO THAT QUOTES IN BETWEEN OTHER QUOTES DONT GET COUNTED
 ** A DIFFERENCE BETWEEN " AND ' QUOTES??
+** escape character and ''
 */
 
 int		multi_lines(char *str)
