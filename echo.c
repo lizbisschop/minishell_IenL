@@ -6,7 +6,7 @@
 /*   By: liz <liz@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/14 14:31:44 by liz           #+#    #+#                 */
-/*   Updated: 2020/09/21 18:47:14 by iboeters      ########   odam.nl         */
+/*   Updated: 2020/09/22 11:29:56 by iboeters      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	echo(char *str, t_mini *mini)
 		skip_whitespaces(str, mini);
 		if (str[mini->i] == '"' || str[mini->i] == '\'')
 		{
-			word = unquote(&str[mini->i], mini, i, 0);
+			word = unquote(&str[mini->i + i], mini, 0);
 			if (space == 1)
 				ft_putchar_fd(' ', 1);
 			while (word[i] != '\0')

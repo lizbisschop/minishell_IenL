@@ -6,7 +6,7 @@
 /*   By: liz <liz@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/14 14:20:20 by liz           #+#    #+#                 */
-/*   Updated: 2020/09/21 19:07:02 by iboeters      ########   odam.nl         */
+/*   Updated: 2020/09/22 11:29:37 by iboeters      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,18 +42,18 @@ int		find_command(t_mini *mini, int j, char **envp)
 		mini->i += 2;
 		cd(mini->sp_input[j], mini, envp);
 	}
+	else if (ft_strncmp("env", mini->command, 3) == 0 &&
+	ft_strlen(mini->command) == 3)
+	{
+		mini->i +=3;
+		return (4);
+	}
 	else
 	{
 		ft_putstr_fd("Error:\nCommand: ", 1);
 		ft_putstr_fd(mini->command, 1);
 		ft_putstr_fd(" not found.\n", 1);
 		skip_command(mini->sp_input[j], mini);
-	}
-	else if (ft_strncmp("env", mini->command, 3) == 0 &&
-	ft_strlen(mini->command) == 3)
-	{
-		mini->i +=3;
-		return (4);
 	}
 	return (0);
 }
@@ -74,7 +74,7 @@ int		get_command(t_mini *mini, char *line)
 		ft_putstr_fd("Error:\nMultiline command.\n", 1);
 		return (-1);
 	}
-	mini->command = unquote(line, mini, mini->i, 1);
+	mini->command = unquote(&line[mini->i], mini, 1);
 	// printf("command=|%s|\n", mini->command);
 	return (0);
 }

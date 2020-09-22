@@ -6,7 +6,7 @@
 /*   By: liz <liz@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/14 11:37:41 by liz           #+#    #+#                 */
-/*   Updated: 2020/09/21 19:05:41 by iboeters      ########   odam.nl         */
+/*   Updated: 2020/09/22 11:29:46 by iboeters      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,6 @@ int		quotes(t_mini *mini, char c, char *line);
 void 	cd(char *str, t_mini *mini, char **envp);
 void	set_envp(t_mini *mini, char **envp);
 int		multi_lines(char *str);
-char	*unquote(char *line, t_mini *mini, int begin, int command);
+char	*unquote(char *line, t_mini *mini, int command);
 
 #endif
