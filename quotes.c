@@ -6,7 +6,7 @@
 /*   By: iboeters <iboeters@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/17 16:04:20 by iboeters      #+#    #+#                 */
-/*   Updated: 2020/09/21 18:51:32 by iboeters      ########   odam.nl         */
+/*   Updated: 2020/09/22 11:30:52 by liz           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int		multi_lines(char *str)
 			count++;
 		i++;
 	}
-	if (count % 2)
+	if (count % 2 == 1)
 		return (1);
 	return (0);
 }

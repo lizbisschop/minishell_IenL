@@ -6,7 +6,7 @@
 /*   By: liz <liz@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/14 14:20:20 by liz           #+#    #+#                 */
-/*   Updated: 2020/09/21 19:07:02 by iboeters      ########   odam.nl         */
+/*   Updated: 2020/09/22 11:12:07 by liz           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,18 +42,18 @@ int		find_command(t_mini *mini, int j, char **envp)
 		mini->i += 2;
 		cd(mini->sp_input[j], mini, envp);
 	}
+	else if (ft_strncmp("env", mini->command, 3) == 0 &&
+	ft_strlen(mini->command) == 3)
+	{
+		mini->i +=3;
+		env_command(envp);
+	}
 	else
 	{
 		ft_putstr_fd("Error:\nCommand: ", 1);
 		ft_putstr_fd(mini->command, 1);
 		ft_putstr_fd(" not found.\n", 1);
 		skip_command(mini->sp_input[j], mini);
-	}
-	else if (ft_strncmp("env", mini->command, 3) == 0 &&
-	ft_strlen(mini->command) == 3)
-	{
-		mini->i +=3;
-		return (4);
 	}
 	return (0);
 }
