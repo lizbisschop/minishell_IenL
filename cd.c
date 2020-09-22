@@ -6,7 +6,7 @@
 /*   By: liz <liz@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/17 11:30:01 by liz           #+#    #+#                 */
-/*   Updated: 2020/09/21 15:04:25 by iboeters      ########   odam.nl         */
+/*   Updated: 2020/09/22 11:24:17 by liz           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,12 @@ void	cd(char *str, t_mini *mini, char **envp)
 {
 	char *home;
 	int place;
+	char *word;
 
 	place = 0;
+	printf("%i\n", mini->i);
+	word = unquote(&str[mini->i], mini, 0, 0);
+	printf("%s\n", word);
 	while (envp[place])
 	{
 		if (ft_strncmp("HOME=", envp[place], 5) == 0)
@@ -37,5 +41,8 @@ void	cd(char *str, t_mini *mini, char **envp)
 	else if (ft_strncmp("/root", &str[mini->i], 5) == 0)
 		chdir("/root");
 	else
-		chdir(&str[mini->i]);
+	{
+		if (chdir(&str[mini->i]) == -1)
+			ft_putstr_fd("bash: No such file or directory\n", 1);
+	}
 }
