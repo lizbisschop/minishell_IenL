@@ -5,7 +5,8 @@ LIBFT = libft.a
 GNL = ./gnl/get_next_line.c ./gnl/get_next_line_utils.c
 
 SRCS = mini_main.c show_command_prompt.c get_input.c which_command.c echo.c \
-	pwd.c quotes.c cd.c envp.c
+	pwd.c quotes.c cd.c envp.c ft_split_minishell.c \
+	check_for_errors.c
 
 OBJ = $(SRCS:.c=.o)
 

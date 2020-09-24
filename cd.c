@@ -39,7 +39,7 @@ int	cd(char *str, t_mini *mini, char **envp)
 		chdir("//");
 	else if (ft_strncmp("/root", word, 5) == 0 && ft_strlen(word) == 5)
 	{
-		printf("%s\n", word);	
+		// printf("%s\n", word);	
 		chdir("/root");
 	}
 	else

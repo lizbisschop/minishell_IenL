@@ -9,30 +9,6 @@
 ** v	multilines error
 */
 
-int		multi_lines(char *str)
-{
-	int		double_q;
-	int		single_q;
-	int		i;
-
-	double_q = 0;
-	single_q = 0;
-	i = 0;
-	while (str[i] != '\0')
-	{
-		if (str[i] == '\'' && (double_q % 2) == 0 && str[i - 1] &&
-		str[i - 1] != '\\')
-			single_q++;
-		else if (str[i] == '"' && (single_q) % 2 == 0 && str[i - 1] &&
-		str[i - 1] != '\\')
-			double_q++;
-		i++;
-	}
-	if ((single_q % 2) == 1 || (double_q % 2) == 1)
-		return (1);
-	return (0);
-}
-
 char	*fill_string(int n_quotes, char c, char *line, t_mini *mini)
 {
 	int		i;
