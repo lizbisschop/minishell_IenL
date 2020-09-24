@@ -1,14 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        ::::::::            */
-/*   cd.c                                               :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: liz <liz@student.codam.nl>                   +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2020/09/17 11:30:01 by liz           #+#    #+#                 */
-/*   Updated: 2020/09/22 14:17:03 by iboeters      ########   odam.nl         */
-/*                                                                            */
-/* ************************************************************************** */
 
 #include "minishell.h"
 
@@ -51,7 +40,7 @@ int	cd(char *str, t_mini *mini, char **envp)
 		chdir("//");
 	else if (ft_strncmp("/root", word, 5) == 0 && ft_strlen(word) == 5)
 	{
-		printf("%s\n", word);	
+		// printf("%s\n", word);	
 		chdir("/root");
 	}
 	else

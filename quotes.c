@@ -1,14 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        ::::::::            */
-/*   quotes.c                                           :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: iboeters <iboeters@student.codam.nl>         +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2020/09/17 16:04:20 by iboeters      #+#    #+#                 */
-/*   Updated: 2020/09/22 14:17:24 by iboeters      ########   odam.nl         */
-/*                                                                            */
-/* ************************************************************************** */
 
 #include "minishell.h"
 
@@ -17,28 +6,6 @@
 ** A DIFFERENCE BETWEEN " AND ' QUOTES??
 ** escape character and ''
 */
-
-int		multi_lines(char *str)
-{
-	int		double_q;
-	int		single_q;
-	int		i;
-
-	double_q = 0;
-	single_q = 0;
-	i = 0;
-	while (str[i] != '\0')
-	{
-		if (str[i] == '\'' && (double_q % 2) == 0)
-			single_q++;
-		else if (str[i] == '"' && (single_q) % 2 == 0)
-			double_q++;
-		i++;
-	}
-	if ((single_q % 2) == 1 || (double_q % 2) == 1)
-		return (1);
-	return (0);
-}
 
 char	*fill_string(int n_quotes, char c, char *line, t_mini *mini)
 {
