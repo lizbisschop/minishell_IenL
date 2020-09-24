@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        ::::::::            */
-/*   echo.c                                             :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: liz <liz@student.codam.nl>                   +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2020/09/14 14:31:44 by liz           #+#    #+#                 */
-/*   Updated: 2020/09/22 11:29:56 by iboeters      ########   odam.nl         */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "minishell.h"
 
 int		n_flag(char *str, t_mini *mini)
@@ -58,7 +46,8 @@ void	echo(char *str, t_mini *mini)
 		{
 			if (space == 1)
 				ft_putchar_fd(' ', 1);
-			while (str[mini->i] != '\0' && str[mini->i] != ' ')
+			while (str[mini->i] != '\0' && str[mini->i] != ' ' &&
+			str[mini->i] != '\'' && str[mini->i] != '"')
 			{
 				ft_putchar_fd(str[mini->i], 1);
 				mini->i++;

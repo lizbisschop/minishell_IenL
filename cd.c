@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        ::::::::            */
-/*   cd.c                                               :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: liz <liz@student.codam.nl>                   +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2020/09/17 11:30:01 by liz           #+#    #+#                 */
-/*   Updated: 2020/09/22 14:17:03 by iboeters      ########   odam.nl         */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "minishell.h"
 
 int	cd(char *str, t_mini *mini, char **envp)
@@ -26,7 +14,7 @@ int	cd(char *str, t_mini *mini, char **envp)
 	while (word[i])
 	{
 		i++;
-		mini->i++;		
+		mini->i++;
 	}
 	skip_whitespaces(&str[mini->i], mini);
 	if (str[mini->i] != '\0')
