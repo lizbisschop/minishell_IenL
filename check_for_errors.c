@@ -24,6 +24,33 @@ int		multi_lines(char *str)
 	return (0);
 }
 
+int check_pipes_redirect(char *s)
+{
+	int i;
+
+	i = 0;
+	while (s[i] != '\0')
+	{
+		if (s[i] == '|' && s[i + 1] == '|')
+		{
+			ft_putstr_fd("Error\nSyntax error near '|'.\n", 1);
+			return (-1);
+		}
+		else if (s[i] == '<' && s[i + 1] == '<')
+		{
+			ft_putstr_fd("Error\nSyntax error near '<'.\n", 1);
+			return (-1);
+		}
+		else if (s[i] == '>' && s[i + 1] == '>' && s[i + 2] == '>')
+		{
+			return (-1);
+			ft_putstr_fd("Error\nSyntax error near '>'.\n", 1);
+		}
+		i++;
+	}
+	return (0);
+}
+
 int check_for_errors(char *s)
 {
 	int i;
@@ -32,6 +59,11 @@ int check_for_errors(char *s)
 	if (multi_lines(s))
 	{
 		ft_putstr_fd("Error:\nMultiline command.\n", 1);
+		return (-1);
+	}
+	if (check_pipes_redirect(s) == -1)
+	{
+		ft_putstr_fd("Error\nSyntax error.\n", 1);
 		return (-1);
 	}
 	while (s[i] != '\0')

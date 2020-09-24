@@ -33,6 +33,48 @@ int		command_count(char *s)
 	return (semicolon + 1);
 }
 
+char *ft_substr_slash(char *s, int begin, int len)
+{
+	char *new_str;
+	int str_len;
+	int start;
+	int i;
+	int check;
+
+	start = begin;
+	str_len = 0;
+	i = 0;
+	check = 0;
+	printf("begin  = %i len = %i\n", begin, len);
+	while (s[begin] != '\0' && check < len)
+	{
+		if (s[begin] == '\\')
+		{
+			check++;
+			begin++;
+		}
+		check++;
+		str_len++;
+		begin++;
+	}
+	check = 0;
+	new_str = (char *)malloc(sizeof(char) * str_len + 1);
+	while (s[start] != '\0' && check < len)
+	{
+		if (s[start] == '\\')
+		{
+			start++;
+			check++;
+		}
+		new_str[i] = s[start];
+		start++;
+		check++;
+		i++;
+	}
+	new_str[i] = '\0';
+	return (new_str);
+}
+
 int		find_substr(char *s, int i, t_mini *mini)
 {
 	int	empty;
@@ -73,25 +115,20 @@ void 	save_commands(t_mini *mini, char *s)
 		while (ret == 0)
 		{
 			ret = find_substr(s, i, mini);
-			// printf("ret=|%i|\n", ret);
 			if (ret == 1)
 			{
-				// printf("i=|%i| end=|%i|\n", i, mini->end);
-				mini->sp_input[command] = ft_substr(s, i, mini->end - i);
+				mini->sp_input[command] = ft_substr_slash(s, i, mini->end - i);
 				if (!mini->sp_input[command])
 				{
 					ft_putstr_fd("Malloc has failed\n", 1);
 					exit(0);
 				}
-				printf("|%s|\n", mini->sp_input[command]);
 			}
 			mini->end++;
 			i = mini->end;
 		}
 		i = mini->end;
 		command++;
-		// if (len != 0)
-		// 	mini->sp_input[command] = (char *)malloc(sizeof(char) * ft_string_len());
 	}
 }
 
