@@ -45,7 +45,7 @@ char *ft_substr_slash(char *s, int begin, int len)
 	str_len = 0;
 	i = 0;
 	check = 0;
-	printf("begin  = %i len = %i\n", begin, len);
+	// printf("begin  = %i len = %i\n", begin, len);
 	while (s[begin] != '\0' && check < len)
 	{
 		if (s[begin] == '\\')
@@ -123,7 +123,7 @@ void 	save_commands(t_mini *mini, char *s)
 					ft_putstr_fd("Malloc has failed\n", 1);
 					exit(0);
 				}
-				printf("%s\n", mini->sp_input[command]);
+				// printf("%s\n", mini->sp_input[command]);
 			}
 			mini->end++;
 			i = mini->end;
@@ -145,5 +145,4 @@ void	ft_split_commands(char *s, t_mini *mini)
 	if (check_for_errors(s) == -1)
 		return ;
 	save_commands(mini, s);
-	(void)mini;
 }

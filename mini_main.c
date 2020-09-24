@@ -49,6 +49,7 @@ int 	main(int argc, char **argv, char **envp)
 		show_command_prompt();
 		mini.input = read_line();
 		ft_split_commands(mini.input, &mini);
+		tokens(&mini);
 		// if (check_syntax(mini.input, &mini))
 		// 	ft_putstr_fd("Error:\nSyntax error near ';;'.\n", 1);
 		// else if (ft_strlen(mini.input) > 0)
