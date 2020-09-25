@@ -1,7 +1,7 @@
 #include "minishell.h"
 
 /*
-** CHANGE SO THAT QUOTES IN BETWEEN OTHER QUOTES DONT GET COUNTED
+** v CHANGE SO THAT QUOTES IN BETWEEN OTHER QUOTES DONT GET COUNTED
 ** A DIFFERENCE BETWEEN " AND ' QUOTES??
 ** escape character:
 ** -	split
@@ -9,7 +9,7 @@
 ** v	multilines error
 */
 
-char	*fill_string(int n_quotes, char c, char *line, t_mini *mini)
+char	*fill_string(int n_quotes, char c, char *s, int end)
 {
 	int		i;
 	int		j;
@@ -17,12 +17,12 @@ char	*fill_string(int n_quotes, char c, char *line, t_mini *mini)
 
 	i = 0;
 	j = 0;
-	str = (char *)malloc((mini->end_string - n_quotes + 1) * sizeof(char));
-	while (i < mini->end_string)
+	str = (char *)malloc((end - n_quotes + 1) * sizeof(char));
+	while (i < end)
 	{
-		if (line[i] != c)
+		if (s[i] != c)
 		{
-			str[j] = line[i];
+			str[j] = s[i];
 			j++;
 		}
 		i++;
@@ -31,38 +31,42 @@ char	*fill_string(int n_quotes, char c, char *line, t_mini *mini)
 	return (str);
 }
 
-char	*unquote(char *line, t_mini *mini, int command)
+char	*unquote(char *s)
 {
 	int		n_quotes;
 	char	c;
 	char	anti_c;
 	int		i;
+	int		end;
 
 	n_quotes = 0;
-	mini->end_string = 0;
+	end = 0;
 	i = 0;
 	c = '\0';
-	while (line[i] != '\0' && !(line[i] == '\'') && !(line[i] != '"'))
+	while (s[i] != '\0' && !(s[i] == '\'') && !(s[i] != '"'))
 		i++;
-	if (line[i] == '\'' || line[i] == '"')
+	if (s[i] == '\'' || s[i] == '"')
 	{
-		c = line[i];
+		c = s[i];
 		if (c == '\'')
 			anti_c = '"';
 		else
 			anti_c = '\'';
 	}
-	while (line[mini->end_string] != '\0')
+	else
+		return (s);
+	while (s[end] != '\0')
 	{
-		if (line[mini->end_string] == c)
-		{
-			mini->i++;
+		if (s[end] == c)
 			n_quotes++;
-		}
-		if ((line[mini->end_string] == ' ' || (line[mini->end_string] == anti_c
-		&& command == 0)) && n_quotes % 2 == 0)
+		if (s[end] == ' ' || (s[end] == anti_c && n_quotes % 2 == 0))
 			break ;
-		mini->end_string++;
+		end++;
 	}
-	return (fill_string(n_quotes, c, line, mini));
+	if (s)
+	{
+		free(s);
+		s = NULL;
+	}
+	return (fill_string(n_quotes, c, s, end));
 }

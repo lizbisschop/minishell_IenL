@@ -9,40 +9,19 @@ void	set_struct(t_mini *mini)
 	mini->end = 0;
 }
 
-int	check_syntax(char *input, t_mini *mini)
+char	*read_line(void)
 {
-	int index;
+	char *line;
 
-	index = 0;
-	while (input[index] != '\0')
-	{
-		if (input[index] == ';' && input[index - 1] != '\\')
-		{
-			if (input[index + 1] == ';')
-				return (1);
-			index++;
-			while (input[index] != '\0' && ((input[index] >= 9 &&
-			input[index] <= 12) || input[index] == 32))
-				index++;
-			if (input[index + 1] != '\0' && index != 1)
-			{
-				mini->cmds++;
-				// printf("%i, %c\n", index, input[index]);
-			}
-		}
-		else
-			index++;
-	}
-	return (0);
+	line = NULL;
+	get_next_line(0, &line);
+	return (line);
 }
 
-int 	main(int argc, char **argv, char **envp)
+int		main(int argc, char **argv, char **envp)
 {
 	t_mini mini;
 
-	// get_input(&input);
-	// printf("%s\n", input);
-	// set_envp(&mini, envp);
 	while (1)
 	{
 		set_struct(&mini);
@@ -50,13 +29,7 @@ int 	main(int argc, char **argv, char **envp)
 		mini.input = read_line();
 		ft_split_commands(mini.input, &mini);
 		tokens(&mini);
-		// if (check_syntax(mini.input, &mini))
-		// 	ft_putstr_fd("Error:\nSyntax error near ';;'.\n", 1);
-		// else if (ft_strlen(mini.input) > 0)
-		// {
-		// 	mini.sp_input = split_input(mini.input);
-		// 	which_command(&mini, envp);
-		// }
+		which_command(&mini, envp);
 	}
 	(void)argc;
 	(void)argv;

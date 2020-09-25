@@ -1,89 +1,53 @@
 #include "minishell.h"
 
-void	skip_command(char *input, t_mini *mini)
+int		find_command(t_mini *mini, char *s, int cmd, char **envp)
 {
-	while (input[mini->i] != ';' && input[mini->i] != '\0')
-		mini->i++;
-	mini->i++;
-}
-
-int		find_command(t_mini *mini, int j, char **envp)
-{
-	if (ft_strncmp("echo", mini->command, 4) == 0 &&
-	ft_strlen(mini->command) == 4)
+	(void)cmd;
+	if (ft_strncmp("echo", s, 4) == 0 && ft_strlen(s) == 4)
 	{
 		mini->i += 4;
-		echo(mini->sp_input[j], mini);
+		// echo(mini->c[cmd].tokens[0], mini);
+		printf("echo echo echo\n");
 	}
-	else if (ft_strncmp("pwd", mini->command, 3) == 0 &&
-	ft_strlen(mini->command) == 3)
+	else if (ft_strncmp("pwd", s, 3) == 0 && ft_strlen(s) == 3)
 	{
 		mini->i += 3;
 		pwd();
 	}
-	else if (ft_strncmp("exit", mini->command, 4) == 0 &&
-	ft_strlen(mini->command) == 4)
+	else if (ft_strncmp("exit", s, 4) == 0 && ft_strlen(s) == 4)
 		exit(0);
-	else if (ft_strncmp("cd", mini->command, 2) == 0 &&
-	ft_strlen(mini->command) == 2)
+	else if (ft_strncmp("cd", s, 2) == 0 && ft_strlen(s) == 2)
 	{
 		mini->i += 2;
-		cd(mini->sp_input[j], mini, envp);
+		// cd(mini->c[cmd].tokens, mini, envp);
 	}
-	else if (ft_strncmp("env", mini->command, 3) == 0 &&
-	ft_strlen(mini->command) == 3)
+	else if (ft_strncmp("env", s, 3) == 0 && ft_strlen(s) == 3)
 	{
 		mini->i +=3;
 		env_command(envp);
 	}
-	else if (mini->command[0] != '\0')
+	else if (s[0] != '\0')
 	{
 		ft_putstr_fd("Error:\nCommand: ", 1);
-		ft_putstr_fd(mini->command, 1);
+		ft_putstr_fd(s, 1);
 		ft_putstr_fd(" not found.\n", 1);
-		skip_command(mini->sp_input[j], mini);
 	}
-	return (0);
-}
-
-void	skip_whitespaces(char *str, t_mini *mini)
-{
-	while (str[mini->i] != '\0' && ((str[mini->i] >= 9 && str[mini->i] <= 12)
-	|| str[mini->i] == 32))
-	{
-		mini->i++;
-	}
-}
-
-int		get_command(t_mini *mini, char *line)
-{
-	if (multi_lines(line))
-	{
-		ft_putstr_fd("Error:\nMultiline command.\n", 1);
-		return (-1);
-	}
-	mini->command = unquote(&line[mini->i], mini, 1);
-	// printf("command=|%s|\n", mini->command);
 	return (0);
 }
 
 void	which_command(t_mini *mini, char **envp)
 {
-	int j;
+	int		cmd;
 
-	j = 0;
-	while (j <= mini->cmds)
+	cmd = 0;
+	while (cmd <= mini->cmds)
 	{
-		skip_whitespaces(mini->sp_input[j], mini);
-		if (get_command(mini, mini->sp_input[j]) == -1)
-			return ;
-		find_command(mini, j, envp);
-		j++;
+		unquote(mini->c[cmd].tokens[0]);
+		printf("%s\n", mini->c[cmd].tokens[0]);
+		if (mini->c[cmd].tok_amount > 0)
+			// find_command(mini, &s[quotes], cmd, envp);
 		mini->i = 0;
-		if (mini->command)
-		{
-			free(mini->command);
-			mini->command = NULL;
-		}
+		cmd++;
 	}
+	(void)envp;
 }
