@@ -36,7 +36,7 @@ int		quotes(t_mini *mini, char c, char *line);
 int		cd(char *str, t_mini *mini, char **envp);
 void	set_envp(t_mini *mini, char **envp);
 int		multi_lines(char *str);
-char	*unquote(char *s);
+char	*unquote(char **s);
 void	env_command(char **envp);
 char	**ft_split_minishell(char const *s, char c, t_mini *mini);
 void	ft_split_commands(char *s, t_mini *mini);

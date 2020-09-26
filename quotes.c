@@ -9,64 +9,82 @@
 ** v	multilines error
 */
 
-char	*fill_string(int n_quotes, char *s)
+char	*fill_string(int len, int n_quotes, char **s)
 {
-	// int		i;
-	// int		j;
-	// char	*str;
+	char	q;
+	char	anti_q;
+	char	temp;
+	int		i;
+	int		j;
+	int		quotes;
+	char	*str;
 
-	// i = 0;
-	// j = 0;
-	// str = (char *)malloc((end - n_quotes + 1) * sizeof(char));
-	// while (i < end)
-	// {
-	// 	if (s[i] != c)
-	// 	{
-	// 		str[j] = s[i];
-	// 		j++;
-	// 	}
-	// 	i++;
-	// }
-	// str[j] = '\0';
-	// return (str);
-	(void)n_quotes;
-	return (s);
+	q = '\'';
+	anti_q = '"';
+	i = 0;
+	j = 0;
+	quotes = 0;
+	str = (char *)malloc(sizeof(char) * (len - n_quotes + 1));
+	if (!str)
+	{
+		ft_putstr_fd("Malloc failed\n", 1);
+		exit (1);
+	}
+	while ((*s)[i] != '\0')
+	{
+		if ((*s)[i] == q)
+			quotes++;
+		else if ((*s)[i] == anti_q && quotes % 2 == 0)
+		{
+			quotes++;
+			temp = q;
+			q = anti_q;
+			anti_q = temp;
+		}
+		else
+		{
+			str[j] = (*s)[i];
+			j++;
+		}
+		i++;
+	}
+	str[j] = '\0';
+	if (*s)
+	{
+		free(*s);
+		*s = NULL;
+	}
+	return (str);
 }
 
-char	*unquote(char *s)
+char	*unquote(char **s)
 {
 	int		n_quotes;
-	char	c;
-	char	anti_c;
+	char	q;
+	char	anti_q;
 	char	temp;
 	int		i;
 
 	n_quotes = 0;
 	i = 0;
-	c = '\'';
-	anti_c = '"';
-	while (s[i] != '\0')
+	q = '\'';
+	anti_q = '"';
+	while ((*s)[i] != '\0')
 	{
-		// printf("[%s]\t\t[%c][%c][%i]\n", &s[i], c, anti_c, n_quotes);
-		if (s[i] == c)
+		// printf("[%s]\t\t[%c][%c][%i]\n", &s[i], q, anti_q, n_quotes);
+		if ((*s)[i] == q)
 			n_quotes++;
-		else if (s[i] == anti_c && n_quotes % 2 == 0)
+		else if ((*s)[i] == anti_q && n_quotes % 2 == 0)
 		{
 			n_quotes++;
-			temp = c;
-			c = anti_c;
-			anti_c = temp;
-			// printf("%c%c%c\n", c, anti_c, temp);
+			temp = q;
+			q = anti_q;
+			anti_q = temp;
+			// printf("%c%c%c\n", q, anti_q, temp);
 		}
 		i++;
 	}
 	if (n_quotes == 0)
-		return (s);
-	if (s)
-	{
-		free(s);
-		s = NULL;
-	}
-	return (fill_string(n_quotes, s));
-	return (0);
+		return (*s);
+	return (fill_string(i, n_quotes, s));
 }
