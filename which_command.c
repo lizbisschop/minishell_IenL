@@ -40,10 +40,10 @@ void	which_command(t_mini *mini, char **envp)
 	int		cmd;
 
 	cmd = 0;
-	while (cmd <= mini->cmds)
+	while (cmd < mini->cmds)
 	{
-		unquote(mini->c[cmd].tokens[0]);
-		printf("%s\n", mini->c[cmd].tokens[0]);
+		mini->c[cmd].tokens[0] = unquote(mini->c[cmd].tokens[0]);
+		printf("unquoted command[%s]\n", mini->c[cmd].tokens[0]);
 		if (mini->c[cmd].tok_amount > 0)
 			// find_command(mini, &s[quotes], cmd, envp);
 		mini->i = 0;

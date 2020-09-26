@@ -9,26 +9,28 @@
 ** v	multilines error
 */
 
-char	*fill_string(int n_quotes, char c, char *s, int end)
+char	*fill_string(int n_quotes, char *s)
 {
-	int		i;
-	int		j;
-	char	*str;
+	// int		i;
+	// int		j;
+	// char	*str;
 
-	i = 0;
-	j = 0;
-	str = (char *)malloc((end - n_quotes + 1) * sizeof(char));
-	while (i < end)
-	{
-		if (s[i] != c)
-		{
-			str[j] = s[i];
-			j++;
-		}
-		i++;
-	}
-	str[j] = '\0';
-	return (str);
+	// i = 0;
+	// j = 0;
+	// str = (char *)malloc((end - n_quotes + 1) * sizeof(char));
+	// while (i < end)
+	// {
+	// 	if (s[i] != c)
+	// 	{
+	// 		str[j] = s[i];
+	// 		j++;
+	// 	}
+	// 	i++;
+	// }
+	// str[j] = '\0';
+	// return (str);
+	(void)n_quotes;
+	return (s);
 }
 
 char	*unquote(char *s)
@@ -36,37 +38,35 @@ char	*unquote(char *s)
 	int		n_quotes;
 	char	c;
 	char	anti_c;
+	char	temp;
 	int		i;
-	int		end;
 
 	n_quotes = 0;
-	end = 0;
 	i = 0;
-	c = '\0';
-	while (s[i] != '\0' && !(s[i] == '\'') && !(s[i] != '"'))
-		i++;
-	if (s[i] == '\'' || s[i] == '"')
+	c = '\'';
+	anti_c = '"';
+	while (s[i] != '\0')
 	{
-		c = s[i];
-		if (c == '\'')
-			anti_c = '"';
-		else
-			anti_c = '\'';
-	}
-	else
-		return (s);
-	while (s[end] != '\0')
-	{
-		if (s[end] == c)
+		// printf("[%s]\t\t[%c][%c][%i]\n", &s[i], c, anti_c, n_quotes);
+		if (s[i] == c)
 			n_quotes++;
-		if (s[end] == ' ' || (s[end] == anti_c && n_quotes % 2 == 0))
-			break ;
-		end++;
+		else if (s[i] == anti_c && n_quotes % 2 == 0)
+		{
+			n_quotes++;
+			temp = c;
+			c = anti_c;
+			anti_c = temp;
+			// printf("%c%c%c\n", c, anti_c, temp);
+		}
+		i++;
 	}
+	if (n_quotes == 0)
+		return (s);
 	if (s)
 	{
 		free(s);
 		s = NULL;
 	}
-	return (fill_string(n_quotes, c, s, end));
+	return (fill_string(n_quotes, s));
+	return (0);
 }
