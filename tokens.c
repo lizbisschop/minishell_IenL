@@ -85,7 +85,7 @@ int		tok_end(char *s, int i)
 		}
 		else if (ft_isascii(s[i]))
 		{
-			while (s[i] != '\0' && !is_delimiter(s[i]) && !is_whitespace(s[i]) && ft_isascii(s[i]))
+			while (s[i] != '\0' && ft_isascii(s[i]) && !is_delimiter(s[i]) && !is_whitespace(s[i]))
 				i++;
 			// printf("end_found2%s\n", &s[i]);
 			return (i);
@@ -93,7 +93,7 @@ int		tok_end(char *s, int i)
 		else
 			i++;
 	}
-	return (0);
+	return (i);
 }
 
 int		tokens(t_mini *mini)
@@ -135,6 +135,6 @@ int		tokens(t_mini *mini)
 		mini->c[cmd].tokens[j] = '\0';
 		cmd++;
 	}
-	printf("\n\n\n");
+	printf("**\n**\n**\n");
 	return (0);
 }

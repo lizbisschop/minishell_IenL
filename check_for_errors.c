@@ -62,10 +62,7 @@ int check_for_errors(char *s)
 		return (-1);
 	}
 	if (check_pipes_redirect(s) == -1)
-	{
-		ft_putstr_fd("Error\nSyntax error.\n", 1);
 		return (-1);
-	}
 	while (s[i] != '\0')
 	{
 		if (s[i] == '\\' && s[i + 1] != '\0')

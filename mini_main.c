@@ -27,9 +27,11 @@ int		main(int argc, char **argv, char **envp)
 		set_struct(&mini);
 		show_command_prompt();
 		mini.input = read_line();
-		ft_split_commands(mini.input, &mini);
-		tokens(&mini);
-		which_command(&mini, envp);
+		if (ft_split_commands(mini.input, &mini) != -1)
+		{
+			tokens(&mini);
+			which_command(&mini, envp);
+		}
 	}
 	(void)argc;
 	(void)argv;

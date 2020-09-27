@@ -29,7 +29,7 @@ typedef	struct	s_mini{
 void	show_command_prompt(void);
 char	*get_input(void);
 void	skip_whitespaces(char *str, t_mini *mini);
-void	echo(char *str, t_mini *mini);
+void	echo(t_command command);
 void	which_command(t_mini *mini, char **envp);
 void	pwd(void);
 int		quotes(t_mini *mini, char c, char *line);
@@ -39,7 +39,7 @@ int		multi_lines(char *str);
 char	*unquote(char **s);
 void	env_command(char **envp);
 char	**ft_split_minishell(char const *s, char c, t_mini *mini);
-void	ft_split_commands(char *s, t_mini *mini);
+int		ft_split_commands(char *s, t_mini *mini);
 int		string_count(t_mini *mini, char *s);
 int		check_for_errors(char *s);
 int		tokens(t_mini *mini);

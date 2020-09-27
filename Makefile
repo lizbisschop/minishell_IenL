@@ -14,8 +14,8 @@ SRCS = mini_main.c \
 	ft_split_commands.c \
 	tokens.c \
 	check_for_errors.c \
-	mini_utils.c
-	# echo.c \
+	mini_utils.c \
+	echo.c 
 	# cd.c \
 
 OBJ = $(SRCS:.c=.o)
