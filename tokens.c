@@ -135,6 +135,6 @@ int		tokens(t_mini *mini)
 		mini->c[cmd].tokens[j] = '\0';
 		cmd++;
 	}
-	printf("**\n**\n**\n");
+	printf("\n*\n*\n*\n");
 	return (0);
 }
