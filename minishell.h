@@ -33,7 +33,7 @@ void	echo(t_command command);
 void	which_command(t_mini *mini, char **envp);
 void	pwd(void);
 int		quotes(t_mini *mini, char c, char *line);
-int		cd(char *str, t_mini *mini, char **envp);
+int	cd(t_command command, t_mini *mini, char **envp);
 void	set_envp(t_mini *mini, char **envp);
 int		multi_lines(char *str);
 char	*unquote(char **s);

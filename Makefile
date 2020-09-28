@@ -15,8 +15,8 @@ SRCS = mini_main.c \
 	tokens.c \
 	check_for_errors.c \
 	mini_utils.c \
-	echo.c 
-	# cd.c \
+	echo.c \
+	cd.c 
 
 OBJ = $(SRCS:.c=.o)
 

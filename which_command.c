@@ -16,7 +16,7 @@ int		find_command(int cmd, t_mini *mini, char *s, char **envp)
 		exit(0);
 	else if (ft_strncmp("cd", s, 2) == 0 && ft_strlen(s) == 2)
 	{
-		// cd(mini->c[cmd].tokens, mini, envp);
+		cd(mini->c[cmd], mini, envp);
 	}
 	else if (ft_strncmp("env", s, 3) == 0 && ft_strlen(s) == 3)
 	{

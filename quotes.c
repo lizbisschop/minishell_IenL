@@ -87,7 +87,7 @@ char	*unquote(char **s)
 		}
 		i++;
 	}
-	if (n_quotes == 0)
-		return (*s);
+	// if (n_quotes == 0)
+	// 	return (*s);
 	return (fill_string(i, n_quotes, s));
 }
