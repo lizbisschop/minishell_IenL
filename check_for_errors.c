@@ -11,7 +11,7 @@ int		multi_lines(char *str)
 	i = 0;
 	while (str[i] != '\0')
 	{
-		if (str[i] == '\\' && str[i + 1] != '\0')
+		if (str[i] == '\\' && str[i + 1] != '\'' && str[i + 1] != '\0')
 			i++;
 		else if (str[i] == '\'' && (double_q % 2) == 0)
 			single_q++;

@@ -72,15 +72,11 @@ int		tok_end(char *s, int i)
 			i++;
 			while (s[i] != '\0' && s[i] != '\'')
 				i++;
-			if (s[i] == '\'')
-				i++;
 		}
 		else if (s[i] == '"')
 		{
 			i++;
 			while (s[i] != '\0' && s[i] != '"')
-				i++;
-			if (s[i] == '"')
 				i++;
 		}
 		else if (ft_isascii(s[i]))
@@ -90,8 +86,7 @@ int		tok_end(char *s, int i)
 			// printf("end_found2%s\n", &s[i]);
 			return (i);
 		}
-		else
-			i++;
+		i++;
 	}
 	return (i);
 }

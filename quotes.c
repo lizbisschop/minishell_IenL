@@ -3,27 +3,22 @@
 /*
 ** v CHANGE SO THAT QUOTES IN BETWEEN OTHER QUOTES DONT GET COUNTED
 ** A DIFFERENCE BETWEEN " AND ' QUOTES??
-** escape character:
-** -	split
-** -	unquote
+** escape character (\):
+** v	split
+** v	unquote
 ** v	multilines error
 */
 
 char	*fill_string(int len, int n_quotes, char **s)
 {
 	char	q;
-	char	anti_q;
-	char	temp;
 	int		i;
 	int		j;
-	int		quotes;
 	char	*str;
 
-	q = '\'';
-	anti_q = '"';
 	i = 0;
 	j = 0;
-	quotes = 0;
+	q = '\0';
 	str = (char *)malloc(sizeof(char) * (len - n_quotes + 1));
 	if (!str)
 	{
@@ -32,16 +27,22 @@ char	*fill_string(int len, int n_quotes, char **s)
 	}
 	while ((*s)[i] != '\0')
 	{
-		if ((*s)[i] == q)
-			quotes++;
-		else if ((*s)[i] == anti_q && quotes % 2 == 0)
+		if ((*s)[i] == '\'' || (*s)[i] == '"')
 		{
-			quotes++;
-			temp = q;
-			q = anti_q;
-			anti_q = temp;
+			q = (*s)[i];
+			i++;
+			while ((*s)[i] != q && (*s)[i] != '\0')
+			{
+				if (q == '"' && (*s)[i] == '\\' &&
+				((*s)[i + 1] == q || (*s)[i + 1] == '\\' || (*s)[i + 1] == '$'))
+					i++;
+				str[j] = (*s)[i];
+				j++;
+				if ((*s)[i] != '\0')
+					i++;
+			}
 		}
-		else
+		else if ((*s)[i] != '\\')
 		{
 			str[j] = (*s)[i];
 			j++;
@@ -74,6 +75,8 @@ char	*unquote(char **s)
 		// printf("[%s]\t\t[%c][%c][%i]\n", &s[i], q, anti_q, n_quotes);
 		if ((*s)[i] == q)
 			n_quotes++;
+		else if ((*s)[i] == '\\' && (*s)[i + 1] != '\0')
+			i++;
 		else if ((*s)[i] == anti_q && n_quotes % 2 == 0)
 		{
 			n_quotes++;
