@@ -21,7 +21,19 @@ int		command_count(char *s)
 		if (empty == 1 && (!((s[i] >= 9 && s[i] <= 12) || s[i] == 32
 		|| s[i] == ';') || (s[i] == '\\' && s[i + 1] == '\\')))
 			empty = 0;
-		if (s[i] == '\\' && s[i + 1] != '\0')
+		if (s[i] == '"')
+		{
+			i++;
+			while (s[i] != '"' && s[i] != '\0')
+				i++;
+		}
+		else if (s[i] == '\'')
+		{
+			i++;
+			while (s[i] != '\'' && s[i] != '\0')
+				i++;
+		}
+		else if (s[i] == '\\' && s[i + 1] != '\0')
 		{
 			empty = 0;
 			i++;
@@ -39,49 +51,80 @@ int		command_count(char *s)
 	return (semicolon + 1);
 }
 
-char *ft_substr_slash(char *s, int begin, int len)
+int		len_str(char *s, int begin, int check)
 {
-	char *new_str;
-	int str_len;
-	int start;
-	int i;
-	int check;
+	int		str_len;
 
-	start = begin;
 	str_len = 0;
-	i = 0;
-	check = 0;
-	// printf("begin  = %i len = %i\n", begin, len);
-	while (s[begin] != '\0' && check < len)
+	while (s[begin] != '\0' && begin < check)
 	{
-		if (s[begin] == '\\')
+		if (s[begin] == '"')
 		{
-			check++;
 			begin++;
+			str_len++;
+			while (s[begin] != '"' && s[begin] != '\0')
+			{
+				begin++;
+				str_len++;
+				if (s[begin] == '\\' && (s[begin + 1] == '"'))
+					begin++;
+				else
+				{
+					str_len++;
+					begin++;
+				}
+			}
 		}
-		check++;
+		if (s[begin] == '\\')
+			begin++;
 		str_len++;
 		begin++;
 	}
-	check = 0;
-	new_str = (char *)malloc(sizeof(char) * str_len + 1);
-	while (s[start] != '\0' && check < len)
-	{
-		if (s[start] == '\\')
-		{
-			start++;
-			check++;
-		}
-		new_str[i] = s[start];
-		start++;
-		check++;
-		i++;
-	}
-	new_str[i] = '\0';
-	return (new_str);
+	return (str_len);
 }
 
-int		find_substr(char *s, int i, t_mini *mini)
+// char	*ft_substr_slash(char *s, int begin, int len)
+// {
+// 	char *new_str;
+// 	int str_len;
+// 	int i;
+// 	int check;
+
+// 	i = 0;
+// 	// printf("begin  = %i len = %i\n", begin, len);
+// 	check = begin + len;
+// 	str_len = len_str(s, begin, check);
+// 	new_str = (char *)malloc(sizeof(char) * str_len + 1);
+// 	while (s[begin] != '\0' && begin < check)
+// 	{
+// 		if (s[begin] == '"')
+// 		{
+// 			new_str[i] = s[begin];
+// 			begin++;
+// 			i++;
+// 			while (s[begin] != '"' && s[begin] != '\0')
+// 			{
+// 				if (s[begin] == '\\' && (s[begin + 1] == '"'))
+// 					begin++;
+// 				else
+// 				{
+// 					new_str[i] = s[begin];
+// 					i++;
+// 					begin++;
+// 				}
+// 			}
+// 		}
+// 		else if (s[begin] == '\\')
+// 			begin++;
+// 		new_str[i] = s[begin];
+// 		begin++;
+// 		i++;
+// 	}
+// 	new_str[i] = '\0';
+// 	return (new_str);
+// }
+
+int		find_substr(char *s, t_mini *mini)
 {
 	int	empty;
 
@@ -89,9 +132,21 @@ int		find_substr(char *s, int i, t_mini *mini)
 	while (s[mini->end] != '\0')
 	{
 		if (empty == 1 && (!((s[mini->end] >= 9 && s[mini->end] <= 12) || s[mini->end] == 32
-		|| s[mini->end] == ';') || (s[mini->end] == '\\' && s[i + 1] == '\\')))
+		|| s[mini->end] == ';') || (s[mini->end] == '\\' && s[mini->end + 1] == '\\')))
 			empty = 0;
-		if (s[mini->end] == '\\' && s[mini->end + 1] != '\0')
+		if (s[mini->end] == '"')
+		{
+			mini->end++;
+			while (s[mini->end] != '"' && s[mini->end] != '\0')
+				mini->end++;
+		}
+		else if (s[mini->end] == '\'')
+		{
+			mini->end++;
+			while (s[mini->end] != '\'' && s[mini->end] != '\0')
+				mini->end++;
+		}
+		else if (s[mini->end] == '\\' && s[mini->end + 1] != '\0')
 		{
 			empty = 0;
 			mini->end++;
@@ -120,16 +175,16 @@ void 	save_commands(t_mini *mini, char *s)
 		ret = 0;
 		while (ret == 0)
 		{
-			ret = find_substr(s, i, mini);
+			ret = find_substr(s, mini);
 			if (ret == 1)
 			{
-				mini->sp_input[command] = ft_substr_slash(s, i, mini->end - i);
+				mini->sp_input[command] = ft_substr(s, i, mini->end - i);
 				if (!mini->sp_input[command])
 				{
 					ft_putstr_fd("Malloc has failed\n", 1);
 					exit(0);
 				}
-				// printf("%s\n", mini->sp_input[command]);
+				printf("%s\n", mini->sp_input[command]);
 			}
 			mini->end++;
 			i = mini->end;
