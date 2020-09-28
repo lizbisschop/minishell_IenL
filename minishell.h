@@ -8,38 +8,43 @@
 //REMOVE!!!
 #include <stdio.h>
 
-typedef struct 	s_mini {
-	int		i;
-	int		cmds;
-	int		end_string;
-	char	*input;
-	char	**sp_input;
-	char	*command;
-	char	**envp;
-	int		slash;
-	int		size_envp;
-	char	*new_input;
-	int     end;
-}	t_mini;
+typedef	struct	s_command{
+	int			tok_amount;
+	char		**tokens;
+}				t_command;
+
+typedef	struct	s_mini{
+	int			i;
+	int			cmds;
+	int			end_string;
+	char		*input;
+	char		**sp_input;
+	char		**envp;
+	int			slash;
+	char		*new_input;
+	int			end;
+	t_command	*c;
+}				t_mini;
 
 void	show_command_prompt(void);
-void	get_input(char **input);
-char	*read_line(void);
+char	*get_input(void);
 void	skip_whitespaces(char *str, t_mini *mini);
-void	echo(char *str, t_mini *mini);
+void	echo(t_command command);
 void	which_command(t_mini *mini, char **envp);
 void	pwd(void);
-char	**split_input(char *str);
 int		quotes(t_mini *mini, char c, char *line);
 int		cd(char *str, t_mini *mini, char **envp);
 void	set_envp(t_mini *mini, char **envp);
-
 int		multi_lines(char *str);
-char	*unquote(char *line, t_mini *mini, int command);
+char	*unquote(char **s);
 void	env_command(char **envp);
-char			**ft_split_minishell(char const *s, char c, t_mini *mini);
-void	ft_split_commands(char *s, t_mini *mini);
+char	**ft_split_minishell(char const *s, char c, t_mini *mini);
+int		ft_split_commands(char *s, t_mini *mini);
 int		string_count(t_mini *mini, char *s);
 int		check_for_errors(char *s);
+int		tokens(t_mini *mini);
+void	skip_wspaces(char *s, int *i);
+int		is_whitespace(char c);
+int		is_delimiter(char c);
 
 #endif

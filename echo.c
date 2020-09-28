@@ -1,66 +1,30 @@
 #include "minishell.h"
 
-int		n_flag(char *str, t_mini *mini)
+void		echo(t_command command)
 {
-	if (ft_strncmp("-n ", &str[mini->i], 3) == 0)
-	{
-		mini->i += 3;
-		return (1);
-	}
-	return (0);
-}
-
-void	echo(char *str, t_mini *mini)
-{
-	int		flag;
-	int		space;
-	char	*word;
 	int		i;
+	int		n_flag;
 
-	i = 0;
-	skip_whitespaces(str, mini);
-	flag = n_flag(str, mini);
-	skip_whitespaces(str, mini);
-	word = ft_strdup("");
-	while (str[mini->i] != '\0')
+	i = 1;
+	n_flag = 0;
+	if (command.tok_amount > 1)
 	{
-		// printf("string is:%s\n", &str[mini->i]);
-		space = 0;
-		i = 0;
-		if (str[mini->i] == ' ')
-			space = 1;
-		skip_whitespaces(str, mini);
-		if (str[mini->i] == '"' || str[mini->i] == '\'')
+		if (ft_strncmp("-n", command.tokens[1], 2) == 0 &&
+		ft_strlen(command.tokens[1]) == 2)
 		{
-			word = unquote(&str[mini->i + i], mini, 0);
-			if (space == 1)
-				ft_putchar_fd(' ', 1);
-			while (word[i] != '\0')
-			{
-				ft_putchar_fd(word[i], 1);
-				mini->i++;
-				i++;
-			}
+			n_flag = 1;
+			i++;
 		}
-		else if (ft_isascii(str[mini->i]) && str[mini->i] != '\0')
+		while (i < command.tok_amount)
 		{
-			if (space == 1)
-				ft_putchar_fd(' ', 1);
-			while (str[mini->i] != '\0' && str[mini->i] != ' ' &&
-			str[mini->i] != '\'' && str[mini->i] != '"')
-			{
-				ft_putchar_fd(str[mini->i], 1);
-				mini->i++;
-			}
-		}
-		else
-			mini->i++;
-		if (word)
-		{
-			free(word);
-			word = NULL;
+			// printf("%c|%i|%i\n", command.tokens[i][0], i, command.tok_amount);
+			if (is_delimiter(command.tokens[i][0]))
+				break ;
+			ft_putstr_fd(command.tokens[i], 1);
+			ft_putchar_fd(' ', 1);
+			i++;
 		}
 	}
-	if (!flag)
+	if (!n_flag)
 		ft_putchar_fd('\n', 1);
 }

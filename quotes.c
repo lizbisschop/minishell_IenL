@@ -1,7 +1,7 @@
 #include "minishell.h"
 
 /*
-** CHANGE SO THAT QUOTES IN BETWEEN OTHER QUOTES DONT GET COUNTED
+** v CHANGE SO THAT QUOTES IN BETWEEN OTHER QUOTES DONT GET COUNTED
 ** A DIFFERENCE BETWEEN " AND ' QUOTES??
 ** escape character:
 ** -	split
@@ -9,60 +9,82 @@
 ** v	multilines error
 */
 
-char	*fill_string(int n_quotes, char c, char *line, t_mini *mini)
+char	*fill_string(int len, int n_quotes, char **s)
 {
+	char	q;
+	char	anti_q;
+	char	temp;
 	int		i;
 	int		j;
+	int		quotes;
 	char	*str;
 
+	q = '\'';
+	anti_q = '"';
 	i = 0;
 	j = 0;
-	str = (char *)malloc((mini->end_string - n_quotes + 1) * sizeof(char));
-	while (i < mini->end_string)
+	quotes = 0;
+	str = (char *)malloc(sizeof(char) * (len - n_quotes + 1));
+	if (!str)
 	{
-		if (line[i] != c)
+		ft_putstr_fd("Malloc failed\n", 1);
+		exit (1);
+	}
+	while ((*s)[i] != '\0')
+	{
+		if ((*s)[i] == q)
+			quotes++;
+		else if ((*s)[i] == anti_q && quotes % 2 == 0)
 		{
-			str[j] = line[i];
+			quotes++;
+			temp = q;
+			q = anti_q;
+			anti_q = temp;
+		}
+		else
+		{
+			str[j] = (*s)[i];
 			j++;
 		}
 		i++;
 	}
 	str[j] = '\0';
+	if (*s)
+	{
+		free(*s);
+		*s = NULL;
+	}
 	return (str);
 }
 
-char	*unquote(char *line, t_mini *mini, int command)
+char	*unquote(char **s)
 {
 	int		n_quotes;
-	char	c;
-	char	anti_c;
+	char	q;
+	char	anti_q;
+	char	temp;
 	int		i;
 
 	n_quotes = 0;
-	mini->end_string = 0;
 	i = 0;
-	c = '\0';
-	while (line[i] != '\0' && !(line[i] == '\'') && !(line[i] != '"'))
-		i++;
-	if (line[i] == '\'' || line[i] == '"')
+	q = '\'';
+	anti_q = '"';
+	while ((*s)[i] != '\0')
 	{
-		c = line[i];
-		if (c == '\'')
-			anti_c = '"';
-		else
-			anti_c = '\'';
-	}
-	while (line[mini->end_string] != '\0')
-	{
-		if (line[mini->end_string] == c)
-		{
-			mini->i++;
+		// printf("[%s]\t\t[%c][%c][%i]\n", &s[i], q, anti_q, n_quotes);
+		if ((*s)[i] == q)
 			n_quotes++;
+		else if ((*s)[i] == anti_q && n_quotes % 2 == 0)
+		{
+			n_quotes++;
+			temp = q;
+			q = anti_q;
+			anti_q = temp;
+			// printf("%c%c%c\n", q, anti_q, temp);
 		}
-		if ((line[mini->end_string] == ' ' || (line[mini->end_string] == anti_c
-		&& command == 0)) && n_quotes % 2 == 0)
-			break ;
-		mini->end_string++;
+		i++;
 	}
-	return (fill_string(n_quotes, c, line, mini));
+	if (n_quotes == 0)
+		return (*s);
+	return (fill_string(i, n_quotes, s));
 }
