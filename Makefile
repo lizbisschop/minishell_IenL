@@ -16,16 +16,22 @@ SRCS = mini_main.c \
 	check_for_errors.c \
 	mini_utils.c \
 	echo.c \
-	cd.c 
+	cd.c \
+	free_stuff.c
+
+FLAGS = -Wall -Werror -Wextra
 
 OBJ = $(SRCS:.c=.o)
 
 INCL = minishell.h ./libft/libft.h ./gnl/get_next_line.h
+ifdef DEBUG
+FLAGS += -fsanitize=address -fno-omit-frame-pointer -g
+endif
 
 all: $(NAME)
 
 $(NAME): $(LIBFT) $(OBJ)
-	gcc -Wall -Werror -Wextra $(SRCS) $(GNL) $(LIBFT) $(INCL) -o $(NAME)
+	gcc $(FLAGS) $(SRCS) $(GNL) $(LIBFT) $(INCL) -o $(NAME)
 
 $(LIBFT):
 	# make -C ./libft

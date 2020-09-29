@@ -2,6 +2,10 @@
 # define MINISHELL_H
 
 #include <unistd.h>
+#include <string.h>
+#include <sys/types.h>
+#include <sys/wait.h>
+#include <signal.h>
 #include "./libft/libft.h"
 #include "./gnl/get_next_line.h"
 
@@ -33,11 +37,11 @@ void	echo(t_command command);
 void	which_command(t_mini *mini, char **envp);
 void	pwd(void);
 int		quotes(t_mini *mini, char c, char *line);
-int	cd(t_command command, t_mini *mini, char **envp);
+int		cd(t_command command, t_mini *mini, char **envp);
 void	set_envp(t_mini *mini, char **envp);
 int		multi_lines(char *str);
 char	*unquote(char **s);
-void	env_command(char **envp);
+int	env_command(char **envp, int check);
 char	**ft_split_minishell(char const *s, char c, t_mini *mini);
 int		ft_split_commands(char *s, t_mini *mini);
 int		string_count(t_mini *mini, char *s);
@@ -46,5 +50,6 @@ int		tokens(t_mini *mini);
 void	skip_wspaces(char *s, int *i);
 int		is_whitespace(char c);
 int		is_delimiter(char c);
+void	free_stuff(t_mini *mini);
 
 #endif
