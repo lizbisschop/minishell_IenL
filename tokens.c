@@ -111,12 +111,17 @@ int		tokens(t_mini *mini)
 	while (cmd < mini->cmds)
 	{
 		i = 0;
-		j = 0;
+		j = 0;how to implements setting a variable in a shell
 		s = mini->sp_input[cmd];
 		tokens = token_amount(s);
 		mini->c[cmd].tok_amount = tokens;
-		// printf("string[%s]\ntokens[%i]:\n", s, tokens);
-		mini->c[cmd].tokens = (char **)malloc(sizeof(char *) * (tokens + 1));
+		printf("string[%s]\ntokens[%i]:\n", s, tokens);
+		mini->c[cmd].tokens = (char **)malloc(sizeof(char *) * tokens + 1);
+		if (mini->c[cmd].tokens == -1)
+		{
+			printf("Malloc fail\n");
+			exit(0);
+		}
 		while (j < tokens)
 		{
 			skip_wspaces(s, &i);
