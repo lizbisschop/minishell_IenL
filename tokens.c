@@ -101,7 +101,7 @@ int		tokens(t_mini *mini)
 	char	*s;
 
 	cmd = 0;
-	mini->c = malloc(sizeof(t_command) * mini->cmds + 1);
+	mini->c = (t_command *)malloc(sizeof(t_command) * mini->cmds + 1);
 	if (mini->c == (void*)-1)
 	{
 		printf("Malloc fail\n");
@@ -117,6 +117,11 @@ int		tokens(t_mini *mini)
 		mini->c[cmd].tok_amount = tokens;
 		printf("string[%s]\ntokens[%i]:\n", s, tokens);
 		mini->c[cmd].tokens = (char **)malloc(sizeof(char *) * tokens + 1);
+		if (mini->c[cmd].tokens == -1)
+		{
+			printf("Malloc fail\n");
+			exit(0);
+		}
 		while (j < tokens)
 		{
 			skip_wspaces(s, &i);
