@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-int	cd(t_command command, t_mini *mini, char **envp)
+int	cd(t_command command, t_mini *mini)
 {
 	char	*home;
 	int		place;
@@ -26,11 +26,11 @@ int	cd(t_command command, t_mini *mini, char **envp)
 		ft_putstr_fd("Error\n Multiple arguments\n", 1);
 		return (-1);
 	}
-	while (envp[place])
+	while (__environ[place])
 	{
-		if (ft_strncmp("HOME=", envp[place], 5) == 0)
+		if (ft_strncmp("HOME=", __environ[place], 5) == 0)
 		{
-			home = ft_strdup(&envp[place][5]);
+			home = ft_strdup(&__environ[place][5]);
 		}
 		place++;
 	}

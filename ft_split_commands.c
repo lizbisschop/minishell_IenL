@@ -184,7 +184,7 @@ void 	save_commands(t_mini *mini, char *s)
 					ft_putstr_fd("Malloc has failed\n", 1);
 					exit(0);
 				}
-				printf("%s\n", mini->sp_input[command]);
+				// printf("%s\n", mini->sp_input[command]);
 			}
 			mini->end++;
 			i = mini->end;

@@ -18,7 +18,7 @@ char	*read_line(void)
 	return (line);
 }
 
-int		main(int argc, char **argv, char **envp)
+int		main(int argc, char **argv)
 {
 	t_mini mini;
 
@@ -31,12 +31,11 @@ int		main(int argc, char **argv, char **envp)
 		{
 			free(mini.input);
 			tokens(&mini);
-			which_command(&mini, envp);
+			which_command(&mini);
 		}
 	}
 	(void)argc;
 	(void)argv;
-	(void)envp;
 	exit(0);
 	return (0);
 }

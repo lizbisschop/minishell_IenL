@@ -104,7 +104,7 @@ int		tokens(t_mini *mini)
 	mini->c = (t_command *)malloc(sizeof(t_command) * (mini->cmds + 1));
 	if (mini->c == (void*)-1)
 	{
-		printf("Malloc fail\n");
+		ft_putstr_fd("Malloc fail\n", 1);
 		exit(0);
 	}
 	// printf("[%s][%i]\n", s, tokens);
@@ -115,7 +115,7 @@ int		tokens(t_mini *mini)
 		s = mini->sp_input[cmd];
 		tokens = token_amount(s);
 		mini->c[cmd].tok_amount = tokens;
-		printf("string[%s]\ntokens[%i]:\n", s, tokens);
+		// printf("string[%s]\ntokens[%i]:\n", s, tokens);
 		mini->c[cmd].tokens = (char **)malloc(sizeof(char *) * (tokens + 1));
 		while (j < tokens)
 		{
@@ -123,7 +123,7 @@ int		tokens(t_mini *mini)
 			end = tok_end(s, i);
 			// printf("i = %i; end = %i\n", i, end);
 			mini->c[cmd].tokens[j] = ft_substr(s, i, end - i);
-			printf("[%s]\n", mini->c[cmd].tokens[j]);
+			// printf("[%s]\n", mini->c[cmd].tokens[j]);
 			i = end;
 			j++;
 		}
@@ -133,6 +133,6 @@ int		tokens(t_mini *mini)
 	// mini->c[cmd] = NULL;
 	// if (s)
 	// 	free(s);
-	printf("\n*\n*\n*\n");
+	// printf("\n*\n*\n*\n");
 	return (0);
 }

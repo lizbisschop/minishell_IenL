@@ -23,25 +23,26 @@ typedef	struct	s_mini{
 	int			end_string;
 	char		*input;
 	char		**sp_input;
-	char		**envp;
 	int			slash;
 	char		*new_input;
 	int			end;
 	t_command	*c;
 }				t_mini;
 
+// extern char **__environ;
+
 void	show_command_prompt(void);
 char	*get_input(void);
 void	skip_whitespaces(char *str, t_mini *mini);
 void	echo(t_command command);
-void	which_command(t_mini *mini, char **envp);
+void	which_command(t_mini *mini);
 void	pwd(void);
 int		quotes(t_mini *mini, char c, char *line);
-int		cd(t_command command, t_mini *mini, char **envp);
-void	set_envp(t_mini *mini, char **envp);
+int		cd(t_command command, t_mini *mini);
+void	set_envp(t_mini *mini);
 int		multi_lines(char *str);
 char	*unquote(char **s);
-int	env_command(char **envp, int check);
+int	env_command(int check);
 char	**ft_split_minishell(char const *s, char c, t_mini *mini);
 int		ft_split_commands(char *s, t_mini *mini);
 int		string_count(t_mini *mini, char *s);

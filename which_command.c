@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-int		find_command(int cmd, t_mini *mini, char *s, char **envp)
+int		find_command(int cmd, t_mini *mini, char *s)
 {
 	(void)mini;
 	if (ft_strncmp("echo", s, 4) == 0 && ft_strlen(s) == 4)
@@ -13,9 +13,9 @@ int		find_command(int cmd, t_mini *mini, char *s, char **envp)
 		exit(0);
 	}
 	else if (ft_strncmp("cd", s, 2) == 0 && ft_strlen(s) == 2)
-		cd(mini->c[cmd], mini, envp);
+		cd(mini->c[cmd], mini);
 	else if (ft_strncmp("env", s, 3) == 0 && ft_strlen(s) == 3)
-		env_command(envp, mini->c[cmd].tok_amount);
+		env_command(mini->c[cmd].tok_amount);
 	else if (s[0] != '\0')
 	{
 		ft_putstr_fd("Error:\nCommand: ", 1);
@@ -25,12 +25,13 @@ int		find_command(int cmd, t_mini *mini, char *s, char **envp)
 	return (0);
 }
 
-void	which_command(t_mini *mini, char **envp)
+void	which_command(t_mini *mini)
 {
 	int		cmd;
 	// int		ret;
 
 	cmd = 0;
+
 	while (cmd < mini->cmds)
 	{
 		// ret = fork();
@@ -38,7 +39,7 @@ void	which_command(t_mini *mini, char **envp)
 		// {
 			mini->c[cmd].tokens[0] = unquote(&(mini->c[cmd].tokens[0]));
 			if (mini->c[cmd].tok_amount > 0)
-				find_command(cmd, mini, mini->c[cmd].tokens[0], envp);
+				find_command(cmd, mini, mini->c[cmd].tokens[0]);
 		// }
 		// else if (ret == -1)
 		// {
@@ -50,5 +51,4 @@ void	which_command(t_mini *mini, char **envp)
 		cmd++;
 	}
 	free_stuff(mini);
-	(void)envp;
 }
