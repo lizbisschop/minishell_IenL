@@ -57,5 +57,7 @@ int	cd(t_command command, t_mini *mini, char **envp)
 			ft_putstr_fd(" No such file or directory\n", 1);
 		}
 	}
+	if (home)
+		free(home);
 	return(0);
 }

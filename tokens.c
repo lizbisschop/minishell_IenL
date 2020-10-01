@@ -101,7 +101,7 @@ int		tokens(t_mini *mini)
 	char	*s;
 
 	cmd = 0;
-	mini->c = (t_command *)malloc(sizeof(t_command) * mini->cmds + 1);
+	mini->c = (t_command *)malloc(sizeof(t_command) * (mini->cmds + 1));
 	if (mini->c == (void*)-1)
 	{
 		printf("Malloc fail\n");
@@ -135,6 +135,9 @@ int		tokens(t_mini *mini)
 		mini->c[cmd].tokens[j] = '\0';
 		cmd++;
 	}
+	// mini->c[cmd] = NULL;
+	// if (s)
+	// 	free(s);
 	printf("\n*\n*\n*\n");
 	return (0);
 }

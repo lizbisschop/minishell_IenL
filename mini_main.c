@@ -29,6 +29,7 @@ int		main(int argc, char **argv, char **envp)
 		mini.input = read_line();
 		if (ft_split_commands(mini.input, &mini) != -1)
 		{
+			free(mini.input);
 			tokens(&mini);
 			which_command(&mini, envp);
 		}
