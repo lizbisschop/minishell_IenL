@@ -40,12 +40,11 @@ void 	check_for_dollar(t_command *command, int *i, t_mini *mini)
 				save_k++;
 				oohnoo++;
 			}
-			printf("%ld, %i, %i, %i\n", ft_strlen(&command->tokens[*i][k]), k, save_k, oohnoo);
+			// printf("%ld, %i, %i, %i\n", ft_strlen(&command->tokens[*i][k]), k, save_k, oohnoo);
 			while (mini->env[j])
 			{
 				if (ft_strncmp(&command->tokens[*i][k], mini->env[j], oohnoo - 1) == 0)
 				{
-					printf("%s\n", mini->env[j]);
 					while (mini->env[j][loop] == command->tokens[*i][k])
 					{
 						loop++;
@@ -66,12 +65,12 @@ void 	check_for_dollar(t_command *command, int *i, t_mini *mini)
 		}
 		if (command->tokens[*i][0] == '$')
 		{
-			printf("command = %s\n", command->tokens[*i]);
+			// printf("command = %s\n", command->tokens[*i]);
 			while (mini->env[j])
 			{
 				if (ft_strncmp(&command->tokens[*i][1], mini->env[j], ft_strlen(command->tokens[*i]) - 1) == 0)
 				{
-					command->tokens[*i] = ft_strdup(&mini->env[j][ft_strlen(command->tokens[*i]) + 1]);
+					command->tokens[*i] = ft_strdup(&mini->env[j][ft_strlen(command->tokens[*i])]);
 					check = 1;
 				}
 				j++;

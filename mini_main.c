@@ -2,7 +2,6 @@
 
 void	set_struct(t_mini *mini)
 {
-	mini->env = copy_env();
 	mini->i = 0;
 	mini->cmds = 0;
 	mini->end_string = 0;
@@ -23,6 +22,7 @@ int		main(int argc, char **argv)
 {
 	t_mini mini;
 
+	mini.env = copy_env();
 	while (1)
 	{
 		set_struct(&mini);

@@ -27,6 +27,7 @@ typedef	struct	s_mini{
 	char		*new_input;
 	int			end;
 	char		**env;
+	char		**export_env;
 	char		*set;
 	char		*alias;
 	char		*def;
@@ -57,6 +58,8 @@ int		is_whitespace(char c);
 int		is_delimiter(char c);
 void	free_stuff(t_mini *mini);
 char	**copy_env(void);
+void	ft_export(t_command command, t_mini *mini);
 void 	set_env(char *s, t_mini *mini);
+char **bubble_sort(char **str);
 
 #endif
