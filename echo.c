@@ -2,12 +2,14 @@
 
 void 	check_for_dollar(t_command *command, int *i, t_mini *mini)
 {
-	int j;
-	int k;
-	int l;
-	int loop;
-	int check;
-	char *str;
+	int		j;
+	int		k;
+	int		l;
+	int		loop;
+	int		check;
+	char	*str;
+	int		save_k;
+	int		oohnoo;
 
 	j = 0;
 	check = 0;
@@ -15,33 +17,47 @@ void 	check_for_dollar(t_command *command, int *i, t_mini *mini)
 	str = (char *)malloc(sizeof(char) * ft_strlen(command->tokens[*i]) + 1);
 	k = 0;
 	loop = 0;
+	oohnoo = 0;
 	if ((command->tokens[*i][0] == '"' && ft_strchr(command->tokens[*i], '$')) || command->tokens[*i][0] == '$')
 	{
 		if (command->tokens[*i][0] == '"')
 		{
 			k++;
-			while (is_whitespace(command->tokens[*i][k]))
+			while (is_whitespace(command->tokens[*i][k]) == 1)
 			{
 				str[l] = command->tokens[*i][k];
 				k++;
-				i++;
+				l++;
 			}
 			if (command->tokens[*i][k] == '$')
 			{
-
 				k++;
 			}
 			str[l] = '\0';
+			save_k = k;
+			while (is_whitespace(command->tokens[*i][save_k]) == 0 && command->tokens[*i][save_k] != '\0')
+			{
+				save_k++;
+				oohnoo++;
+			}
+			printf("%ld, %i, %i, %i\n", ft_strlen(&command->tokens[*i][k]), k, save_k, oohnoo);
 			while (mini->env[j])
 			{
-				if (ft_strncmp(&command->tokens[*i][k], mini->env[j], ft_strlen(&command->tokens[*i][k]) - 1) == 0)
+				if (ft_strncmp(&command->tokens[*i][k], mini->env[j], oohnoo - 1) == 0)
 				{
+					printf("%s\n", mini->env[j]);
 					while (mini->env[j][loop] == command->tokens[*i][k])
 					{
 						loop++;
 						k++;
 					}
-					command->tokens[*i] = ft_strjoin(str, &mini->env[j][loop + 1]);
+					str = ft_strjoin(str, &mini->env[j][loop + 1]);
+					while (is_whitespace(command->tokens[*i][save_k]) == 1 && command->tokens[*i][save_k] != '\0')
+					{
+						str = ft_strjoin(str, " ");
+						save_k++;
+					}
+					command->tokens[*i] = ft_strdup(str);
 					// printf("token = [%s] string is [%s]\n", command->tokens[*i], str);
 				}
 				j++;
