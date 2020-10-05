@@ -1,5 +1,14 @@
 #include "minishell.h"
 
+void	handle_signals(int signal)
+{
+	if (signal == SIGINT)
+	{
+		ft_putchar_fd('\n', 1);
+		show_command_prompt();
+	}
+}
+
 void	set_struct(t_mini *mini)
 {
 	mini->i = 0;
@@ -25,6 +34,8 @@ int		main(int argc, char **argv)
 	mini.env = copy_env();
 	while (1)
 	{
+		signal(SIGINT, &handle_signals);
+		signal(SIGQUIT, &handle_signals);
 		set_struct(&mini);
 		show_command_prompt();
 		mini.input = read_line();
