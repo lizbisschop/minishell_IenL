@@ -4,7 +4,7 @@ int		find_command(int cmd, t_mini *mini, char *s)
 {
 	(void)mini;
 	if (ft_strncmp("echo", s, 4) == 0 && ft_strlen(s) == 4)
-		echo(mini->c[cmd]);
+		echo(mini->c[cmd], mini);
 	else if (ft_strncmp("pwd", s, 3) == 0 && ft_strlen(s) == 3)
 		pwd();
 	else if (ft_strncmp("exit", s, 4) == 0 && ft_strlen(s) == 4)
@@ -15,7 +15,9 @@ int		find_command(int cmd, t_mini *mini, char *s)
 	else if (ft_strncmp("cd", s, 2) == 0 && ft_strlen(s) == 2)
 		cd(mini->c[cmd], mini);
 	else if (ft_strncmp("env", s, 3) == 0 && ft_strlen(s) == 3)
-		env_command(mini->c[cmd].tok_amount);
+		env_command(mini->c[cmd].tok_amount, mini);
+	// else if (ft_strncmp("export", s, 6) == 0 && ft_strlen(s) == 6)
+	// 	export(s, mini);
 	else if (s[0] != '\0')
 	{
 		ft_putstr_fd("Error:\nCommand: ", 1);
@@ -38,6 +40,7 @@ void	which_command(t_mini *mini)
 		// if (ret == 0)
 		// {
 			mini->c[cmd].tokens[0] = unquote(&(mini->c[cmd].tokens[0]));
+			printf("%s\n", mini->c[cmd].tokens[0]);
 			if (mini->c[cmd].tok_amount > 0)
 				find_command(cmd, mini, mini->c[cmd].tokens[0]);
 		// }
@@ -50,5 +53,4 @@ void	which_command(t_mini *mini)
 		// printf("unquoted command[%s]\n", mini->c[cmd].tokens[0]);
 		cmd++;
 	}
-	free_stuff(mini);
 }

@@ -115,11 +115,11 @@ int		tokens(t_mini *mini)
 		s = mini->sp_input[cmd];
 		tokens = token_amount(s);
 		mini->c[cmd].tok_amount = tokens;
-		printf("string[%s]\ntokens[%i]:\n", s, tokens);
+		// printf("string[%s]\ntokens[%i]:\n", s, tokens);
 		mini->c[cmd].tokens = (char **)malloc(sizeof(char *) * tokens + 1);
 		if (!(mini->c[cmd].tokens))
 		{
-			printf("Malloc fail\n");
+			ft_putstr_fd("Malloc fail\n", 1);
 			exit(0);
 		}
 		while (j < tokens)

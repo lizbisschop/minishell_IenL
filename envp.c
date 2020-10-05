@@ -1,6 +1,25 @@
 #include "minishell.h"
 
-int	env_command(int check)
+char	**copy_env(void)
+{
+	extern char	**environ;
+	int			i;
+	char		**env;
+
+	i = 0;
+	while (environ[i])
+		i++;
+	env = ft_calloc(i + 1, sizeof(char *));
+	i = 0;
+	while (environ[i])
+	{
+		env[i] = environ[i];
+		i++;
+	}
+	return (env);
+}
+
+int	env_command(int check, t_mini *mini)
 {
 	int i;
 
@@ -10,9 +29,9 @@ int	env_command(int check)
 		ft_putstr_fd("Error\n", 1);
 		return (-1);
 	}
-	while (__environ[i])
+	while (mini->env[i])
 	{
-		ft_putstr_fd(__environ[i], 1);
+		ft_putstr_fd(mini->env[i], 1);
 		write(1, "\n", 1);
 		i++;
 	}

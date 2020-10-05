@@ -1,32 +1,75 @@
 #include "minishell.h"
 
-void 	check_for_dollar(t_command *command, int *i)
+void 	check_for_dollar(t_command *command, int *i, t_mini *mini)
 {
 	int j;
+	int k;
+	int l;
+	int loop;
 	int check;
+	char *str;
 
 	j = 0;
 	check = 0;
-	if (command->tokens[*i][0] == '$')
+	l = 0;
+	str = (char *)malloc(sizeof(char) * ft_strlen(command->tokens[*i]) + 1);
+	k = 0;
+	loop = 0;
+	if ((command->tokens[*i][0] == '"' && ft_strchr(command->tokens[*i], '$')) || command->tokens[*i][0] == '$')
 	{
-		printf("command = %s", command->tokens[*i]);
-		while (__environ[j])
+		if (command->tokens[*i][0] == '"')
 		{
-			if (ft_strncmp(&command->tokens[*i][1], __environ[j], ft_strlen(command->tokens[*i]) - 1) == 0)
+			k++;
+			while (is_whitespace(command->tokens[*i][k]))
 			{
-				command->tokens[*i] = ft_strdup(&__environ[j][ft_strlen(command->tokens[*i]) + 1]);
-				check = 1;
+				str[l] = command->tokens[*i][k];
+				k++;
+				i++;
 			}
-			j++;
+			if (command->tokens[*i][k] == '$')
+			{
+
+				k++;
+			}
+			str[l] = '\0';
+			while (mini->env[j])
+			{
+				if (ft_strncmp(&command->tokens[*i][k], mini->env[j], ft_strlen(&command->tokens[*i][k]) - 1) == 0)
+				{
+					while (mini->env[j][loop] == command->tokens[*i][k])
+					{
+						loop++;
+						k++;
+					}
+					command->tokens[*i] = ft_strjoin(str, &mini->env[j][loop + 1]);
+					// printf("token = [%s] string is [%s]\n", command->tokens[*i], str);
+				}
+				j++;
+			}
+			check = 1;
 		}
-		if(check == 0)
+		if (command->tokens[*i][0] == '$')
 		{
-			command->tokens[*i] = ft_strdup("");
+			printf("command = %s\n", command->tokens[*i]);
+			while (mini->env[j])
+			{
+				if (ft_strncmp(&command->tokens[*i][1], mini->env[j], ft_strlen(command->tokens[*i]) - 1) == 0)
+				{
+					command->tokens[*i] = ft_strdup(&mini->env[j][ft_strlen(command->tokens[*i]) + 1]);
+					check = 1;
+				}
+				j++;
+			}
+			if(check == 0)
+			{
+				command->tokens[*i] = ft_strdup("");
+			}
 		}
 	}
+
 }
 
-void		echo(t_command command)
+void		echo(t_command command, t_mini *mini)
 {
 	int		i;
 	int		n_flag;
@@ -47,8 +90,8 @@ void		echo(t_command command)
 			if (is_delimiter(command.tokens[i][0]))
 				break ;
 			// printf("before %s\n", command.tokens[i]);
+			check_for_dollar(&command, &i, mini);
 			command.tokens[i] = unquote(&command.tokens[i]);
-			check_for_dollar(&command, &i);
 			// printf("after %s\n", command.tokens[i]);
 			ft_putstr_fd(command.tokens[i], 1);
 			ft_putchar_fd(' ', 1);

@@ -26,11 +26,11 @@ int	cd(t_command command, t_mini *mini)
 		ft_putstr_fd("Error\n Multiple arguments\n", 1);
 		return (-1);
 	}
-	while (__environ[place])
+	while (mini->env[place])
 	{
-		if (ft_strncmp("HOME=", __environ[place], 5) == 0)
+		if (ft_strncmp("HOME=", mini->env[place], 5) == 0)
 		{
-			home = ft_strdup(&__environ[place][5]);
+			home = ft_strdup(&mini->env[place][5]);
 		}
 		place++;
 	}

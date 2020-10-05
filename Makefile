@@ -17,7 +17,8 @@ SRCS = mini_main.c \
 	mini_utils.c \
 	echo.c \
 	cd.c \
-	free_stuff.c
+	free_stuff.c \
+	export.c
 
 FLAGS = -Wall -Werror -Wextra
 

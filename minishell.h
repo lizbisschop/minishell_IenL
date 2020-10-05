@@ -26,15 +26,19 @@ typedef	struct	s_mini{
 	int			slash;
 	char		*new_input;
 	int			end;
+	char		**env;
+	char		*set;
+	char		*alias;
+	char		*def;
 	t_command	*c;
 }				t_mini;
 
-// extern char **__environ;
+// extern char **mini->env;
 
 void	show_command_prompt(void);
 char	*get_input(void);
 void	skip_whitespaces(char *str, t_mini *mini);
-void	echo(t_command command);
+void	echo(t_command command, t_mini *mini);
 void	which_command(t_mini *mini);
 void	pwd(void);
 int		quotes(t_mini *mini, char c, char *line);
@@ -42,7 +46,7 @@ int		cd(t_command command, t_mini *mini);
 void	set_envp(t_mini *mini);
 int		multi_lines(char *str);
 char	*unquote(char **s);
-int	env_command(int check);
+int	env_command(int check, t_mini *mini);
 char	**ft_split_minishell(char const *s, char c, t_mini *mini);
 int		ft_split_commands(char *s, t_mini *mini);
 int		string_count(t_mini *mini, char *s);
@@ -52,5 +56,7 @@ void	skip_wspaces(char *s, int *i);
 int		is_whitespace(char c);
 int		is_delimiter(char c);
 void	free_stuff(t_mini *mini);
+char	**copy_env(void);
+void 	set_env(char *s, t_mini *mini);
 
 #endif
