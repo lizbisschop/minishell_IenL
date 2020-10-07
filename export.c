@@ -44,7 +44,7 @@ void	print_export(t_mini *mini)
 	j = 0;
 	k = 0;
 	check = 0;
-	mini->export_env = bubble_sort(mini->env);
+	mini->export_env = sort_env(mini->env);
 	while (mini->export_env[i])
 	{
 		ft_putstr_fd("declare -x ", 1);
