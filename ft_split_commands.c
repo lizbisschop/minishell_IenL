@@ -83,47 +83,6 @@ int		len_str(char *s, int begin, int check)
 	return (str_len);
 }
 
-// char	*ft_substr_slash(char *s, int begin, int len)
-// {
-// 	char *new_str;
-// 	int str_len;
-// 	int i;
-// 	int check;
-
-// 	i = 0;
-// 	// printf("begin  = %i len = %i\n", begin, len);
-// 	check = begin + len;
-// 	str_len = len_str(s, begin, check);
-// 	new_str = (char *)malloc(sizeof(char) * str_len + 1);
-// 	while (s[begin] != '\0' && begin < check)
-// 	{
-// 		if (s[begin] == '"')
-// 		{
-// 			new_str[i] = s[begin];
-// 			begin++;
-// 			i++;
-// 			while (s[begin] != '"' && s[begin] != '\0')
-// 			{
-// 				if (s[begin] == '\\' && (s[begin + 1] == '"'))
-// 					begin++;
-// 				else
-// 				{
-// 					new_str[i] = s[begin];
-// 					i++;
-// 					begin++;
-// 				}
-// 			}
-// 		}
-// 		else if (s[begin] == '\\')
-// 			begin++;
-// 		new_str[i] = s[begin];
-// 		begin++;
-// 		i++;
-// 	}
-// 	new_str[i] = '\0';
-// 	return (new_str);
-// }
-
 int		find_substr(char *s, t_mini *mini)
 {
 	int	empty;
@@ -196,6 +155,7 @@ void 	save_commands(t_mini *mini, char *s)
 
 int		ft_split_commands(char *s, t_mini *mini)
 {
+	// printf("splitting\n");
 	mini->cmds = command_count(s);
 	mini->sp_input = (char **)malloc(sizeof(char *) * (mini->cmds + 1));
 	if (!mini->sp_input)

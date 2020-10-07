@@ -19,7 +19,8 @@ SRCS = mini_main.c \
 	cd.c \
 	free_stuff.c \
 	export.c \
-	bubble_sort.c
+	bubble_sort.c \
+	read_line.c
 
 FLAGS = -Wall -Werror -Wextra
 
