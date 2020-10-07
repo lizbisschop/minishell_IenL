@@ -20,6 +20,7 @@ SRCS = mini_main.c \
 	free_stuff.c \
 	export.c \
 	sort_env.c
+	read_line.c
 
 FLAGS = -Wall -Werror -Wextra
 

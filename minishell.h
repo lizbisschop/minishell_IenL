@@ -62,5 +62,6 @@ char	**copy_env(void);
 void	ft_export(t_command command, t_mini *mini);
 void	set_env(char *s, t_mini *mini);
 char	**sort_env(char **str);
+char	*read_line(void);
 
 #endif
