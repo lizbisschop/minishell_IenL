@@ -20,9 +20,10 @@ SRCS = mini_main.c \
 	free_stuff.c \
 	export.c \
 	bubble_sort.c \
-	read_line.c
+	read_line.c \
+	exec_cmd.c
 
-FLAGS = -Wall -Werror -Wextra
+FLAGS = 
 
 OBJ = $(SRCS:.c=.o)
 
