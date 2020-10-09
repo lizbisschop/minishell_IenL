@@ -21,8 +21,7 @@ SRCS = mini_main.c \
 	export.c \
 	read_line.c \
 	exec_cmd.c \
-	sort_env.c \
-	read_line.c
+	sort_env.c
 
 FLAGS = 
 
