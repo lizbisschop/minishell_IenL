@@ -67,5 +67,6 @@ char	**sort_env(char **str);
 char	*read_line(void);
 int		exec_cmd(int cmd, t_mini *mini, char *s);
 char	*ft_strjoin_read(char *s1, char *s2);
+char	*ft_strdup_free(char **s1);
 
 #endif

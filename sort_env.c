@@ -22,8 +22,8 @@ char **sort_env(char **str)
 		{
 			if (str[i][0] == alphabet[alpha])
 			{
-		printf("hallllo\n");
-			printf("[%c], [%c]\n", str[i][0], alphabet[alpha]);
+		// printf("hallllo\n");
+			// printf("[%c], [%c]\n", str[i][0], alphabet[alpha]);
 				new[j] = ft_strdup(str[i]);
 				j++;
 			}	
