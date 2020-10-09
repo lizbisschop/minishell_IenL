@@ -19,9 +19,10 @@ SRCS = mini_main.c \
 	cd.c \
 	free_stuff.c \
 	export.c \
-	bubble_sort.c \
 	read_line.c \
-	exec_cmd.c
+	exec_cmd.c \
+	sort_env.c \
+	read_line.c
 
 FLAGS = 
 
