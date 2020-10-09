@@ -19,10 +19,11 @@ SRCS = mini_main.c \
 	cd.c \
 	free_stuff.c \
 	export.c \
-	sort_env.c \
-	read_line.c
+	read_line.c \
+	exec_cmd.c \
+	sort_env.c
 
-FLAGS = -Wall -Werror -Wextra
+FLAGS = 
 
 OBJ = $(SRCS:.c=.o)
 

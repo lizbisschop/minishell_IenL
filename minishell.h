@@ -13,6 +13,8 @@
 //REMOVE!!!
 #include <stdio.h>
 
+int g_prompt;
+
 typedef	struct	s_command{
 	int			tok_amount;
 	char		**tokens;
@@ -63,5 +65,7 @@ void	ft_export(t_command command, t_mini *mini);
 void	set_env(char *s, t_mini *mini);
 char	**sort_env(char **str);
 char	*read_line(void);
+int		exec_cmd(int cmd, t_mini *mini, char *s);
+char	*ft_strjoin_read(char *s1, char *s2);
 
 #endif

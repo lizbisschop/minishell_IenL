@@ -20,9 +20,14 @@ int		find_command(int cmd, t_mini *mini, char *s)
 		ft_export(mini->c[cmd], mini);
 	else if (s[0] != '\0')
 	{
-		ft_putstr_fd("Error:\nCommand: ", 1);
-		ft_putstr_fd(s, 1);
-		ft_putstr_fd(" not found.\n", 1);
+		// printf("hallooo\n");
+		exec_cmd(cmd, mini, s);
+		// if (exec_cmd(cmd, mini, s) == 1)
+		// {
+		// 	ft_putstr_fd("Error:\nCommand: ", 1);
+		// 	ft_putstr_fd(s, 1);
+		// 	ft_putstr_fd(" not found.\n", 1);
+		// }
 	}
 	return (0);
 }

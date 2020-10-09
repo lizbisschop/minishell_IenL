@@ -3,7 +3,7 @@
 /*
 ** echo $$ = pid van de shell
 ** export: !isalnum in var name: not a valid identifier
-** (otherwise our code won't work)
+** (otherwise our code also won't work)
 ** segfault env nadat er een nieuwe var is gezet
 */
 
