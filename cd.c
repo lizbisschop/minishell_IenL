@@ -14,7 +14,7 @@ int	cd(t_command command, t_mini *mini)
 		ft_putstr_fd("Error\n", 1);
 		return (-1) ;
 	}
-	command.tokens[1] = unquote(&command.tokens[1]);
+	// command.tokens[1] = unquote(&command.tokens[1]);
 	while (command.tokens[1][i])
 	{
 		i++;

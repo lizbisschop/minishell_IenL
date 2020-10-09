@@ -250,7 +250,7 @@ void	ft_export(t_command command, t_mini *mini)
 	j = 0;
 	if (command.tok_amount != 1)
 	{
-	command.tokens[i] = unquote(&command.tokens[i]);
+	// command.tokens[i] = unquote(&command.tokens[i]);
 		while (command.tokens[i][j] != '\0' && command.tokens[i][j] != '=')
 		{
 			if (ft_isalnum(command.tokens[i][j]) == 0)
@@ -265,7 +265,7 @@ void	ft_export(t_command command, t_mini *mini)
 	}
 	while (command.tokens[i])
 	{
-		command.tokens[i] = unquote(&command.tokens[i]);
+		// command.tokens[i] = unquote(&command.tokens[i]);
 		if (check_over_write(command.tokens[i], mini) == 0)
 			mini->env = add_to_env(command.tokens[i], mini);
 		i++;
