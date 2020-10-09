@@ -3,6 +3,7 @@
 /*
 ** unquote tokens before executing
 ** no arguments ls
+** exit too many arguments
 */
 
 char		*get_path(char *cmd)
@@ -29,9 +30,9 @@ char		*get_path(char *cmd)
 					k++;
 				}
 				str = ft_substr(environ[i], j - k, k);
-				str = gnl_strjoin(str, "/");
+				if (cmd[0] != '/')
+					str = gnl_strjoin(str, "/");
 				str = gnl_strjoin(str, cmd);
-				printf("gejoined command= [%s]\n", str);
 				if (stat(str, &buf) != -1)
 					return (str);
 				j++;
@@ -67,17 +68,18 @@ int			exec_cmd(int cmd, t_mini *mini, char *s)
 		dup2(fd[1], STDOUT_FILENO);
 		close(fd[1]);
 		path = get_path(mini->c[cmd].tokens[0]);
-		mini->c[cmd].tokens[0] = ft_strdup(path);
-		// printf("[%d]\n", stat(mini->c[cmd].tokens[0], &buf));
-		// char *arguments[1] = {"/bin/ls"};
-		// err = execve("/bin/ls", arguments, environ);
-		err = execve(mini->c[cmd].tokens[0], mini->c[cmd].tokens, environ);
-		if (err == -1)
+		if (path != 0)
+		{
+			mini->c[cmd].tokens[0] = ft_strdup(path);
+			err = execve(mini->c[cmd].tokens[0], mini->c[cmd].tokens, environ);
+		}
+		if (err == -1 || path == 0)
 		{
 			ft_putstr_fd("bash: ", 1);
 			ft_putstr_fd(s, 1);
 			ft_putstr_fd(": ", 1);
-			ft_putstr_fd(strerror(errno), 1);
+			ft_putstr_fd("command not found", 1);
+			// ft_putstr_fd(strerror(errno), 1);
 			ft_putstr_fd("\n", 1);
 			if (s)
 				free(s);

@@ -7,7 +7,6 @@ int ft_return(t_mini *mini)
 	return (0);
 }
 
-
 void free_stuff(t_mini *mini)
 {
 	int i;

@@ -85,6 +85,7 @@ void		echo(t_command command, t_mini *mini)
 	int		i;
 	int		n_flag;
 
+	(void)mini;
 	i = 1;
 	n_flag = 0;
 	if (command.tok_amount > 1)
@@ -100,8 +101,6 @@ void		echo(t_command command, t_mini *mini)
 			// printf("%c|%i|%i\n", command.tokens[i][0], i, command.tok_amount);
 			if (is_delimiter(command.tokens[i][0]))
 				break ;
-			check_for_dollar(&command.tokens[i], mini);
-			command.tokens[i] = unquote(&command.tokens[i]);
 			ft_putstr_fd(command.tokens[i], 1);
 			ft_putchar_fd(' ', 1);
 			i++;

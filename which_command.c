@@ -2,24 +2,35 @@
 
 int		find_command(int cmd, t_mini *mini, char *s)
 {
-	(void)mini;
+	int i;
+
+	i = 1;
+	while (mini->c[cmd].tokens[i] && mini->c[cmd].tok_amount > 1)
+	{
+		check_for_dollar(&(mini->c[cmd].tokens[i]), mini);
+		mini->c[cmd].tokens[i] = unquote(&(mini->c[cmd].tokens[i]));
+		i++;
+	}
 	if (ft_strncmp("echo", s, 4) == 0 && ft_strlen(s) == 4)
 		echo(mini->c[cmd], mini);
-	else if (ft_strncmp("pwd", s, 3) == 0 && ft_strlen(s) == 3)
-		pwd();
-	else if (ft_strncmp("exit", s, 4) == 0 && ft_strlen(s) == 4)
+	else
 	{
-		free_stuff(mini);
-		exit(0);
+		if (ft_strncmp("pwd", s, 3) == 0 && ft_strlen(s) == 3)
+			pwd();
+		else if (ft_strncmp("exit", s, 4) == 0 && ft_strlen(s) == 4)
+		{
+			free_stuff(mini);
+			exit(0);
+		}
+		else if (ft_strncmp("cd", s, 2) == 0 && ft_strlen(s) == 2)
+			cd(mini->c[cmd], mini);
+		else if (ft_strncmp("env", s, 3) == 0 && ft_strlen(s) == 3)
+			env_command(mini->c[cmd].tok_amount, mini);
+		else if (ft_strncmp("export", s, 6) == 0 && ft_strlen(s) == 6)
+			ft_export(mini->c[cmd], mini);
+		else if (s[0] != '\0')
+			exec_cmd(cmd, mini, ft_strdup(mini->c[cmd].tokens[0]));
 	}
-	else if (ft_strncmp("cd", s, 2) == 0 && ft_strlen(s) == 2)
-		cd(mini->c[cmd], mini);
-	else if (ft_strncmp("env", s, 3) == 0 && ft_strlen(s) == 3)
-		env_command(mini->c[cmd].tok_amount, mini);
-	else if (ft_strncmp("export", s, 6) == 0 && ft_strlen(s) == 6)
-		ft_export(mini->c[cmd], mini);
-	else if (s[0] != '\0')
-		exec_cmd(cmd, mini, ft_strdup(mini->c[cmd].tokens[0]));
 	return (0);
 }
 
