@@ -13,6 +13,8 @@
 //REMOVE!!!
 #include <stdio.h>
 
+int g_prompt;
+
 typedef	struct	s_command{
 	int			tok_amount;
 	char		**tokens;
