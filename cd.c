@@ -59,5 +59,5 @@ int	cd(t_command command, t_mini *mini)
 	}
 	if (home)
 		free(home);
-	return(0);
+	return (0);
 }

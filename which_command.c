@@ -19,16 +19,7 @@ int		find_command(int cmd, t_mini *mini, char *s)
 	else if (ft_strncmp("export", s, 6) == 0 && ft_strlen(s) == 6)
 		ft_export(mini->c[cmd], mini);
 	else if (s[0] != '\0')
-	{
-		// printf("hallooo\n");
-		exec_cmd(cmd, mini, s);
-		// if (exec_cmd(cmd, mini, s) == 1)
-		// {
-		// 	ft_putstr_fd("Error:\nCommand: ", 1);
-		// 	ft_putstr_fd(s, 1);
-		// 	ft_putstr_fd(" not found.\n", 1);
-		// }
-	}
+		exec_cmd(cmd, mini, ft_strdup(mini->c[cmd].tokens[0]));
 	return (0);
 }
 

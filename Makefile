@@ -23,7 +23,7 @@ SRCS = mini_main.c \
 	exec_cmd.c \
 	sort_env.c
 
-FLAGS = 
+FLAGS = -Wall -Werror -Wextra
 
 OBJ = $(SRCS:.c=.o)
 

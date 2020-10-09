@@ -2,17 +2,54 @@
 
 /*
 ** unquote tokens before executing
+** no arguments ls
 */
+
+char		*get_path(char *cmd)
+{
+	int			i;
+	int			j;
+	int			k;
+	char		*str;
+	extern char	**environ;
+	struct stat	buf;
+
+	i = 0;
+	while (environ[i])
+	{
+		if (ft_strncmp(environ[i], "PATH=", 5) == 0)
+		{
+			j = 5;
+			while (environ[i][j] != '\0')
+			{
+				k = 0;
+				while (environ[i][j] != '\0' && environ[i][j] != ':')
+				{
+					j++;
+					k++;
+				}
+				str = ft_substr(environ[i], j - k, k);
+				str = gnl_strjoin(str, "/");
+				str = gnl_strjoin(str, cmd);
+				printf("gejoined command= [%s]\n", str);
+				if (stat(str, &buf) != -1)
+					return (str);
+				j++;
+			}
+		}
+		i++;
+	}
+	return (0);
+}
 
 int			exec_cmd(int cmd, t_mini *mini, char *s)
 {
 	int			fd[2];
 	int			pid;
-	int			i;
 	extern char **environ;
 	int			err;
+	char		*path;
 
-	i = 0;
 	if (pipe(fd) == -1)
 	{
 		printf("Pipe not constructed\n");
@@ -29,10 +66,22 @@ int			exec_cmd(int cmd, t_mini *mini, char *s)
 		// int fd3 = open("file.txt", O_RDWR, 0777);
 		dup2(fd[1], STDOUT_FILENO);
 		close(fd[1]);
-		mini->c[cmd].tokens[0] = ft_strjoin_read("/bin/", mini->c[cmd].tokens[0]);
+		path = get_path(mini->c[cmd].tokens[0]);
+		mini->c[cmd].tokens[0] = ft_strdup(path);
+		// printf("[%d]\n", stat(mini->c[cmd].tokens[0], &buf));
+		// char *arguments[1] = {"/bin/ls"};
+		// err = execve("/bin/ls", arguments, environ);
 		err = execve(mini->c[cmd].tokens[0], mini->c[cmd].tokens, environ);
 		if (err == -1)
-			printf("Execve did not work\n");
+		{
+			ft_putstr_fd("bash: ", 1);
+			ft_putstr_fd(s, 1);
+			ft_putstr_fd(": ", 1);
+			ft_putstr_fd(strerror(errno), 1);
+			ft_putstr_fd("\n", 1);
+			if (s)
+				free(s);
+		}
 		exit(1);
 	}
 	else
@@ -52,6 +101,8 @@ int			exec_cmd(int cmd, t_mini *mini, char *s)
 		}
 		close(fd[0]);
 		wait(NULL);
+		if (s)
+			free(s);
 	}
 	return (0);
 }

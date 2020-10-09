@@ -5,15 +5,15 @@
 #include <string.h>
 #include <sys/types.h>
 #include <sys/wait.h>
+#include <sys/stat.h>
 #include <signal.h>
 #include <signal.h>
+#include <errno.h>
 #include "./libft/libft.h"
 #include "./gnl/get_next_line.h"
 
 //REMOVE!!!
 #include <stdio.h>
-
-int g_prompt;
 
 typedef	struct	s_command{
 	int			tok_amount;

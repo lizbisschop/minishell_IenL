@@ -4,7 +4,6 @@ void	handle_sigint(int signal)
 {
 	ft_putchar_fd('\n', 1);
 	show_command_prompt();
-	g_prompt = 0;
 	(void)signal;
 }
 
@@ -29,14 +28,10 @@ int		main(int argc, char **argv)
 	mini.env = copy_env();
 	while (1)
 	{
-		g_prompt = 1;
 		signal(SIGINT, &handle_sigint);
 		signal(SIGQUIT, &handle_sigquit);
 		set_struct(&mini);
-		if (g_prompt == 1)
-		{
-			show_command_prompt();
-		}
+		show_command_prompt();
 		mini.input = read_line();
 		if (ft_split_commands(mini.input, &mini) != -1)
 		{
