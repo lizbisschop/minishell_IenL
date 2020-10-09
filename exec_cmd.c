@@ -1,8 +1,6 @@
 #include "minishell.h"
 
 /*
-** unquote tokens before executing
-** no arguments ls
 ** exit too many arguments
 */
 

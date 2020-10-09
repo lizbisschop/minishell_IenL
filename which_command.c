@@ -1,5 +1,16 @@
 #include "minishell.h"
 
+void	exec_exit(t_mini *mini, int cmd)
+{
+	if (mini->c[cmd].tok_amount != 1)
+		ft_putstr_fd("bash: exit: too many arguments\n", 1);
+	else
+	{
+		free_stuff(mini);
+		exit(0);
+	}
+}
+
 int		find_command(int cmd, t_mini *mini, char *s)
 {
 	int i;
@@ -18,10 +29,7 @@ int		find_command(int cmd, t_mini *mini, char *s)
 		if (ft_strncmp("pwd", s, 3) == 0 && ft_strlen(s) == 3)
 			pwd();
 		else if (ft_strncmp("exit", s, 4) == 0 && ft_strlen(s) == 4)
-		{
-			free_stuff(mini);
-			exit(0);
-		}
+			exec_exit(mini, cmd);
 		else if (ft_strncmp("cd", s, 2) == 0 && ft_strlen(s) == 2)
 			cd(mini->c[cmd], mini);
 		else if (ft_strncmp("env", s, 3) == 0 && ft_strlen(s) == 3)
