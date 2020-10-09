@@ -13,9 +13,10 @@ char	**copy_env(void)
 	i = 0;
 	while (environ[i])
 	{
-		env[i] = environ[i];
+		env[i] = ft_strdup(environ[i]);
 		i++;
 	}
+	env[i] = '\0';
 	return (env);
 }
 
