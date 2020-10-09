@@ -29,6 +29,12 @@ char 	**add_to_env(char *s, t_mini *mini)
 		size++;
 	}
 	new_env[size] = ft_strdup(s);
+	size= 0;
+	while (mini->env[size])
+	{
+		printf("%s\n", mini->env[size]);
+		size++;
+	}
 	return (new_env);
 }
 
@@ -44,6 +50,7 @@ void	print_export(t_mini *mini)
 	j = 0;
 	k = 0;
 	check = 0;
+	printf("check = good\n");
 	mini->export_env = sort_env(mini->env);
 	while (mini->export_env[i])
 	{
@@ -75,14 +82,43 @@ void	print_export(t_mini *mini)
 void	ft_export(t_command command, t_mini *mini)
 {
 	int i;
+	// int j;
 
 	i = 1;
-	while (command.tokens[i])
+	// j = 0;
+	printf("ik kom hier\n");
+	while (command.tokens[i][j] != '\0' && command.tokens[i][j] != '=' && command.tok_amount != 1)
 	{
-		mini->env = add_to_env(command.tokens[i], mini);
-		i++;
+	printf("%i\n", i);
+		if (ft_isalnum(command.tokens[i][j]) == 0)
+		{
+			ft_putstr_fd("Bash: export: ", 1);
+			ft_putstr_fd(command.tokens[i], 1);
+			ft_putstr_fd(" : not a valid identifier\n", 1);
+			return ;
+		}
+		j++;
 	}
+	if (command.tok_amount != 1)
+	{
+		// printf("hello\n");
+		while (command.tokens[i])
+		{
+			mini->env = add_to_env(command.tokens[i], mini);
+			i++;
+		}
+	}
+	// int	size= 0;
+	// while (mini->env[size])
+	// {
+	// 	printf("%s\n", mini->env[size]);
+	// 	size++;
+	// }
+	// printf("hallo\n");
 	if (i == 1)
+	{
+		printf("I am here\n");
 		print_export(mini);
+	}
 	(void)mini;
 }
