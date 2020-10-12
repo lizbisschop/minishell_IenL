@@ -69,5 +69,6 @@ int		exec_cmd(int cmd, t_mini *mini, char *s);
 char	*ft_strjoin_read(char *s1, char *s2);
 char	*ft_strdup_free(char **s1);
 void	check_for_dollar(char **token, t_mini *mini);
+void	unset(t_mini *mini, t_command command);
 
 #endif
