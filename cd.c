@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-int	cd(t_command command, t_mini *mini)
+char	*get_home(t_mini *mini)
 {
 	char	*home;
 	int		i;
@@ -15,6 +15,14 @@ int	cd(t_command command, t_mini *mini)
 		}
 		i++;
 	}
+	return (home);
+}
+
+int		cd(t_command command, t_mini *mini)
+{
+	char	*home;
+
+	home = get_home(mini);
 	if (command.tok_amount > 2)
 		ft_putstr_fd("bash: cd: too many arguments\n", 1);
 	else if (command.tok_amount == 1)
@@ -26,14 +34,11 @@ int	cd(t_command command, t_mini *mini)
 	else if (ft_strncmp("/root", command.tokens[1], 5) == 0 &&
 	ft_strlen(command.tokens[1]) == 5)
 		chdir("/root");
-	else
+	else if (chdir(command.tokens[1]) == -1)
 	{
-		if (chdir(command.tokens[1]) == -1)
-		{
-			ft_putstr_fd("bash: cd: ", 1);
-			ft_putstr_fd(command.tokens[1], 1);
-			ft_putstr_fd(": No such file or directory\n", 1);
-		}
+		ft_putstr_fd("bash: cd: ", 1);
+		ft_putstr_fd(command.tokens[1], 1);
+		ft_putstr_fd(": No such file or directory\n", 1);
 	}
 	if (home)
 		free(home);

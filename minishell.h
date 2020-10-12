@@ -50,7 +50,7 @@ int		cd(t_command command, t_mini *mini);
 void	set_envp(t_mini *mini);
 int		multi_lines(char *str);
 char	*unquote(char **s);
-int	env_command(int check, t_mini *mini);
+int		env_command(int check, t_mini *mini);
 char	**ft_split_minishell(char const *s, char c, t_mini *mini);
 int		ft_split_commands(char *s, t_mini *mini);
 int		string_count(t_mini *mini, char *s);
