@@ -21,7 +21,8 @@ SRCS = mini_main.c \
 	export.c \
 	read_line.c \
 	exec_cmd.c \
-	sort_env.c
+	sort_env.c \
+	pipes.c
 
 FLAGS = -Wall -Werror -Wextra
 
