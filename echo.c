@@ -99,8 +99,8 @@ void		echo(t_command command, t_mini *mini)
 		while (i < command.tok_amount)
 		{
 			// printf("%c|%i|%i\n", command.tokens[i][0], i, command.tok_amount);
-			if (is_delimiter(command.tokens[i][0]))
-				break ;
+			// if (is_delimiter(command.tokens[i][0]))
+			// 	break ;
 			ft_putstr_fd(command.tokens[i], 1);
 			ft_putchar_fd(' ', 1);
 			i++;
