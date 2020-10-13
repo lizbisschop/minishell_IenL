@@ -140,7 +140,7 @@ int		tokens(t_mini *mini)
 			end = tok_end(s, i);
 			// printf("i = %i; end = %i\n", i, end);
 			mini->c[cmd].tokens[j] = ft_substr(s, i, end - i);
-			// printf("[%s]\n", mini->c[cmd].tokens[j]);
+			printf("[%s]\n", mini->c[cmd].tokens[j]);
 			i = end;
 			j++;
 		}

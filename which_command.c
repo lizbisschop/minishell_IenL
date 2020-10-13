@@ -36,6 +36,8 @@ int		find_command(int cmd, t_mini *mini)
 		env_command(mini->c[cmd].tok_amount, mini);
 	else if (ft_strncmp("export", s, 6) == 0 && ft_strlen(s) == 6)
 		ft_export(mini->c[cmd], mini);
+	else if (ft_strncmp("unset", s, 5) == 0 && ft_strlen(s) == 5)
+		unset(mini, mini->c[cmd]);
 	else if (s[0] != '\0')
 		exec_cmd(cmd, mini, ft_strdup(mini->c[cmd].tokens[0]));
 	if (s)

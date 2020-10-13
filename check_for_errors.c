@@ -43,8 +43,8 @@ int check_pipes_redirect(char *s)
 		}
 		else if (s[i] == '>' && s[i + 1] == '>' && s[i + 2] == '>')
 		{
-			return (-1);
 			ft_putstr_fd("Error\nSyntax error near '>'.\n", 1);
+			return (-1);
 		}
 		i++;
 	}
