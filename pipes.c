@@ -1,27 +1,74 @@
 #include "minishell.h"
 
-char	**tokenizer(t_mini *mini, int cmd)
+int		pipe_amount(char **tokens, int tok_amount)
+{
+	int		i;
+	int		n;
+
+	i = 0;
+	n = 0;
+	while (i < tok_amount)
+	{
+		if (ft_strncmp(tokens[i], "|", 1) == 0
+		&& ft_strlen(tokens[i]) == 1)
+			n++;
+		i++;
+	}
+	return (n + 1);
+}
+
+int		pipe_tok_amount(char **tokens, int i, int tok_amount)
+{
+	int		ret;
+
+	ret = 0;
+	while (i < tok_amount)
+	{
+		if (ft_strncmp(tokens[i], "|", 1) == 0
+		&& ft_strlen(tokens[i]) == 1)
+			return (i);
+		i++;
+		ret++;
+	}
+	return (ret);
+}
+
+int		tokenizer(char **tokens, int tok_amount, t_mini *mini)
 {
 	int		i;
 	int		j;
-	char	**str;
+	int		k;
+	int		n;
+	int		tok_n;
 
 	i = 0;
-	j = 0;
-	while (i < mini->c[cmd].tok_amount)
+	k = 0;
+	tok_n = 0;
+	n = pipe_amount(tokens, tok_amount);
+	mini->pipes_c = (t_command *)malloc(sizeof(t_command) * (n + 1));
+	if (mini->pipes_c == (void*)-1)
 	{
-		if (ft_strncmp(mini->c[cmd].tokens[i], "|", 1) == 0
-		&& ft_strlen(mini->c[cmd].tokens[i]) == 1)
-			break ;
+		ft_putstr_fd("Malloc fail\n", 1);
+		exit(0);
+	}
+	while (k < n)
+	{
+		j = 0;
+		tok_n = pipe_tok_amount(tokens, i, tok_amount);
+		mini->pipes_c[k].tok_amount = tok_n;
+		mini->pipes_c[k].tokens = (char **)malloc(tok_n * sizeof(char *));
+		while (j < tok_n)
+		{
+			mini->pipes_c[k].tokens[j] = ft_strdup(tokens[i]);
+			printf("[%s]\n", mini->pipes_c[k].tokens[j]);
+			i++;
+			j++;
+		}
+		printf("\n");
 		i++;
+		k++;
 	}
-	str = (char **)malloc(i * sizeof(char *));
-	while (j < i)
-	{
-		str[j] = ft_strdup(mini->c[cmd].tokens[j]);
-		j++;
-	}
-	return (str);
+	return (0);
 }
 
 int		pipes(t_mini *mini, int cmd)
@@ -31,9 +78,8 @@ int		pipes(t_mini *mini, int cmd)
 	int		i;
 	int		main_in;
 	int		main_out;
-	// char	**tokens;
-	// extern char **environ;
 
+	tokenizer(mini->c[cmd].tokens, mini->c[cmd].tok_amount, mini);
 	if (pipe(pipefd) == -1)
 		return (2);
 	main_in = dup(STDIN_FILENO);
@@ -48,7 +94,7 @@ int		pipes(t_mini *mini, int cmd)
 		i++;
 	}
 	i = 0;
-	printf("pids[0] = [%d] | pids[1] = [%d]\n", pids[0], pids[1]);
+	// printf("pids[0] = [%d] | pids[1] = [%d]\n", pids[0], pids[1]);
 	while (i < 2)
 	{
 		if (pids[i] == 0 && i == 0)
@@ -78,7 +124,7 @@ int		pipes(t_mini *mini, int cmd)
 	i = 0;
 	while (i < 2)
 	{
-		printf("wait for pid: [%d]\n", pids[i]);
+		// printf("wait for pid: [%d]\n", pids[i]);
 		waitpid(pids[i], NULL, 0);
 		i++;
 	}

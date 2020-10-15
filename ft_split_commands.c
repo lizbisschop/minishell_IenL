@@ -160,7 +160,7 @@ int		ft_split_commands(char *s, t_mini *mini)
 	mini->sp_input = (char **)malloc(sizeof(char *) * (mini->cmds + 1));
 	if (!mini->sp_input)
 	{
-		ft_putstr_fd("Malloc has failed hehe\n", 1);
+		ft_putstr_fd("Malloc has failed\n", 1);
 		return (-1);
 	}
 	if (check_for_errors(s) == -1)

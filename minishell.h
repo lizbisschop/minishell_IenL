@@ -9,6 +9,7 @@
 #include <signal.h>
 #include <signal.h>
 #include <errno.h>
+#include <limits.h>
 #include "./libft/libft.h"
 #include "./gnl/get_next_line.h"
 
@@ -21,20 +22,14 @@ typedef	struct	s_command{
 }				t_command;
 
 typedef	struct	s_mini{
-	int			i;
 	int			cmds;
-	int			end_string;
+	int			end;
 	char		*input;
 	char		**sp_input;
-	int			slash;
-	char		*new_input;
-	int			end;
 	char		**env;
 	char		**export_env;
-	char		*set;
-	char		*alias;
-	char		*def;
 	t_command	*c;
+	t_command	*pipes_c;
 }				t_mini;
 
 // extern char **mini->env;
@@ -42,11 +37,11 @@ typedef	struct	s_mini{
 void	show_command_prompt(void);
 char	*get_input(void);
 void	skip_whitespaces(char *str, t_mini *mini);
-void	echo(t_command command, t_mini *mini);
+void	echo(char **tokens, int tok_amount);
 void	which_command(t_mini *mini);
 void	pwd(void);
 int		quotes(t_mini *mini, char c, char *line);
-int		cd(t_command command, t_mini *mini);
+int		cd(char **tokens, int tok_amount, t_mini *mini);
 void	set_envp(t_mini *mini);
 int		multi_lines(char *str);
 char	*unquote(char **s);
@@ -61,15 +56,16 @@ int		is_whitespace(char c);
 int		is_delimiter(char c);
 void	free_stuff(t_mini *mini);
 char	**copy_env(void);
-void	ft_export(t_command command, t_mini *mini);
+void	ft_export(char **tokens, int tok_amount, t_mini *mini);
 void	set_env(char *s, t_mini *mini);
 char	**sort_env(char **str);
 char	*read_line(void);
-int		exec_cmd(int cmd, t_mini *mini, char *s);
+int		exec_cmd(char **tokens, char *s);
 char	*ft_strjoin_read(char *s1, char *s2);
 char	*ft_strdup_free(char **s1);
 void	check_for_dollar(char **token, t_mini *mini);
 int		pipes(t_mini *mini, int cmd);
-void	unset(t_mini *mini, t_command command);
+void	unset(char **tokens, t_mini *mini);
+int		multi_line_pipe(t_mini *mini);
 
 #endif

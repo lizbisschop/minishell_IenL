@@ -41,7 +41,7 @@ char		*get_path(char *cmd)
 	return (0);
 }
 
-int			exec_cmd(int cmd, t_mini *mini, char *s)
+int			exec_cmd(char **tokens, char *s)
 {
 	int			pid;
 	extern char **environ;
@@ -62,11 +62,12 @@ int			exec_cmd(int cmd, t_mini *mini, char *s)
 		close(fd_out);
 		dup2(fd_in, STDIN_FILENO);
 		close(fd_in);
-		path = get_path(mini->c[cmd].tokens[0]);
+		path = get_path(tokens[0]);
+		// printf("path = %s\n", path);
 		if (path != 0)
 		{
-			mini->c[cmd].tokens[0] = ft_strdup(path);
-			err = execve(mini->c[cmd].tokens[0], mini->c[cmd].tokens, environ);
+			tokens[0] = ft_strdup(path);
+			err = execve(tokens[0], tokens, environ);
 		}
 		if (err == -1 || path == 0)
 		{

@@ -18,26 +18,26 @@ char	*get_home(t_mini *mini)
 	return (home);
 }
 
-int		cd(t_command command, t_mini *mini)
+int		cd(char **tokens, int tok_amount, t_mini *mini)
 {
 	char	*home;
 
 	home = get_home(mini);
-	if (command.tok_amount > 2)
+	if (tok_amount > 2)
 		ft_putstr_fd("bash: cd: too many arguments\n", 1);
-	else if (command.tok_amount == 1)
+	else if (tok_amount == 1)
 		chdir(home);
-	else if (command.tokens[1][0] == '~')
+	else if (tokens[1][0] == '~')
 		chdir(home);
-	else if (command.tokens[1][0] == '/' && ft_strlen(command.tokens[1]) == 1)
+	else if (tokens[1][0] == '/' && ft_strlen(tokens[1]) == 1)
 		chdir("//");
-	else if (ft_strncmp("/root", command.tokens[1], 5) == 0 &&
-	ft_strlen(command.tokens[1]) == 5)
+	else if (ft_strncmp("/root", tokens[1], 5) == 0 &&
+	ft_strlen(tokens[1]) == 5)
 		chdir("/root");
-	else if (chdir(command.tokens[1]) == -1)
+	else if (chdir(tokens[1]) == -1)
 	{
 		ft_putstr_fd("bash: cd: ", 1);
-		ft_putstr_fd(command.tokens[1], 1);
+		ft_putstr_fd(tokens[1], 1);
 		ft_putstr_fd(": No such file or directory\n", 1);
 	}
 	if (home)

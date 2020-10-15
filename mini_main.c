@@ -14,10 +14,7 @@ void	handle_sigquit(int signal)
 
 void	set_struct(t_mini *mini)
 {
-	mini->i = 0;
 	mini->cmds = 0;
-	mini->end_string = 0;
-	mini->slash = 0;
 	mini->end = 0;
 }
 
@@ -37,9 +34,10 @@ int		main(int argc, char **argv)
 		{
 			free(mini.input);
 			tokens(&mini);
-			which_command(&mini);
-			free_stuff(&mini);
+			if (multi_line_pipe(&mini) != -1)
+				which_command(&mini);
 		}
+		free_stuff(&mini);
 	}
 	(void)argc;
 	(void)argv;
