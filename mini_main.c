@@ -16,6 +16,7 @@ void	set_struct(t_mini *mini)
 {
 	mini->cmds = 0;
 	mini->end = 0;
+	mini->c = (void*)(0);
 }
 
 int		main(int argc, char **argv)

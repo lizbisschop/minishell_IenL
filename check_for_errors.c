@@ -70,6 +70,22 @@ int check_pipes_redirect(char *s)
 	i = 0;
 	while (s[i] != '\0')
 	{
+		if (s[i] == '\'')
+		{
+			i++;
+			while (s[i] != '\0' && s[i] != '\'')
+				i++;
+			if (s[i] == '\'')
+				i++;
+		}
+		if (s[i] == '\"')
+		{
+			i++;
+			while (s[i] != '\0' && s[i] != '\"')
+				i++;
+			if (s[i] == '\"')
+				i++;
+		}
 		if (s[i] == '|' && s[i + 1] == '|')
 		{
 			ft_putstr_fd("bash: syntax error near '|'.\n", 1);

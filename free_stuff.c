@@ -1,12 +1,5 @@
 #include "minishell.h"
 
-int ft_return(t_mini *mini)
-{
-	// free_stuff(mini);
-	(void)mini;
-	return (0);
-}
-
 void free_stuff(t_mini *mini)
 {
 	int i;
@@ -16,14 +9,20 @@ void free_stuff(t_mini *mini)
 	while (j < mini->cmds)
 	{
 		i = 0;
-		while (mini->c[j].tokens[i])
+		if (mini->c != 0)
 		{
-			free(mini->c[j].tokens[i]);
-			i++;
+			while (mini->c[j].tokens[i])
+			{
+				if (mini->c[j].tokens[i])
+					free(mini->c[j].tokens[i]);
+				i++;
+			}
+			if (mini->c[j].tokens)
+				free(mini->c[j].tokens);
+			j++;
 		}
-		if (mini->c[j].tokens)
-			free(mini->c[j].tokens);
-		j++;
+		else
+			break ;
 	}
 	if (mini->c)
 		free(mini->c);
