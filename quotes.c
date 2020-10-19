@@ -9,7 +9,7 @@
 ** v	multilines error
 */
 
-char	*fill_string(int len, int n_quotes, char **s)
+char	*fill_string(int len, int n_quotes, char **s, t_mini *mini)
 {
 	char	q;
 	int		i;
@@ -22,7 +22,7 @@ char	*fill_string(int len, int n_quotes, char **s)
 	str = (char *)malloc(sizeof(char) * (len - n_quotes + 1));
 	if (!str)
 	{
-		ft_putstr_fd("Malloc failed\n", 1);
+		ft_putstr_fd("Malloc failed\n", mini->main_out);
 		exit (1);
 	}
 	while ((*s)[i] != '\0')
@@ -58,7 +58,7 @@ char	*fill_string(int len, int n_quotes, char **s)
 	return (str);
 }
 
-char	*unquote(char **s)
+char	*unquote(char **s, t_mini *mini)
 {
 	int		n_quotes;
 	char	q;
@@ -89,5 +89,5 @@ char	*unquote(char **s)
 	}
 	// if (n_quotes == 0)
 	// 	return (*s);
-	return (fill_string(i, n_quotes, s));
+	return (fill_string(i, n_quotes, s, mini));
 }

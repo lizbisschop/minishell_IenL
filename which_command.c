@@ -20,12 +20,12 @@ int		find_command(char **tokens, int tok_amount, t_mini *mini)
 	while (tokens[i])
 	{
 		check_for_dollar(&(tokens[i]), mini);
-		tokens[i] = unquote(&(tokens[i]));
+		tokens[i] = unquote(&(tokens[i]), mini);
 		i++;
 	}
 	s = ft_strdup(tokens[0]);
 	if (ft_strncmp("echo", s, 4) == 0 && ft_strlen(s) == 4)
-		echo(tokens, tok_amount);
+		echo(tokens, tok_amount, mini);
 	else if (ft_strncmp("pwd", s, 3) == 0 && ft_strlen(s) == 3)
 		pwd();
 	else if (ft_strncmp("exit", s, 4) == 0 && ft_strlen(s) == 4)
@@ -39,7 +39,7 @@ int		find_command(char **tokens, int tok_amount, t_mini *mini)
 	else if (ft_strncmp("unset", s, 5) == 0 && ft_strlen(s) == 5)
 		unset(tokens, mini);
 	else if (s[0] != '\0')
-		exec_cmd(tokens, ft_strdup(tokens[0]));
+		exec_cmd(tokens, ft_strdup(tokens[0]), mini);
 	if (s)
 		free(s);
 	return (0);
@@ -68,20 +68,12 @@ void	which_command(t_mini *mini)
 	cmd = 0;
 	while (cmd < mini->cmds)
 	{
+		mini->piped = 0;
+		mini->pipe_cmds = 0;
 		if (any_pipes(mini->c[cmd]))
 		{
-			printf("pipes aanwezig\n");
+			// printf("pipes aanwezig\n");
 			pipes(mini, cmd);
-			// ret = fork();
-			// if (ret == 0)
-			// {
-			// }
-			// else if (ret == -1)
-			// {
-			// 	strerror(0);
-			// 	return ;
-			// }
-			// waitpid(ret, NULL, 0);
 		}
 		else if (mini->c[cmd].tok_amount > 0)
 		{

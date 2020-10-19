@@ -41,7 +41,34 @@ char		*get_path(char *cmd)
 	return (0);
 }
 
-int			exec_cmd(char **tokens, char *s)
+int			exec_child(char **tokens, char *s)
+{
+	char			*path;
+	int				err;
+	extern char		**environ;
+
+	path = get_path(tokens[0]);
+	// printf("path = %s\n", path);
+	if (path != 0)
+	{
+		tokens[0] = ft_strdup(path);
+		err = execve(tokens[0], tokens, environ);
+	}
+	if (err == -1 || path == 0)
+	{
+		ft_putstr_fd("bash: ", 1);
+		ft_putstr_fd(s, 1);
+		ft_putstr_fd(": ", 1);
+		ft_putstr_fd("command not found", 1);
+		// ft_putstr_fd(strerror(errno), 1);
+		ft_putstr_fd("\n", 1);
+		if (s)
+			free(s);
+	}
+	exit(1);
+}
+
+int			exec_cmd(char **tokens, char *s, t_mini *mini)
 {
 	int			pid;
 	extern char **environ;
@@ -50,11 +77,13 @@ int			exec_cmd(char **tokens, char *s)
 	int			fd_out;
 	int			fd_in;
 
+	if (mini->piped == 1)
+		exec_child(tokens, s);
 	pid = fork();
 	if (pid < 0)
 		return (1);
-	fd_out = dup(1);
-	fd_in = dup(0);
+	fd_out = dup(STDOUT_FILENO);
+	fd_in = dup(STDIN_FILENO);
 	if (pid == 0)
 	{
 		//Child process
@@ -82,15 +111,12 @@ int			exec_cmd(char **tokens, char *s)
 		}
 		exit(1);
 	}
-	else
-	{
-		//Parent process
-		close(fd_in);
-		close(fd_out);
-		wait(NULL);
-		if (s)
-			free(s);
-	}
+	//Parent process
+	close(fd_in);
+	close(fd_out);
+	wait(NULL);
+	if (s)
+		free(s);
 	return (0);
 }
 
