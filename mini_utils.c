@@ -23,15 +23,6 @@ void	skip_wspaces(char *s, int *i)
 	}
 }
 
-void	skip_whitespaces(char *str, t_mini *mini)
-{
-	while (str[mini->i] != '\0' && ((str[mini->i] >= 9 && str[mini->i] <= 12)
-	|| str[mini->i] == 32))
-	{
-		mini->i++;
-	}
-}
-
 char	*ft_strdup_free(char **s1)
 {
 	size_t	i;

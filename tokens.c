@@ -14,17 +14,9 @@ int		token_amount(char *s)
 			break ;
 		while (s[i] != '\0')
 		{
-			if (is_delimiter(s[i]))
+			if (s[i] == '\'')
 			{
-				// printf("break1%s\n", &s[i]);
-				if (s[i] == '>' && s[i + 1] == '>')
-					i = i + 2;
-				else
-					i++;
-				break ;
-			}
-			else if (s[i] == '\'')
-			{
+				// printf("'\n");
 				i++;
 				while (s[i] != '\0' && s[i] != '\'')
 					i++;
@@ -33,18 +25,30 @@ int		token_amount(char *s)
 			}
 			else if (s[i] == '"')
 			{
+				// printf("\"\n");
 				i++;
 				while (s[i] != '\0' && s[i] != '"')
 					i++;
 				if (s[i] == '"')
 					i++;
 			}
+			else if (is_delimiter(s[i]))
+			{
+				// printf("break1%s\n", &s[i]);
+				if (s[i] == '>' && s[i + 1] == '>')
+					i = i + 2;
+				else
+					i++;
+				break ;
+			}
 			else if (ft_isascii(s[i]))
 			{
-				while (s[i] != '\0' && !is_delimiter(s[i]) && !is_whitespace(s[i]) && ft_isascii(s[i]))
+				while (s[i] != '\0' && s[i] != '\'' && s[i]!= '"' &&
+				!is_delimiter(s[i]) && !is_whitespace(s[i]) && ft_isascii(s[i]))
 					i++;
+				if (s[i] != '\'' && s[i]!= '"')
+					break ;
 				// printf("break2%s\n", &s[i]);
-				break ;
 			}
 			else
 				i++;
@@ -58,7 +62,25 @@ int		tok_end(char *s, int i)
 {
 	while (s[i] != '\0')
 	{
-		if (is_delimiter(s[i]))
+		if (s[i] == '\'')
+		{
+			// printf("singlequotes\n");
+			i++;
+			while (s[i] != '\0' && s[i] != '\'')
+				i++;
+			if (s[i] == '\'')
+				i++;
+		}
+		else if (s[i] == '"')
+		{
+			// printf("doublequotes\n");
+			i++;
+			while (s[i] != '\0' && s[i] != '"')
+				i++;
+			if (s[i] == '"')
+				i++;
+		}
+		else if (is_delimiter(s[i]))
 		{
 			// printf("end_found1%s\n", &s[i]);
 			if (s[i] == '>' && s[i + 1] == '>')
@@ -67,26 +89,17 @@ int		tok_end(char *s, int i)
 				i++;
 			return (i);
 		}
-		else if (s[i] == '\'')
-		{
-			i++;
-			while (s[i] != '\0' && s[i] != '\'')
-				i++;
-		}
-		else if (s[i] == '"')
-		{
-			i++;
-			while (s[i] != '\0' && s[i] != '"')
-				i++;
-		}
 		else if (ft_isascii(s[i]))
 		{
-			while (s[i] != '\0' && ft_isascii(s[i]) && !is_delimiter(s[i]) && !is_whitespace(s[i]))
+			while (s[i] != '\0' && ft_isascii(s[i]) && s[i] != '\'' &&
+			s[i] != '"' && !is_delimiter(s[i]) && !is_whitespace(s[i]))
 				i++;
 			// printf("end_found2%s\n", &s[i]);
-			return (i);
+			if (s[i] != '\'' && s[i]!= '"')
+				return (i);
 		}
-		i++;
+		else
+			i++;
 	}
 	return (i);
 }
@@ -107,7 +120,6 @@ int		tokens(t_mini *mini)
 		ft_putstr_fd("Malloc fail\n", 1);
 		exit(0);
 	}
-	// printf("[%s][%i]\n", s, tokens);
 	while (cmd < mini->cmds)
 	{
 		i = 0;
@@ -115,7 +127,7 @@ int		tokens(t_mini *mini)
 		s = mini->sp_input[cmd];
 		tokens = token_amount(s);
 		mini->c[cmd].tok_amount = tokens;
-		// printf("string[%s]\ntokens[%i]:\n", s, tokens);
+		// printf("whole string[%s]\ntokens[%i]:\n", s, tokens);
 		mini->c[cmd].tokens = (char **)malloc(sizeof(char *) * tokens + 1);
 		if (!(mini->c[cmd].tokens))
 		{

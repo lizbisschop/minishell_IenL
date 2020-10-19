@@ -5,6 +5,7 @@
 ** export: !isalnum in var name: not a valid identifier
 ** (otherwise our code also won't work)
 ** segfault env nadat er een nieuwe var is gezet
+** exit: 1 2 3: multiple numbers = too many arguments, otherwise just exit.
 */
 
 void		get_env_var(int *i, char **token, t_mini *mini, char **str)
@@ -80,28 +81,27 @@ void		check_for_dollar(char **token, t_mini *mini)
 	}
 }
 
-void		echo(t_command command, t_mini *mini)
+void		echo(char **tokens, int tok_amount)
 {
 	int		i;
 	int		n_flag;
 
-	(void)mini;
 	i = 1;
 	n_flag = 0;
-	if (command.tok_amount > 1)
+	if (tok_amount > 1)
 	{
-		if (ft_strncmp("-n", command.tokens[1], 2) == 0 &&
-		ft_strlen(command.tokens[1]) == 2)
+		if (ft_strncmp("-n", tokens[1], 2) == 0 &&
+		ft_strlen(tokens[1]) == 2)
 		{
 			n_flag = 1;
 			i++;
 		}
-		while (i < command.tok_amount)
+		while (i < tok_amount)
 		{
-			// printf("%c|%i|%i\n", command.tokens[i][0], i, command.tok_amount);
-			// if (is_delimiter(command.tokens[i][0]))
+			// printf("%c|%i|%i\n", tokens[i][0], i, tok_amount);
+			// if (is_delimiter(tokens[i][0]))
 			// 	break ;
-			ft_putstr_fd(command.tokens[i], 1);
+			ft_putstr_fd(tokens[i], 1);
 			ft_putchar_fd(' ', 1);
 			i++;
 		}
