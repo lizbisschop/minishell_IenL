@@ -5,5 +5,5 @@ int main()
 {
 	fork();
 	fork();
-		printf("hello world!\n");
+		// printf("hello world!\n");
 }

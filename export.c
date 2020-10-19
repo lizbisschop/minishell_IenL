@@ -230,7 +230,7 @@ int		check_over_write(char *s, t_mini *mini)
 		// printf("i = %i len = %i %s\n", i, len, mini->env[j]);
 		if (ft_strncmp(s, mini->env[j], len) == 0 && i == len)
 		{
-		printf("i = %i len = %i %s | %s\n", i, len, s, mini->env[j]);
+		// printf("i = %i len = %i %s | %s\n", i, len, s, mini->env[j]);
 
 			free(mini->env[j]);
 			mini->env[j] = ft_strdup(s);
