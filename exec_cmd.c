@@ -47,6 +47,7 @@ int			exec_child(char **tokens, char *s)
 	int				err;
 	extern char		**environ;
 
+	err = 0;
 	path = get_path(tokens[0]);
 	// printf("path = %s\n", path);
 	if (path != 0)
@@ -77,6 +78,7 @@ int			exec_cmd(char **tokens, char *s, t_mini *mini)
 	int			fd_out;
 	int			fd_in;
 
+	err = 0;
 	if (mini->piped == 1)
 		exec_child(tokens, s);
 	pid = fork();

@@ -144,7 +144,7 @@ int		tokens(t_mini *mini)
 			i = end;
 			j++;
 		}
-		mini->c[cmd].tokens[j] = '\0';
+		mini->c[cmd].tokens[j] = NULL;
 		cmd++;
 	}
 	// mini->c[cmd] = NULL;

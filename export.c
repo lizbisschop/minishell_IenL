@@ -35,7 +35,7 @@ char 	**add_to_env(char *s, t_mini *mini)
 		size++;
 	}
 	new_env[size] = ft_strdup(s);
-	new_env[size + 1] = '\0';
+	new_env[size + 1] = (void*)0;
 	return (new_env);
 }
 

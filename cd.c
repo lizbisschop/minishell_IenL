@@ -15,6 +15,8 @@ char	*get_home(t_mini *mini)
 		}
 		i++;
 	}
+	if (i == 0)
+		return ((void*)0);
 	return (home);
 }
 

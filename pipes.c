@@ -147,7 +147,7 @@ int		pipes(t_mini *mini, int cmd)
 			// close(main_in);
 			// ft_putstr_fd(mini->pipes_c[i].tokens[0], main_out);
 			// ft_putstr_fd("\t", main_out);
-			// // ft_putstr_fd(mini->pipes_c[i].tokens[1], main_out);
+			// ft_putstr_fd(mini->pipes_c[i].tokens[1], main_out);
 			// ft_putstr_fd("\n", main_out);
 			// ft_putstr_fd("out = ", main_out);
 			// ft_putstr_fd(ft_itoa(fd_out), main_out);
@@ -159,7 +159,7 @@ int		pipes(t_mini *mini, int cmd)
 			// ft_putstr_fd("\ntok_amount=", main_out);
 			// ft_putstr_fd(ft_itoa(mini->pipes_c[i].tok_amount), main_out);
 			// ft_putstr_fd("\n", main_out);
-			// find_command(mini->pipes_c[i].tokens, mini->pipes_c[i].tok_amount, mini);
+			find_command(mini->pipes_c[i].tokens, mini->pipes_c[i].tok_amount, mini);
 			// ft_putstr_fd("\n\n", main_out);
 			// // close(main_out);
 			// ft_putstr_fd("oi\n", main_out);
