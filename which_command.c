@@ -73,6 +73,7 @@ void	which_command(t_mini *mini)
 		if (any_pipes(mini->c[cmd]))
 		{
 			// printf("pipes aanwezig\n");
+			mini->piped = 1;
 			pipes(mini, cmd);
 		}
 		else if (mini->c[cmd].tok_amount > 0)
