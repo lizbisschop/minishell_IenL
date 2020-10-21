@@ -42,6 +42,10 @@ int		find_command(char **tokens, int tok_amount, t_mini *mini)
 		exec_cmd(tokens, ft_strdup(tokens[0]), mini);
 	if (s)
 		free(s);
+	if (mini->piped == 1)
+	{
+		close(mini->main_out);
+	}
 	return (0);
 }
 
