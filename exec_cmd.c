@@ -82,6 +82,8 @@ int			exec_cmd(char **tokens, char *s, t_mini *mini)
 	err = 0;
 	if (mini->piped == 1)
 		exec_child(tokens, s, mini);
+	close(mini->main_in);
+	close(mini->main_out);
 	pid = fork();
 	if (pid < 0)
 		return (1);

@@ -43,9 +43,7 @@ int		find_command(char **tokens, int tok_amount, t_mini *mini)
 	if (s)
 		free(s);
 	if (mini->piped == 1)
-	{
 		close(mini->main_out);
-	}
 	return (0);
 }
 
@@ -67,7 +65,10 @@ int		any_pipes(t_command com)
 void	which_command(t_mini *mini)
 {
 	int		cmd;
-	// int		ret;
+	int		fd_in;
+	int		fd_out;
+	int		main_in;
+	int		main_out;
 
 	cmd = 0;
 	while (cmd < mini->cmds)
@@ -76,13 +77,29 @@ void	which_command(t_mini *mini)
 		mini->pipe_cmds = 0;
 		if (any_pipes(mini->c[cmd]))
 		{
-			// printf("pipes aanwezig\n");
 			mini->piped = 1;
 			pipes(mini, cmd);
 		}
 		else if (mini->c[cmd].tok_amount > 0)
 		{
-			find_command(mini->c[cmd].tokens, mini->c[cmd].tok_amount, mini);
+			main_in = dup(STDIN_FILENO);
+			main_out = dup(STDOUT_FILENO);
+			mini->main_in = main_in;
+			mini->main_out = main_out;
+			fd_in = dup(main_in);
+			fd_out = dup(main_out);
+			check_input_redir(&fd_in, &(mini->c[cmd].tokens), &(mini->c[cmd].tok_amount), mini);
+			check_output_redir(&fd_out, &(mini->c[cmd].tokens), &(mini->c[cmd].tok_amount), mini);
+			dup2(fd_in, STDIN_FILENO);
+			dup2(fd_out, STDOUT_FILENO);
+			close(fd_in);
+			close(fd_out);
+			if (valid_input_redir(&mini->c[cmd], mini) != -1)
+				find_command(mini->c[cmd].tokens, mini->c[cmd].tok_amount, mini);	
+			dup2(main_in, STDIN_FILENO);
+			dup2(main_out, STDOUT_FILENO);
+			close(main_in);
+			close(main_out);
 		}
 		cmd++;
 	}

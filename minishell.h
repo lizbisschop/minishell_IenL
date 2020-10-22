@@ -19,6 +19,7 @@
 typedef	struct	s_command{
 	int			tok_amount;
 	char		**tokens;
+	int			invalid_input;
 }				t_command;
 
 typedef	struct	s_mini{
@@ -32,6 +33,8 @@ typedef	struct	s_mini{
 	char		**env;
 	char		**export_env;
 	int			piped;
+	int			in_redir;
+	int			out_redir;
 	t_command	*c;
 	t_command	*pipes_c;
 }				t_mini;
@@ -72,6 +75,9 @@ int		pipes(t_mini *mini, int cmd);
 void	unset(char **tokens, t_mini *mini);
 int		multi_line_pipe(t_mini *mini);
 int		find_command(char **tokens, int tok_amount, t_mini *mini);
-int		check_input_redir(int *fd_in, char ***tokens);
+void	check_input_redir(int *fd_in, char ***tokens, int *tok_amount, t_mini *mini);
+void	check_output_redir(int *fd_out, char ***tokens, int *tok_amount, t_mini *mini);
+int		valid_input_redir(t_command *command, t_mini *mini);
+int		tokenizer(char **tokens, int tok_amount, t_mini *mini);
 
 #endif

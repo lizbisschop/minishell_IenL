@@ -24,7 +24,8 @@ SRCS = mini_main.c \
 	sort_env.c \
 	pipes.c \
 	unset.c \
-	redirections.c
+	redirections.c \
+	tokenizer.c
 
 FLAGS = -Wall -Werror -Wextra
 
@@ -38,7 +39,7 @@ endif
 all: $(NAME)
 
 $(NAME): $(LIBFT) $(OBJ)
-	gcc $(SRCS) $(GNL) $(LIBFT) $(INCL) -o $(NAME)
+	gcc $(SRCS) $(GNL) $(LIBFT) $(INCL) -o $(NAME) -g
 
 $(LIBFT):
 	# make -C ./libft
