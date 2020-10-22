@@ -173,35 +173,10 @@ int		pipes(t_mini *mini, int cmd)
 			// Child process
 			// open fd's: main_in, main_out, fd_in
 			// close(fd_out); // hoeft niet door close(fd_out)
-<<<<<<< HEAD
-			close(fd_in);
-			close(main_in);
-			// ft_putstr_fd(mini->pipes_c[i].tokens[0], main_out);
-			// ft_putstr_fd("\t", main_out);
-			// ft_putstr_fd(mini->pipes_c[i].tokens[1], main_out);
-			// ft_putstr_fd("\n", main_out);
-			// ft_putstr_fd("out = ", main_out);
-			// ft_putstr_fd(ft_itoa(fd_out), main_out);
-			// ft_putstr_fd(" & in = ", main_out);
-			// ft_putstr_fd(ft_itoa(fd_in), main_out);
-			// ft_putstr_fd("\n", main_out);
-			// ft_putstr_fd("i = ", main_out);
-			// ft_putstr_fd(ft_itoa(i), main_out);
-			// ft_putstr_fd("\ntok_amount=", main_out);
-			ft_putstr_fd(ft_itoa(mini->pipes_c[i].tok_amount), main_out);
-			// ft_putstr_fd("\n", main_out);
-			find_command(mini->pipes_c[i].tokens, mini->pipes_c[i].tok_amount, mini);
-			// ft_putstr_fd("\n\n", main_out);
-			// // close(main_out);
-			// ft_putstr_fd("oi\n", main_out);
-			// sleep (9);
-			// system("ps");
-=======
 			close(main_in);
 			close(fd_in);
 			if (i != 0 || ret != -1)
 				find_command(mini->pipes_c[i].tokens, mini->pipes_c[i].tok_amount, mini);
->>>>>>> c80124f84c5b5352bb0f6f1b8a736634b5ef5f57
 			exit(0);
 		}
 		// print_pipeinput_terminal(main_out);
