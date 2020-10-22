@@ -17,11 +17,9 @@ void	unset(char **tokens, t_mini *mini)
 			{
 				while (mini->env[i])
 				{
+					free(mini->env[i]);
 					if (mini->env[i + 1] != NULL)
-					{
-						free(mini->env[i]);
 						mini->env[i] = ft_strdup(mini->env[i + 1]);
-					}
 					else
 					{
 						free(mini->env[i]);

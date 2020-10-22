@@ -101,9 +101,22 @@ int		set_fds(int *fd_in, int i, int *fd_out, int main_out, t_mini *mini, int *pi
 	return (0);
 }
 
-int		forkeee()
+void	print_pipeinput_terminal(int main_out)
 {
-	return (fork());
+	char	buf[100 + 1];
+	char	*str;
+	int		ret;
+
+	str = ft_strdup("");
+	ret = 0;
+	while (ret = read(STDIN_FILENO, buf, 100))
+	{
+		buf[ret] = '\0';
+		str = ft_strjoin(str, buf);
+	}
+	ft_putstr_fd("content STDIN_FILENO: ", main_out);
+	ft_putstr_fd(str, main_out);
+	ft_putchar_fd('\n', main_out);
 }
 
 int		pipes(t_mini *mini, int cmd)
@@ -115,8 +128,10 @@ int		pipes(t_mini *mini, int cmd)
 	int		main_out;
 	int		fd_in;
 	int		fd_out;
+	int		ret;
 
 	i = 0;
+	fd_out = 1000;
 	// free stuff in pipes_c
 	printf("cmd=%d\n", cmd);
 	tokenizer(mini->c[cmd].tokens, mini->c[cmd].tok_amount, mini);
@@ -124,25 +139,41 @@ int		pipes(t_mini *mini, int cmd)
 	main_out = dup(STDOUT_FILENO);
 	mini->main_in = main_in;
 	mini->main_out = main_out;
-	// if infile
-	fd_in = dup(main_in);
+	// setup first cmd
+	ret = check_input_redir(&fd_in, &(mini->pipes_c[cmd].tokens));
+	if (ret == 0)
+		fd_in = dup(main_in);		
+	printf("m_in\t%d\nm_out\t%d\nf_in\t%d\nf_out\t%d\n", main_in, main_out, fd_in, fd_out);
 	while (i < mini->pipe_cmds)
 	{
-		set_fds(&fd_in, i, &fd_out, main_out, mini, pipefd[i]);
-		// ft_putstr_fd("liz\n", main_out);
-		pid = forkeee();
-		if (pid == -1)
+		dup2(fd_in, STDIN_FILENO);
+		close(fd_in);
+		// if last command
+		if (i == mini->pipe_cmds - 1)
 		{
-			ft_putstr_fd("fork wrong\n", main_out);
+			// if outfile
+			// check_output_redir()
+			fd_out = dup(main_out);
 		}
-		// ft_putstr_fd("iris\n", main_out);
-		// write(main_out, ft_itoa(pid), ft_strlen(ft_itoa(pid)));
-		// write(main_out, "\n", 1);
+		else
+		{
+			if (pipe(pipefd[i]) == -1)
+				return (2);
+			fd_out = pipefd[i][1];
+			fd_in = pipefd[i][0];
+			// printf("pipe = %d\n", pipefd[0]);
+		}
+		dup2(fd_out, STDOUT_FILENO);
+		close(fd_out);
+		pid = fork();
+		if (pid == -1)
+			ft_putstr_fd("fork went wrong\n", main_out);
 		if (pid == 0)
 		{
-			// ft_putstr_fd("jazeker\n", main_out);
 			// Child process
+			// open fd's: main_in, main_out, fd_in
 			// close(fd_out); // hoeft niet door close(fd_out)
+<<<<<<< HEAD
 			close(fd_in);
 			close(main_in);
 			// ft_putstr_fd(mini->pipes_c[i].tokens[0], main_out);
@@ -165,12 +196,19 @@ int		pipes(t_mini *mini, int cmd)
 			// ft_putstr_fd("oi\n", main_out);
 			// sleep (9);
 			// system("ps");
+=======
+			close(main_in);
+			close(fd_in);
+			if (i != 0 || ret != -1)
+				find_command(mini->pipes_c[i].tokens, mini->pipes_c[i].tok_amount, mini);
+>>>>>>> c80124f84c5b5352bb0f6f1b8a736634b5ef5f57
 			exit(0);
 		}
-		ft_putstr_fd("wait\n", main_out);
-		waitpid(pid, NULL, 0);
+		// print_pipeinput_terminal(main_out);
+		// ft_putstr_fd("thank you, next\n", main_out);
 		i++;
 	}
+	close(fd_in);
 	dup2(main_in, STDIN_FILENO);
 	dup2(main_out, STDOUT_FILENO);
 	close(main_in);
@@ -180,3 +218,24 @@ int		pipes(t_mini *mini, int cmd)
 	}
 	return (0);
 }
+
+// ft_putstr_fd(mini->pipes_c[i].tokens[0], main_out);
+// ft_putstr_fd("\t", main_out);
+// ft_putstr_fd(mini->pipes_c[i].tokens[1], main_out);
+// ft_putstr_fd("\n", main_out);
+// ft_putstr_fd("out = ", main_out);
+// ft_putstr_fd(ft_itoa(fd_out), main_out);
+// ft_putstr_fd(" & in = ", main_out);
+// ft_putstr_fd(ft_itoa(fd_in), main_out);
+// ft_putstr_fd("\n", main_out);
+// ft_putstr_fd("i = ", main_out);
+// ft_putstr_fd(ft_itoa(i), main_out);
+// ft_putstr_fd("\ntok_amount=", main_out);
+// ft_putstr_fd(ft_itoa(mini->pipes_c[i].tok_amount), main_out);
+// ft_putstr_fd("\n", main_out);
+// find_command(mini->pipes_c[i].tokens, mini->pipes_c[i].tok_amount, mini);
+// ft_putstr_fd("\n\n", main_out);
+// // close(main_out);
+// ft_putstr_fd("oi\n", main_out);
+// sleep (9);
+// system("ps");

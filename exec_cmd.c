@@ -41,7 +41,7 @@ char		*get_path(char *cmd)
 	return (0);
 }
 
-int			exec_child(char **tokens, char *s)
+int			exec_child(char **tokens, char *s, t_mini *mini)
 {
 	char			*path;
 	int				err;
@@ -53,6 +53,7 @@ int			exec_child(char **tokens, char *s)
 	if (path != 0)
 	{
 		tokens[0] = ft_strdup(path);
+		close(mini->main_out);
 		err = execve(tokens[0], tokens, environ);
 	}
 	if (err == -1 || path == 0)
@@ -80,7 +81,7 @@ int			exec_cmd(char **tokens, char *s, t_mini *mini)
 
 	err = 0;
 	if (mini->piped == 1)
-		exec_child(tokens, s);
+		exec_child(tokens, s, mini);
 	pid = fork();
 	if (pid < 0)
 		return (1);
