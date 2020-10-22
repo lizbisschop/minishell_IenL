@@ -129,22 +129,22 @@ int		pipes(t_mini *mini, int cmd)
 	while (i < mini->pipe_cmds)
 	{
 		set_fds(&fd_in, i, &fd_out, main_out, mini, pipefd[i]);
-		ft_putstr_fd("liz\n", main_out);
+		// ft_putstr_fd("liz\n", main_out);
 		pid = forkeee();
 		if (pid == -1)
 		{
 			ft_putstr_fd("fork wrong\n", main_out);
 		}
-		ft_putstr_fd("iris\n", main_out);
+		// ft_putstr_fd("iris\n", main_out);
 		// write(main_out, ft_itoa(pid), ft_strlen(ft_itoa(pid)));
 		// write(main_out, "\n", 1);
 		if (pid == 0)
 		{
-			ft_putstr_fd("jazeker\n", main_out);
+			// ft_putstr_fd("jazeker\n", main_out);
 			// Child process
 			// close(fd_out); // hoeft niet door close(fd_out)
-			// close(fd_in);
-			// close(main_in);
+			close(fd_in);
+			close(main_in);
 			// ft_putstr_fd(mini->pipes_c[i].tokens[0], main_out);
 			// ft_putstr_fd("\t", main_out);
 			// ft_putstr_fd(mini->pipes_c[i].tokens[1], main_out);
@@ -157,7 +157,7 @@ int		pipes(t_mini *mini, int cmd)
 			// ft_putstr_fd("i = ", main_out);
 			// ft_putstr_fd(ft_itoa(i), main_out);
 			// ft_putstr_fd("\ntok_amount=", main_out);
-			// ft_putstr_fd(ft_itoa(mini->pipes_c[i].tok_amount), main_out);
+			ft_putstr_fd(ft_itoa(mini->pipes_c[i].tok_amount), main_out);
 			// ft_putstr_fd("\n", main_out);
 			find_command(mini->pipes_c[i].tokens, mini->pipes_c[i].tok_amount, mini);
 			// ft_putstr_fd("\n\n", main_out);

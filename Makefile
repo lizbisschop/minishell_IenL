@@ -37,7 +37,7 @@ endif
 all: $(NAME)
 
 $(NAME): $(LIBFT) $(OBJ)
-	gcc $(FLAGS) $(SRCS) $(GNL) $(LIBFT) $(INCL) -o $(NAME)
+	gcc $(FLAGS) $(SRCS) $(GNL) $(LIBFT) $(INCL) -o $(NAME) -g
 
 $(LIBFT):
 	# make -C ./libft
