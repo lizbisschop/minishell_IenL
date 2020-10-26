@@ -17,6 +17,8 @@ int		find_command(char **tokens, int tok_amount, t_mini *mini)
 	char	*s;
 
 	i = 1;
+	if (!tokens[0])
+		return (0);
 	while (tokens[i])
 	{
 		check_for_dollar(&(tokens[i]), mini);

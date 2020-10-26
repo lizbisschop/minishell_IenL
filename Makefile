@@ -45,7 +45,7 @@ all: $(NAME)
 $(NAME): $(OBJ)
 	# make -C ./libft
 	# cp ./libft/libft.a .
-	gcc $(FLAGS) $^ $(INCL) $(LLIBFT) -o $(NAME)
+	gcc $(FLAGS) $^ $(INCL) $(LLIBFT) -o $(NAME) -g
 # %.o: %.c
 # 	gcc -Wall -Werror -Wextra -c $< -o $@
 
