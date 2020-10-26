@@ -65,7 +65,7 @@ int			check_input_redir(char ***tokens, int i, int *tok_amount, int *found, int 
 	ft_putstr_fd((*tokens)[i + 1], mini->main_out);
 	ft_putstr_fd("\n", mini->main_out);
 	fd3 = open(((*tokens)[i + 1]), O_RDONLY);
-	if (fd3 == -1);
+	if (fd3 == -1)
 	{
 		ft_putstr_fd("ERROR\n", mini->main_out);
 		return (-1);

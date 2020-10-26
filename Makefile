@@ -1,10 +1,12 @@
 NAME = minishell
 
-LIBFT = libft.a
+LLIBFT = libft.a
 
 GNL = ./gnl/get_next_line.c ./gnl/get_next_line_utils.c
 
-SRCS = mini_main.c \
+SRCS = ./gnl/get_next_line.c \
+	./gnl/get_next_line_utils.c \
+	mini_main.c \
 	show_command_prompt.c \
 	get_input.c \
 	which_command.c \
@@ -25,21 +27,27 @@ SRCS = mini_main.c \
 	pipes.c \
 	unset.c \
 	redirections.c \
-	tokenizer.c
+	tokenizer.c \
+	
 
 FLAGS = -Wall -Werror -Wextra
 
 OBJ = $(SRCS:.c=.o)
 
-INCL = minishell.h ./libft/libft.h ./gnl/get_next_line.h
+INCL = -I minishell.h -I ./libft/libft.h -I ./gnl/get_next_line.h
+
 ifdef DEBUG
 FLAGS += -fsanitize=address -fno-omit-frame-pointer -g
 endif
 
 all: $(NAME)
 
-$(NAME): $(LIBFT) $(OBJ)
-	gcc $(SRCS) $(GNL) $(LIBFT) $(INCL) -o $(NAME) -g
+$(NAME): $(OBJ)
+	# make -C ./libft
+	# cp ./libft/libft.a .
+	gcc $(FLAGS) $^ $(INCL) $(LLIBFT) -o $(NAME)
+# %.o: %.c
+# 	gcc -Wall -Werror -Wextra -c $< -o $@
 
 $(LIBFT):
 	# make -C ./libft

@@ -41,7 +41,7 @@ void	print_pipeinput_terminal(int main_out)
 
 	str = ft_strdup("");
 	ret = 0;
-	while (ret = read(STDIN_FILENO, buf, 100))
+	while ((ret = read(STDIN_FILENO, buf, 100)))
 	{
 		buf[ret] = '\0';
 		str = ft_strjoin(str, buf);
@@ -61,7 +61,6 @@ int		pipes(t_mini *mini, int cmd)
 	int		main_out;
 	int		fd_in;
 	int		fd_out;
-	int		ret;
 
 	i = 0;
 	j = 0;
