@@ -2,6 +2,12 @@
 
 /*
 ** enkele pipe meegeven
+** cat < test.c | echo hoi > file werkt nog niet helemaal, loopt niet vast
+** cat < test.c | cat > file loopt vast
+** fd_out was closed 2nd time -> unable to save dup(fd) -> gives -1
+** cat | cat | cat werkt wel
+** mensen checken leaks voor exit() --> alles freeen van tevoren
+** bash checken: bash typen in guacamole
 */
 
 int		set_fds(int *fd_in, int i, int *fd_out, int main_out, t_mini *mini, int *pipefd)
@@ -75,20 +81,26 @@ int		pipes(t_mini *mini, int cmd)
 	}
 	while (i < mini->pipe_cmds)
 	{
-		check_input_redir(&fd_in, &(mini->pipes_c[i].tokens),
-		&(mini->pipes_c[i].tok_amount), mini);
+		check_redir(&fd_out, &fd_in, &(mini->pipes_c[i].tokens), &(mini->pipes_c[i].tok_amount), mini);
+		ft_putstr_fd("mini->in_redir = ", main_out);
+		ft_putstr_fd(ft_itoa(mini->in_redir), main_out);
+		ft_putstr_fd("\nmini->out_redir = ", main_out);
+		ft_putstr_fd(ft_itoa(mini->out_redir), main_out);
+		ft_putstr_fd("\n", main_out);
 		dup2(fd_in, STDIN_FILENO);
 		close(fd_in);
-		if (i == mini->pipe_cmds - 1)
+		if (i == mini->pipe_cmds - 1 && mini->out_redir == 0)
 			fd_out = dup(main_out);
-		else
+		else if (i != mini->pipe_cmds - 1)
 		{
 			if (pipe(pipefd[i]) == -1)
 				return (2);
-			fd_out = pipefd[i][1];
+			if (mini->out_redir == 0)
+				fd_out = pipefd[i][1];
+			else
+				close(pipefd[i][1]);
 			fd_in = pipefd[i][0];
 		}
-		check_output_redir(&fd_out, &(mini->pipes_c[i].tokens), &(mini->pipes_c[i].tok_amount), mini);
 		dup2(fd_out, STDOUT_FILENO);
 		close(fd_out);
 		pid = fork();
@@ -98,9 +110,9 @@ int		pipes(t_mini *mini, int cmd)
 		{
 			// Child process
 			// open fd's: main_in, main_out, fd_in
-			// close(fd_out); // hoeft niet door close(fd_out)
 			close(main_in);
 			close(fd_in);
+			// print_pipeinput_terminal(main_out);
 			if (mini->pipes_c[i].invalid_input == 0)
 				find_command(mini->pipes_c[i].tokens, mini->pipes_c[i].tok_amount, mini);
 			else
@@ -121,3 +133,44 @@ int		pipes(t_mini *mini, int cmd)
 	}
 	return (0);
 }
+
+// cat < test.c | cat > hoi
+
+// while (i < mini->pipe_cmds)
+// 	{
+// 		check_input_redir(&fd_in, &(mini->pipes_c[i].tokens),
+// 		&(mini->pipes_c[i].tok_amount), mini);
+// 		dup2(fd_in, STDIN_FILENO);
+// 		close(fd_in);
+// 		if (i == mini->pipe_cmds - 1)
+// 			fd_out = dup(main_out);
+// 		else
+// 		{
+// 			if (pipe(pipefd[i]) == -1)
+// 				return (2);
+// 			fd_out = pipefd[i][1];
+// 			fd_in = pipefd[i][0];
+// 		}
+// 		check_output_redir(&fd_out, &fd_in, &(mini->pipes_c[i].tokens), &(mini->pipes_c[i].tok_amount), mini);
+// 		dup2(fd_out, STDOUT_FILENO);
+// 		close(fd_out);
+// 		pid = fork();
+// 		if (pid == -1)
+// 			ft_putstr_fd("fork went wrong\n", main_out);
+// 		if (pid == 0)
+// 		{
+// 			// Child process
+// 			// open fd's: main_in, main_out, fd_in
+// 			// close(fd_out); // hoeft niet door close(fd_out)
+// 			close(main_in);
+// 			close(fd_in);
+// 			if (mini->pipes_c[i].invalid_input == 0)
+// 				find_command(mini->pipes_c[i].tokens, mini->pipes_c[i].tok_amount, mini);
+// 			else
+// 				close(main_out);
+// 			exit(0);
+// 		}
+// 		// print_pipeinput_terminal(main_out);
+// 		// ft_putstr_fd("thank you, next\n", main_out);
+// 		i++;
+// 	}

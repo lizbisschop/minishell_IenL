@@ -75,8 +75,7 @@ int		pipes(t_mini *mini, int cmd);
 void	unset(char **tokens, t_mini *mini);
 int		multi_line_pipe(t_mini *mini);
 int		find_command(char **tokens, int tok_amount, t_mini *mini);
-void	check_input_redir(int *fd_in, char ***tokens, int *tok_amount, t_mini *mini);
-void	check_output_redir(int *fd_out, char ***tokens, int *tok_amount, t_mini *mini);
+void	check_redir(int *fd_out, int *fd_in, char ***tokens, int *tok_amount, t_mini *mini);
 int		valid_input_redir(t_command *command, t_mini *mini);
 int		tokenizer(char **tokens, int tok_amount, t_mini *mini);
 

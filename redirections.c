@@ -1,80 +1,5 @@
 #include "minishell.h"
 
-void		trim_tokens(int i, char ***tokens, int *tok_amount, t_mini *mini)
-{
-	while ((*tokens)[i])
-	{
-		free((*tokens)[i]);
-		if ((*tokens)[i + 1] != NULL && (*tokens)[i + 2] != NULL)
-			(*tokens)[i] = ft_strdup((*tokens)[i + 2]);
-		else
-		{
-			free((*tokens)[i + 1]);
-			(*tokens)[i] = NULL;
-			(*tokens)[i + 1] = NULL;
-		}
-		i++;
-	}
-	i = 0;
-	ft_putstr_fd("trimmed tokens\n", mini->main_out);
-	while ((*tokens)[i])
-	{
-		ft_putstr_fd("[", mini->main_out);
-		ft_putstr_fd((*tokens)[i], mini->main_out);
-		ft_putstr_fd("]\n", mini->main_out);
-		i++;
-	}
-	*tok_amount -= 2;
-}
-
-void		check_output_redir(int *fd_out, char ***tokens, int *tok_amount, t_mini *mini)
-{
-	int		i;
-	int		fd;
-	int		found;
-
-	found = 0;
-	i = 0;
-	mini->out_redir = 0;
-	while ((*tokens)[i])
-	{
-		if ((ft_strncmp((*tokens)[i], ">", 1) == 0 &&
-		ft_strlen((*tokens)[i]) == 1) || (ft_strncmp((*tokens)[i], ">>", 2) == 0
-		&& ft_strlen((*tokens)[i]) == 2))
-		{
-			if (found == 1)
-				close(fd);
-			found = 1;
-			if (ft_strlen((*tokens)[i]) == 1)
-				fd = open((*tokens)[i + 1], O_WRONLY | O_CREAT, 0777);
-			else
-				fd = open((*tokens)[i + 1], O_RDWR | O_CREAT | O_APPEND, 0777);
-			if (fd == -1)
-			{
-				ft_putstr_fd("bash: ", mini->main_out);
-				ft_putstr_fd((*tokens)[i + 1], mini->main_out);
-				ft_putstr_fd(strerror(errno), mini->main_out);
-				ft_putstr_fd("\n", mini->main_out);
-				mini->out_redir = -1;
-				return ;
-			}
-			trim_tokens(i, tokens, tok_amount, mini);
-		}
-		else
-			i++;
-	}
-	if (found == 1)
-	{
-		close(*fd_out);
-		*fd_out = dup(fd);
-		close(fd);
-		mini->out_redir = 1;
-	}
-	else
-		mini->out_redir = 0;
-	return ;
-}
-
 int			valid_input_redir(t_command *command, t_mini *mini)
 {
 	int i;
@@ -104,25 +29,111 @@ int			valid_input_redir(t_command *command, t_mini *mini)
 	return (0);
 }
 
-void		check_input_redir(int *fd_in, char ***tokens, int *tok_amount, t_mini *mini)
+void		trim_tokens(int i, char ***tokens, int *tok_amount, t_mini *mini)
+{
+	while ((*tokens)[i])
+	{
+		free((*tokens)[i]);
+		if ((*tokens)[i + 1] != NULL && (*tokens)[i + 2] != NULL)
+			(*tokens)[i] = ft_strdup((*tokens)[i + 2]);
+		else
+		{
+			free((*tokens)[i + 1]);
+			(*tokens)[i] = NULL;
+			(*tokens)[i + 1] = NULL;
+		}
+		i++;
+	}
+	i = 0;
+	ft_putstr_fd("trimmed tokens\n", mini->main_out);
+	while ((*tokens)[i])
+	{
+		ft_putstr_fd("[", mini->main_out);
+		ft_putstr_fd((*tokens)[i], mini->main_out);
+		ft_putstr_fd("]\n", mini->main_out);
+		i++;
+	}
+	*tok_amount -= 2;
+}
+
+int			check_input_redir(char ***tokens, int i, int *tok_amount, int *found, int *fd, t_mini *mini)
+{
+	int		fd3;
+	if (*found == 1)
+		close(*fd);
+	*found = 1;
+	ft_putstr_fd((*tokens)[i + 1], mini->main_out);
+	ft_putstr_fd("\n", mini->main_out);
+	fd3 = open(((*tokens)[i + 1]), O_RDONLY);
+	if (fd3 == -1);
+	{
+		ft_putstr_fd("ERROR\n", mini->main_out);
+		return (-1);
+	}
+	trim_tokens(i, tokens, tok_amount, mini);
+	return (0);
+}
+
+void		check_redir(int *fd_out, int *fd_in, char ***tokens, int *tok_amount, t_mini *mini)
 {
 	int		i;
 	int		fd;
 	int		found;
+	int		fd2;
+	int		found2;
 
-	found = 0;
 	i = 0;
+	found = 0;
+	found2 = 0;
+	mini->out_redir = 0;
+	mini->in_redir = 0;
+	ft_putstr_fd("fd_out = ", mini->main_out);
+	ft_putstr_fd(ft_itoa(*fd_out), mini->main_out);
+	ft_putstr_fd("\n", mini->main_out);
+	ft_putstr_fd("fd_in = ", mini->main_out);
+	ft_putstr_fd(ft_itoa(*fd_in), mini->main_out);
+	ft_putstr_fd("\n", mini->main_out);
 	while ((*tokens)[i])
 	{
-		if (ft_strncmp((*tokens)[i], "<", 1) == 0 &&
-		ft_strlen((*tokens)[i]) == 1)
+		if ((ft_strncmp((*tokens)[i], ">", 1) == 0 &&
+		ft_strlen((*tokens)[i]) == 1) || (ft_strncmp((*tokens)[i], ">>", 2) == 0
+		&& ft_strlen((*tokens)[i]) == 2))
 		{
 			if (found == 1)
 				close(fd);
 			found = 1;
-			fd = open((*tokens)[i + 1], O_RDONLY);
+			if (ft_strlen((*tokens)[i]) == 1)
+				fd = open((*tokens)[i + 1], O_WRONLY | O_CREAT, 0777);
+			else
+				fd = open((*tokens)[i + 1], O_RDWR | O_CREAT | O_APPEND, 0777);
+			ft_putstr_fd("new fd= ", mini->main_out);
+			ft_putstr_fd(ft_itoa(fd), mini->main_out);
+			ft_putstr_fd("\n", mini->main_out);
 			if (fd == -1)
+			{
+				ft_putstr_fd("bash: ", mini->main_out);
+				ft_putstr_fd((*tokens)[i + 1], mini->main_out);
+				ft_putstr_fd(strerror(errno), mini->main_out);
+				ft_putstr_fd("\n", mini->main_out);
+				mini->out_redir = -1;
 				return ;
+			}
+			trim_tokens(i, tokens, tok_amount, mini);
+		}
+		else if (ft_strncmp((*tokens)[i], "<", 1) == 0 &&
+		ft_strlen((*tokens)[i]) == 1)
+		{
+			if (found2 == 1)
+				close(fd2);
+			found2 = 1;
+			ft_putstr_fd((*tokens)[i + 1], mini->main_out);
+			ft_putstr_fd("\n", mini->main_out);
+			fd2 = open(((*tokens)[i + 1]), O_RDONLY);
+			if (fd2 == -1)
+			{
+				ft_putstr_fd("Error opening file\n", mini->main_out);
+				return ;
+			}
 			trim_tokens(i, tokens, tok_amount, mini);
 		}
 		else
@@ -130,11 +141,28 @@ void		check_input_redir(int *fd_in, char ***tokens, int *tok_amount, t_mini *min
 	}
 	if (found == 1)
 	{
-		close(*fd_in);
-		*fd_in = dup(fd);
+		ft_putstr_fd(ft_itoa(fd), mini->main_out);
+		ft_putstr_fd("\n", mini->main_out);
+		ft_putstr_fd(ft_itoa(*fd_out), mini->main_out);
+		ft_putstr_fd("\n", mini->main_out);
+		// close(*fd_out); // hoeft niet want we hebben hem in main al gesloten
+		*fd_out = dup(fd);
+		ft_putstr_fd(ft_itoa(*fd_out), mini->main_out);
+		ft_putstr_fd("\n", mini->main_out);
 		close(fd);
-		mini->in_redir = 1;
-		return ;
+		mini->out_redir = 1;
 	}
-	mini->in_redir = 0;
+	if (found2 == 1)
+	{
+		ft_putstr_fd(ft_itoa(fd2), mini->main_out);
+		ft_putstr_fd("\n", mini->main_out);
+		ft_putstr_fd(ft_itoa(*fd_in), mini->main_out);
+		ft_putstr_fd("\n", mini->main_out);
+		close(*fd_in);
+		*fd_in = dup(fd2);
+		ft_putstr_fd(ft_itoa(*fd_in), mini->main_out);
+		ft_putstr_fd("\n", mini->main_out);
+		close(fd2);
+		mini->in_redir = 1;
+	}
 }

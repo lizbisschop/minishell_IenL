@@ -88,8 +88,7 @@ void	which_command(t_mini *mini)
 			mini->main_out = main_out;
 			fd_in = dup(main_in);
 			fd_out = dup(main_out);
-			check_input_redir(&fd_in, &(mini->c[cmd].tokens), &(mini->c[cmd].tok_amount), mini);
-			check_output_redir(&fd_out, &(mini->c[cmd].tokens), &(mini->c[cmd].tok_amount), mini);
+			check_redir(&fd_out, &fd_in, &(mini->c[cmd].tokens), &(mini->c[cmd].tok_amount), mini);
 			dup2(fd_in, STDIN_FILENO);
 			dup2(fd_out, STDOUT_FILENO);
 			close(fd_in);
