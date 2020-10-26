@@ -11,20 +11,25 @@ void	exec_exit(t_mini *mini, int tok_amount)
 	}
 }
 
-int		find_command(char **tokens, int tok_amount, t_mini *mini)
+void	var_sub_and_unquote(char **tokens, t_mini *mini)
 {
-	int		i;
-	char	*s;
-
+	int	i;
 	i = 1;
-	if (!tokens[0])
-		return (0);
 	while (tokens[i])
 	{
 		check_for_dollar(&(tokens[i]), mini);
 		tokens[i] = unquote(&(tokens[i]), mini);
 		i++;
 	}
+}
+
+int		find_command(char **tokens, int tok_amount, t_mini *mini)
+{
+	char	*s;
+
+	if (!tokens[0])
+		return (0);
+	var_sub_and_unquote(tokens, mini);
 	s = ft_strdup(tokens[0]);
 	if (ft_strncmp("echo", s, 4) == 0 && ft_strlen(s) == 4)
 		echo(tokens, tok_amount, mini);
@@ -84,6 +89,7 @@ void	which_command(t_mini *mini)
 		}
 		else if (mini->c[cmd].tok_amount > 0)
 		{
+			var_sub_and_unquote(mini->c[cmd].tokens, mini);
 			main_in = dup(STDIN_FILENO);
 			main_out = dup(STDOUT_FILENO);
 			mini->main_in = main_in;
