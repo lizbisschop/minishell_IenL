@@ -26,7 +26,11 @@ int		cd(char **tokens, int tok_amount, t_mini *mini)
 
 	home = get_home(mini);
 	if (tok_amount > 2)
+	{
 		ft_putstr_fd("bash: cd: too many arguments\n", 1);
+		mini->exit_int = 1;
+		return (-1);
+	}
 	else if (tok_amount == 1)
 		chdir(home);
 	else if (tokens[1][0] == '~')
@@ -43,8 +47,11 @@ int		cd(char **tokens, int tok_amount, t_mini *mini)
 		ft_putstr_fd(": ", 1);
 		ft_putstr_fd(strerror(errno), 1);
 		ft_putstr_fd("\n", 1);
+		mini->exit_int = 1;
+		return (-1);
 	}
 	if (home)
 		free(home);
+	mini->exit_int = 0;
 	return (0);
 }

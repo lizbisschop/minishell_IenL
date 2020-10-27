@@ -79,6 +79,7 @@ int			exec_cmd(char **tokens, char *s, t_mini *mini)
 	char		*path;
 	int			fd_out;
 	int			fd_in;
+	int			wstat;
 
 	err = 0;
 	if (mini->piped == 1)
@@ -109,14 +110,20 @@ int			exec_cmd(char **tokens, char *s, t_mini *mini)
 			ft_putstr_fd(": ", 1);
 			ft_putstr_fd(strerror(errno), 1);
 			ft_putstr_fd("\n", 1);
+			mini->exit_int = 127;
 			if (s)
 				free(s);
 		}
-		exit(1);
+		exit(127);
 	}
 	close(fd_in);
 	close(fd_out);
-	wait(NULL);
+	wait(&wstat);
+	if (WIFEXITED(wstat))
+	{
+		mini->exit_int = WEXITSTATUS(wstat);
+		// printf("%d\n", mini->exit_int);
+	}
 	if (s)
 		free(s);
 	return (0);

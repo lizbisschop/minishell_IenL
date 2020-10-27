@@ -28,6 +28,7 @@ int	env_command(int check, t_mini *mini)
 	if (check != 1)
 	{
 		ft_putstr_fd("Error\n", 1);
+		mini->exit_int = 1;
 		return (-1);
 	}
 	while (mini->env[i])
@@ -36,5 +37,6 @@ int	env_command(int check, t_mini *mini)
 		write(1, "\n", 1);
 		i++;
 	}
+	mini->exit_int = 0;
 	return (0);
 }
