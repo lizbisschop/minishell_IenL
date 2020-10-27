@@ -6,6 +6,7 @@
 ** (otherwise our code also won't work)
 ** segfault env nadat er een nieuwe var is gezet
 ** exit: 1 2 3: multiple numbers = too many arguments, otherwise just exit.
+** export can only take letters int the part before '='
 */
 
 void		get_env_var(int *i, char **token, t_mini *mini, char **str)
@@ -16,13 +17,22 @@ void		get_env_var(int *i, char **token, t_mini *mini, char **str)
 	var_length = 0;
 	j = 0;
 	(*i)++;
+	printf("%c\n", (*token)[*i]);
+	if ((*token)[*i] == '_')
+	{
+		printf("i am here\n");
+		*token = ft_strdup("");
+		return ;
+	}
 	while ((*token)[(*i) + var_length] != '\0' && ft_isalnum((*token)[(*i) +
 	var_length]))
 		var_length++;
 	while (mini->env[j])
 	{
 		if (ft_strncmp(&(*token)[(*i)], mini->env[j], var_length) == 0)
+		{
 			(*str) = gnl_strjoin((*str), &(mini->env[j][var_length + 1]));
+		}
 		j++;
 	}
 	(*i) += var_length;
@@ -65,6 +75,13 @@ void		check_for_dollar(char **token, t_mini *mini)
 		while ((*token)[i] != '\0')
 		{
 			set_open_q((*token)[i], &q, &n_quotes);
+			printf("%c | %s\n", q, *token);
+			if ((*token)[i] == '$' && (*token)[i + 1] == '?' && q != '\'')
+			{
+				printf("hellllo\n");
+				str = gnl_strjoin(str, ft_itoa(mini->exit_int));
+				i += 2;
+			}
 			if ((*token)[i] == '$' && q != '\'')
 				get_env_var(&i, token, mini, &str);
 			else
@@ -110,4 +127,5 @@ void		echo(char **tokens, int tok_amount, t_mini *mini)
 	}
 	if (!n_flag)
 		ft_putchar_fd('\n', 1);
+	mini->exit_int = 0;
 }

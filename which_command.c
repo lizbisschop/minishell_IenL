@@ -14,7 +14,8 @@ void	exec_exit(t_mini *mini, int tok_amount)
 void	var_sub_and_unquote(char **tokens, t_mini *mini)
 {
 	int	i;
-	i = 1;
+
+	i = 0;
 	while (tokens[i])
 	{
 		check_for_dollar(&(tokens[i]), mini);
@@ -29,12 +30,13 @@ int		find_command(char **tokens, int tok_amount, t_mini *mini)
 
 	if (!tokens[0])
 		return (0);
-	var_sub_and_unquote(tokens, mini);
+	if (mini->piped == 1)
+		var_sub_and_unquote(tokens, mini);
 	s = ft_strdup(tokens[0]);
 	if (ft_strncmp("echo", s, 4) == 0 && ft_strlen(s) == 4)
 		echo(tokens, tok_amount, mini);
 	else if (ft_strncmp("pwd", s, 3) == 0 && ft_strlen(s) == 3)
-		pwd();
+		pwd(mini);
 	else if (ft_strncmp("exit", s, 4) == 0 && ft_strlen(s) == 4)
 		exec_exit(mini, tok_amount);
 	else if (ft_strncmp("cd", s, 2) == 0 && ft_strlen(s) == 2)
@@ -45,7 +47,7 @@ int		find_command(char **tokens, int tok_amount, t_mini *mini)
 		ft_export(tokens, tok_amount, mini);
 	else if (ft_strncmp("unset", s, 5) == 0 && ft_strlen(s) == 5)
 		unset(tokens, mini);
-	else if (s[0] != '\0')
+	else
 		exec_cmd(tokens, ft_strdup(tokens[0]), mini);
 	if (s)
 		free(s);

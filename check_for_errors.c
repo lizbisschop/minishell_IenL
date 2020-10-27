@@ -68,6 +68,15 @@ int check_pipes_redirect(char *s)
 	int i;
 
 	i = 0;
+	while (is_whitespace(s[i]) && s[i] != '\0' || s[i] == ';')
+	{
+		if (s[i] == ';')
+		{
+			ft_putstr_fd("bash: syntax error near ';'\n", 1);
+			return (-1);
+		}
+		i++;
+	}
 	while (s[i] != '\0')
 	{
 		if (s[i] == '\'')
@@ -88,17 +97,20 @@ int check_pipes_redirect(char *s)
 		}
 		if (s[i] == '|' && s[i + 1] == '|')
 		{
-			ft_putstr_fd("bash: syntax error near '|'.\n", 1);
+			ft_putstr_fd("bash: syntax error near '|'\n", 1);
 			return (-1);
 		}
 		else if (s[i] == '<' && s[i + 1] == '<')
 		{
-			ft_putstr_fd("bash: syntax error near '<'.\n", 1);
+			ft_putstr_fd("bash: syntax error near '<'\n", 1);
 			return (-1);
 		}
 		else if (s[i] == '>' && s[i + 1] == '>' && s[i + 2] == '>')
 		{
-			ft_putstr_fd("bash: syntax error near '>'.\n", 1);
+			if (s[i + 3] == '>')
+				ft_putstr_fd("bash: syntax error near '>>'\n", 1);
+			else
+				ft_putstr_fd("bash: syntax error near '>'\n", 1);
 			return (-1);
 		}
 		i++;

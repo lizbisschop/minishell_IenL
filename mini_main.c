@@ -26,6 +26,7 @@ int		main(int argc, char **argv)
 	t_mini	mini;
 
 	mini.env = copy_env();
+	mini.exit_int = 0;
 	while (1)
 	{
 		signal(SIGINT, &handle_sigint);

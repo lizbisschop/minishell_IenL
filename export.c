@@ -127,11 +127,12 @@ void	ft_export(char **tokens, int tok_amount, t_mini *mini)
 	{
 		while (tokens[i][j] != '\0' && tokens[i][j] != '=')
 		{
-			if (ft_isalnum(tokens[i][j]) == 0)
+			if (ft_isalpha(tokens[i][j]) == 0)
 			{
 				ft_putstr_fd("bash: export: ", 1);
 				ft_putstr_fd(tokens[i], 1);
 				ft_putstr_fd(": not a valid identifier\n", 1);
+				mini->exit_int = 1;
 				return ;
 			}
 			j++;
@@ -145,5 +146,5 @@ void	ft_export(char **tokens, int tok_amount, t_mini *mini)
 	}
 	if (i == 1)
 		print_export(mini);
-	(void)mini;
+	mini->exit_int = 0;
 }

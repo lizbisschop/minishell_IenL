@@ -35,4 +35,5 @@ void	unset(char **tokens, t_mini *mini)
 		}
 		tok++;
 	}
+	mini->exit_int = 0;
 }

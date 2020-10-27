@@ -35,6 +35,7 @@ typedef	struct	s_mini{
 	int			piped;
 	int			in_redir;
 	int			out_redir;
+	int			exit_int;
 	t_command	*c;
 	t_command	*pipes_c;
 }				t_mini;
@@ -46,7 +47,7 @@ char	*get_input(void);
 void	skip_whitespaces(char *str, t_mini *mini);
 void	echo(char **tokens, int tok_amount, t_mini *mini);
 void	which_command(t_mini *mini);
-void	pwd(void);
+void	pwd(t_mini *mini);
 int		quotes(t_mini *mini, char c, char *line);
 int		cd(char **tokens, int tok_amount, t_mini *mini);
 void	set_envp(t_mini *mini);
