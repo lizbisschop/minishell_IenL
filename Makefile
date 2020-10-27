@@ -1,6 +1,6 @@
 NAME = minishell
 
-LLIBFT = libft.a
+LIBFT = libft.a
 
 GNL = ./gnl/get_next_line.c ./gnl/get_next_line_utils.c
 
@@ -42,10 +42,9 @@ endif
 
 all: $(NAME)
 
-$(NAME): $(OBJ)
-	# make -C ./libft
-	# cp ./libft/libft.a .
-	gcc $(FLAGS) $^ $(INCL) $(LLIBFT) -o $(NAME) -g
+$(NAME): $(LIBFT) $(OBJ)
+	gcc $(FLAGS) $^ $(INCL) $(LIBFT) -o $(NAME) -g
+
 # %.o: %.c
 # 	gcc -Wall -Werror -Wextra -c $< -o $@
 
@@ -54,9 +53,12 @@ $(LIBFT):
 	# cp ./libft/libft.a .
 
 clean:
+	@make clean -C ./libft
 	rm -rf $(OBJ)
 
 fclean: clean
-	rm -rf minishell
+	@make fclean -C ./libft
+	# rm -rf $(LIBFT)
+	rm -rf $(NAME)
 
 re: fclean all

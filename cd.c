@@ -40,7 +40,9 @@ int		cd(char **tokens, int tok_amount, t_mini *mini)
 	{
 		ft_putstr_fd("bash: cd: ", 1);
 		ft_putstr_fd(tokens[1], 1);
-		ft_putstr_fd(": No such file or directory\n", 1);
+		ft_putstr_fd(": ", 1);
+		ft_putstr_fd(strerror(errno), 1);
+		ft_putstr_fd("\n", 1);
 	}
 	if (home)
 		free(home);

@@ -1,0 +1,38 @@
+[ ] more than 3 >>> error : syntax error near '>>'
+[ ] malloc: double free bij >>>
+[ ] segfault multiple pipes??
+[ ] file with quotes: open file without quotes
+[ ]     ; echo hoi should give syntax error near unexpected token ';'
+[ ] norm maken
+[ ] stderror juist doorgeven naar 1 plek
+[ ] fds worden steeds groter naarmate je meer commands achter elkaar uitvoerd && geen pipes gebruikt
+
+
+Testing pipes-------------------------------------------------------
+[ ] ./github_minishell/gnl/ > outfile
+[ ] //pipes lopen op bij meerdere keren doen-> worden niet goed gesloten?
+[ ] mini_main.c > out //error message should be promted in terminal 
+[V] pwd | cat
+[V] pwd | cat > out
+[ ] | //ours: multiline command, real: syntax error near '|'
+
+Testing pipes and redirections-------------------------------------
+[V] cat > output > output > output | echo hoi
+[V] echo > file1 hello >file2 world! > file3 | cat -e
+[V] ls >> file3 | cat < file3 //first: bash error && second time : file3 exists
+[V] cat > output < output //error cat: input file is output file - should result in empty outfile
+[V] cat > outfile | cat < outfile
+Tests-------------------------------------------------------------
+[V] cat mini_main.c > out | grep if
+[V] cat mini_main.c > out | > out1
+[V] cat mini_main.c > out > out1 > out2 | echo hello
+[V] cat mini_main.c > out > out1 > out2 | cat
+[V] cat mini_main.c > out > out1 > out2 ; cat
+[V] cat mini_main.c < input (input DOES NOT exist)
+[V] cat mini_main.c < input (input DOES exist)
+[V] cat mini_main.c | < input
+[V] cat <int1 <int2 < int3
+[ ] 
+[ ] 
+[ ] 
+[ ] 

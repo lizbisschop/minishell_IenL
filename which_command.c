@@ -76,8 +76,10 @@ void	which_command(t_mini *mini)
 	int		fd_out;
 	int		main_in;
 	int		main_out;
+	int		j;
 
 	cmd = 0;
+	j = 0;
 	while (cmd < mini->cmds)
 	{
 		mini->piped = 0;
@@ -96,6 +98,11 @@ void	which_command(t_mini *mini)
 			mini->main_out = main_out;
 			fd_in = dup(main_in);
 			fd_out = dup(main_out);
+			while (j < mini->cmds)
+			{
+				valid_input_redir(&mini->c[j], mini);
+				j++;
+			}
 			check_redir(&fd_out, &fd_in, &(mini->c[cmd].tokens), &(mini->c[cmd].tok_amount), mini);
 			dup2(fd_in, STDIN_FILENO);
 			dup2(fd_out, STDOUT_FILENO);
