@@ -9,8 +9,9 @@ void	show_command_prompt(void)
 	j = 0;
 	char buf[4096];
 	getcwd(buf, 4096);
-	//if (buf == 0)
-	//	ft_putstr_fd("Error getting path\n", 1);
+	// ft_putstr_fd(buf, 1);
+	if (buf == 0)
+		ft_putstr_fd("Error getting path\n", 1);
 	ft_putstr_fd("\e[0;31m~", 1);
 	while (buf[j] != '\0' && i <= 36)
 	{

@@ -53,7 +53,7 @@ $(LIBFT):
 	# cp ./libft/libft.a .
 
 clean:
-	@make clean -C ./libft
+	# @make clean -C ./libft
 	rm -rf $(OBJ)
 
 fclean: clean

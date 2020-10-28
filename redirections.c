@@ -141,6 +141,7 @@ void		check_redir(int *fd_out, int *fd_in, char ***tokens, int *tok_amount, t_mi
 	}
 	if (found == 1)
 	{
+		ft_putstr_fd("output redir found: \n", mini->main_out);
 		ft_putstr_fd(ft_itoa(fd), mini->main_out);
 		ft_putstr_fd("\n", mini->main_out);
 		ft_putstr_fd(ft_itoa(*fd_out), mini->main_out);
@@ -154,6 +155,7 @@ void		check_redir(int *fd_out, int *fd_in, char ***tokens, int *tok_amount, t_mi
 	}
 	if (found2 == 1)
 	{
+		ft_putstr_fd("input redir found: \nfd2", mini->main_out);
 		ft_putstr_fd(ft_itoa(fd2), mini->main_out);
 		ft_putstr_fd("\n", mini->main_out);
 		ft_putstr_fd(ft_itoa(*fd_in), mini->main_out);

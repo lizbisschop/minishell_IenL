@@ -18,12 +18,11 @@ void	unset(char **tokens, t_mini *mini)
 				while (mini->env[i])
 				{
 					free(mini->env[i]);
+					mini->env[i] = NULL;
 					if (mini->env[i + 1] != NULL)
 						mini->env[i] = ft_strdup(mini->env[i + 1]);
 					else
 					{
-						free(mini->env[i]);
-						mini->env[i] = NULL;
 						break ;
 					}
 					i++;

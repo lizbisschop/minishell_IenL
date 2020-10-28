@@ -5,16 +5,17 @@
 [ ]     ; echo hoi should give syntax error near unexpected token ';'
 [ ] norm maken
 [ ] stderror juist doorgeven naar 1 plek
-[ ] fds worden steeds groter naarmate je meer commands achter elkaar uitvoerd && geen pipes gebruikt
-
+[ ] fds worden steeds groter naarmate je meer commands achter elkaar uitvoerd && gebeurt niet bij pipes
+[ ] exit codes?
 
 Testing pipes-------------------------------------------------------
 [ ] ./github_minishell/gnl/ > outfile
 [ ] //pipes lopen op bij meerdere keren doen-> worden niet goed gesloten?
-[ ] mini_main.c > out //error message should be promted in terminal 
+[ ] mini_main.c > out //error message should be promted in terminal
 [V] pwd | cat
 [V] pwd | cat > out
 [ ] | //ours: multiline command, real: syntax error near '|'
+[ ] na 1x output redirection: fd 6,7,8 etc. blijft vol zitten
 
 Testing pipes and redirections-------------------------------------
 [V] cat > output > output > output | echo hoi

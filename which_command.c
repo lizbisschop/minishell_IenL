@@ -6,7 +6,7 @@ void	exec_exit(t_mini *mini, int tok_amount)
 		ft_putstr_fd("logout\nbash: exit: too many arguments\n", 1);
 	else
 	{
-		free_stuff(mini);
+		// free_stuff(mini);
 		exit(0);
 	}
 }
@@ -32,6 +32,7 @@ int		find_command(char **tokens, int tok_amount, t_mini *mini)
 		return (0);
 	if (mini->piped == 1)
 		var_sub_and_unquote(tokens, mini);
+	printf("[%s]\n", tokens[0]); // only shows all cmds when exit is executed??
 	s = ft_strdup(tokens[0]);
 	if (ft_strncmp("echo", s, 4) == 0 && ft_strlen(s) == 4)
 		echo(tokens, tok_amount, mini);
