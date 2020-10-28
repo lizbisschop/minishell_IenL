@@ -57,6 +57,7 @@ int		pipes(t_mini *mini, int cmd)
 	int		main_out;
 	int		fd_in;
 	int		fd_out;
+	int		wstat;
 
 	i = 0;
 	j = 0;
@@ -122,8 +123,10 @@ int		pipes(t_mini *mini, int cmd)
 	dup2(main_out, STDOUT_FILENO);
 	close(main_in);
 	close(main_out);
-	while (wait(NULL) != -1)
+	while (wait(&wstat) != -1)
 	{
+		if (WIFEXITED(wstat))
+			mini->exit_int = WEXITSTATUS(wstat);
 	}
 	return (0);
 }

@@ -2,10 +2,13 @@
 
 char	*get_home(t_mini *mini)
 {
-	char	*home;
-	int		i;
+	char		*home;
+	int			i;
+	int			j;
+	extern char **environ;	
 
 	i = 0;
+	j = 0;
 	while (mini->env[i])
 	{
 		if (ft_strncmp("HOME=", mini->env[i], 5) == 0)
@@ -14,6 +17,18 @@ char	*get_home(t_mini *mini)
 			break ;
 		}
 		i++;
+	}
+	if (!mini->env[i])
+	{
+		while (environ[j])
+		{
+			if (ft_strncmp("HOME=", environ[j], 5) == 0)
+			{
+				home = ft_strdup(&environ[j][5]);
+				break ;
+			}
+			j++;
+		}
 	}
 	if (i == 0)
 		return ((void*)0);
@@ -29,12 +44,42 @@ int		cd(char **tokens, int tok_amount, t_mini *mini)
 	{
 		ft_putstr_fd("bash: cd: too many arguments\n", 1);
 		mini->exit_int = 1;
+		if (home)
+			free(home);
 		return (-1);
 	}
 	else if (tok_amount == 1)
 		chdir(home);
 	else if (tokens[1][0] == '~')
-		chdir(home);
+	{
+		if (tokens[1][1])
+		{
+			if (chdir(ft_strjoin(home, &tokens[1][1])) == -1)
+			{
+				ft_putstr_fd("bash: cd: ", 1);
+				ft_putstr_fd(tokens[1], 1);
+				ft_putstr_fd(": ", 1);
+				ft_putstr_fd(strerror(errno), 1);
+				ft_putstr_fd("\n", 1);
+				mini->exit_int = 1;
+				if (home)
+					free(home);
+				return (-1);
+			}
+		}
+		else if (chdir(home) == -1)
+		{
+			ft_putstr_fd("bash: cd: ", 1);
+			ft_putstr_fd(home, 1);
+			ft_putstr_fd(": ", 1);
+			ft_putstr_fd(strerror(errno), 1);
+			ft_putstr_fd("\n", 1);
+			mini->exit_int = 1;
+			if (home)
+				free(home);
+			return (-1);
+		}
+	}
 	else if (tokens[1][0] == '/' && ft_strlen(tokens[1]) == 1)
 		chdir("//");
 	else if (ft_strncmp("/root", tokens[1], 5) == 0 &&
@@ -48,6 +93,8 @@ int		cd(char **tokens, int tok_amount, t_mini *mini)
 		ft_putstr_fd(strerror(errno), 1);
 		ft_putstr_fd("\n", 1);
 		mini->exit_int = 1;
+		if (home)
+			free(home);
 		return (-1);
 	}
 	if (home)

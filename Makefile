@@ -8,7 +8,6 @@ SRCS = ./gnl/get_next_line.c \
 	./gnl/get_next_line_utils.c \
 	mini_main.c \
 	show_command_prompt.c \
-	get_input.c \
 	which_command.c \
 	pwd.c \
 	quotes.c \
