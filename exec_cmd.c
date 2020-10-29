@@ -46,16 +46,26 @@ int			exec_child(char **tokens, char *s, t_mini *mini)
 	char			*path;
 	int				err;
 	extern char		**environ;
+	struct stat		buf;
 
 	err = 0;
 	path = get_path(tokens[0]);
+	ft_putstr_fd(path, mini->main_out);
+	if (tokens[0])
+		free(tokens[0]);
 	if (path != 0)
 	{
-		if (tokens[0])
-			free(tokens[0]);
 		tokens[0] = ft_strdup(path);
 		close(mini->main_out);
 		err = execve(tokens[0], tokens, environ);
+	}
+	else
+	{
+		path = get_pwd();
+		path = gnl_strjoin(path, "/");
+		tokens[0] = gnl_strjoin(path, s);
+		if (stat(tokens[0], &buf) != -1)
+			err = execve(tokens[0], tokens, environ);
 	}
 	if (err == -1)
 	{

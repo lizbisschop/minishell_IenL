@@ -81,5 +81,6 @@ void	check_redir(int *fd_out, int *fd_in, char ***tokens, int *tok_amount, t_min
 int		valid_input_redir(t_command *command, t_mini *mini);
 int		tokenizer(char **tokens, int tok_amount, t_mini *mini);
 void	put_error_fd(char *function, char *str, int fd, t_mini *mini);
+char	*get_pwd(void);
 
 #endif

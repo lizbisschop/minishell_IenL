@@ -8,12 +8,13 @@ system("ls -la /proc/$$/fd");
 [ ] stderror juist doorgeven naar 1 plek
 [V] fds worden steeds groter naarmate je meer commands achter elkaar uitvoerd && gebeurt niet bij pipes
 [V] exit codes?
+[V] env variables $PA shouldn't give path && only [$] works
 
 Testing cat--------------------------------------------------------
 [V] cat $HOME
 
 Testing pipes-------------------------------------------------------
-[ ] ./github_minishell/gnl/ > outfile
+[V] ./github_minishell/gnl/ > outfile
 [V] mini_main.c > out //error message should be promted in terminal
 [V] pwd | cat
 [V] pwd | cat > out
