@@ -47,6 +47,7 @@ int			exec_child(char **tokens, char *s, t_mini *mini)
 	int				err;
 	extern char		**environ;
 	struct stat		buf;
+	char			*pwd;
 
 	err = 0;
 	path = get_path(tokens[0]);
@@ -59,12 +60,12 @@ int			exec_child(char **tokens, char *s, t_mini *mini)
 		close(mini->main_out);
 		err = execve(tokens[0], tokens, environ);
 	}
-	else
+	else if (s[0] == '.')
 	{
-		path = get_pwd();
-		path = gnl_strjoin(path, "/");
-		tokens[0] = gnl_strjoin(path, s);
-		if (stat(tokens[0], &buf) != -1)
+		pwd = get_pwd();
+		pwd = gnl_strjoin(pwd, "/");
+		tokens[0] = gnl_strjoin(pwd, s);
+		if (stat(tokens[0], &buf) != -1) //misschien uitzetten voor error message
 			err = execve(tokens[0], tokens, environ);
 	}
 	if (err == -1)

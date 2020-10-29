@@ -1,9 +1,9 @@
 system("ls -la /proc/$$/fd");
 [V] more than 3 >>> error : syntax error near '>>'
-[ ] malloc: double free bij >>>
-[ ] segfault multiple pipes??
+[V] malloc: double free bij >>>
 [V] file with quotes: open file without quotes
-[ ]     ; echo hoi should give syntax error near unexpected token ';'
+[V]     ; echo hoi should give syntax error near unexpected token ';'
+[ ] segfault multiple pipes??
 [ ] norm maken
 [ ] stderror juist doorgeven naar 1 plek
 [V] fds worden steeds groter naarmate je meer commands achter elkaar uitvoerd && gebeurt niet bij pipes
@@ -40,4 +40,6 @@ Tests github--------------------------------------------------------
 [ ] 
 [ ] 
 [ ] 
-[ ] 
+
+
+[ ] error message absolute/relative path
