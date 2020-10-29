@@ -87,13 +87,12 @@ void		check_redir(int *fd_out, int *fd_in, char ***tokens, int *tok_amount, t_mi
 	found2 = 0;
 	mini->out_redir = 0;
 	mini->in_redir = 0;
-	// ft_putstr_fd("fd_out = ", mini->main_out);
-	// ft_putstr_fd(ft_itoa(*fd_out), mini->main_out);
-	// ft_putstr_fd("\n", mini->main_out);
-	// ft_putstr_fd("fd_in = ", mini->main_out);
-	// ft_putstr_fd(ft_itoa(*fd_in), mini->main_out);
-	// ft_putstr_fd("\n", mini->main_out);
-
+	ft_putstr_fd("fd_out = ", mini->main_out);
+	ft_putstr_fd(ft_itoa(*fd_out), mini->main_out);
+	ft_putstr_fd("\n", mini->main_out);
+	ft_putstr_fd("fd_in = ", mini->main_out);
+	ft_putstr_fd(ft_itoa(*fd_in), mini->main_out);
+	ft_putstr_fd("\n", mini->main_out);
 	while ((*tokens)[i])
 	{
 		if ((ft_strncmp((*tokens)[i], ">", 1) == 0 &&
@@ -104,9 +103,9 @@ void		check_redir(int *fd_out, int *fd_in, char ***tokens, int *tok_amount, t_mi
 				close(fd);
 			found = 1;
 			if (ft_strlen((*tokens)[i]) == 1)
-				fd = open((*tokens)[i + 1], O_WRONLY | O_CREAT, 0777);
+				fd = open((*tokens)[i + 1], O_WRONLY | O_CREAT | O_TRUNC, 0644);
 			else
-				fd = open((*tokens)[i + 1], O_RDWR | O_CREAT | O_APPEND, 0777);
+				fd = open((*tokens)[i + 1], O_RDWR | O_CREAT | O_APPEND, 0644);
 			ft_putstr_fd("new fd= ", mini->main_out);
 			ft_putstr_fd(ft_itoa(fd), mini->main_out);
 			ft_putstr_fd("\n", mini->main_out);
@@ -147,7 +146,8 @@ void		check_redir(int *fd_out, int *fd_in, char ***tokens, int *tok_amount, t_mi
 		ft_putstr_fd("\n", mini->main_out);
 		ft_putstr_fd(ft_itoa(*fd_out), mini->main_out);
 		ft_putstr_fd("\n", mini->main_out);
-		// close(*fd_out); // hoeft niet want we hebben hem in main al gesloten
+		if (mini->piped == 0)
+			close(*fd_out); // in pipes is fd_out al geclosed
 		*fd_out = dup(fd);
 		ft_putstr_fd(ft_itoa(*fd_out), mini->main_out);
 		ft_putstr_fd("\n", mini->main_out);
@@ -156,7 +156,7 @@ void		check_redir(int *fd_out, int *fd_in, char ***tokens, int *tok_amount, t_mi
 	}
 	if (found2 == 1)
 	{
-		ft_putstr_fd("input redir found: \nfd2", mini->main_out);
+		ft_putstr_fd("input redir found: \n", mini->main_out);
 		ft_putstr_fd(ft_itoa(fd2), mini->main_out);
 		ft_putstr_fd("\n", mini->main_out);
 		ft_putstr_fd(ft_itoa(*fd_in), mini->main_out);

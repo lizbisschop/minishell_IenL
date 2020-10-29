@@ -1,3 +1,4 @@
+system("ls -la /proc/$$/fd");
 [V] more than 3 >>> error : syntax error near '>>'
 [ ] malloc: double free bij >>>
 [ ] segfault multiple pipes??
@@ -8,6 +9,9 @@
 [ ] fds worden steeds groter naarmate je meer commands achter elkaar uitvoerd && gebeurt niet bij pipes
 [ ] exit codes?
 
+Testing cat--------------------------------------------------------
+[V] cat $HOME
+
 Testing pipes-------------------------------------------------------
 [ ] ./github_minishell/gnl/ > outfile
 [ ] //pipes lopen op bij meerdere keren doen-> worden niet goed gesloten?
@@ -15,7 +19,7 @@ Testing pipes-------------------------------------------------------
 [V] pwd | cat
 [V] pwd | cat > out
 [ ] | //ours: multiline command, real: syntax error near '|'
-[ ] na 1x output redirection: fd 6,7,8 etc. blijft vol zitten
+[V] na 1x output redirection: fd 6,7,8 etc. blijft vol zitten
 
 Testing pipes and redirections-------------------------------------
 [V] cat > output > output > output | echo hoi
@@ -23,7 +27,7 @@ Testing pipes and redirections-------------------------------------
 [V] ls >> file3 | cat < file3 //first: bash error && second time : file3 exists
 [V] cat > output < output //error cat: input file is output file - should result in empty outfile
 [V] cat > outfile | cat < outfile
-Tests-------------------------------------------------------------
+Tests github--------------------------------------------------------
 [V] cat mini_main.c > out | grep if
 [V] cat mini_main.c > out | > out1
 [V] cat mini_main.c > out > out1 > out2 | echo hello

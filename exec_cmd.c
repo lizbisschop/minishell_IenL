@@ -63,6 +63,7 @@ int			exec_child(char **tokens, char *s, t_mini *mini)
 		ft_putstr_fd(": ", mini->main_out);
 		ft_putstr_fd(strerror(errno), mini->main_out);
 		ft_putstr_fd("\n", mini->main_out);
+		close(mini->main_out);
 		if (s)
 			free(s);
 	}
@@ -92,7 +93,6 @@ int			exec_cmd(char **tokens, char *s, t_mini *mini)
 	if (pid == 0)
 	{
 		close(mini->main_in);
-		close(mini->main_out);
 		dup2(fd_out, STDOUT_FILENO);
 		close(fd_out);
 		dup2(fd_in, STDIN_FILENO);
@@ -101,28 +101,40 @@ int			exec_cmd(char **tokens, char *s, t_mini *mini)
 		if (path != 0)
 		{
 			tokens[0] = ft_strdup(path);
+			close(mini->main_out);
 			err = execve(tokens[0], tokens, environ);
 		}
-		if (err == -1 || path == 0)
+		if (err == -1)
 		{
-			ft_putstr_fd("bash: ", 1);
-			ft_putstr_fd(s, 1);
-			ft_putstr_fd(": ", 1);
-			ft_putstr_fd(strerror(errno), 1);
-			ft_putstr_fd("\n", 1);
-			mini->exit_int = 127;
 			if (s)
 				free(s);
+			exit(2);
 		}
-		exit(127);
+		ft_putstr_fd("bash: ", mini->main_out);
+		ft_putstr_fd(s, mini->main_out);
+		ft_putstr_fd(": ", mini->main_out);
+		ft_putstr_fd(strerror(errno), mini->main_out);
+		ft_putstr_fd("\n", mini->main_out);
+		close(mini->main_out);
+		if (s)
+			free(s);
+		exit(1);
 	}
 	close(fd_in);
 	close(fd_out);
 	wait(&wstat);
-	if (WIFEXITED(wstat))
+	if (WIFEXITED(wstat)) //if normal termination
 	{
 		mini->exit_int = WEXITSTATUS(wstat);
-		// printf("%d\n", mini->exit_int);
+		if (mini->exit_int == 2)
+		{
+			mini->exit_int = 1;
+			ft_putstr_fd("bash: ", mini->main_out);
+			ft_putstr_fd(s, mini->main_out);
+			ft_putstr_fd(": ", mini->main_out);
+			ft_putstr_fd(strerror(errno), mini->main_out); // stderr needs to be redirected
+			ft_putstr_fd("\n", mini->main_out);
+		}
 	}
 	if (s)
 		free(s);

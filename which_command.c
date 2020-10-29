@@ -6,7 +6,7 @@ void	exec_exit(t_mini *mini, int tok_amount)
 		ft_putstr_fd("logout\nbash: exit: too many arguments\n", 1);
 	else
 	{
-		// free_stuff(mini);
+		free_stuff(mini);
 		exit(0);
 	}
 }
@@ -32,7 +32,6 @@ int		find_command(char **tokens, int tok_amount, t_mini *mini)
 		return (0);
 	if (mini->piped == 1)
 		var_sub_and_unquote(tokens, mini);
-	printf("tokens = [%s]\n", tokens[0]);
 	s = ft_strdup(tokens[0]);
 	if (ft_strncmp("echo", s, 4) == 0 && ft_strlen(s) == 4)
 		echo(tokens, tok_amount, mini);
@@ -106,7 +105,6 @@ void	which_command(t_mini *mini)
 				valid_input_redir(&mini->c[j], mini);
 				j++;
 			}
-
 			check_redir(&fd_out, &fd_in, &(mini->c[cmd].tokens), &(mini->c[cmd].tok_amount), mini);
 			dup2(fd_in, STDIN_FILENO);
 			dup2(fd_out, STDOUT_FILENO);

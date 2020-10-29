@@ -75,10 +75,8 @@ void		check_for_dollar(char **token, t_mini *mini)
 		while ((*token)[i] != '\0')
 		{
 			set_open_q((*token)[i], &q, &n_quotes);
-			printf("%c | %s\n", q, *token);
 			if ((*token)[i] == '$' && (*token)[i + 1] == '?' && q != '\'')
 			{
-				printf("hellllo\n");
 				str = gnl_strjoin(str, ft_itoa(mini->exit_int));
 				i += 2;
 			}
