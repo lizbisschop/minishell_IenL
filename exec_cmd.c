@@ -49,40 +49,36 @@ int			exec_child(char **tokens, char *s, t_mini *mini)
 
 	err = 0;
 	path = get_path(tokens[0]);
-	// printf("path = %s\n", path);
 	if (path != 0)
 	{
+		if (tokens[0])
+			free(tokens[0]);
 		tokens[0] = ft_strdup(path);
 		close(mini->main_out);
 		err = execve(tokens[0], tokens, environ);
 	}
-	if (path == 0)
+	if (err == -1)
 	{
-		ft_putstr_fd("bash: ", mini->main_out);
-		ft_putstr_fd(s, mini->main_out);
-		ft_putstr_fd(": ", mini->main_out);
-		ft_putstr_fd(strerror(errno), mini->main_out);
-		ft_putstr_fd("\n", mini->main_out);
-		close(mini->main_out);
 		if (s)
 			free(s);
+		exit(2);
 	}
-	if (path == 0)
-		close(mini->main_out);
+	ft_putstr_fd("bash: ", mini->main_out);
+	ft_putstr_fd(s, mini->main_out);
+	ft_putstr_fd(": command not found\n", mini->main_out);
+	close(mini->main_out);
+	if (s)
+		free(s);
 	exit(1);
 }
 
 int			exec_cmd(char **tokens, char *s, t_mini *mini)
 {
 	int			pid;
-	extern char **environ;
-	int			err;
-	char		*path;
 	int			fd_out;
 	int			fd_in;
 	int			wstat;
 
-	err = 0;
 	if (mini->piped == 1)
 		exec_child(tokens, s, mini);
 	pid = fork();
@@ -97,30 +93,8 @@ int			exec_cmd(char **tokens, char *s, t_mini *mini)
 		close(fd_out);
 		dup2(fd_in, STDIN_FILENO);
 		close(fd_in);
-		path = get_path(tokens[0]);
-		if (path != 0)
-		{
-			if (tokens[0])
-				free(tokens[0]);
-			tokens[0] = ft_strdup(path);
-			close(mini->main_out);
-			err = execve(tokens[0], tokens, environ);
-		}
-		if (err == -1)
-		{
-			if (s)
-				free(s);
-			exit(2);
-		}
-		ft_putstr_fd("bash: ", mini->main_out);
-		ft_putstr_fd(s, mini->main_out);
-		ft_putstr_fd(" : command not found\n", mini->main_out);
-		close(mini->main_out);
-		if (s)
-			free(s);
-		exit(1);
+		exec_child(tokens, s, mini);
 	}
-
 	close(fd_in);
 	close(fd_out);
 	wait(&wstat);

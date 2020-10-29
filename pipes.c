@@ -127,6 +127,15 @@ int		pipes(t_mini *mini, int cmd)
 	{
 		if (WIFEXITED(wstat))
 			mini->exit_int = WEXITSTATUS(wstat);
+		if (mini->exit_int == 2)
+		{
+			mini->exit_int = 1;
+			ft_putstr_fd("bash: ", mini->main_out);
+			ft_putstr_fd(mini->pipes_c[i].tokens[0], mini->main_out);
+			ft_putstr_fd(": ", mini->main_out);
+			ft_putstr_fd(strerror(errno), mini->main_out); // stderr needs to be redirected
+			ft_putstr_fd("\n", mini->main_out);
+		}
 	}
 	return (0);
 }
