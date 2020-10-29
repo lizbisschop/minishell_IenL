@@ -27,7 +27,7 @@ int	env_command(int check, t_mini *mini)
 	i = 0;
 	if (check != 1)
 	{
-		ft_putstr_fd("Error\n", 1);
+		ft_putstr_fd("bash: e\n", 1);
 		mini->exit_int = 1;
 		return (-1);
 	}

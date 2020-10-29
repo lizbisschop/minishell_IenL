@@ -30,6 +30,7 @@ int		multi_line_pipe(t_mini *mini)
 					ft_putstr_fd("bash: syntax error near unexpected token", 1);
 					ft_putstr_fd(" '|'\n", 1);
 				}
+				mini->exit_int = 1;
 				return (-1);
 			}
 			i++;
@@ -63,7 +64,7 @@ int		multi_lines(char *str)
 	return (0);
 }
 
-int check_pipes_redirect(char *s)
+int check_pipes_redirect(char *s, t_mini *mini)
 {
 	int i;
 
@@ -73,6 +74,7 @@ int check_pipes_redirect(char *s)
 		if (s[i] == ';')
 		{
 			ft_putstr_fd("bash: syntax error near ';'\n", 1);
+			mini->exit_int = 1;
 			return (-1);
 		}
 		i++;
@@ -98,11 +100,13 @@ int check_pipes_redirect(char *s)
 		if (s[i] == '|' && s[i + 1] == '|')
 		{
 			ft_putstr_fd("bash: syntax error near '|'\n", 1);
+			mini->exit_int = 1;
 			return (-1);
 		}
 		else if (s[i] == '<' && s[i + 1] == '<')
 		{
 			ft_putstr_fd("bash: syntax error near '<'\n", 1);
+			mini->exit_int = 1;
 			return (-1);
 		}
 		else if (s[i] == '>' && s[i + 1] == '>' && s[i + 2] == '>')
@@ -111,6 +115,7 @@ int check_pipes_redirect(char *s)
 				ft_putstr_fd("bash: syntax error near '>>'\n", 1);
 			else
 				ft_putstr_fd("bash: syntax error near '>'\n", 1);
+			mini->exit_int = 1;
 			return (-1);
 		}
 		i++;
@@ -118,7 +123,7 @@ int check_pipes_redirect(char *s)
 	return (0);
 }
 
-int check_for_errors(char *s)
+int check_for_errors(char *s, t_mini *mini)
 {
 	int i;
 
@@ -126,9 +131,10 @@ int check_for_errors(char *s)
 	if (multi_lines(s))
 	{
 		ft_putstr_fd("bash: multiline command\n", 1);
+		mini->exit_int = 1;
 		return (-1);
 	}
-	if (check_pipes_redirect(s) == -1)
+	if (check_pipes_redirect(s, mini) == -1)
 		return (-1);
 	while (s[i] != '\0')
 	{
@@ -139,11 +145,13 @@ int check_for_errors(char *s)
 		else if (s[i] == '\\' && s[i + 1] == '\0')
 		{
 			ft_putstr_fd("bash: multiline command\n", 1);
+			mini->exit_int = 1;
 			return (-1);
 		}
 		else if (s[i] == ';' && s[i + 1] == ';')
 		{
 			ft_putstr_fd("bash: syntax error near ';;'\n", 1);
+			mini->exit_int = 1;
 			return (-1);
 		}
 		i++;

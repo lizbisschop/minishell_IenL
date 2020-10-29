@@ -74,21 +74,18 @@ void	show_command_prompt(void)
 {
 	int		i;
 	int		j;
+	char	buf[4096];
 
 	i = 31;
 	j = 0;
-	char buf[4096];
 	getcwd(buf, 4096);
 	if (buf == 0)
 		ft_putstr_fd("Error getting path\n", 1);
 	ft_putstr_fd("\e[0;31m~", 1);
 	while (buf[j] != '\0' && i <= 36)
 	{
-		// printf("i = %i\n", i);
 		ft_putstr_fd("\e[0;", 1);
-		// ft_putstr_fd("31", 1);
-		// ft_putstr_fd(mini_itoa(i), 1);
-		ft_putnbr_fd(i, 1);
+		ft_putstr_fd(mini_itoa(i), 1);
 		ft_putstr_fd("m", 1);
 		ft_putchar_fd(buf[j], 1);
 		if (buf[j] == '/')

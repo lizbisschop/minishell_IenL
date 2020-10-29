@@ -58,7 +58,7 @@ int		env_command(int check, t_mini *mini);
 char	**ft_split_minishell(char const *s, char c, t_mini *mini);
 int		ft_split_commands(char *s, t_mini *mini);
 int		string_count(t_mini *mini, char *s);
-int		check_for_errors(char *s);
+int		check_for_errors(char *s, t_mini *mini);
 int		tokens(t_mini *mini);
 void	skip_wspaces(char *s, int *i);
 int		is_whitespace(char c);
@@ -80,5 +80,6 @@ int		find_command(char **tokens, int tok_amount, t_mini *mini);
 void	check_redir(int *fd_out, int *fd_in, char ***tokens, int *tok_amount, t_mini *mini);
 int		valid_input_redir(t_command *command, t_mini *mini);
 int		tokenizer(char **tokens, int tok_amount, t_mini *mini);
+void	put_error_fd(char *function, char *str, int fd, t_mini *mini);
 
 #endif

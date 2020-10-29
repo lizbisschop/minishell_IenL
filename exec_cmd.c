@@ -58,11 +58,12 @@ int			exec_child(char **tokens, char *s, t_mini *mini)
 	}
 	if (err == -1 || path == 0)
 	{
-		ft_putstr_fd("bash: ", mini->main_out);
-		ft_putstr_fd(s, mini->main_out);
-		ft_putstr_fd(": ", mini->main_out);
-		ft_putstr_fd(strerror(errno), mini->main_out);
-		ft_putstr_fd("\n", mini->main_out);
+		if (path == 0)
+		{
+			ft_putstr_fd("bash: ", mini->main_out);
+			ft_putstr_fd(s, mini->main_out);
+			ft_putstr_fd(" : command not found\n", mini->main_out);
+		}
 		if (s)
 			free(s);
 	}
@@ -92,7 +93,6 @@ int			exec_cmd(char **tokens, char *s, t_mini *mini)
 	if (pid == 0)
 	{
 		close(mini->main_in);
-		close(mini->main_out);
 		dup2(fd_out, STDOUT_FILENO);
 		close(fd_out);
 		dup2(fd_in, STDIN_FILENO);
@@ -100,22 +100,27 @@ int			exec_cmd(char **tokens, char *s, t_mini *mini)
 		path = get_path(tokens[0]);
 		if (path != 0)
 		{
+			if (tokens[0])
+				free(tokens[0]);
 			tokens[0] = ft_strdup(path);
+			close(mini->main_out);
 			err = execve(tokens[0], tokens, environ);
 		}
 		if (err == -1 || path == 0)
 		{
-			ft_putstr_fd("bash: ", 1);
-			ft_putstr_fd(s, 1);
-			ft_putstr_fd(": ", 1);
-			ft_putstr_fd(strerror(errno), 1);
-			ft_putstr_fd("\n", 1);
-			mini->exit_int = 127;
+			if (path == 0)
+			{
+				ft_putstr_fd("bash: ", mini->main_out);
+				ft_putstr_fd(s, mini->main_out);
+				ft_putstr_fd(" : command not found\n", mini->main_out);
+			}
 			if (s)
 				free(s);
 		}
-		exit(127);
+		close(mini->main_out);
+		exit(1);
 	}
+
 	close(fd_in);
 	close(fd_out);
 	wait(&wstat);

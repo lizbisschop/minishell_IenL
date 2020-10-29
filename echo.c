@@ -105,7 +105,6 @@ void		echo(char **tokens, int tok_amount, t_mini *mini)
 
 	i = 1;
 	n_flag = 0;
-	ft_putstr_fd("", mini->main_out);
 	if (tok_amount > 1)
 	{
 		if (ft_strncmp("-n", tokens[1], 2) == 0 &&
@@ -116,9 +115,6 @@ void		echo(char **tokens, int tok_amount, t_mini *mini)
 		}
 		while (i < tok_amount)
 		{
-			// printf("%c|%i|%i\n", tokens[i][0], i, tok_amount);
-			// if (is_delimiter(tokens[i][0]))
-			// 	break ;
 			ft_putstr_fd(tokens[i], 1);
 			if (i < tok_amount -1)
 				ft_putchar_fd(' ', 1);
