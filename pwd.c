@@ -1,5 +1,13 @@
 #include "minishell.h"
 
+char	*get_pwd(void)
+{
+	char buf[4096];
+
+	getcwd(buf, 4096);
+	return (ft_strdup(buf));
+}
+
 void	pwd(t_mini *mini)
 {
 	char buf[4096];

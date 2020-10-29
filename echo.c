@@ -20,16 +20,16 @@ void		get_env_var(int *i, char **token, t_mini *mini, char **str)
 	// printf("%c\n", (*token)[*i]);
 	if ((*token)[*i] == '_')
 	{
-		// printf("i am here\n");
 		*token = ft_strdup("");
 		return ;
 	}
-	while ((*token)[(*i) + var_length] != '\0' && ft_isalnum((*token)[(*i) +
+	while ((*token)[(*i) + var_length] != '\0' && ft_isascii((*token)[(*i) +
 	var_length]))
 		var_length++;
 	while (mini->env[j])
 	{
-		if (ft_strncmp(&(*token)[(*i)], mini->env[j], var_length) == 0)
+		if (ft_strncmp(&(*token)[(*i)], mini->env[j], var_length) == 0 &&
+		mini->env[j][var_length] == '=')
 		{
 			(*str) = gnl_strjoin((*str), &(mini->env[j][var_length + 1]));
 		}
@@ -80,7 +80,7 @@ void		check_for_dollar(char **token, t_mini *mini)
 				str = gnl_strjoin(str, ft_itoa(mini->exit_int));
 				i += 2;
 			}
-			if ((*token)[i] == '$' && q != '\'')
+			else if ((*token)[i] == '$' && (*token)[i + 1] && q != '\'')
 				get_env_var(&i, token, mini, &str);
 			else
 			{

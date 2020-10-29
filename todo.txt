@@ -2,20 +2,20 @@ system("ls -la /proc/$$/fd");
 [V] more than 3 >>> error : syntax error near '>>'
 [ ] malloc: double free bij >>>
 [ ] segfault multiple pipes??
-[ ] file with quotes: open file without quotes
+[V] file with quotes: open file without quotes
 [ ]     ; echo hoi should give syntax error near unexpected token ';'
 [ ] norm maken
 [ ] stderror juist doorgeven naar 1 plek
-[ ] fds worden steeds groter naarmate je meer commands achter elkaar uitvoerd && gebeurt niet bij pipes
-[ ] exit codes?
+[V] fds worden steeds groter naarmate je meer commands achter elkaar uitvoerd && gebeurt niet bij pipes
+[V] exit codes?
+[V] env variables $PA shouldn't give path && only [$] works
 
 Testing cat--------------------------------------------------------
 [V] cat $HOME
 
 Testing pipes-------------------------------------------------------
-[ ] ./github_minishell/gnl/ > outfile
-[ ] //pipes lopen op bij meerdere keren doen-> worden niet goed gesloten?
-[ ] mini_main.c > out //error message should be promted in terminal
+[V] ./github_minishell/gnl/ > outfile
+[V] mini_main.c > out //error message should be promted in terminal
 [V] pwd | cat
 [V] pwd | cat > out
 [ ] | //ours: multiline command, real: syntax error near '|'
