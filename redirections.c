@@ -20,6 +20,7 @@ int			valid_input_redir(t_command *command, t_mini *mini)
 				ft_putstr_fd(strerror(errno), mini->main_out);
 				ft_putstr_fd("\n", mini->main_out);
 				command->invalid_input = 1;
+				mini->exit_int = 1;
 				return (-1);
 			}
 			close(fd);
@@ -68,6 +69,7 @@ int			check_input_redir(char ***tokens, int i, int *tok_amount, int *found, int 
 	if (fd3 == -1)
 	{
 		ft_putstr_fd("ERROR\n", mini->main_out);
+		mini->exit_int = 1;
 		return (-1);
 	}
 	trim_tokens(i, tokens, tok_amount, mini);
