@@ -11,7 +11,7 @@ int		set_fds(int *fd_in, int i, int *fd_out, int main_out, t_mini *mini, int *pi
 	dup2(*fd_in, STDIN_FILENO);
 	close(*fd_in);
 	// if last command
-	if (i == mini->pipe_cmds - 1)
+	if (i == mini->pipe_cmds - 1) 
 	{
 		// if outfile
 		*fd_out = dup(main_out);
