@@ -105,7 +105,6 @@ void	which_command(t_mini *mini)
 				valid_input_redir(&mini->c[j], mini);
 				j++;
 			}
-
 			check_redir(&fd_out, &fd_in, &(mini->c[cmd].tokens), &(mini->c[cmd].tok_amount), mini);
 			dup2(fd_in, STDIN_FILENO);
 			dup2(fd_out, STDOUT_FILENO);
