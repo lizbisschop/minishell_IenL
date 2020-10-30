@@ -51,7 +51,6 @@ int			exec_child(char **tokens, char *s, t_mini *mini)
 
 	err = 0;
 	path = get_path(tokens[0]);
-	ft_putstr_fd(path, mini->main_out);
 	if (tokens[0])
 		free(tokens[0]);
 	if (path != 0)
@@ -65,11 +64,12 @@ int			exec_child(char **tokens, char *s, t_mini *mini)
 		pwd = get_pwd();
 		pwd = gnl_strjoin(pwd, "/");
 		tokens[0] = gnl_strjoin(pwd, s);
-		if (stat(tokens[0], &buf) != -1) //misschien uitzetten voor error message
+		// if (stat(tokens[0], &buf) != -1) //misschien uitzetten voor error message
 			err = execve(tokens[0], tokens, environ);
 	}
 	if (err == -1)
 	{
+		ft_putstr_fd(strerror(errno), mini->main_out);
 		if (s)
 			free(s);
 		exit(2);
