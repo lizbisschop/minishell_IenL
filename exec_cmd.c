@@ -48,39 +48,70 @@ int			exec_child(char **tokens, char *s, t_mini *mini)
 	extern char		**environ;
 	struct stat		buf;
 	char			*pwd;
+	DIR				*dir;
 
 	err = 0;
-	path = get_path(tokens[0]);
-	ft_putstr_fd(path, mini->main_out);
-	if (tokens[0])
-		free(tokens[0]);
-	if (path != 0)
+	if (!(s[0] == '.' && s[1] == '/'))
 	{
-		tokens[0] = ft_strdup(path);
+		path = get_path(tokens[0]);
+		if (path != 0)
+		{
+			if (tokens[0])
+				free(tokens[0]);
+			tokens[0] = ft_strdup(path);
+			if (s)
+				free(s);
+			close(mini->main_out);
+			execve(tokens[0], tokens, environ);
+		}
+		else if (s[0] == '/')
+		{
+			close(mini->main_out);
+			execve(tokens[0], tokens, environ);
+			exit(errno);
+		}
+		ft_putstr_fd("bash: ", mini->main_out);
+		ft_putstr_fd(s, mini->main_out);
+		ft_putstr_fd(": command not found\n", mini->main_out);
 		close(mini->main_out);
-		err = execve(tokens[0], tokens, environ);
+		if (s)
+			free(s);
+		exit(1);
 	}
-	else if (s[0] == '.')
+	else
 	{
 		pwd = get_pwd();
 		pwd = gnl_strjoin(pwd, "/");
 		tokens[0] = gnl_strjoin(pwd, s);
-		if (stat(tokens[0], &buf) != -1) //misschien uitzetten voor error message
-			err = execve(tokens[0], tokens, environ);
-	}
-	if (err == -1)
-	{
+		dir = opendir(tokens[0]);
+		if (dir != NULL)
+		{
+			closedir(dir);
+			ft_putstr_fd("bash: ", mini->main_out);
+			ft_putstr_fd(s, mini->main_out);
+			ft_putstr_fd(": is a directory\n", mini->main_out);
+		}
+		else if (stat(tokens[0], &buf) != -1)
+		{
+			close(mini->main_out);
+			if (s)
+				free(s);
+			execve(tokens[0], tokens, environ);
+			exit(errno);
+		}
+		else
+		{
+			ft_putstr_fd("bash: ", mini->main_out);
+			ft_putstr_fd(s, mini->main_out);
+			ft_putstr_fd(": ", mini->main_out);
+			ft_putstr_fd(strerror(errno), mini->main_out);
+			ft_putstr_fd("\n", mini->main_out);
+		}
+		close(mini->main_out);
 		if (s)
 			free(s);
-		exit(2);
+		exit(1);
 	}
-	ft_putstr_fd("bash: ", mini->main_out);
-	ft_putstr_fd(s, mini->main_out);
-	ft_putstr_fd(": command not found\n", mini->main_out);
-	close(mini->main_out);
-	if (s)
-		free(s);
-	exit(1);
 }
 
 int			exec_cmd(char **tokens, char *s, t_mini *mini)
@@ -112,14 +143,15 @@ int			exec_cmd(char **tokens, char *s, t_mini *mini)
 	if (WIFEXITED(wstat)) //if normal termination
 	{
 		mini->exit_int = WEXITSTATUS(wstat);
-		if (mini->exit_int == 2)
+		if (mini->exit_int != 0 && mini->exit_int != 1)
 		{
-			mini->exit_int = 1;
 			ft_putstr_fd("bash: ", mini->main_out);
-			ft_putstr_fd(s, mini->main_out);
+			ft_putstr_fd(tokens[0], mini->main_out);
 			ft_putstr_fd(": ", mini->main_out);
-			ft_putstr_fd(strerror(errno), mini->main_out); // stderr needs to be redirected
+			ft_putstr_fd(strerror(mini->exit_int), mini->main_out);
 			ft_putstr_fd("\n", mini->main_out);
+			close(mini->main_out);
+			mini->exit_int = 1;
 		}
 	}
 	if (s)

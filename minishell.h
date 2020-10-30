@@ -11,6 +11,7 @@
 #include <signal.h>
 #include <errno.h>
 #include <limits.h>
+#include <dirent.h>
 #include "./libft/libft.h"
 #include "./gnl/get_next_line.h"
 
@@ -26,6 +27,7 @@ typedef	struct	s_command{
 typedef	struct	s_mini{
 	int			main_in;
 	int			main_out;
+	int			main_err;
 	int			cmds;
 	int			pipe_cmds;
 	int			end;

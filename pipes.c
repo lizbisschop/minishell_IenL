@@ -50,20 +50,23 @@ void	print_pipeinput_terminal(int main_out)
 int		pipes(t_mini *mini, int cmd)
 {
 	int		pipefd[mini->cmds][2];
-	int		pid;
+	int		*pid;
 	int		i;
 	int		j;
+	int		k;
 	int		main_in;
 	int		main_out;
 	int		fd_in;
 	int		fd_out;
 	int		wstat;
+	pid_t	pid_wait;
 
 	i = 0;
 	j = 0;
 	fd_out = 1000;
 	// free stuff in pipes_c
 	tokenizer(mini->c[cmd].tokens, mini->c[cmd].tok_amount, mini);
+	pid = ft_calloc(mini->pipe_cmds, sizeof(int));
 	main_in = dup(STDIN_FILENO);
 	main_out = dup(STDOUT_FILENO);
 	mini->main_in = main_in;
@@ -99,10 +102,10 @@ int		pipes(t_mini *mini, int cmd)
 		}
 		dup2(fd_out, STDOUT_FILENO);
 		close(fd_out);
-		pid = fork();
-		if (pid == -1)
+		pid[i] = fork();
+		if (pid[i] == -1)
 			ft_putstr_fd("fork went wrong\n", main_out);
-		if (pid == 0)
+		if (pid[i] == 0)
 		{
 			// Child process
 			// open fd's: main_in, main_out, fd_in
@@ -123,19 +126,31 @@ int		pipes(t_mini *mini, int cmd)
 	dup2(main_out, STDOUT_FILENO);
 	close(main_in);
 	close(main_out);
-	while (wait(&wstat) != -1)
+	i = 0;
+	while (i < mini->pipe_cmds)
 	{
-		if (WIFEXITED(wstat))
-			mini->exit_int = WEXITSTATUS(wstat);
-		if (mini->exit_int == 2)
+		pid_wait = wait(&wstat);
+		k = 0;
+		while (pid[k])
 		{
-			mini->exit_int = 1;
-			ft_putstr_fd("bash: ", mini->main_out);
-			ft_putstr_fd(mini->pipes_c[i].tokens[0], mini->main_out);
-			ft_putstr_fd(": ", mini->main_out);
-			ft_putstr_fd(strerror(errno), mini->main_out); // stderr needs to be redirected
-			ft_putstr_fd("\n", mini->main_out);
+			if (pid[k] == pid_wait)
+				break ;
+			k++;
 		}
+		if (WIFEXITED(wstat)) // if normal termination
+		{
+			mini->exit_int = WEXITSTATUS(wstat);
+			if (mini->exit_int != 0 && mini->exit_int != 1)
+			{
+				ft_putstr_fd("bash: ", 1);
+				ft_putstr_fd(mini->pipes_c[k].tokens[0], 1);
+				ft_putstr_fd(": ", 1);
+				ft_putstr_fd(strerror(mini->exit_int), 1); // stderr needs to be redirected
+				ft_putstr_fd("\n", 1);
+				mini->exit_int = 1;
+			}
+		}
+		i++;
 	}
 	return (0);
 }
