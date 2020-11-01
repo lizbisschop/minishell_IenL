@@ -56,7 +56,6 @@ clean:
 	rm -rf $(OBJ)
 
 fclean: clean
-	@make fclean -C ./libft
 	# rm -rf $(LIBFT)
 	rm -rf $(NAME)
 

@@ -74,7 +74,7 @@ int check_pipes_redirect(char *s, t_mini *mini)
 	int i;
 
 	i = 0;
-	while (is_whitespace(s[i]) && s[i] != '\0' || s[i] == ';')
+	while ((is_whitespace(s[i]) && s[i] != '\0') || s[i] == ';')
 	{
 		if (s[i] == ';')
 		{

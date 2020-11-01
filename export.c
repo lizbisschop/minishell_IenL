@@ -14,6 +14,21 @@
 // 	printf("%s | %s\n", mini->set, mini->alias);
 // }
 
+void	free_env(t_mini *mini)
+{
+	int i;
+
+	i = 0;
+	while (mini->env[i])
+	{
+		if (mini->env[i])
+			free(mini->env[i]);
+		i++;
+	}
+	if (mini->env)
+		free(mini->env);
+}
+
 char 	**add_to_env(char *s, t_mini *mini)
 {
 	char	**new_env;
@@ -29,13 +44,11 @@ char 	**add_to_env(char *s, t_mini *mini)
 	while (mini->env[size])
 	{
 		new_env[size] = ft_strdup(mini->env[size]);
-		// printf(" ");
-		// if (mini->env[size])
-			// free(mini->env[size]);
 		size++;
 	}
 	new_env[size] = ft_strdup(s);
 	new_env[size + 1] = (void*)0;
+	free_env(mini);
 	return (new_env);
 }
 
@@ -51,7 +64,7 @@ void	print_export(t_mini *mini)
 	j = 0;
 	k = 0;
 	check = 0;
-	mini->export_env = sort_env(mini->env);
+	mini->export_env = sort_env(mini->env, mini);
 	while (mini->export_env[i])
 	{
 		ft_putstr_fd("declare -x ", 1);
@@ -75,8 +88,11 @@ void	print_export(t_mini *mini)
 		k = 0;
 		ft_putstr_fd(new_str, 1);
 		ft_putchar_fd('\n', 1);
+		if (new_str)
+			free(new_str);
 		i++;
 	}
+	free_env_export(mini);
 }
 
 int		check_over_write(char *s, t_mini *mini)
@@ -103,16 +119,19 @@ int		check_over_write(char *s, t_mini *mini)
 		len = 0;
 		while (mini->env[j][len] != '\0' && mini->env[j][len] != '=')
 			len++;
-		// printf("i = %i len = %i %s\n", i, len, mini->env[j]);
 		if (ft_strncmp(s, mini->env[j], len) == 0 && i == len)
 		{
-			printf("i = %i len = %i %s | %s\n", i, len, s, mini->env[j]);
-			free(mini->env[j]);
+			if (mini->env[j])
+				free(mini->env[j]);
 			mini->env[j] = ft_strdup(s);
+			if (str)
+				free(str);
 			return (1);
 		}
 		j++;
 	}
+	if (str)
+		free(str);
 	return (0);
 }
 

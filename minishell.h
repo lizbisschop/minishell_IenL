@@ -69,7 +69,7 @@ void	free_stuff(t_mini *mini);
 char	**copy_env(void);
 void	ft_export(char **tokens, int tok_amount, t_mini *mini);
 void	set_env(char *s, t_mini *mini);
-char	**sort_env(char **str);
+char	**sort_env(char **str, t_mini *mini);
 char	*read_line(void);
 int		exec_cmd(char **tokens, char *s, t_mini *mini);
 char	*ft_strjoin_read(char *s1, char *s2);
@@ -84,5 +84,6 @@ int		valid_input_redir(t_command *command, t_mini *mini);
 int		tokenizer(char **tokens, int tok_amount, t_mini *mini);
 void	put_error_fd(char *function, char *str, int fd, t_mini *mini);
 char	*get_pwd(void);
+void	free_env_export(t_mini *mini);
 
 #endif

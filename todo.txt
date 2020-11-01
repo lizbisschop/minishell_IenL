@@ -48,6 +48,10 @@ Tests github--------------------------------------------------------
 [ ] 
 [ ] 
 
+Testing for leaks
+[ ]eaks in echo
+
+
 Tests liewe----------------------------------------------------------
 [V] cat /dev/urandom | head -c10 //should not hang
 [V] cat | grep 42 //reoutput only if you give 42 in string
