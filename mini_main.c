@@ -3,7 +3,10 @@
 void	handle_sigint(int signal)
 {
 	ft_putchar_fd('\n', 1);
+	// ft_putstr_fd("HANDLE\n", 1);
 	show_command_prompt();
+	// ft_putstr_fd("AFTER\n", 1);
+
 	(void)signal;
 }
 
@@ -27,12 +30,14 @@ int		main(void)
 
 	mini.env = copy_env();
 	mini.exit_int = 0;
+	mini.forked = 0;
 	while (1)
 	{
-		printf("size=%lu\n", sizeof(mini));
-		signal(SIGINT, &handle_sigint);
+		// ft_putstr_fd("-------------------------\n", 1);
 		signal(SIGQUIT, &handle_sigquit);
+		signal(SIGINT, &handle_sigint);
 		set_struct(&mini);
+		// ft_putstr_fd("PROMPT\n", 1);
 		show_command_prompt();
 		mini.input = read_line();
 		if (ft_split_commands(mini.input, &mini) != -1)
