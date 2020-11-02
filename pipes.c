@@ -81,11 +81,11 @@ int		pipes(t_mini *mini, int cmd)
 	while (i < mini->pipe_cmds)
 	{
 		check_redir(&fd_out, &fd_in, &(mini->pipes_c[i].tokens), &(mini->pipes_c[i].tok_amount), mini);
-		ft_putstr_fd("mini->in_redir = ", main_out);
-		ft_putnbr_fd(mini->in_redir, main_out);
-		ft_putstr_fd("\nmini->out_redir = ", main_out);
-		ft_putnbr_fd(mini->out_redir, main_out);
-		ft_putstr_fd("\n", main_out);
+		// ft_putstr_fd("mini->in_redir = ", main_out);
+		// ft_putnbr_fd(mini->in_redir, main_out);
+		// ft_putstr_fd("\nmini->out_redir = ", main_out);
+		// ft_putnbr_fd(mini->out_redir, main_out);
+		// ft_putstr_fd("\n", main_out);
 		dup2(fd_in, STDIN_FILENO);
 		close(fd_in);
 		if (i == mini->pipe_cmds - 1 && mini->out_redir == 0)
@@ -127,6 +127,7 @@ int		pipes(t_mini *mini, int cmd)
 	close(main_in);
 	close(main_out);
 	i = 0;
+	system("leaks minishell");
 	while (i < mini->pipe_cmds)
 	{
 		pid_wait = wait(&wstat);
@@ -152,5 +153,6 @@ int		pipes(t_mini *mini, int cmd)
 		}
 		i++;
 	}
+
 	return (0);
 }

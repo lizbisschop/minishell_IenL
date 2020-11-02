@@ -21,7 +21,7 @@ void	set_struct(t_mini *mini)
 	mini->c = (void*)(0);
 }
 
-int		main(int argc, char **argv)
+int		main(void)
 {
 	t_mini	mini;
 
@@ -29,6 +29,7 @@ int		main(int argc, char **argv)
 	mini.exit_int = 0;
 	while (1)
 	{
+		printf("size=%lu\n", sizeof(mini));
 		signal(SIGINT, &handle_sigint);
 		signal(SIGQUIT, &handle_sigquit);
 		set_struct(&mini);
@@ -43,8 +44,6 @@ int		main(int argc, char **argv)
 		}
 		free_stuff(&mini);
 	}
-	(void)argc;
-	(void)argv;
 	exit(0);
 	return (0);
 }

@@ -89,12 +89,12 @@ void		check_redir(int *fd_out, int *fd_in, char ***tokens, int *tok_amount, t_mi
 	found2 = 0;
 	mini->out_redir = 0;
 	mini->in_redir = 0;
-	ft_putstr_fd("fd_out = ", mini->main_out);
-	ft_putnbr_fd(*fd_out, mini->main_out);
-	ft_putstr_fd("\n", mini->main_out);
-	ft_putstr_fd("fd_in = ", mini->main_out);
-	ft_putnbr_fd(*fd_in, mini->main_out);
-	ft_putstr_fd("\n", mini->main_out);
+	// ft_putstr_fd("fd_out = ", mini->main_out);
+	// ft_putnbr_fd(*fd_out, mini->main_out);
+	// ft_putstr_fd("\n", mini->main_out);
+	// ft_putstr_fd("fd_in = ", mini->main_out);
+	// ft_putnbr_fd(*fd_in, mini->main_out);
+	// ft_putstr_fd("\n", mini->main_out);
 	while ((*tokens)[i])
 	{
 		if ((ft_strncmp((*tokens)[i], ">", 1) == 0 &&

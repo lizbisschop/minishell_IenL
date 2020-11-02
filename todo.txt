@@ -12,6 +12,7 @@ system("ls -la /proc/$$/fd");
 [ ] ~/bin/ //home substitution at ~
 [ ] test.c/: Not a directory
 [ ] /test.c/: No such file or directory
+[ ] Exit with a number should remember the number
 
 Testing cat--------------------------------------------------------
 [V] cat $HOME

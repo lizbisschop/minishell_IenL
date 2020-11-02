@@ -4,10 +4,11 @@ void	show_command_prompt(void)
 {
 	int		i;
 	int		j;
-	char	buf[4096];
+	char	*buf;
 
 	i = 31;
 	j = 0;
+	buf = ft_calloc(4096, sizeof(char));
 	getcwd(buf, 4096);
 	if (buf[0] == '\0')
 		ft_putstr_fd("Error getting path\n", 1);
@@ -26,4 +27,6 @@ void	show_command_prompt(void)
 	}
 	ft_putstr_fd("\e[0m", 1);
 	write(1, "$ ", 2);
+	if (buf[0] != '\0')
+		free(buf);
 }

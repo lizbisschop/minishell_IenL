@@ -1,13 +1,19 @@
 #include "minishell.h"
 
-void	exec_exit(t_mini *mini, int tok_amount)
+void	exec_exit(t_mini *mini, int tok_amount, char **tokens)
 {
-	if (tok_amount != 1)
-		ft_putstr_fd("logout\nbash: exit: too many arguments\n", 1);
+	int exit_int;
+
+	if (tok_amount > 1)
+	{
+		exit_int = ft_atoi(tokens[1]);
+		mini->exit_int = exit_int;
+		printf("%d\n", exit_int);
+		exit(5);
+	}
 	else
 	{
-		free_stuff(mini);
-		exit(0);
+			exit(0);
 	}
 }
 
@@ -18,7 +24,10 @@ void	var_sub_and_unquote(char **tokens, t_mini *mini)
 	i = 0;
 	while (tokens[i])
 	{
-		check_for_dollar(&(tokens[i]), mini);
+		if (i != 0)
+		{
+			check_for_dollar(&(tokens[i]), mini);
+		}
 		tokens[i] = unquote(&(tokens[i]), mini);
 		i++;
 	}
@@ -38,7 +47,7 @@ int		find_command(char **tokens, int tok_amount, t_mini *mini)
 	else if (ft_strncmp("pwd", s, 3) == 0 && ft_strlen(s) == 3)
 		pwd(mini);
 	else if (ft_strncmp("exit", s, 4) == 0 && ft_strlen(s) == 4)
-		exec_exit(mini, tok_amount);
+		exec_exit(mini, tok_amount, tokens);
 	else if (ft_strncmp("cd", s, 2) == 0 && ft_strlen(s) == 2)
 		cd(tokens, tok_amount, mini);
 	else if (ft_strncmp("env", s, 3) == 0 && ft_strlen(s) == 3)
@@ -90,6 +99,7 @@ void	which_command(t_mini *mini)
 		{
 			mini->piped = 1;
 			pipes(mini, cmd);
+
 		}
 		else if (mini->c[cmd].tok_amount > 0)
 		{
