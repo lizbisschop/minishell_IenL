@@ -67,6 +67,11 @@ int			exec_child(char **tokens, char *s, t_mini *mini)
 				free(s);
 			// close(mini->main_out);
 			execve(tokens[0], tokens, environ);
+			ft_putstr_fd("bash: ", mini->main_out);
+			ft_putstr_fd(tokens[0], mini->main_out);
+			ft_putstr_fd(": ", mini->main_out);
+			ft_putstr_fd(strerror(errno), mini->main_out);
+			ft_putstr_fd("\n", mini->main_out);
 		}
 		ft_putstr_fd("bash: ", mini->main_out);
 		ft_putstr_fd(s, mini->main_out);
