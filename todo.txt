@@ -7,12 +7,14 @@ system("ls -la /proc/$$/fd");
 [V] fds worden steeds groter naarmate je meer commands achter elkaar uitvoerd && gebeurt niet bij pipes
 [V] exit codes?
 [V] env variables $PA shouldn't give path && only [$] works
-[ ] norm maken
-[ ] segfault multiple pipes??
-[ ] Exit with a number should remember the number
 [V] ~/bin/ //home substitution at ~
 [V] test.c/: Not a directory
 [V] /test.c/: No such file or directory
+[ ] norm maken
+[ ] segfault multiple pipes??
+[ ] Exit with a number should remember the number
+[ ] ctrl+c new process
+[ ] builtins met hoofdletters
 
 Testing cat--------------------------------------------------------
 [V] cat $HOME

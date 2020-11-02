@@ -65,16 +65,16 @@ int			exec_child(char **tokens, char *s, t_mini *mini)
 			tokens[0] = ft_strdup(path);
 			if (s)
 				free(s);
-			// close(mini->main_out);
+			close(mini->main_out);
 			execve(tokens[0], tokens, environ);
 		}
-		ft_putstr_fd("bash: ", mini->main_out);
-		ft_putstr_fd(s, mini->main_out);
-		ft_putstr_fd(": command not found\n", mini->main_out);
+		ft_putstr_fd("bash: ", 2);
+		ft_putstr_fd(s, 2);
+		ft_putstr_fd(": command not found\n", 2);
 		close(mini->main_out);
 		if (s)
 			free(s);
-		exit(1);
+		exit(127);
 	}
 	else
 	{
@@ -109,29 +109,38 @@ int			exec_child(char **tokens, char *s, t_mini *mini)
 		if (dir != NULL)
 		{
 			closedir(dir);
-			ft_putstr_fd("bash: ", mini->main_out);
-			ft_putstr_fd(s, mini->main_out);
-			ft_putstr_fd(": is a directory\n", mini->main_out);
+			ft_putstr_fd("bash: ", 2);
+			ft_putstr_fd(s, 2);
+			ft_putstr_fd(": is a directory\n", 2);
+			close(mini->main_out);
+			if (s)
+				free(s);
+			exit(126);
 		}
 		else if (stat(tokens[0], &buf) != -1)
 		{
-			// close(mini->main_out);
+			close(mini->main_out);
 			if (s)
 				free(s);
 			execve(tokens[0], tokens, environ);
-			ft_putstr_fd("bash: ", mini->main_out);
-			ft_putstr_fd(tokens[0], mini->main_out);
-			ft_putstr_fd(": ", mini->main_out);
-			ft_putstr_fd(strerror(errno), mini->main_out);
-			ft_putstr_fd("\n", mini->main_out);
+			ft_putstr_fd("bash: ", 2);
+			ft_putstr_fd(tokens[0], 2);
+			ft_putstr_fd(": ", 2);
+			ft_putstr_fd(strerror(errno), 2);
+			ft_putstr_fd("\n", 2);
+			exit(126);
 		}
-		else
+		else // No such file or directory
 		{
-			ft_putstr_fd("bash: ", mini->main_out);
-			ft_putstr_fd(s, mini->main_out);
-			ft_putstr_fd(": ", mini->main_out);
-			ft_putstr_fd(strerror(errno), mini->main_out);
-			ft_putstr_fd("\n", mini->main_out);
+			ft_putstr_fd("bash: ", 2);
+			ft_putstr_fd(s, 2);
+			ft_putstr_fd(": ", 2);
+			ft_putstr_fd(strerror(errno), 2);
+			ft_putstr_fd("\n", 2);
+			close(mini->main_out);
+			if (s)
+				free(s);
+			exit(127);
 		}
 		close(mini->main_out);
 		if (s)
@@ -156,6 +165,7 @@ int			exec_cmd(char **tokens, char *s, t_mini *mini)
 	fd_in = dup(STDIN_FILENO);
 	if (pid == 0)
 	{
+		mini->forked = 1;
 		close(mini->main_in);
 		dup2(fd_out, STDOUT_FILENO);
 		close(fd_out);
@@ -169,17 +179,6 @@ int			exec_cmd(char **tokens, char *s, t_mini *mini)
 	if (WIFEXITED(wstat)) //if normal termination
 	{
 		mini->exit_int = WEXITSTATUS(wstat);
-		// if (mini->exit_int != 0 && mini->exit_int != 1)
-		// !(ft_strncmp(tokens[0], "exit", 4) && ft_strlen(tokens[0]) == 4))
-		// {
-		// 	ft_putstr_fd("bash: ", mini->main_out);
-		// 	ft_putstr_fd(tokens[0], mini->main_out);
-		// 	ft_putstr_fd(": ", mini->main_out);
-		// 	ft_putstr_fd(strerror(mini->exit_int), mini->main_out);
-		// 	ft_putstr_fd("\n", mini->main_out);
-		// 	close(mini->main_out);
-		// 	mini->exit_int = 1;
-		// }
 	}
 	if (s)
 		free(s);

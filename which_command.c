@@ -13,7 +13,7 @@ void	exec_exit(t_mini *mini, int tok_amount, char **tokens)
 	}
 	else
 	{
-			exit(0);
+		exit(0);
 	}
 }
 
