@@ -85,5 +85,6 @@ int		tokenizer(char **tokens, int tok_amount, t_mini *mini);
 void	put_error_fd(char *function, char *str, int fd, t_mini *mini);
 char	*get_pwd(void);
 void	free_env_export(t_mini *mini);
+char	*get_home(t_mini *mini);
 
 #endif

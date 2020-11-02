@@ -49,9 +49,13 @@ int			exec_child(char **tokens, char *s, t_mini *mini)
 	struct stat		buf;
 	char			*pwd;
 	DIR				*dir;
+	char			*home;
 
 	err = 0;
-	if (!(s[0] == '.' && s[1] == '/'))
+	if (!(tokens[0][0] == '.' && tokens[0][1] && tokens[0][1] == '/') &&
+	!(tokens[0][0] == '~' && tokens[0][1] && tokens[0][1] == '/') &&
+	!(tokens[0][0] == '~' && !tokens[0][1]) &&
+	ft_strchr(s, '/') == 0)
 	{
 		path = get_path(tokens[0]);
 		if (path != 0)
@@ -64,12 +68,6 @@ int			exec_child(char **tokens, char *s, t_mini *mini)
 			close(mini->main_out);
 			execve(tokens[0], tokens, environ);
 		}
-		else if (s[0] == '/')
-		{
-			close(mini->main_out);
-			execve(tokens[0], tokens, environ);
-			exit(errno);
-		}
 		ft_putstr_fd("bash: ", mini->main_out);
 		ft_putstr_fd(s, mini->main_out);
 		ft_putstr_fd(": command not found\n", mini->main_out);
@@ -80,9 +78,33 @@ int			exec_child(char **tokens, char *s, t_mini *mini)
 	}
 	else
 	{
-		pwd = get_pwd();
-		pwd = gnl_strjoin(pwd, "/");
-		tokens[0] = gnl_strjoin(pwd, s);
+		if (tokens[0][0] == '~')
+		{
+			home = get_home(mini);
+			if (s[1])
+				home = gnl_strjoin(home, &(s[1]));
+			if (s)
+				free(s);
+			s = ft_strdup(home);
+			if (tokens[0][1])
+			{
+				if (tokens[0])
+					free(tokens[0]);
+				tokens[0] = ft_strdup(s);
+			}
+			else
+			{
+				if (tokens[0])
+					free(tokens[0]);
+				tokens[0] = ft_strdup(s);
+			}
+		}
+		else if (s[0] == '.' && s[1] && s[1] == '/')
+		{
+			pwd = get_pwd();
+			pwd = gnl_strjoin(pwd, "/");
+			tokens[0] = gnl_strjoin(pwd, s);
+		}
 		dir = opendir(tokens[0]);
 		if (dir != NULL)
 		{
