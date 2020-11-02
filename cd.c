@@ -40,15 +40,7 @@ int		cd(char **tokens, int tok_amount, t_mini *mini)
 	char	*home;
 
 	home = get_home(mini);
-	if (tok_amount > 2)
-	{
-		ft_putstr_fd("bash: cd: too many arguments\n", 1);
-		mini->exit_int = 1;
-		if (home)
-			free(home);
-		return (-1);
-	}
-	else if (tok_amount == 1)
+	if (tok_amount == 1)
 		chdir(home);
 	else if (tokens[1][0] == '~')
 	{

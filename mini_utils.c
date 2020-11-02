@@ -45,11 +45,11 @@ char	*ft_strdup_free(char **s1)
 
 void	put_error_fd(char *function, char *str, int fd, t_mini *mini)
 {
-	ft_putstr_fd("bash:", fd);
+	ft_putstr_fd("bash: ", fd);
 	ft_putstr_fd(function, fd);
-	ft_putstr_fd(" :", fd);
+	ft_putstr_fd(": ", fd);
 	ft_putstr_fd(str, fd);
-	ft_putstr_fd(" : ", fd);
+	ft_putstr_fd(": ", fd);
 	ft_putstr_fd(strerror(errno), fd);
 	ft_putstr_fd("\n", fd);
 	mini->exit_int = 1;

@@ -9,10 +9,10 @@ system("ls -la /proc/$$/fd");
 [V] env variables $PA shouldn't give path && only [$] works
 [ ] norm maken
 [ ] segfault multiple pipes??
-[ ] ~/bin/ //home substitution at ~
-[ ] test.c/: Not a directory
-[ ] /test.c/: No such file or directory
 [ ] Exit with a number should remember the number
+[V] ~/bin/ //home substitution at ~
+[V] test.c/: Not a directory
+[V] /test.c/: No such file or directory
 
 Testing cat--------------------------------------------------------
 [V] cat $HOME
@@ -50,7 +50,7 @@ Tests github--------------------------------------------------------
 [ ] 
 
 Testing for leaks
-[ ]eaks in echo
+[ ] leaks in echo
 
 
 Tests liewe----------------------------------------------------------
