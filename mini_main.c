@@ -42,16 +42,17 @@ int		main(void)
 		set_struct(&mini);
 		show_command_prompt();
 		mini.input = read_line();
+
 		if (ft_split_commands(mini.input, &mini) != -1)
 		{
 			printf ("here i am \n");
-			if (mini.input)
-				free(mini.input);
 			tokens(&mini);
 			if (multi_line_pipe(&mini) != -1)
 				which_command(&mini);
 			free_stuff(&mini);
 		}
+		if (mini.input)
+			free(mini.input);
 	}
 	exit(0);
 	return (0);

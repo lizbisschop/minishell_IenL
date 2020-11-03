@@ -167,6 +167,7 @@ int		ft_split_commands(char *s, t_mini *mini)
 	{
 		if (mini->sp_input)
 			free(mini->sp_input);
+		printf("hellllo\n");
 		return (-1);
 	}
 	save_commands(mini, s);
