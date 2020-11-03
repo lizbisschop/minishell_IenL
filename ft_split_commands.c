@@ -164,7 +164,11 @@ int		ft_split_commands(char *s, t_mini *mini)
 		return (-1);
 	}
 	if (check_for_errors(s, mini) == -1)
+	{
+		if (mini->sp_input)
+			free(mini->sp_input);
 		return (-1);
+	}
 	save_commands(mini, s);
 	return (1);
 }

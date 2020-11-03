@@ -44,6 +44,7 @@ int		main(void)
 		mini.input = read_line();
 		if (ft_split_commands(mini.input, &mini) != -1)
 		{
+			printf ("here i am \n");
 			if (mini.input)
 				free(mini.input);
 			tokens(&mini);
