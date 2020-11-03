@@ -1,9 +1,5 @@
 #include "minishell.h"
 
-/*
-** exit too many arguments
-*/
-
 char		*get_path(char *cmd)
 {
 	int			i;
@@ -170,7 +166,6 @@ int			exec_cmd(char **tokens, char *s, t_mini *mini)
 	fd_in = dup(STDIN_FILENO);
 	if (pid == 0)
 	{
-		mini->forked = 1;
 		close(mini->main_in);
 		dup2(fd_out, STDOUT_FILENO);
 		close(fd_out);

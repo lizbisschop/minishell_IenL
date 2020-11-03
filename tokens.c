@@ -124,7 +124,7 @@ int     tokens(t_mini *mini)
         s = mini->sp_input[cmd];
         tokens = token_amount(s);
         mini->c[cmd].tok_amount = tokens;
-        // printf("whole string[%s]\ntokens[%i]:\n", s, tokens);
+        printf("whole string[%s]\ntokens[%i]:\n", s, tokens);
         mini->c[cmd].tokens = (char **)malloc(sizeof(char *) * (tokens + 1));
         if (!(mini->c[cmd].tokens))
         {
@@ -137,14 +137,14 @@ int     tokens(t_mini *mini)
             end = tok_end(s, i);
             // printf("i = %i; end = %i\n", i, end);
             mini->c[cmd].tokens[j] = ft_substr(s, i, end - i);
-            // printf("[%s]\n", mini->c[cmd].tokens[j]);
+            printf("[%s]\n", mini->c[cmd].tokens[j]);
             i = end;
             j++;
         }
         mini->c[cmd].tokens[j] = NULL;
         cmd++;
     }
-    // mini->c[cmd] = NULL;
+	// mini->c[cmd].tokens[j] = NULL;
     // if (s)
     //  free(s);
     // printf("\n*\n*\n*\n");

@@ -107,7 +107,6 @@ int		pipes(t_mini *mini, int cmd)
 			ft_putstr_fd("fork went wrong\n", main_out);
 		if (pid[i] == 0)
 		{
-			mini->forked = 1;
 			// Child process
 			// open fd's: main_in, main_out, fd_in
 			close(main_in);
@@ -128,7 +127,7 @@ int		pipes(t_mini *mini, int cmd)
 	close(main_in);
 	close(main_out);
 	i = 0;
-	system("leaks minishell");
+	// system("leaks minishell");
 	while (i < mini->pipe_cmds)
 	{
 		pid_wait = wait(&wstat);

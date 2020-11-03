@@ -2,11 +2,16 @@
 
 void	handle_sigint(int signal)
 {
-	ft_putchar_fd('\n', 1);
-	// ft_putstr_fd("HANDLE\n", 1);
-	show_command_prompt();
-	// ft_putstr_fd("AFTER\n", 1);
+	char	*buf;
 
+	buf = ft_calloc(4096, sizeof(char));
+	getcwd(buf, 4096);
+	if (buf[0] == '\0')
+		ft_putstr_fd("Error getting path\n", 2);
+	ft_putstr_fd("\n\e[0;33m~", 1); //eruit voor eval
+	ft_putstr_fd(buf, 1);
+	ft_putstr_fd("\e[0m", 1); //eruit voor eval
+	// show_command_prompt();
 	(void)signal;
 }
 
@@ -30,19 +35,17 @@ int		main(void)
 
 	mini.env = copy_env();
 	mini.exit_int = 0;
-	mini.forked = 0;
 	while (1)
 	{
-		// ft_putstr_fd("-------------------------\n", 1);
 		signal(SIGQUIT, &handle_sigquit);
 		signal(SIGINT, &handle_sigint);
 		set_struct(&mini);
-		// ft_putstr_fd("PROMPT\n", 1);
 		show_command_prompt();
 		mini.input = read_line();
 		if (ft_split_commands(mini.input, &mini) != -1)
 		{
-			free(mini.input);
+			if (mini.input)
+				free(mini.input);
 			tokens(&mini);
 			if (multi_line_pipe(&mini) != -1)
 				which_command(&mini);

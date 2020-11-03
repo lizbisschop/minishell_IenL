@@ -39,7 +39,6 @@ typedef	struct	s_mini{
 	int			in_redir;
 	int			out_redir;
 	int			exit_int;
-	int			forked;
 	t_command	*c;
 	t_command	*pipes_c;
 }				t_mini;

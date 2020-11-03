@@ -93,15 +93,17 @@ void		check_for_dollar(char **token, t_mini *mini)
 				i++;
 			}
 		}
-		// if (*token)
-		// 	free(*token);
-		// 		printf("hello\n");
+		if (*token)
+			free(*token);
 		(*token) = ft_strdup(str);
-		// if (str)
-		// 	free(str);
+		if (str)
+			free(str);
 	}
-	if (str)
-		free(str);
+	else
+	{
+		if (str)
+			free(str);
+	}
 }
 
 void		echo(char **tokens, int tok_amount, t_mini *mini)

@@ -13,7 +13,7 @@ system("ls -la /proc/$$/fd");
 [ ] norm maken
 [ ] segfault multiple pipes??
 [ ] Exit with a number should remember the number
-[ ] ctrl+c new process
+[V] ctrl+c new process //detachen van main process en terminal niet mogelijk
 [ ] builtins met hoofdletters
 
 Testing cat--------------------------------------------------------

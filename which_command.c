@@ -65,15 +65,15 @@ int		find_command(char **tokens, int tok_amount, t_mini *mini)
 	return (0);
 }
 
-int		any_pipes(t_command com)
+int		any_pipes(t_command cmd)
 {
 	int i;
 
 	i = 0;
-	while (com.tokens[i])
+	while (cmd.tokens[i])
 	{
-		if (ft_strncmp(com.tokens[i], "|", 1) == 0
-		&& ft_strlen(com.tokens[i]) == 1)
+		if (ft_strncmp(cmd.tokens[i], "|", 1) == 0
+		&& ft_strlen(cmd.tokens[i]) == 1)
 			return (1);
 		i++;
 	}
