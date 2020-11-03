@@ -121,14 +121,16 @@ int		find_substr(char *s, t_mini *mini)
 	return (1);
 }
 
-void 	save_commands(t_mini *mini, char *s)
+int 	save_commands(t_mini *mini, char *s)
 {
 	int command;
 	int i;
 	int ret;
+	char	*str;
 
 	command = 0;
 	i = 0;
+	printf("hier is s [%s]\n", s);
 	while (command < mini->cmds)
 	{
 		ret = 0;
@@ -137,13 +139,15 @@ void 	save_commands(t_mini *mini, char *s)
 			ret = find_substr(s, mini);
 			if (ret == 1)
 			{
+				printf("%s|%i|%d\n", s, i, mini->end);
 				mini->sp_input[command] = ft_substr(s, i, mini->end - i);
+				str = ft_substr(s, i, mini->end - i);
+				printf("%s\n", str);
 				if (!mini->sp_input[command])
 				{
-					ft_putstr_fd("Malloc has failed\n", 1);
-					exit(0);
+					err("bash: malloc has failed", "", 2, mini);
+					return (-1);
 				}
-				// printf("%s\n", mini->sp_input[command]);
 			}
 			mini->end++;
 			i = mini->end;
@@ -151,24 +155,30 @@ void 	save_commands(t_mini *mini, char *s)
 		i = mini->end;
 		command++;
 	}
+	mini->sp_input[command] = NULL;
+	return (0);
 }
 
 int		ft_split_commands(char *s, t_mini *mini)
 {
-	// printf("splitting\n");
+	printf("s=[%s]\n", s);
 	mini->cmds = command_count(s);
+	printf("[%d]\n", mini->cmds);
 	mini->sp_input = (char **)malloc(sizeof(char *) * (mini->cmds + 1));
 	if (!mini->sp_input)
 	{
-		ft_putstr_fd("Malloc has failed\n", 1);
+		err("bash: malloc has failed", "", 2, mini);
 		return (-1);
 	}
+	printf("[%s]\n", s);
 	if (check_for_errors(s, mini) == -1)
 	{
 		if (mini->sp_input)
 			free(mini->sp_input);
+		printf("hellllo\n");
 		return (-1);
 	}
-	save_commands(mini, s);
-	return (1);
+	if (save_commands(mini, s) == -1)
+		return (-1);
+	return (0);
 }

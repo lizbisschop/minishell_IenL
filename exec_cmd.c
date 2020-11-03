@@ -1,42 +1,5 @@
 #include "minishell.h"
 
-char		*get_path(char *cmd)
-{
-	int			i;
-	int			j;
-	int			k;
-	char		*str;
-	extern char	**environ;
-	struct stat	buf;
-
-	i = 0;
-	while (environ[i])
-	{
-		if (ft_strncmp(environ[i], "PATH=", 5) == 0)
-		{
-			j = 5;
-			while (environ[i][j] != '\0')
-			{
-				k = 0;
-				while (environ[i][j] != '\0' && environ[i][j] != ':')
-				{
-					j++;
-					k++;
-				}
-				str = ft_substr(environ[i], j - k, k);
-				if (cmd[0] != '/')
-					str = gnl_strjoin(str, "/");
-				str = gnl_strjoin(str, cmd);
-				if (stat(str, &buf) != -1)
-					return (str);
-				j++;
-			}
-		}
-		i++;
-	}
-	return (0);
-}
-
 int			exec_child(char **tokens, char *s, t_mini *mini)
 {
 	char			*path;
@@ -161,7 +124,7 @@ int			exec_cmd(char **tokens, char *s, t_mini *mini)
 		exec_child(tokens, s, mini);
 	pid = fork();
 	if (pid < 0)
-		return (1);
+		err(tokens[1], "", 2, mini);
 	fd_out = dup(STDOUT_FILENO);
 	fd_in = dup(STDIN_FILENO);
 	if (pid == 0)
@@ -176,7 +139,7 @@ int			exec_cmd(char **tokens, char *s, t_mini *mini)
 	close(fd_in);
 	close(fd_out);
 	wait(&wstat);
-	if (WIFEXITED(wstat)) //if normal termination
+	if (WIFEXITED(wstat))
 	{
 		mini->exit_int = WEXITSTATUS(wstat);
 	}

@@ -82,9 +82,10 @@ int		find_command(char **tokens, int tok_amount, t_mini *mini);
 void	check_redir(int *fd_out, int *fd_in, char ***tokens, int *tok_amount, t_mini *mini);
 int		valid_input_redir(t_command *command, t_mini *mini);
 int		tokenizer(char **tokens, int tok_amount, t_mini *mini);
-void	put_error_fd(char *function, char *str, int fd, t_mini *mini);
 char	*get_pwd(void);
 void	free_env_export(t_mini *mini);
 char	*get_home(t_mini *mini);
+char	*get_path(char *cmd);
+void	err(char *function, char *input, int fd, t_mini *mini);
 
 #endif
