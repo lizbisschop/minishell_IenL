@@ -172,8 +172,13 @@ int		ft_split_commands(char *s, t_mini *mini)
 	}
 	printf("[%s]\n", s);
 	if (check_for_errors(s, mini) == -1)
+	{
+		if (mini->sp_input)
+			free(mini->sp_input);
+		printf("hellllo\n");
 		return (-1);
+	}
 	if (save_commands(mini, s) == -1)
 		return (-1);
-	return (1);
+	return (0);
 }

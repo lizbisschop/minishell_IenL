@@ -1,6 +1,24 @@
 #include "minishell.h"
 
-void free_stuff(t_mini *mini)
+void	free_sp_input(t_mini *mini)
+{
+	int i;
+
+	i = 0;
+	printf("her I am\n");
+	printf("%s\n", mini->sp_input[0]);
+	while (mini->sp_input[i])
+	{
+		printf("hello\n");
+		if (mini->sp_input[i])
+			free(mini->sp_input[i]);
+		i++;
+	}
+	if (mini->sp_input)
+		free(mini->sp_input);
+}
+
+void	free_stuff(t_mini *mini)
 {
 	int i;
 	int j;
