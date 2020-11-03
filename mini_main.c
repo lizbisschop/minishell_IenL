@@ -49,8 +49,8 @@ int		main(void)
 			tokens(&mini);
 			if (multi_line_pipe(&mini) != -1)
 				which_command(&mini);
+			free_stuff(&mini);
 		}
-		free_stuff(&mini);
 	}
 	exit(0);
 	return (0);
