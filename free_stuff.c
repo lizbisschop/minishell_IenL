@@ -27,11 +27,14 @@ void free_stuff(t_mini *mini)
 	if (mini->c)
 		free(mini->c);
 	j = 0;
-	while (j < mini->cmds)
+	if (mini->sp_input[j])
 	{
-		if (mini->sp_input[j])
-			free(mini->sp_input[j]);
-		j++;
+		while (mini->sp_input[j])
+		{
+			if (mini->sp_input[j])
+				free(mini->sp_input[j]);
+			j++;
+		}
 	}
 	// j = 0;
 	// while (j < mini->pipe_cmds)

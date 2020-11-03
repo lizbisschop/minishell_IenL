@@ -43,13 +43,14 @@ char	*ft_strdup_free(char **s1)
 	return (s2);
 }
 
-void	put_error_fd(char *function, char *str, int fd, t_mini *mini)
+void	err(char *function, char *input, int fd, t_mini *mini)
 {
-	ft_putstr_fd("bash: ", fd);
 	ft_putstr_fd(function, fd);
-	ft_putstr_fd(": ", fd);
-	ft_putstr_fd(str, fd);
-	ft_putstr_fd(": ", fd);
+	if (ft_strlen(input) > 0)
+	{
+		ft_putstr_fd(input, fd);
+		ft_putstr_fd(": ", fd);
+	}
 	ft_putstr_fd(strerror(errno), fd);
 	ft_putstr_fd("\n", fd);
 	mini->exit_int = 1;

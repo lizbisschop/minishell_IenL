@@ -5,7 +5,7 @@ char	*get_home(t_mini *mini)
 	char		*home;
 	int			i;
 	int			j;
-	extern char **environ;	
+	extern char **environ;
 
 	i = 0;
 	j = 0;
@@ -48,7 +48,7 @@ int		cd(char **tokens, int tok_amount, t_mini *mini)
 		{
 			if (chdir(ft_strjoin(home, &tokens[1][1])) == -1)
 			{
-				put_error_fd("cd", tokens[1], 1, mini);
+				err("bash: cd: ", tokens[1], 1, mini);
 				mini->exit_int = 1;
 				if (home)
 					free(home);
@@ -57,7 +57,7 @@ int		cd(char **tokens, int tok_amount, t_mini *mini)
 		}
 		else if (chdir(home) == -1)
 		{
-			put_error_fd("cd", home, 1, mini);
+			err("bash: cd: ", home, 1, mini);
 			mini->exit_int = 1;
 			if (home)
 				free(home);
@@ -71,7 +71,7 @@ int		cd(char **tokens, int tok_amount, t_mini *mini)
 		chdir("/root");
 	else if (chdir(tokens[1]) == -1)
 	{
-		put_error_fd("cd", tokens[1], 1, mini);
+		err("bash: cd: ", tokens[1], 2, mini);
 		mini->exit_int = 1;
 		if (home)
 			free(home);
