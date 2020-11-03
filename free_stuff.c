@@ -33,25 +33,25 @@ void free_stuff(t_mini *mini)
 			free(mini->sp_input[j]);
 		j++;
 	}
-	// j = 0;
-	// while (j < mini->pipe_cmds)
-	// {
-	// 	i = 0;
-	// 	if (mini->pipes_c != 0)
-	// 	{
-	// 		while (mini->pipes_c[j].tokens[i])
-	// 		{
-	// 			if (mini->pipes_c[j].tokens[i])
-	// 				free(mini->pipes_c[j].tokens[i]);
-	// 			i++;
-	// 		}
-	// 		if (mini->pipes_c[j].tokens)
-	// 			free(mini->pipes_c[j].tokens);
-	// 		j++;
-	// 	}
-	// 	else
-	// 		break ;
-	// }
+	j = 0;
+	while (j < mini->pipe_cmds)
+	{
+		i = 0;
+		if (mini->pipes_c != 0)
+		{
+			while (mini->pipes_c[j].tokens[i])
+			{
+				if (mini->pipes_c[j].tokens[i])
+					free(mini->pipes_c[j].tokens[i]);
+				i++;
+			}
+			if (mini->pipes_c[j].tokens)
+				free(mini->pipes_c[j].tokens);
+			j++;
+		}
+		else
+			break ;
+	}
 	if (mini->sp_input)
 		free(mini->sp_input);
 }
