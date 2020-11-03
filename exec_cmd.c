@@ -22,6 +22,8 @@ int			exec_child(char **tokens, char *s, t_mini *mini)
 			if (tokens[0])
 				free(tokens[0]);
 			tokens[0] = ft_strdup(path);
+			if (path)
+				free(path);
 			if (s)
 				free(s);
 			close(mini->main_out);

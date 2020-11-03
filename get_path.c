@@ -38,6 +38,8 @@ char	*get_path(char *cmd)
 				str = get_path_entry(i, &j, cmd);
 				if (stat(str, &buf) != -1)
 					return (str);
+				if (str)
+					free(str);
 				j++;
 			}
 		}

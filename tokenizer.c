@@ -60,9 +60,13 @@ int		tokenizer(char **tokens, int tok_amount, t_mini *mini)
 		// printf("tok_n=%d\n", tok_n);
 		mini->pipes_c[k].tok_amount = tok_n;
 		mini->pipes_c[k].tokens = (char **)malloc((tok_n + 1) * sizeof(char *));
+		if (!mini->pipes_c[k].tokens)
+			return (-1);
 		while (j < tok_n)
 		{
 			mini->pipes_c[k].tokens[j] = ft_strdup(tokens[i]);
+			if (!mini->pipes_c[k].tokens[j])
+				return (-1);
 			// printf("[%s]\n", mini->pipes_c[k].tokens[j]);
 			i++;
 			j++;

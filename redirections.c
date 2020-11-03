@@ -109,7 +109,7 @@ void		check_redir(int *fd_out, int *fd_in, char ***tokens, int *tok_amount, t_mi
 			else
 				fd = open((*tokens)[i + 1], O_RDWR | O_CREAT | O_APPEND, 0644);
 			ft_putstr_fd("new fd= ", mini->main_out);
-			ft_putstr_fd(ft_itoa(fd), mini->main_out);
+			ft_putnbr_fd(fd, mini->main_out);
 			ft_putstr_fd("\n", mini->main_out);
 			if (fd == -1)
 			{
@@ -144,14 +144,14 @@ void		check_redir(int *fd_out, int *fd_in, char ***tokens, int *tok_amount, t_mi
 	if (found == 1)
 	{
 		ft_putstr_fd("output redir found: \n", mini->main_out);
-		ft_putstr_fd(ft_itoa(fd), mini->main_out);
+		ft_putnbr_fd(fd, mini->main_out);
 		ft_putstr_fd("\n", mini->main_out);
-		ft_putstr_fd(ft_itoa(*fd_out), mini->main_out);
+		ft_putnbr_fd(*fd_out, mini->main_out);
 		ft_putstr_fd("\n", mini->main_out);
 		if (mini->piped == 0)
 			close(*fd_out); // in pipes is fd_out al geclosed
 		*fd_out = dup(fd);
-		ft_putstr_fd(ft_itoa(*fd_out), mini->main_out);
+		ft_putnbr_fd(*fd_out, mini->main_out);
 		ft_putstr_fd("\n", mini->main_out);
 		close(fd);
 		mini->out_redir = 1;
@@ -159,13 +159,13 @@ void		check_redir(int *fd_out, int *fd_in, char ***tokens, int *tok_amount, t_mi
 	if (found2 == 1)
 	{
 		ft_putstr_fd("input redir found: \n", mini->main_out);
-		ft_putstr_fd(ft_itoa(fd2), mini->main_out);
+		ft_putnbr_fd(fd2, mini->main_out);
 		ft_putstr_fd("\n", mini->main_out);
-		ft_putstr_fd(ft_itoa(*fd_in), mini->main_out);
+		ft_putnbr_fd(*fd_in, mini->main_out);
 		ft_putstr_fd("\n", mini->main_out);
 		close(*fd_in);
 		*fd_in = dup(fd2);
-		ft_putstr_fd(ft_itoa(*fd_in), mini->main_out);
+		ft_putnbr_fd(*fd_in, mini->main_out);
 		ft_putstr_fd("\n", mini->main_out);
 		close(fd2);
 		mini->in_redir = 1;
