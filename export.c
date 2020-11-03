@@ -25,7 +25,7 @@ char 	**add_to_env(char *s, t_mini *mini)
 	{
 		size++;
 	}
-	new_env = ft_calloc(size + 1, sizeof(char *));
+	new_env = ft_calloc(size + 2, sizeof(char *));
 	size = 0;
 	while (mini->env[size])
 	{

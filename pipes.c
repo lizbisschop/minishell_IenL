@@ -127,7 +127,6 @@ int		pipes(t_mini *mini, int cmd)
 	close(main_in);
 	close(main_out);
 	i = 0;
-	// system("leaks minishell");
 	while (i < mini->pipe_cmds)
 	{
 		pid_wait = wait(&wstat);
@@ -153,6 +152,7 @@ int		pipes(t_mini *mini, int cmd)
 		}
 		i++;
 	}
-
+	if (pid)
+		free(pid);
 	return (0);
 }
