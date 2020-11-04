@@ -50,8 +50,6 @@ typedef	struct	s_mini{
 	t_command	*pipes_c;
 }				t_mini;
 
-// extern char **mini->env;
-
 void	show_command_prompt(void);
 char	*get_input(void);
 void	skip_whitespaces(char *str, t_mini *mini);
