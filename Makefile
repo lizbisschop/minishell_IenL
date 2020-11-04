@@ -20,6 +20,7 @@ SRCS = ./gnl/get_next_line.c \
 	cd.c \
 	free_stuff.c \
 	export.c \
+	export2.c \
 	read_line.c \
 	exec_cmd.c \
 	sort_env.c \
@@ -31,7 +32,8 @@ SRCS = ./gnl/get_next_line.c \
 	exec_child.c \
 	valid_input_redir.c \
 	multi_lines.c \
-	exec_exit.c
+	exec_exit.c \
+	check_for_dollar.c
 	
 
 FLAGS = -Wall -Werror -Wextra

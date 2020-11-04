@@ -53,7 +53,7 @@ Tests github--------------------------------------------------------
 [V] cat mini_main.c < input (input DOES exist)
 [V] cat mini_main.c | < input
 [V] cat <int1 <int2 < int3
-[ ] 
+[ ] echo $~ should print
 [ ] 
 [ ] 
 
