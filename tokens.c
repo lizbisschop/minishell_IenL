@@ -1,31 +1,33 @@
 #include "minishell.h"
 
-void	skip_quoted(char *s, int *i)
+int		check_tok_end(char *s, int *i)
 {
-	if (s[*i] == '\'')
+	if (s[*i] == '\'' || s[*i] == '"')
+		skip_quoted(s, i);
+	else if (is_delimiter(s[*i]))
 	{
+		*i = (s[*i] == '>' && s[*i + 1] == '>') ? *i + 2 : *i + 1;
+		return (1);
+	}
+	else if (ft_isascii(s[*i]))
+	{
+		while (s[*i] != '\0' && s[*i] != '\'' && s[*i] != '"' &&
+		!is_delimiter(s[*i]) && !is_whitespace(s[*i]) && ft_isascii(s[*i]))
+			(*i)++;
+		if (s[*i] != '\'' && s[*i] != '"')
+			return (1);
+	}
+	else
 		(*i)++;
-		while (s[*i] != '\0' && s[*i] != '\'')
-			(*i)++;
-		if (s[*i] == '\'')
-			(*i)++;
-	}
-	else if (s[*i] == '"')
-	{
-		i++;
-		while (s[*i] != '\0' && s[*i] != '"')
-			(*i)++;
-		if (s[*i] == '"')
-			(*i)++;
-	}
 }
 
-int		token_amount(char *s)
+int		token_amount(char *s, t_mini *mini)
 {
 	int		i;
-	int		tokens;
+	int		tok_n;
+
 	i = 0;
-	tokens = 0;
+	tok_n = 0;
 	while (s[i] != '\0')
 	{
 		skip_wspaces(s, &i);
@@ -33,30 +35,12 @@ int		token_amount(char *s)
 			break ;
 		while (s[i] != '\0')
 		{
-			if (s[i] == '\'' || s[i] == '"')
-				skip_quoted(s, &i);
-			else if (is_delimiter(s[i]))
-			{
-				if (s[i] == '>' && s[i + 1] == '>')
-					i = i + 2;
-				else
-					i++;
+			if (check_tok_end(s, &i) == 1)
 				break ;
-			}
-			else if (ft_isascii(s[i]))
-			{
-				while (s[i] != '\0' && s[i] != '\'' && s[i] != '"' &&
-				!is_delimiter(s[i]) && !is_whitespace(s[i]) && ft_isascii(s[i]))
-					i++;
-				if (s[i] != '\'' && s[i] != '"')
-					break ;
-			}
-			else
-				i++;
 		}
-		tokens++;
+		tok_n++;
 	}
-	return (tokens);
+	return (tok_n);
 }
 
 int		tok_end(char *s, int i)
@@ -95,7 +79,7 @@ void	create_tokens(int cmd, t_mini *mini)
 
 	i = 0;
 	j = 0;
-	mini->c[cmd].tok_amount = token_amount(mini->sp_input[cmd]);
+	mini->c[cmd].tok_amount = token_amount(mini->sp_input[cmd], mini);
 	mini->c[cmd].tokens = (char **)malloc(sizeof(char *) *
 	(mini->c[cmd].tok_amount + 1));
 	if (!(mini->c[cmd].tokens))

@@ -1,5 +1,21 @@
 #include "minishell.h"
 
+void	err(char *s1, char *s2, int sterr, t_mini *mini)
+{
+	ft_putstr_fd("bash: ", 2);
+	if (ft_strlen(s1) > 0)
+		ft_putstr_fd(s1, 2);
+	if (ft_strlen(s2) > 0)
+		ft_putstr_fd(s2, 2);
+	if (sterr == 1)
+	{
+		ft_putstr_fd(": ", 2);
+		ft_putstr_fd(strerror(errno), 2);
+	}
+	ft_putstr_fd("\n", 2);
+	mini->exit_int = 1;
+}
+
 void	handle_sigint(int signal)
 {
 	ft_putchar_fd('\n', 1);
