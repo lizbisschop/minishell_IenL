@@ -49,8 +49,8 @@ int		tokenizer(char **tokens, int tok_amount, t_mini *mini)
 	mini->pipes_c = (t_command *)malloc(sizeof(t_command) * (n + 1));
 	if (mini->pipes_c == (void*)-1)
 	{
-		ft_putstr_fd("Malloc fail\n", 1);
-		exit(0);
+		ft_putstr_fd("Malloc fail\n", 2);
+		exit(1);
 	}
 	while (k < n)
 	{

@@ -21,6 +21,7 @@ system("ls -la /proc/$$/fd");
 [ ] >< only / with echo
 [ ] ft_strncmp: altijd lengte checken
 [ ] malloc fails checken && exit(1)
+[ ] <> or ending with delimiter
 
 Testing cat--------------------------------------------------------
 [V] cat $HOME
