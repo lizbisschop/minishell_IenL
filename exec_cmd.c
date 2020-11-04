@@ -13,8 +13,6 @@ void		child_process(char **tokens, char *s, t_mini *mini)
 int			exec_cmd(char **tokens, char *s, t_mini *mini)
 {
 	int			pid;
-	int			fd_in;
-	int			fd_out;
 	int			wstat;
 
 	if (mini->piped == 1)

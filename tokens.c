@@ -124,7 +124,6 @@ int     tokens(t_mini *mini)
         s = mini->sp_input[cmd];
         tokens = token_amount(s);
         mini->c[cmd].tok_amount = tokens;
-        printf("whole string[%s]\ntokens[%i]:\n", s, tokens);
         mini->c[cmd].tokens = (char **)malloc(sizeof(char *) * (tokens + 1));
         if (!(mini->c[cmd].tokens))
         {

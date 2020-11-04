@@ -8,7 +8,6 @@ void		get_env_var(int *i, char **token, t_mini *mini, char **str)
 	var_length = 0;
 	j = 0;
 	(*i)++;
-	// printf("%c\n", (*token)[*i]);
 	if ((*token)[*i] == '_')
 	{
 		*token = ft_strdup("");

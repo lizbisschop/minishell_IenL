@@ -77,10 +77,6 @@ int		any_pipes(t_command cmd)
 void	which_command(t_mini *mini)
 {
 	int		cmd;
-	int		fd_in;
-	int		fd_out;
-	int		main_in;
-	int		main_out;
 	int		j;
 
 	cmd = 0;
@@ -97,25 +93,24 @@ void	which_command(t_mini *mini)
 		else if (mini->c[cmd].tok_amount > 0)
 		{
 			var_sub_and_unquote(mini->c[cmd].tokens, mini);
-			main_in = dup(STDIN_FILENO);
-			main_out = dup(STDOUT_FILENO);
-			mini->main_in = main_in;
-			mini->main_out = main_out;
-			fd_in = dup(main_in);
-			fd_out = dup(main_out);
+			mini->main_in = dup(STDIN_FILENO);
+			mini->main_out = dup(STDOUT_FILENO);
+			mini->fd_in = dup(mini->main_in);
+			mini->fd_out = dup(mini->main_out);
 			mini->c[cmd].invalid_input = 0;
 			valid_input_redir(&mini->c[cmd], mini);
-			check_redir(&fd_out, &fd_in, &(mini->c[cmd].tokens), &(mini->c[cmd].tok_amount), mini);
-			dup2(fd_in, STDIN_FILENO);
-			dup2(fd_out, STDOUT_FILENO);
-			close(fd_in);
-			close(fd_out);
+			check_redir(&(mini->c[cmd].tokens), &(mini->c[cmd].tok_amount),
+			mini);
+			dup2(mini->fd_in, STDIN_FILENO);
+			dup2(mini->fd_out, STDOUT_FILENO);
+			close(mini->fd_in);
+			close(mini->fd_out);
 			if (mini->c[cmd].invalid_input != 1)
 				find_command(mini->c[cmd].tokens, mini->c[cmd].tok_amount, mini);
-			dup2(main_in, STDIN_FILENO);
-			dup2(main_out, STDOUT_FILENO);
-			close(main_in);
-			close(main_out);
+			dup2(mini->main_in, STDIN_FILENO);
+			dup2(mini->main_out, STDOUT_FILENO);
+			close(mini->main_in);
+			close(mini->main_out);
 		}
 		cmd++;
 	}
