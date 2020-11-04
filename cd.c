@@ -1,14 +1,29 @@
 #include "minishell.h"
 
+void	check_home_environ(char **home)
+{
+	int			j;
+	extern char	**environ;
+
+	j = 0;
+	while (environ[j])
+	{
+		if (ft_strncmp("HOME=", environ[j], 5) == 0)
+		{
+			*home = ft_strdup(&environ[j][5]);
+			break ;
+		}
+		j++;
+	}
+}
+
 char	*get_home(t_mini *mini)
 {
 	char		*home;
 	int			i;
-	int			j;
 	extern char **environ;
 
 	i = 0;
-	j = 0;
 	while (mini->env[i])
 	{
 		if (ft_strncmp("HOME=", mini->env[i], 5) == 0)
@@ -20,19 +35,33 @@ char	*get_home(t_mini *mini)
 	}
 	if (!mini->env[i])
 	{
-		while (environ[j])
-		{
-			if (ft_strncmp("HOME=", environ[j], 5) == 0)
-			{
-				home = ft_strdup(&environ[j][5]);
-				break ;
-			}
-			j++;
-		}
+		check_home_environ(&home);
 	}
 	if (i == 0)
 		return ((void*)0);
 	return (home);
+}
+
+int		check_tilde(t_mini *mini, char **home, char **tokens)
+{
+	if (tokens[1][1])
+	{
+		if (chdir(ft_strjoin(*home, &tokens[1][1])) == -1)
+		{
+			err("cd: ", tokens[1], 1, mini);
+			if (*home)
+				free(*home);
+			return (-1);
+		}
+	}
+	else if (chdir(*home) == -1)
+	{
+		err("cd: ", *home, 1, mini);
+		if (*home)
+			free(*home);
+		return (-1);
+	}
+	return (0);
 }
 
 int		cd(char **tokens, int tok_amount, t_mini *mini)
@@ -43,25 +72,7 @@ int		cd(char **tokens, int tok_amount, t_mini *mini)
 	if (tok_amount == 1)
 		chdir(home);
 	else if (tokens[1][0] == '~')
-	{
-		if (tokens[1][1])
-		{
-			if (chdir(ft_strjoin(home, &tokens[1][1])) == -1)
-			{
-				err("cd: ", tokens[1], 1, mini);
-				if (home)
-					free(home);
-				return (-1);
-			}
-		}
-		else if (chdir(home) == -1)
-		{
-			err("cd: ", home, 1, mini);
-			if (home)
-				free(home);
-			return (-1);
-		}
-	}
+		return (check_tilde(mini, &home, tokens));
 	else if (tokens[1][0] == '/' && ft_strlen(tokens[1]) == 1)
 		chdir("//");
 	else if (ft_strncmp("/root", tokens[1], 5) == 0 &&

@@ -29,7 +29,8 @@ SRCS = ./gnl/get_next_line.c \
 	tokenizer.c \
 	get_path.c \
 	exec_child.c \
-	valid_input_redir.c
+	valid_input_redir.c \
+	multi_lines.c
 	
 
 FLAGS = -Wall -Werror -Wextra

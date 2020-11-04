@@ -55,13 +55,14 @@ void	free_stuff(t_mini *mini)
 		}
 	}
 	j = 0;
-	while (j < mini->pipe_cmds)
+	while (j < mini->pipe_cmds && mini->pipes_c[j].tokens)
 	{
 		i = 0;
 		if (mini->pipes_c != 0)
 		{
 			while (mini->pipes_c[j].tokens[i])
 			{
+	printf("%d\n", mini->pipe_cmds);
 				if (mini->pipes_c[j].tokens[i])
 					free(mini->pipes_c[j].tokens[i]);
 				i++;
