@@ -1,22 +1,22 @@
 #include "minishell.h"
 
-int		check_quotes(int *i, char *s)
+void		check_quotes(int *i, char *s)
 {
 	if (s[*i] == '\'')
 	{
-		*i++;
+		(*i)++;
 		while (s[*i] != '\0' && s[*i] != '\'')
-			*i++;
+			(*i)++;
 		if (s[*i] == '\'')
-			*i++;
+			(*i)++;
 	}
 	if (s[*i] == '\"')
 	{
-		*i++;
+		(*i)++;
 		while (s[*i] != '\0' && s[*i] != '\"')
-			*i++;
+			(*i)++;
 		if (s[*i] == '\"')
-			*i++;
+			(*i)++;
 	}
 }
 
