@@ -10,7 +10,7 @@ void		child_process(char **tokens, char *s, t_mini *mini)
 	exec_child(tokens, s, mini);
 }
 
-int			exec_cmd(char **tokens, char *s, t_mini *mini)
+void		exec_cmd(char **tokens, char *s, t_mini *mini)
 {
 	int			pid;
 	int			wstat;
@@ -31,5 +31,4 @@ int			exec_cmd(char **tokens, char *s, t_mini *mini)
 		mini->exit_int = WEXITSTATUS(wstat);
 	if (s)
 		free(s);
-	return (0);
 }

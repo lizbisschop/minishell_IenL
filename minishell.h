@@ -76,14 +76,14 @@ void	ft_export(char **tokens, int tok_amount, t_mini *mini);
 void	set_env(char *s, t_mini *mini);
 char	**sort_env(char **str, t_mini *mini);
 char	*read_line(void);
-int		exec_cmd(char **tokens, char *s, t_mini *mini);
+void	exec_cmd(char **tokens, char *s, t_mini *mini);
 char	*ft_strjoin_read(char *s1, char *s2);
 char	*ft_strdup_free(char **s1);
 void	check_for_dollar(char **token, t_mini *mini);
 int		pipes(t_mini *mini, int cmd);
 void	unset(char **tokens, t_mini *mini);
 int		multi_line_pipe(t_mini *mini);
-int		find_command(char **tokens, int tok_amount, t_mini *mini);
+void	find_command(char **tokens, int tok_amount, t_mini *mini);
 void	check_redir(char ***tokens, int *tok_amount, t_mini *mini);
 int		valid_input_redir(t_command *command, t_mini *mini);
 int		tokenizer(char **tokens, int tok_amount, t_mini *mini);
@@ -96,5 +96,6 @@ int		exec_child(char **tokens, char *s, t_mini *mini);
 void	error_multi_line_pipe(int i, int cmd, t_command command, t_mini *mini);
 int		multi_line_pipe(t_mini *mini);
 int		multi_lines(char *str);
+void	exec_exit(t_mini *mini, int tok_amount, char **tokens);
 
 #endif

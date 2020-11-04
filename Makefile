@@ -30,7 +30,8 @@ SRCS = ./gnl/get_next_line.c \
 	get_path.c \
 	exec_child.c \
 	valid_input_redir.c \
-	multi_lines.c
+	multi_lines.c \
+	exec_exit.c
 	
 
 FLAGS = -Wall -Werror -Wextra
