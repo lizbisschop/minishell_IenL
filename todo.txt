@@ -54,7 +54,7 @@ Tests github--------------------------------------------------------
 [V] cat mini_main.c | < input
 [V] cat <int1 <int2 < int3
 [ ] echo $~ should print
-[ ] 
+[ ] dollar checking if there is an '=' check whats behind the '='
 [ ] 
 
 Testing for leaks

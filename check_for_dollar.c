@@ -13,16 +13,14 @@ void		get_env_var(int *i, char **token, t_mini *mini, char **str)
 		*token = ft_strdup("");
 		return ;
 	}
-	while ((*token)[(*i) + var_length] != '\0' && ft_isascii((*token)[(*i) +
+	while ((*token)[(*i) + var_length] != '\0' && ft_isalnum((*token)[(*i) +
 	var_length]))
 		var_length++;
 	while (mini->env[j])
 	{
 		if (ft_strncmp(&(*token)[(*i)], mini->env[j], var_length) == 0 &&
 		mini->env[j][var_length] == '=')
-		{
 			(*str) = gnl_strjoin((*str), &(mini->env[j][var_length + 1]));
-		}
 		j++;
 	}
 	(*i) += var_length;
@@ -77,9 +75,7 @@ void		dollar_type(char **token, t_mini *mini, char **str)
 			i += 2;
 		}
 		else if ((*token)[i] == '$' && (*token)[i + 1] && q != '\'')
-		{
 			get_env_var(&i, token, mini, str);
-		}
 		else
 			strjoin_char(&i, str, token);
 	}

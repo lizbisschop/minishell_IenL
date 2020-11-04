@@ -12,7 +12,7 @@ void	skip_quoted(char *s, int *i)
 	}
 	else if (s[*i] == '"')
 	{
-		i++;
+		(*i)++;
 		while (s[*i] != '\0' && s[*i] != '"')
 			(*i)++;
 		if (s[*i] == '"')

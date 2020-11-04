@@ -1,23 +1,20 @@
 #include "minishell.h"
 
-void		check_quotes(int *i, char *s)
+int		check_redir_end(int *i, char *str, t_mini *mini)
 {
-	if (s[*i] == '\'')
+	if (str[*i] == '>' || str[*i] == '<')
 	{
-		(*i)++;
-		while (s[*i] != '\0' && s[*i] != '\'')
+		while ((is_whitespace(str[*i]) && str[*i] != '\0') ||
+		(str[*i] == '>' || str[*i] == '<'))
 			(*i)++;
-		if (s[*i] == '\'')
-			(*i)++;
+		printf("char is = %c\n", str[*i]);
+		if (str[*i] == '\0')
+		{
+			err("syntax error near unexpected token `newline'", "", 0, mini);
+			return (-1);
+		}
 	}
-	if (s[*i] == '\"')
-	{
-		(*i)++;
-		while (s[*i] != '\0' && s[*i] != '\"')
-			(*i)++;
-		if (s[*i] == '\"')
-			(*i)++;
-	}
+	return (0);
 }
 
 int		check_pip_redir(int *i, char *s, t_mini *mini)
@@ -45,7 +42,7 @@ int		check_pip_redir(int *i, char *s, t_mini *mini)
 		err("syntax error near unexpected token `<'", "", 0, mini);
 		return (-1);
 	}
-	return (0);
+	return (check_redir_end(i, s, mini));
 }
 
 int		check_pipes_redirect(char *s, t_mini *mini)
@@ -64,7 +61,7 @@ int		check_pipes_redirect(char *s, t_mini *mini)
 	}
 	while (s[i] != '\0')
 	{
-		check_quotes(&i, s);
+		skip_quoted(s, &i);
 		if (check_pip_redir(&i, s, mini) == -1)
 			return (-1);
 		i++;

@@ -29,14 +29,10 @@ void	free_mini_c(t_mini *mini)
 		free(mini->c);
 }
 
-void	free_stuff(t_mini *mini)
+void	free_sp_input(t_mini *mini)
 {
-	int i;
 	int j;
 
-	j = 0;
-	free_mini_c(mini);
-	
 	j = 0;
 	if (mini->sp_input[j])
 	{
@@ -47,6 +43,14 @@ void	free_stuff(t_mini *mini)
 			j++;
 		}
 	}
+}
+
+void	free_pipes_c(t_mini *mini)
+{
+	int i;
+	int j;
+
+	i = 0;
 	j = 0;
 	while (j < mini->pipe_cmds && mini->pipes_c[j].tokens)
 	{
@@ -66,6 +70,13 @@ void	free_stuff(t_mini *mini)
 		else
 			break ;
 	}
+}
+
+void	free_stuff(t_mini *mini)
+{
+	free_mini_c(mini);
+	free_sp_input(mini);
+	free_pipes_c(mini);
 	if (mini->sp_input)
 		free(mini->sp_input);
 }

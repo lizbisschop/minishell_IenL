@@ -100,9 +100,12 @@ void	ft_export(char **tokens, int tok_amount, t_mini *mini)
 	j = 0;
 	if (tok_amount != 1)
 	{
+		printf("im in here\n");
+		printf("%s\n", tokens[i]);
+		printf("%c\n", tokens[i][j]);
 		while (tokens[i][j] != '\0' && tokens[i][j] != '=')
 		{
-			if (ft_isalnum(tokens[i][j]) == 0)
+			if (!ft_isalnum(tokens[i][j]))
 			{
 				ft_putstr_fd("bash: export:", 2);
 				ft_putstr_fd(tokens[i], 2);
