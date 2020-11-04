@@ -27,7 +27,8 @@ typedef	struct	s_command{
 typedef	struct	s_mini{
 	int			main_in;
 	int			main_out;
-	int			main_err;
+	int			fd_in;
+	int			fd_out;
 	int			cmds;
 	int			pipe_cmds;
 	int			end;
@@ -87,5 +88,6 @@ void	free_env_export(t_mini *mini);
 char	*get_home(t_mini *mini);
 char	*get_path(char *cmd);
 void	err(char *function, char *input, int fd, t_mini *mini);
+int		exec_child(char **tokens, char *s, t_mini *mini);
 
 #endif

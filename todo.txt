@@ -16,7 +16,9 @@ system("ls -la /proc/$$/fd");
 [V] ctrl+c new process //detachen van main process en terminal niet mogelijk
 [ ] builtins met hoofdletters
 [ ] exit values kloppend maken
-[ ] cd sdklgh, echo ||| lksghl, cd ksjdg segfault
+[V] cd sdklgh, echo ||| lksghl, cd ksjdg segfault
+[ ] ./test.c: permission denied + holds de rest van de string?
+[ ] >< only / with echo
 
 Testing cat--------------------------------------------------------
 [V] cat $HOME

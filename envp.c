@@ -20,15 +20,15 @@ char	**copy_env(void)
 	return (env);
 }
 
-int	env_command(int check, t_mini *mini)
+int		env_command(int tok_amount, t_mini *mini)
 {
 	int i;
 
 	i = 0;
-	if (check != 1)
+	if (tok_amount != 1)
 	{
-		ft_putstr_fd("bash: e\n", 1);
-		mini->exit_int = 1;
+		err("No such file or directory", "", 0, mini);
+		mini->exit_int = 127;
 		return (-1);
 	}
 	while (mini->env[i])

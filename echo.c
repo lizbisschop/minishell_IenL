@@ -1,14 +1,5 @@
 #include "minishell.h"
 
-/*
-** echo $$ = pid van de shell
-** export: !isalnum in var name: not a valid identifier
-** (otherwise our code also won't work)
-** segfault env nadat er een nieuwe var is gezet
-** exit: 1 2 3: multiple numbers = too many arguments, otherwise just exit.
-** export can only take letters int the part before '='
-*/
-
 void		get_env_var(int *i, char **token, t_mini *mini, char **str)
 {
 	int		var_length;

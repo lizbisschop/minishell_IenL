@@ -2,16 +2,8 @@
 
 void	handle_sigint(int signal)
 {
-	char	*buf;
-
-	buf = ft_calloc(4096, sizeof(char));
-	getcwd(buf, 4096);
-	if (buf[0] == '\0')
-		ft_putstr_fd("Error getting path\n", 2);
-	ft_putstr_fd("\n\e[0;33m~", 1); //eruit voor eval
-	ft_putstr_fd(buf, 1);
-	ft_putstr_fd("\e[0m", 1); //eruit voor eval
-	// show_command_prompt();
+	ft_putchar_fd('\n', 1);
+	show_command_prompt();
 	(void)signal;
 }
 

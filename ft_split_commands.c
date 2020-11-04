@@ -1,12 +1,5 @@
 #include "minishell.h"
 
-/*
-**	; tussen quotes worden gezien als nieuw command: echo "hoi; echo hee"
-**	\ within quotes laten staan: verliest zijn functie: echo "\hoi"
-**	\ laten staan voor quotes: \"echo \"hoi: bij tokenizen al fout
-**		-> of direct unquoten al? bij tokenizen
-*/
-
 int		command_count(char *s)
 {
 	int i;
@@ -145,7 +138,7 @@ int 	save_commands(t_mini *mini, char *s)
 				printf("%s\n", str);
 				if (!mini->sp_input[command])
 				{
-					err("bash: malloc has failed", "", 2, mini);
+					err("malloc has failed", "", 2, mini);
 					return (-1);
 				}
 			}
@@ -161,13 +154,12 @@ int 	save_commands(t_mini *mini, char *s)
 
 int		ft_split_commands(char *s, t_mini *mini)
 {
-	printf("s=[%s]\n", s);
 	mini->cmds = command_count(s);
 	printf("[%d]\n", mini->cmds);
 	mini->sp_input = (char **)malloc(sizeof(char *) * (mini->cmds + 1));
 	if (!mini->sp_input)
 	{
-		err("bash: malloc has failed", "", 2, mini);
+		err("malloc has failed", "", 2, mini);
 		return (-1);
 	}
 	printf("[%s]\n", s);
@@ -175,7 +167,6 @@ int		ft_split_commands(char *s, t_mini *mini)
 	{
 		if (mini->sp_input)
 			free(mini->sp_input);
-		printf("hellllo\n");
 		return (-1);
 	}
 	if (save_commands(mini, s) == -1)

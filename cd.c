@@ -48,8 +48,7 @@ int		cd(char **tokens, int tok_amount, t_mini *mini)
 		{
 			if (chdir(ft_strjoin(home, &tokens[1][1])) == -1)
 			{
-				err("bash: cd: ", tokens[1], 1, mini);
-				mini->exit_int = 1;
+				err("cd: ", tokens[1], 1, mini);
 				if (home)
 					free(home);
 				return (-1);
@@ -57,8 +56,7 @@ int		cd(char **tokens, int tok_amount, t_mini *mini)
 		}
 		else if (chdir(home) == -1)
 		{
-			err("bash: cd: ", home, 1, mini);
-			mini->exit_int = 1;
+			err("cd: ", home, 1, mini);
 			if (home)
 				free(home);
 			return (-1);
@@ -71,7 +69,7 @@ int		cd(char **tokens, int tok_amount, t_mini *mini)
 		chdir("/root");
 	else if (chdir(tokens[1]) == -1)
 	{
-		err("bash: cd: ", tokens[1], 2, mini);
+		err("cd: ", tokens[1], 1, mini);
 		mini->exit_int = 1;
 		if (home)
 			free(home);

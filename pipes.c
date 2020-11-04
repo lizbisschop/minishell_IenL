@@ -1,11 +1,5 @@
 #include "minishell.h"
 
-/*
-** enkele pipe meegeven
-** mensen checken leaks voor exit() --> alles freeen van tevoren
-** bash checken: bash typen in guacamole
-*/
-
 int		set_fds(int *fd_in, int i, int *fd_out, int main_out, t_mini *mini, int *pipefd)
 {
 	dup2(*fd_in, STDIN_FILENO);
@@ -73,7 +67,7 @@ int		pipes(t_mini *mini, int cmd)
 	mini->main_out = main_out;
 	fd_in = dup(main_in);
 	// printf("m_in\t%d\nm_out\t%d\nf_in\t%d\nf_out\t%d\n", main_in, main_out, fd_in, fd_out);
-	while (j < mini->pipe_cmds)
+	while (j < mini->pipe_cmds) //openen van files
 	{
 		valid_input_redir(&mini->pipes_c[j], mini);
 		j++;
@@ -138,18 +132,7 @@ int		pipes(t_mini *mini, int cmd)
 			k++;
 		}
 		if (WIFEXITED(wstat)) // if normal termination
-		{
 			mini->exit_int = WEXITSTATUS(wstat);
-			if (mini->exit_int != 0 && mini->exit_int != 1)
-			{
-				ft_putstr_fd("bash: ", 1);
-				ft_putstr_fd(mini->pipes_c[k].tokens[0], 1);
-				ft_putstr_fd(": ", 1);
-				ft_putstr_fd(strerror(mini->exit_int), 1); // stderr needs to be redirected
-				ft_putstr_fd("\n", 1);
-				mini->exit_int = 1;
-			}
-		}
 		i++;
 	}
 	return (0);

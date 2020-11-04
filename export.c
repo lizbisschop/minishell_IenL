@@ -15,7 +15,7 @@ void	free_env(t_mini *mini)
 		free(mini->env);
 }
 
-char 	**add_to_env(char *s, t_mini *mini)
+char	**add_to_env(char *s, t_mini *mini)
 {
 	char	**new_env;
 	int		size;
@@ -134,9 +134,9 @@ void	ft_export(char **tokens, int tok_amount, t_mini *mini)
 		{
 			if (ft_isalpha(tokens[i][j]) == 0)
 			{
-				ft_putstr_fd("bash: export: ", 1);
-				ft_putstr_fd(tokens[i], 1);
-				ft_putstr_fd(": not a valid identifier\n", 1);
+				ft_putstr_fd("bash: export: ", 2);
+				ft_putstr_fd(tokens[i], 2);
+				ft_putstr_fd(": not a valid identifier", 2);
 				mini->exit_int = 1;
 				return ;
 			}

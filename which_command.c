@@ -2,19 +2,13 @@
 
 void	exec_exit(t_mini *mini, int tok_amount, char **tokens)
 {
-	int exit_int;
-
 	if (tok_amount > 1)
 	{
-		exit_int = ft_atoi(tokens[1]);
-		mini->exit_int = exit_int;
-		printf("%d\n", exit_int);
-		exit(5);
+		mini->exit_int = ft_atoi(tokens[1]);
+		exit(mini->exit_int);
 	}
 	else
-	{
 		exit(0);
-	}
 }
 
 void	var_sub_and_unquote(char **tokens, t_mini *mini)
@@ -99,7 +93,6 @@ void	which_command(t_mini *mini)
 		{
 			mini->piped = 1;
 			pipes(mini, cmd);
-
 		}
 		else if (mini->c[cmd].tok_amount > 0)
 		{
@@ -110,20 +103,15 @@ void	which_command(t_mini *mini)
 			mini->main_out = main_out;
 			fd_in = dup(main_in);
 			fd_out = dup(main_out);
-			while (j < mini->cmds)
-			{
-				valid_input_redir(&mini->c[j], mini);
-				j++;
-			}
+			mini->c[cmd].invalid_input = 0;
+			valid_input_redir(&mini->c[cmd], mini);
 			check_redir(&fd_out, &fd_in, &(mini->c[cmd].tokens), &(mini->c[cmd].tok_amount), mini);
 			dup2(fd_in, STDIN_FILENO);
 			dup2(fd_out, STDOUT_FILENO);
 			close(fd_in);
 			close(fd_out);
-			if (valid_input_redir(&mini->c[cmd], mini) != -1)
-			{
-				find_command(mini->c[cmd].tokens, mini->c[cmd].tok_amount, mini);	
-			}
+			if (mini->c[cmd].invalid_input != 1)
+				find_command(mini->c[cmd].tokens, mini->c[cmd].tok_amount, mini);
 			dup2(main_in, STDIN_FILENO);
 			dup2(main_out, STDOUT_FILENO);
 			close(main_in);
