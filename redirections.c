@@ -46,7 +46,6 @@ void		trim_tokens(int i, char ***tokens, int *tok_amount, t_mini *mini)
 		i++;
 	}
 	i = 0;
-	ft_putstr_fd("trimmed tokens\n", mini->main_out);
 	while ((*tokens)[i])
 	{
 		ft_putstr_fd("[", mini->main_out);
@@ -55,25 +54,6 @@ void		trim_tokens(int i, char ***tokens, int *tok_amount, t_mini *mini)
 		i++;
 	}
 	*tok_amount -= 2;
-}
-
-int			check_input_redir(char ***tokens, int i, int *tok_amount, int *found, int *fd, t_mini *mini)
-{
-	int		fd3;
-	if (*found == 1)
-		close(*fd);
-	*found = 1;
-	ft_putstr_fd((*tokens)[i + 1], mini->main_out);
-	ft_putstr_fd("\n", mini->main_out);
-	fd3 = open(((*tokens)[i + 1]), O_RDONLY);
-	if (fd3 == -1)
-	{
-		ft_putstr_fd("ERROR\n", mini->main_out);
-		mini->exit_int = 1;
-		return (-1);
-	}
-	trim_tokens(i, tokens, tok_amount, mini);
-	return (0);
 }
 
 void		check_redir(int *fd_out, int *fd_in, char ***tokens, int *tok_amount, t_mini *mini)
