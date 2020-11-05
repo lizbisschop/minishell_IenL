@@ -2,12 +2,16 @@
 
 int		check_redir_end(int *i, char *str, t_mini *mini)
 {
+	if (str[*i] == ';' && str[*i + 1] == ';')
+	{
+		err("syntax error near unexpected token `;;'", "", 0, mini);
+		return (-1);
+	}
 	if (str[*i] == '>' || str[*i] == '<')
 	{
 		while ((is_whitespace(str[*i]) && str[*i] != '\0') ||
 		(str[*i] == '>' || str[*i] == '<'))
 			(*i)++;
-		printf("char is = %c\n", str[*i]);
 		if (str[*i] == '\0')
 		{
 			err("syntax error near unexpected token `newline'", "", 0, mini);
@@ -83,11 +87,6 @@ int		loop_for_err(char *s, t_mini *mini)
 		else if (s[i] == '\\' && s[i + 1] == '\0')
 		{
 			err("multiline command", "", 0, mini);
-			return (-1);
-		}
-		else if (s[i] == ';' && s[i + 1] == ';')
-		{
-			err("syntax error near unexpected token `;;'", "", 0, mini);
 			return (-1);
 		}
 		i++;

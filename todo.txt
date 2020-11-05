@@ -23,6 +23,7 @@ system("ls -la /proc/$$/fd");
 [ ] malloc fails checken && exit(1)
 [ ] <> or ending with delimiter
 [ ] altijd als we erroren (mallocs f.e.) free stuff aanroepen? 
+[ ] alle messages naar fd 2 printen
 
 Testing cat--------------------------------------------------------
 [V] cat $HOME
@@ -59,6 +60,8 @@ Tests github--------------------------------------------------------
 [ ] echo $~ should print
 [V] export hoi = hallo should not go into env
 [ ] leaked s in exec_cmd??
+[ ] echo -n -n -nnnnnnnnnn -nnnnnn should not print
+
 
 Testing for leaks
 [ ] leaks in echo

@@ -1,19 +1,19 @@
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-#include <unistd.h>
-#include <stdlib.h>
-#include <string.h>
-#include <sys/types.h>
-#include <sys/wait.h>
-#include <sys/stat.h>
-#include <signal.h>
-#include <signal.h>
-#include <errno.h>
-#include <limits.h>
-#include <dirent.h>
-#include "./libft/libft.h"
-#include "./gnl/get_next_line.h"
+# include <unistd.h>
+# include <stdlib.h>
+# include <string.h>
+# include <sys/types.h>
+# include <sys/wait.h>
+# include <sys/stat.h>
+# include <signal.h>
+# include <signal.h>
+# include <errno.h>
+# include <limits.h>
+# include <dirent.h>
+# include "./libft/libft.h"
+# include "./gnl/get_next_line.h"
 
 //REMOVE!!!
 #include <stdio.h>
@@ -35,6 +35,7 @@ typedef	struct	s_mini{
 	int			fd2;
 	int			cmds;
 	int			pipe_cmds;
+	int			n_quotes;
 	int			end;
 	char		*input;
 	char		**sp_input;
@@ -104,5 +105,7 @@ void	if_quote(int *k, int *j, t_mini *mini);
 int		find_right_env(t_mini *mini, int *i, int *j, int *k);
 void	skip_quoted(char *s, int *i);
 void	print_export(t_mini *mini);
+int		find_substr(char *s, t_mini *mini);
+void	check_quotes(char *s, t_mini *mini);
 
 #endif

@@ -32,6 +32,7 @@ void	set_struct(t_mini *mini)
 {
 	mini->cmds = 0;
 	mini->pipe_cmds = 0;
+	mini->n_quotes = 0;
 	mini->end = 0;
 	mini->in_redir = 0;
 	mini->out_redir = 0;
