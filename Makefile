@@ -12,7 +12,7 @@ SRCS = ./gnl/get_next_line.c \
 	pwd.c \
 	quotes.c \
 	envp.c \
-	ft_split_commands.c \
+	find_substr.c \
 	tokens.c \
 	check_for_errors.c \
 	mini_utils.c \
@@ -33,7 +33,8 @@ SRCS = ./gnl/get_next_line.c \
 	valid_input_redir.c \
 	multi_lines.c \
 	exec_exit.c \
-	check_for_dollar.c
+	check_for_dollar.c \
+	ft_split_commands.c
 	
 
 FLAGS = -Wall -Werror -Wextra

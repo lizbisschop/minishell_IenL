@@ -69,7 +69,6 @@ int		is_al_num_export(char **tokens, t_mini *mini, int i, int *j)
 {
 	while (tokens[i][*j] != '\0' && tokens[i][*j] != '=')
 	{
-		printf("char = %c string = [%s]\n", tokens[i][*j], tokens[i]);
 		if (ft_isalnum(tokens[i][*j]) == 0 && tokens[i][*j] != '_')
 		{
 			ft_putstr_fd("bash: export: ", 2);

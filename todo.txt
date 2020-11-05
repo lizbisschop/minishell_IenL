@@ -23,6 +23,7 @@ system("ls -la /proc/$$/fd");
 [ ] malloc fails checken && exit(1)
 [ ] <> or ending with delimiter
 [ ] altijd als we erroren (mallocs f.e.) free stuff aanroepen? 
+[ ] alle messages naar fd 2 printen
 
 Testing cat--------------------------------------------------------
 [V] cat $HOME
@@ -57,7 +58,8 @@ Tests github--------------------------------------------------------
 [V] cat <int1 <int2 < int3
 [V] dollar checking if there is an '=' check whats behind the '='
 [ ] echo $~ should print
-[ ] export hoi = hallo should not go into env
+[ ] echo -n -n -nnnnnnnnnn -nnnnnn should not print
+
 
 Testing for leaks
 [ ] leaks in echo

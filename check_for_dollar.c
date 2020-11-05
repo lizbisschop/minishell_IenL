@@ -56,7 +56,7 @@ void		strjoin_char(int *i, char **str, char **token)
 	(*i)++;
 }
 
-void		dollar_type(char **token, t_mini *mini, char **str)
+int		dollar_type(char **token, t_mini *mini, char **str)
 {
 	int		i;
 	char	q;
@@ -74,11 +74,16 @@ void		dollar_type(char **token, t_mini *mini, char **str)
 			*str = gnl_strjoin(*str, ft_itoa(mini->exit_int));
 			i += 2;
 		}
+		//just trying
+		else if ((*token)[i] == '$' && !ft_isalnum((*token)[i + 1]))
+			return (-1);
+		//
 		else if ((*token)[i] == '$' && (*token)[i + 1] && q != '\'')
 			get_env_var(&i, token, mini, str);
 		else
 			strjoin_char(&i, str, token);
 	}
+	return (0);
 }
 
 void		check_for_dollar(char **token, t_mini *mini)
@@ -88,7 +93,8 @@ void		check_for_dollar(char **token, t_mini *mini)
 	str = ft_strdup("");
 	if (ft_strchr(*token, '$'))
 	{
-		dollar_type(token, mini, &str);
+		if (dollar_type(token, mini, &str) == -1)
+			return ;
 		if (*token)
 			free(*token);
 		(*token) = ft_strdup(str);
