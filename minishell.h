@@ -75,7 +75,7 @@ void	free_stuff(t_mini *mini);
 char	**copy_env(void);
 void	ft_export(char **tokens, int tok_amount, t_mini *mini);
 void	set_env(char *s, t_mini *mini);
-char	**sort_env(char **str, t_mini *mini);
+char	**sort_env(char **env, t_mini *mini);
 char	*read_line(void);
 void	exec_cmd(char **tokens, char *s, t_mini *mini);
 char	*ft_strjoin_read(char *s1, char *s2);

@@ -57,7 +57,8 @@ Tests github--------------------------------------------------------
 [V] cat <int1 <int2 < int3
 [V] dollar checking if there is an '=' check whats behind the '='
 [ ] echo $~ should print
-[ ] export hoi = hallo should not go into env
+[V] export hoi = hallo should not go into env
+[ ] leaked s in exec_cmd??
 
 Testing for leaks
 [ ] leaks in echo
