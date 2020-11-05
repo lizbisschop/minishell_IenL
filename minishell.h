@@ -40,6 +40,7 @@ typedef	struct	s_mini{
 	char		**sp_input;
 	char		**env;
 	char		**export_env;
+	char		**export_fill;
 	int			piped;
 	int			in_redir;
 	int			out_redir;
@@ -102,5 +103,6 @@ char	**add_to_env(char *s, t_mini *mini);
 void	if_quote(int *k, int *j, t_mini *mini);
 int		find_right_env(t_mini *mini, int *i, int *j, int *k);
 void	skip_quoted(char *s, int *i);
+void	print_export(t_mini *mini);
 
 #endif

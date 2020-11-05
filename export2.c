@@ -70,3 +70,26 @@ int		find_right_env(t_mini *mini, int *i, int *j, int *k)
 		(*j)++;
 	}
 }
+
+void	print_export(t_mini *mini)
+{
+	int i;
+	int j;
+	int k;
+
+	i = 0;
+	j = 0;
+	k = 0;
+	mini->check_export = 0;
+	mini->export_env = sort_env(mini->env, mini);
+	while (mini->export_env[i])
+	{
+		ft_putstr_fd("declare -x ", 1);
+		mini->export_str = (char *)malloc(sizeof(char)
+		* ft_strlen(mini->export_env[i]) + 3);
+		find_right_env(mini, &i, &j, &k);
+		if_quote(&k, &j, mini);
+		i++;
+	}
+	free_env_export(mini);
+}

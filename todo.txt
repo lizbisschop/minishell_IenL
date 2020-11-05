@@ -54,9 +54,9 @@ Tests github--------------------------------------------------------
 [V] cat mini_main.c < input (input DOES exist)
 [V] cat mini_main.c | < input
 [V] cat <int1 <int2 < int3
+[V] dollar checking if there is an '=' check whats behind the '='
 [ ] echo $~ should print
-[ ] dollar checking if there is an '=' check whats behind the '='
-[ ] 
+[ ] export hoi = hallo should not go into env
 
 Testing for leaks
 [ ] leaks in echo

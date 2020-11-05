@@ -33,8 +33,11 @@ int		env_command(int tok_amount, t_mini *mini)
 	}
 	while (mini->env[i])
 	{
-		ft_putstr_fd(mini->env[i], 1);
-		write(1, "\n", 1);
+		if (ft_strchr(mini->env[i], '='))
+		{
+			ft_putstr_fd(mini->env[i], 1);
+			write(1, "\n", 1);
+		}
 		i++;
 	}
 	mini->exit_int = 0;

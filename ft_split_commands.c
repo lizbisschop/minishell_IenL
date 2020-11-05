@@ -1,5 +1,19 @@
 #include "minishell.h"
 
+void	check_slash_semicolon(char *s, int *i, int *empty, int *semicolon)
+{
+	if (s[*i] == '\\' && s[*i + 1] != '\0')
+	{
+		*empty = 0;
+		(*i)++;
+	}
+	else if (s[*i] == ';' && *empty == 0)
+	{
+		(*semicolon)++;
+		*empty = 1;
+	}
+}
+
 int		command_count(char *s)
 {
 	int i;
@@ -14,34 +28,29 @@ int		command_count(char *s)
 		if (empty == 1 && (!((s[i] >= 9 && s[i] <= 12) || s[i] == 32
 		|| s[i] == ';') || (s[i] == '\\' && s[i + 1] == '\\')))
 			empty = 0;
-		if (s[i] == '"')
-		{
-			i++;
-			while (s[i] != '"' && s[i] != '\0')
-				i++;
-		}
-		else if (s[i] == '\'')
-		{
-			i++;
-			while (s[i] != '\'' && s[i] != '\0')
-				i++;
-		}
-		else if (s[i] == '\\' && s[i + 1] != '\0')
-		{
-			empty = 0;
-			i++;
-		}
-		else if (s[i] == ';' && empty == 0)
-		{
-			// printf("|%s|\n", &s[i]);
-			semicolon++;
-			empty = 1;
-		}
+		skip_quoted(s, &i);
+		check_slash_semicolon(s, &i, &empty, &semicolon);
 		i++;
 	}
 	if (empty == 1)
 		semicolon--;
 	return (semicolon + 1);
+}
+
+void	no_quote(char *s, int *begin, int *str_len)
+{
+	while (s[*begin] != '"' && s[*begin] != '\0')
+	{
+		(*begin)++;
+		(*str_len)++;
+		if (s[*begin] == '\\' && (s[*begin + 1] == '"'))
+			(*begin)++;
+		else
+		{
+			(*str_len)++;
+			(*begin)++;
+		}
+	}
 }
 
 int		len_str(char *s, int begin, int check)
@@ -55,18 +64,7 @@ int		len_str(char *s, int begin, int check)
 		{
 			begin++;
 			str_len++;
-			while (s[begin] != '"' && s[begin] != '\0')
-			{
-				begin++;
-				str_len++;
-				if (s[begin] == '\\' && (s[begin + 1] == '"'))
-					begin++;
-				else
-				{
-					str_len++;
-					begin++;
-				}
-			}
+			no_quote(s, &begin, &str_len);
 		}
 		if (s[begin] == '\\')
 			begin++;
@@ -76,6 +74,22 @@ int		len_str(char *s, int begin, int check)
 	return (str_len);
 }
 
+void	check_quotes(char *s, t_mini *mini)
+{
+	if (s[mini->end] == '"')
+	{
+		mini->end++;
+		while (s[mini->end] != '"' && s[mini->end] != '\0')
+			mini->end++;
+	}
+	else if (s[mini->end] == '\'')
+	{
+		mini->end++;
+		while (s[mini->end] != '\'' && s[mini->end] != '\0')
+			mini->end++;
+	}
+}
+
 int		find_substr(char *s, t_mini *mini)
 {
 	int	empty;
@@ -83,22 +97,13 @@ int		find_substr(char *s, t_mini *mini)
 	empty = 1;
 	while (s[mini->end] != '\0')
 	{
-		if (empty == 1 && (!((s[mini->end] >= 9 && s[mini->end] <= 12) || s[mini->end] == 32
-		|| s[mini->end] == ';') || (s[mini->end] == '\\' && s[mini->end + 1] == '\\')))
+		if (empty == 1 && (!((s[mini->end] >= 9
+		&& s[mini->end] <= 12) || s[mini->end] == 32
+		|| s[mini->end] == ';') || (s[mini->end]
+		== '\\' && s[mini->end + 1] == '\\')))
 			empty = 0;
-		if (s[mini->end] == '"')
-		{
-			mini->end++;
-			while (s[mini->end] != '"' && s[mini->end] != '\0')
-				mini->end++;
-		}
-		else if (s[mini->end] == '\'')
-		{
-			mini->end++;
-			while (s[mini->end] != '\'' && s[mini->end] != '\0')
-				mini->end++;
-		}
-		else if (s[mini->end] == '\\' && s[mini->end + 1] != '\0')
+		check_quotes(s, mini);
+		if (s[mini->end] == '\\' && s[mini->end + 1] != '\0')
 		{
 			empty = 0;
 			mini->end++;
@@ -114,7 +119,30 @@ int		find_substr(char *s, t_mini *mini)
 	return (1);
 }
 
-int 	save_commands(t_mini *mini, char *s)
+int		finding_start_end(t_mini *mini, int *i, char *s, int command)
+{
+	int ret;
+
+	ret = 0;
+	while (ret == 0)
+	{
+		ret = find_substr(s, mini);
+		if (ret == 1)
+		{
+			mini->sp_input[command] = ft_substr(s, *i, mini->end - *i);
+			if (!mini->sp_input[command])
+			{
+				err("malloc has failed", "", 2, mini);
+				return (-1);
+			}
+		}
+		mini->end++;
+		*i = mini->end;
+	}
+	return (0);
+}
+
+int		save_commands(t_mini *mini, char *s)
 {
 	int command;
 	int i;
@@ -124,22 +152,8 @@ int 	save_commands(t_mini *mini, char *s)
 	i = 0;
 	while (command < mini->cmds)
 	{
-		ret = 0;
-		while (ret == 0)
-		{
-			ret = find_substr(s, mini);
-			if (ret == 1)
-			{
-				mini->sp_input[command] = ft_substr(s, i, mini->end - i);
-				if (!mini->sp_input[command])
-				{
-					err("malloc has failed", "", 2, mini);
-					return (-1);
-				}
-			}
-			mini->end++;
-			i = mini->end;
-		}
+		if (finding_start_end(mini, &i, s, command) == -1)
+			return (-1);
 		i = mini->end;
 		command++;
 	}

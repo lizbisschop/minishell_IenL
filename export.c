@@ -1,28 +1,5 @@
 #include "minishell.h"
 
-void	print_export(t_mini *mini)
-{
-	int i;
-	int j;
-	int k;
-
-	i = 0;
-	j = 0;
-	k = 0;
-	mini->check_export = 0;
-	mini->export_env = sort_env(mini->env, mini);
-	while (mini->export_env[i])
-	{
-		ft_putstr_fd("declare -x ", 1);
-		mini->export_str = (char *)malloc(sizeof(char)
-		* ft_strlen(mini->export_env[i]) + 3);
-		find_right_env(mini, &i, &j, &k);
-		if_quote(&k, &j, mini);
-		i++;
-	}
-	free_env_export(mini);
-}
-
 int		loop_env(t_mini *mini, char **str, char *s, int *i)
 {
 	int len;
@@ -74,48 +51,58 @@ int		check_over_write(char *s, t_mini *mini)
 	return (0);
 }
 
-int		correct_export(char **tokens, t_mini *mini)
+void	correct_export(char **tokens, t_mini *mini, int i)
 {
-	int i;
-
-	i = 1;
-	while (tokens[i])
+	if (tokens[i][0] == '=')
 	{
-		if (tokens[i][0] == '=')
-			err("export: `=' not a valid identifier", "", 0, mini);
-		if (check_over_write(tokens[i], mini) == 0)
-			mini->env = add_to_env(tokens[i], mini);
-		i++;
+		ft_putstr_fd("bash: export: ", 2);
+		ft_putstr_fd(tokens[i], 2);
+		ft_putstr_fd(" not a valid identifier\n", 2);
+		mini->exit_int = 1;
+		return ;
 	}
-	if (i == 1)
-		print_export(mini);
+	if (check_over_write(tokens[i], mini) == 0)
+		mini->env = add_to_env(tokens[i], mini);
+}
+
+int		is_al_num_export(char **tokens, t_mini *mini, int i, int *j)
+{
+	while (tokens[i][*j] != '\0' && tokens[i][*j] != '=')
+	{
+		printf("char = %c string = [%s]\n", tokens[i][*j], tokens[i]);
+		if (ft_isalnum(tokens[i][*j]) == 0 && tokens[i][*j] != '_')
+		{
+			ft_putstr_fd("bash: export: ", 2);
+			ft_putstr_fd(tokens[i], 2);
+			ft_putstr_fd(" not a valid identifier\n", 2);
+			mini->exit_int = 1;
+			return (1);
+		}
+		(*j)++;
+	}
+	return (0);
 }
 
 void	ft_export(char **tokens, int tok_amount, t_mini *mini)
 {
 	int i;
 	int j;
+	int	ret;
 
 	i = 1;
 	j = 0;
+	ret = 0;
 	if (tok_amount != 1)
 	{
-		printf("im in here\n");
-		printf("%s\n", tokens[i]);
-		printf("%c\n", tokens[i][j]);
-		while (tokens[i][j] != '\0' && tokens[i][j] != '=')
+		while (tokens[i])
 		{
-			if (!ft_isalnum(tokens[i][j]))
-			{
-				ft_putstr_fd("bash: export:", 2);
-				ft_putstr_fd(tokens[i], 2);
-				ft_putstr_fd(" not a valid identifier\n", 2);
-				mini->exit_int = 1;
-				return ;
-			}
-			j++;
+			if (ret = is_al_num_export(tokens, mini, i, &j) != 1)
+				correct_export(tokens, mini, i);
+			j = 0;
+			i++;
 		}
 	}
-	correct_export(tokens, mini);
+	if (i == 1)
+		print_export(mini);
 	mini->exit_int = 0;
 }
