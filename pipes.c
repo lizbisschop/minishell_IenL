@@ -12,7 +12,7 @@ int		pipes(t_mini *mini, int cmd)
 
 	i = 0;
 	j = 0;
-	mini->fd_out = 1000;
+	mini->fd_out = 1;
 	// free stuff in pipes_c
 	tokenizer(mini->c[cmd].tokens, mini->c[cmd].tok_amount, mini);
 	pid = ft_calloc(mini->pipe_cmds, sizeof(int));

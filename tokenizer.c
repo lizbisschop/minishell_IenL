@@ -17,7 +17,7 @@ int		pipe_amount(char **tokens, int tok_amount)
 	return (n + 1);
 }
 
-int		pipe_tok_amount(char **tokens, int i, int tok_amount)
+int		tok_amount_pipes(char **tokens, int i, int tok_amount)
 {
 	int		ret;
 
@@ -33,47 +33,51 @@ int		pipe_tok_amount(char **tokens, int i, int tok_amount)
 	return (ret);
 }
 
+void	create_tokens_pipes(t_command *cmd, int *i, int *j, char **tokens)
+{
+	cmd->tokens = (char **)malloc((cmd->tok_amount + 1) * sizeof(char *));
+	if (!cmd->tokens)
+	{
+		ft_putstr_fd("bash: Malloc fail\n", 2);
+		exit(-1);
+	}
+	while (*j < cmd->tok_amount)
+	{
+		cmd->tokens[*j] = ft_strdup(tokens[*i]);
+		if (!cmd->tokens[*j])
+		{
+			ft_putstr_fd("bash: Malloc fail\n", 2);
+			exit(1);
+		}
+		(*i)++;
+		(*j)++;
+	}
+	cmd->tokens[*j] = NULL;
+	(*i)++;
+}
+
 int		tokenizer(char **tokens, int tok_amount, t_mini *mini)
 {
 	int		i;
 	int		j;
 	int		k;
-	int		n;
-	int		tok_n;
 
 	i = 0;
 	k = 0;
-	tok_n = 0;
-	n = pipe_amount(tokens, tok_amount);
-	mini->pipe_cmds = n;
-	mini->pipes_c = (t_command *)malloc(sizeof(t_command) * (n + 1));
+	mini->pipe_cmds = pipe_amount(tokens, tok_amount);
+	mini->pipes_c = (t_command *)malloc(sizeof(t_command) *
+	(mini->pipe_cmds + 1));
 	if (mini->pipes_c == (void*)-1)
 	{
-		ft_putstr_fd("Malloc fail\n", 2);
+		ft_putstr_fd("bash: Malloc fail\n", 2);
 		exit(1);
 	}
-	while (k < n)
+	while (k < mini->pipe_cmds)
 	{
 		j = 0;
 		mini->pipes_c[k].invalid_input = 0;
-		tok_n = pipe_tok_amount(tokens, i, tok_amount);
-		// printf("tok_n=%d\n", tok_n);
-		mini->pipes_c[k].tok_amount = tok_n;
-		mini->pipes_c[k].tokens = (char **)malloc((tok_n + 1) * sizeof(char *));
-		if (!mini->pipes_c[k].tokens)
-			return (-1);
-		while (j < tok_n)
-		{
-			mini->pipes_c[k].tokens[j] = ft_strdup(tokens[i]);
-			if (!mini->pipes_c[k].tokens[j])
-				return (-1);
-			// printf("[%s]\n", mini->pipes_c[k].tokens[j]);
-			i++;
-			j++;
-		}
-		// printf("\n");
-		mini->pipes_c[k].tokens[j] = NULL;
-		i++; // for | token
+		mini->pipes_c[k].tok_amount = tok_amount_pipes(tokens, i, tok_amount);
+		create_tokens_pipes(&(mini->pipes_c[k]), &i, &j, tokens);
 		k++;
 	}
 	return (0);
