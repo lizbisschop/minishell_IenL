@@ -40,7 +40,7 @@ typedef	struct	s_mini{
 	char		*input;
 	char		**sp_input;
 	char		**env;
-	char		**export_env;
+	int			*arr;
 	char		**export_fill;
 	int			piped;
 	int			in_redir;
@@ -76,7 +76,7 @@ void	free_stuff(t_mini *mini);
 char	**copy_env(void);
 void	ft_export(char **tokens, int tok_amount, t_mini *mini);
 void	set_env(char *s, t_mini *mini);
-char	**sort_env(char **env, t_mini *mini);
+int		*sort_env(char **env);
 char	*read_line(void);
 void	exec_cmd(char **tokens, char *s, t_mini *mini);
 char	*ft_strjoin_read(char *s1, char *s2);
