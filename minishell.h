@@ -15,6 +15,8 @@
 # include "./libft/libft.h"
 # include "./gnl/get_next_line.h"
 
+# define EXT_ALPHABET_SIZE 63
+
 //REMOVE!!!
 #include <stdio.h>
 
