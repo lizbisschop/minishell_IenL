@@ -38,37 +38,31 @@ char	**add_to_env(char *s, t_mini *mini)
 	return (new_env);
 }
 
-void	if_quote(int *k, int *j, t_mini *mini)
+void		add_quotes(t_mini *mini, int i)
 {
-	if (mini->check_export == 1)
-	{
-		mini->export_str[*k] = '"';
-		(*k)++;
-	}
-	mini->export_str[*k] = '\0';
-	*j = 0;
-	*k = 0;
-	mini->check_export = 0;
-	ft_putstr_fd(mini->export_str, 1);
-	ft_putchar_fd('\n', 1);
-	if (mini->export_str)
-		free(mini->export_str);
-}
+	int		j;
+	int		k;
 
-void		find_right_env(t_mini *mini, int *i, int *j, int *k)
-{
-	while (mini->export_env[*i][*j] != '\0')
+	j = 0;
+	k = 0;
+	while (mini->env[mini->arr[i]][j] != '\0')
 	{
-		mini->export_str[*k] = mini->export_env[*i][*j];
-		if (mini->export_env[*i][*j] == '=' && mini->check_export == 0)
+		mini->export_str[k] = mini->env[mini->arr[i]][j];
+		if (mini->env[mini->arr[i]][j] == '=' && mini->check_export == 0)
 		{
 			mini->check_export = 1;
-			(*k)++;
-			mini->export_str[*k] = '"';
+			k++;
+			mini->export_str[k] = '"';
 		}
-		(*k)++;
-		(*j)++;
+		k++;
+		j++;
 	}
+	if (mini->check_export == 1)
+	{
+		mini->export_str[k] = '"';
+		k++;
+	}
+	mini->export_str[k] = '\0';
 }
 
 void	print_export(t_mini *mini)
@@ -78,18 +72,22 @@ void	print_export(t_mini *mini)
 	int k;
 
 	i = 0;
-	j = 0;
-	k = 0;
-	mini->check_export = 0;
-	mini->export_env = sort_env(mini->env, mini);
-	while (mini->export_env[i])
+	mini->arr = sort_env(mini->env);
+	while (mini->env[i])
 	{
+		mini->check_export = 0;
+		j = 0;
+		k = 0;
 		ft_putstr_fd("declare -x ", 1);
 		mini->export_str = (char *)malloc(sizeof(char)
-		* ft_strlen(mini->export_env[i]) + 3);
-		find_right_env(mini, &i, &j, &k);
-		if_quote(&k, &j, mini);
+		* ft_strlen(mini->env[mini->arr[i]]) + 3);
+		add_quotes(mini, i);
+		ft_putstr_fd(mini->export_str, 1);
+		ft_putchar_fd('\n', 1);
+		if (mini->export_str)
+			free(mini->export_str);
 		i++;
 	}
-	free_env_export(mini);
+	if (mini->arr)
+		free(mini->arr);
 }

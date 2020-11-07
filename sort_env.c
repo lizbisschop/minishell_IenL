@@ -1,51 +1,145 @@
 #include "minishell.h"
 
-void	free_env_export(t_mini *mini)
+#define EXT_ALPHABET_SIZE 63
+
+size_t	word_len(char *s)
 {
-	int i;
+	size_t i;
 
 	i = 0;
-	while (mini->export_env[i])
-	{
-		if (mini->export_env[i])
-			free(mini->export_env[i]);
+	while (s[i] != '\0' && s[i] != '=')
 		i++;
-	}
-	if (mini->export_env)
-		free(mini->export_env);
+	return (i);
 }
 
-char **sort_env(char **str, t_mini *mini)
+void	swap(int key, int swaps, int *arr)
 {
-	char *alphabet;
-	int i;
-	int j;
-	int alpha;
-	char **new;
+	int tmp;
+	int	i;
 
 	i = 0;
-	j = 0;
-	alpha = 0;
-	alphabet = ft_strdup("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz");
-	while (str[i])
-		i++;
-	new = ft_calloc(i, sizeof(char *));
-	i = 0;
-	while (alphabet[alpha] != '\0')
+	tmp = arr[key];
+	while (i < swaps)
 	{
-		while (str[i])
-		{
-			if (str[i][0] == alphabet[alpha])
-			{
-				new[j] = ft_strdup(str[i]);
-				j++;
-			}
-			i++;
-		}
-		alpha++;
-		i = 0;
+		arr[key - i] = arr[key - i - 1];
+		i++;
 	}
+	arr[key - i] = tmp;
+}
+
+int		swap_count(char *key_str, char *str, size_t len)
+{
+	int		swaps;
+	int		res;
+
+	swaps = 0;
+	if (word_len(str) < len)
+		len = word_len(str);
+	res = ft_strncmp(key_str, str, len);
+	if (res < 0)
+		swaps++;
+	else if (res == 0)
+	{
+		if (len == word_len(key_str))
+			swaps++;
+	}
+	return (swaps);
+}
+
+void	insertion_sort(int end, int start, int *arr, char **env)
+{
+	int		key;
+	int		key_len;
+	size_t	len;
+	int		i;
+	int		swaps;
+
+	key = start + 1;
+	len = 0;
+	while (key <= end)
+	{
+		i = key - 1;
+		key_len = word_len(env[arr[key]]);
+		len = key_len;
+		swaps = 0;
+		while (i >= start)
+		{
+			swaps += swap_count(env[arr[key]], env[arr[i]], len);
+			i--;
+		}
+		if (swaps)
+			swap(key, swaps, arr);
+		key++;
+	}
+}
+
+void	sort_buckets(char **env, int *arr, int bucket_n)
+{
+	int		i;
+	int		start;
+	int		end;
+
+	end = 0;
+	i = 0;
+	while (i < bucket_n)
+	{
+		start = end;
+		while (arr[end + 1] && env[arr[end + 1]][0] &&
+		env[arr[end]][0] == env[arr[end + 1]][0])
+			end++;
+		if (start != end)
+			insertion_sort(end, start, arr, env);
+		end++;
+		i++;
+	}
+}
+
+int		create_buckets(int env_len, int *arr, char *alphabet, char **env)
+{
+	int		index;
+	int		i;
+	int		j;
+	int		bucket_n;
+
+	index = 0;
+	i = 0;
+	bucket_n = 0;
+	while (i < EXT_ALPHABET_SIZE)
+	{
+		j = 0;
+		while (j < env_len)
+		{
+			if (env[j][0] == alphabet[i])
+			{
+				if (index == 0 || env[arr[index - 1]][0] != alphabet[i])
+					bucket_n++;
+				arr[index] = j;
+				index++;
+			}
+			j++;
+		}
+		i++;
+	}
+	return (bucket_n);
+}
+
+int		*sort_env(char **env)
+{
+	char	*alphabet;
+	int		env_len;
+	int		*arr;
+	int		bucket_n;
+
+	env_len = 0;
+	alphabet = ft_strdup("0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ");
+	alphabet = gnl_strjoin(alphabet, "_abcdefghijklmnopqrstuvwxyz");
+	while (env[env_len])
+		env_len++;
+	arr = ft_calloc(env_len + 1, sizeof(int));
+	arr[env_len] = '\0';
+	bucket_n = create_buckets(env_len, arr, alphabet, env);
+	sort_buckets(env, arr, bucket_n);
 	if (alphabet)
-		free (alphabet);
-	return (new);
+		free(alphabet);
+	return (arr);
 }
