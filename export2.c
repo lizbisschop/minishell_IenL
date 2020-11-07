@@ -55,7 +55,7 @@ void	if_quote(int *k, int *j, t_mini *mini)
 		free(mini->export_str);
 }
 
-int		find_right_env(t_mini *mini, int *i, int *j, int *k)
+void		find_right_env(t_mini *mini, int *i, int *j, int *k)
 {
 	while (mini->export_env[*i][*j] != '\0')
 	{

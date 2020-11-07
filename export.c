@@ -23,6 +23,7 @@ int		loop_env(t_mini *mini, char **str, char *s, int *i)
 		}
 		j++;
 	}
+	return (0);
 }
 
 int		check_over_write(char *s, t_mini *mini)
@@ -86,16 +87,14 @@ void	ft_export(char **tokens, int tok_amount, t_mini *mini)
 {
 	int i;
 	int j;
-	int	ret;
 
 	i = 1;
 	j = 0;
-	ret = 0;
 	if (tok_amount != 1)
 	{
 		while (tokens[i])
 		{
-			if (ret = is_al_num_export(tokens, mini, i, &j) != 1)
+			if (is_al_num_export(tokens, mini, i, &j) != 1)
 				correct_export(tokens, mini, i);
 			j = 0;
 			i++;

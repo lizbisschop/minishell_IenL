@@ -56,8 +56,8 @@ $(NAME): $(LIBFT) $(OBJ)
 # 	gcc -Wall -Werror -Wextra -c $< -o $@
 
 $(LIBFT):
-	# make -C ./libft
-	# cp ./libft/libft.a .
+	make -C ./libft
+	cp ./libft/libft.a .
 
 clean:
 	# @make clean -C ./libft

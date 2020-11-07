@@ -104,4 +104,5 @@ int		exec_child(char **tokens, char *s, t_mini *mini)
 			free(s);
 		exit(1);
 	}
+	return (0);
 }

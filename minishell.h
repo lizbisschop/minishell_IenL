@@ -102,7 +102,7 @@ void	exec_exit(t_mini *mini, int tok_amount, char **tokens);
 void	free_env(t_mini *mini);
 char	**add_to_env(char *s, t_mini *mini);
 void	if_quote(int *k, int *j, t_mini *mini);
-int		find_right_env(t_mini *mini, int *i, int *j, int *k);
+void	find_right_env(t_mini *mini, int *i, int *j, int *k);
 void	skip_quoted(char *s, int *i);
 void	print_export(t_mini *mini);
 int		find_substr(char *s, t_mini *mini);

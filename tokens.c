@@ -19,6 +19,7 @@ int		check_tok_end(char *s, int *i)
 	}
 	else
 		(*i)++;
+	return (0);
 }
 
 int		token_amount(char *s, t_mini *mini)
