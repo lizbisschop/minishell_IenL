@@ -110,5 +110,6 @@ void	skip_quoted(char *s, int *i);
 void	print_export(t_mini *mini);
 int		find_substr(char *s, t_mini *mini);
 void	check_quotes(char *s, t_mini *mini);
+void	insertion_sort(int end, int start, int *arr, char **env);
 
 #endif

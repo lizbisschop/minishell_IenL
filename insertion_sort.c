@@ -1,5 +1,30 @@
 #include "minishell.h"
 
+size_t	word_len(char *s)
+{
+	size_t i;
+
+	i = 0;
+	while (s[i] != '\0' && s[i] != '=')
+		i++;
+	return (i);
+}
+
+void	swap(int key, int swaps, int *arr)
+{
+	int tmp;
+	int	i;
+
+	i = 0;
+	tmp = arr[key];
+	while (i < swaps)
+	{
+		arr[key - i] = arr[key - i - 1];
+		i++;
+	}
+	arr[key - i] = tmp;
+}
+
 int		swap_count(char *key_str, char *str, size_t len)
 {
 	int		swaps;
