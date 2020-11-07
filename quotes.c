@@ -59,55 +59,6 @@ char	*fill_string(int len, char **s, t_mini *mini)
 	return (str);
 }
 
-// char	*fill_string(int len, char **s, t_mini *mini)
-// {
-// 	char	q;
-// 	int		i;
-// 	int		j;
-// 	char	*str;
-
-// 	i = 0;
-// 	j = 0;
-// 	q = '\0';
-// 	str = (char *)malloc(sizeof(char) * (len - mini->n_quotes + 1));
-// 	if (!str)
-// 	{
-// 		ft_putstr_fd("Malloc failed\n", mini->main_out);
-// 		exit(1);
-// 	}
-// 	while ((*s)[i] != '\0')
-// 	{
-// 		if ((*s)[i] == '\'' || (*s)[i] == '"')
-// 		{
-// 			q = (*s)[i];
-// 			i++;
-// 			while ((*s)[i] != q && (*s)[i] != '\0')
-// 			{
-// 				if (q == '"' && (*s)[i] == '\\' &&
-// 				((*s)[i + 1] == q || (*s)[i + 1] == '\\' || (*s)[i + 1] == '$'))
-// 					i++;
-// 				str[j] = (*s)[i];
-// 				j++;
-// 				if ((*s)[i] != '\0')
-// 					i++;
-// 			}
-// 		}
-// 		else if ((*s)[i] != '\\')
-// 		{
-// 			str[j] = (*s)[i];
-// 			j++;
-// 		}
-// 		i++;
-// 	}
-// 	str[j] = '\0';
-// 	if (*s)
-// 	{
-// 		free(*s);
-// 		*s = NULL;
-// 	}
-// 	return (str);
-// }
-
 char	*unquote(char **s, t_mini *mini)
 {
 	char	q;

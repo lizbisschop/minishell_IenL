@@ -5,8 +5,8 @@
 /*                                                     +:+                    */
 /*   By: lbisscho <lbisscho@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/11/20 13:39:46 by lbisscho       #+#    #+#                */
-/*   Updated: 2020/04/03 11:49:10 by liz           ########   odam.nl         */
+/*   Created: 2019/11/20 13:39:46 by lbisscho      #+#    #+#                 */
+/*   Updated: 2020/11/07 14:34:24 by lbisscho      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include <stdlib.h>
 # include <fcntl.h>
 
-#define BUFFER_SIZE 32
+# define BUFFER_SIZE 32
 
 int		get_next_line(int fd, char **line);
 size_t	ft_strlen(const char *str);

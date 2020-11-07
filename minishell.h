@@ -91,6 +91,7 @@ int		valid_input_redir(t_command *command, t_mini *mini);
 int		tokenizer(char **tokens, int tok_amount, t_mini *mini);
 char	*get_pwd(void);
 void	free_env_export(t_mini *mini);
+void	free_pipes_c(t_mini *mini);
 char	*get_home(t_mini *mini);
 char	*get_path(char *cmd);
 void	err(char *function, char *input, int fd, t_mini *mini);

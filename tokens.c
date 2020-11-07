@@ -93,7 +93,6 @@ void	create_tokens(int cmd, t_mini *mini)
 		skip_wspaces(mini->sp_input[cmd], &i);
 		end = tok_end(mini->sp_input[cmd], i);
 		mini->c[cmd].tokens[j] = ft_substr(mini->sp_input[cmd], i, end - i);
-		printf("[%s]\n", mini->c[cmd].tokens[j]); //weg halen voor eval
 		i = end;
 		j++;
 	}

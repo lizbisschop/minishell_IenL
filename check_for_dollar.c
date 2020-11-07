@@ -74,10 +74,8 @@ int		dollar_type(char **token, t_mini *mini, char **str)
 			*str = gnl_strjoin(*str, ft_itoa(mini->exit_int));
 			i += 2;
 		}
-		//just trying
 		else if ((*token)[i] == '$' && !ft_isalnum((*token)[i + 1]))
 			return (-1);
-		//
 		else if ((*token)[i] == '$' && (*token)[i + 1] && q != '\'')
 			get_env_var(&i, token, mini, str);
 		else

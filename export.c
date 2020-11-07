@@ -70,7 +70,8 @@ int		is_al_num_export(char **tokens, t_mini *mini, int i, int *j)
 {
 	while (tokens[i][*j] != '\0' && tokens[i][*j] != '=')
 	{
-		if (ft_isalnum(tokens[i][*j]) == 0 && tokens[i][*j] != '_')
+		if ((ft_isalnum(tokens[i][*j]) == 0 && tokens[i][*j] != '_')
+		|| (ft_isdigit(tokens[i][*j]) == 1 && *j == 0))
 		{
 			ft_putstr_fd("bash: export: ", 2);
 			ft_putstr_fd(tokens[i], 2);

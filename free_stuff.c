@@ -70,13 +70,14 @@ void	free_pipes_c(t_mini *mini)
 		else
 			break ;
 	}
+	if (mini->pipes_c)
+		free(mini->pipes_c);
 }
 
 void	free_stuff(t_mini *mini)
 {
 	free_mini_c(mini);
 	free_sp_input(mini);
-	free_pipes_c(mini);
 	if (mini->sp_input)
 		free(mini->sp_input);
 }
