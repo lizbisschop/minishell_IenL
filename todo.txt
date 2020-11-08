@@ -49,6 +49,8 @@ Testing other commands----------------------------------------------
 [ ] /
 [ ] ''
 [ ] ""
+[ ] touch >
+[ ] rm >
 
 Testing pipes-------------------------------------------------------
 [V] ./github_minishell/gnl/ > outfile //stderror redir needed
