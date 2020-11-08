@@ -25,7 +25,14 @@ system("ls -la /proc/$$/fd");
 [ ] altijd als we erroren (mallocs f.e.) free stuff aanroepen? 
 [ ] alle messages naar fd 2 printen
 
-Testing cat--------------------------------------------------------
+Testing echo--------------------------------------------------------
+[V] echo -n hoi
+[V] echo -n -n -n hoi
+[V] echo -n -nnnnnn hoi
+[V] echo -n -nnna hoi
+[V] echo -n -n hoi -n
+
+Testing cat---------------------------------------------------------
 [V] cat $HOME
 
 Testing pipes-------------------------------------------------------
