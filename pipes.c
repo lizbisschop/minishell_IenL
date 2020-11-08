@@ -23,7 +23,7 @@ void	dup_and_child(t_mini *mini, int *pid, int i)
 
 int		set_pipefd(t_mini *mini, int i)
 {
-	int		pipefd[mini->cmds][2];
+	int		pipefd[mini->pipe_cmds][2];
 
 	if (pipe(pipefd[i]) == -1)
 		return (2);
@@ -78,7 +78,7 @@ void	set_in_out(t_mini *mini, int cmd, int **pid)
 void	getting_exit_status(t_mini *mini, int *pid)
 {
 	int		i;
-	int		k;
+	int		j;
 	int		wstat;
 	pid_t	pid_wait;
 
@@ -86,12 +86,12 @@ void	getting_exit_status(t_mini *mini, int *pid)
 	while (i < mini->pipe_cmds)
 	{
 		pid_wait = wait(&wstat);
-		k = 0;
-		while (pid[k])
+		j = 0;
+		while (pid[j])
 		{
-			if (pid[k] == pid_wait)
+			if (pid[j] == pid_wait)
 				break ;
-			k++;
+			j++;
 		}
 		if (WIFEXITED(wstat))
 			mini->exit_int = WEXITSTATUS(wstat);
@@ -102,14 +102,14 @@ void	getting_exit_status(t_mini *mini, int *pid)
 int		pipes(t_mini *mini, int cmd)
 {
 	int		*pid;
-	int		j;
+	int		i;
 
-	j = 0;
+	i = 0;
 	set_in_out(mini, cmd, &pid);
-	while (j < mini->pipe_cmds)
+	while (i < mini->pipe_cmds)
 	{
-		valid_input_redir(&mini->pipes_c[j], mini);
-		j++;
+		valid_input_redir(&mini->pipes_c[i], mini);
+		i++;
 	}
 	if (execute_pipe(mini, pid, cmd) == 2)
 		return (2);

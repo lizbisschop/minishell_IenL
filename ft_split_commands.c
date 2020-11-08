@@ -66,7 +66,7 @@ int		finding_start_end(t_mini *mini, int *i, char *s, int command)
 			mini->sp_input[command] = ft_substr(s, *i, mini->end - *i);
 			if (!mini->sp_input[command])
 			{
-				err("malloc has failed", "", 2, mini);
+				err("malloc has failed", "", 0, mini);
 				return (-1);
 			}
 		}
@@ -101,7 +101,7 @@ int		ft_split_commands(char *s, t_mini *mini)
 	mini->sp_input = (char **)malloc(sizeof(char *) * (mini->cmds + 1));
 	if (!mini->sp_input)
 	{
-		err("malloc has failed", "", 2, mini);
+		err("malloc has failed", "", 0, mini);
 		return (-1);
 	}
 	if (check_for_errors(s, mini) == -1)

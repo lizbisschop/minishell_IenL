@@ -72,6 +72,7 @@ void	check_redir(char ***tokens, int *tok_amount, t_mini *mini)
 {
 	int		i;
 	int		ret;
+	int		len;
 
 	i = 0;
 	ret = 0;
@@ -81,12 +82,11 @@ void	check_redir(char ***tokens, int *tok_amount, t_mini *mini)
 	mini->in_redir = 0;
 	while ((*tokens)[i])
 	{
-		if ((ft_strncmp((*tokens)[i], ">", 1) == 0 &&
-		ft_strlen((*tokens)[i]) == 1) || (ft_strncmp((*tokens)[i], ">>", 2) == 0
-		&& ft_strlen((*tokens)[i]) == 2))
+		len = ft_strlen((*tokens)[i]);
+		if ((ft_strncmp((*tokens)[i], ">", 1) == 0 && len == 1)
+		|| (ft_strncmp((*tokens)[i], ">>", 2) == 0 && len == 2))
 			ret = output_redir(i, tokens, tok_amount, mini);
-		else if (ft_strncmp((*tokens)[i], "<", 1) == 0 &&
-		ft_strlen((*tokens)[i]) == 1)
+		else if (ft_strncmp((*tokens)[i], "<", 1) == 0 && len == 1)
 			ret = input_redir(i, tokens, tok_amount, mini);
 		else
 			i++;

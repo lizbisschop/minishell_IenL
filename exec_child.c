@@ -6,7 +6,7 @@ void	find_executable(char ***tokens, char **s, t_mini *mini)
 	extern char		**environ;
 
 	path = get_path((*tokens)[0]);
-	if (path != 0)
+	if (path != 0 && ft_strlen((*tokens)[0]))
 	{
 		if ((*tokens)[0])
 			free((*tokens)[0]);
@@ -75,7 +75,7 @@ void	check_dir_and_exec(char ***tokens, char **s, t_mini *mini)
 	{
 		close_and_free(mini, s);
 		execve((*tokens)[0], (*tokens), environ);
-		err((*tokens)[0], "", 1, mini);
+		err(*s, "", 1, mini);
 		exit(126);
 	}
 	else

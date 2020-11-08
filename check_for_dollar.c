@@ -56,7 +56,7 @@ void		strjoin_char(int *i, char **str, char **token)
 	(*i)++;
 }
 
-int		dollar_type(char **token, t_mini *mini, char **str)
+int			dollar_type(char **token, t_mini *mini, char **str)
 {
 	int		i;
 	char	q;

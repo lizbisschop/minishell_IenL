@@ -38,7 +38,7 @@ char	**add_to_env(char *s, t_mini *mini)
 	return (new_env);
 }
 
-void		add_quotes(t_mini *mini, int i)
+void	add_quotes(t_mini *mini, int i)
 {
 	int		j;
 	int		k;

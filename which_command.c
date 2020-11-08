@@ -18,25 +18,26 @@ void	var_sub_and_unquote(char **tokens, t_mini *mini)
 
 void	find_command(char **tokens, int tok_amount, t_mini *mini)
 {
+	int		len;
+
 	if (!tokens[0])
 		return ;
+	len = ft_strlen(tokens[0]);
 	if (mini->piped == 1)
 		var_sub_and_unquote(tokens, mini);
-	if (ft_strncmp("echo", tokens[0], 4) == 0 && ft_strlen(tokens[0]) == 4)
+	if (ft_strncmp("echo", tokens[0], 4) == 0 && len == 4)
 		echo(tokens, tok_amount, mini);
-	else if (ft_strncmp("pwd", tokens[0], 3) == 0 && ft_strlen(tokens[0]) == 3)
+	else if (ft_strncmp("pwd", tokens[0], 3) == 0 && len == 3)
 		pwd(mini);
-	else if (ft_strncmp("exit", tokens[0], 4) == 0 && ft_strlen(tokens[0]) == 4)
+	else if (ft_strncmp("exit", tokens[0], 4) == 0 && len == 4)
 		exec_exit(mini, tok_amount, tokens);
-	else if (ft_strncmp("cd", tokens[0], 2) == 0 && ft_strlen(tokens[0]) == 2)
+	else if (ft_strncmp("cd", tokens[0], 2) == 0 && len == 2)
 		cd(tokens, tok_amount, mini);
-	else if (ft_strncmp("env", tokens[0], 3) == 0 && ft_strlen(tokens[0]) == 3)
+	else if (ft_strncmp("env", tokens[0], 3) == 0 && len == 3)
 		env_command(tok_amount, mini);
-	else if (ft_strncmp("export", tokens[0], 6) == 0 &&
-	ft_strlen(tokens[0]) == 6)
+	else if (ft_strncmp("export", tokens[0], 6) == 0 && len == 6)
 		ft_export(tokens, tok_amount, mini);
-	else if (ft_strncmp("unset", tokens[0], 5) == 0 &&
-	ft_strlen(tokens[0]) == 5)
+	else if (ft_strncmp("unset", tokens[0], 5) == 0 && len == 5)
 		unset(tokens, mini);
 	else
 		exec_cmd(tokens, ft_strdup(tokens[0]), mini);

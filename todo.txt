@@ -10,20 +10,26 @@ system("ls -la /proc/$$/fd");
 [V] ~/bin/ //home substitution at ~
 [V] test.c/: Not a directory
 [V] /test.c/: No such file or directory
-[ ] norm maken
 [ ] segfault multiple pipes??
-[ ] Exit with a number should remember the number
+[V] Exit with a number should remember the number
 [V] ctrl+c new process //detachen van main process en terminal niet mogelijk
 [ ] builtins met hoofdletters
 [ ] exit values kloppend maken
 [V] cd sdklgh, echo ||| lksghl, cd ksjdg segfault
-[ ] ./test.c: permission denied + holds de rest van de string?
-[ ] >< only / with echo
-[ ] ft_strncmp: altijd lengte checken
+[V] ./test.c: permission denied + holds de rest van de string?
+[V] >< only / with echo
+[ ] <| only (wrong error) / echo <| echo hee (segfault)
+[V] echo <> hoi / echo <> test.c -> '<>' is redirection operator (both R and WR)
+[V] ft_strncmp: altijd lengte checken
 [ ] malloc fails checken && exit(1)
 [ ] <> or ending with delimiter
-[ ] altijd als we erroren (mallocs f.e.) free stuff aanroepen? 
+[ ] altijd als we erroren (mallocs f.e.) free stuff aanroepen?
 [ ] alle messages naar fd 2 printen
+
+Testing unset-------------------------------------------------------
+[V] unset PATH
+[V] unset blabla
+[ ] unset $PATH / $LESS: first do check for dollar
 
 Testing echo--------------------------------------------------------
 [V] echo -n hoi
@@ -34,6 +40,13 @@ Testing echo--------------------------------------------------------
 
 Testing cat---------------------------------------------------------
 [V] cat $HOME
+
+Testing other commands----------------------------------------------
+[ ] ./
+[ ] //
+[ ] /
+[ ] ''
+[ ] ""
 
 Testing pipes-------------------------------------------------------
 [V] ./github_minishell/gnl/ > outfile //stderror redir needed
@@ -64,15 +77,14 @@ Tests github--------------------------------------------------------
 [V] cat mini_main.c | < input
 [V] cat <int1 <int2 < int3
 [V] dollar checking if there is an '=' check whats behind the '='
-[ ] echo $~ should print
+[V] echo $~
 [V] export hoi = hallo should not go into env
 [ ] leaked s in exec_cmd??
 [ ] echo -n -n -nnnnnnnnnn -nnnnnn should not print
-
+[ ] everything norm
 
 Testing for leaks
 [ ] leaks in echo
-
 
 Tests liewe----------------------------------------------------------
 [V] cat /dev/urandom | head -c10 //should not hang

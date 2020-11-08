@@ -19,7 +19,10 @@ void		exec_cmd(char **tokens, char *s, t_mini *mini)
 		exec_child(tokens, s, mini);
 	pid = fork();
 	if (pid < 0)
-		err(tokens[1], "", 2, mini);
+	{
+		err("Forking went wrong", "", 1, mini);
+		return ;
+	}
 	mini->fd_out = dup(STDOUT_FILENO);
 	mini->fd_in = dup(STDIN_FILENO);
 	if (pid == 0)
