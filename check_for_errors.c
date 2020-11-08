@@ -15,7 +15,6 @@ int		check_redir_end(int *i, char *str, t_mini *mini)
 		if (str[*i] == '\0')
 		{
 			err("syntax error near unexpected token `newline'", "", 0, mini);
-			
 			return (-1);
 		}
 	}

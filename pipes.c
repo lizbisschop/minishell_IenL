@@ -61,21 +61,7 @@ int		execute_pipe(t_mini *mini, int *pid, int cmd)
 	return (0);
 }
 
-void	set_in_out(t_mini *mini, int cmd, int **pid)
-{
-	// if (mini->pipes_c)
-	// {
-	// 	free_pipes_c(mini);
-	// }
-	mini->fd_out = 1;
-	tokenizer(mini->c[cmd].tokens, mini->c[cmd].tok_amount, mini);
-	(*pid) = ft_calloc(mini->pipe_cmds, sizeof(int));
-	mini->main_in = dup(STDIN_FILENO);
-	mini->main_out = dup(STDOUT_FILENO);
-	mini->fd_in = dup(mini->main_in);
-}
-
-void	getting_exit_status(t_mini *mini, int *pid)
+void	set_exit_status(t_mini *mini, int **pid)
 {
 	int		i;
 	int		j;
@@ -87,9 +73,9 @@ void	getting_exit_status(t_mini *mini, int *pid)
 	{
 		pid_wait = wait(&wstat);
 		j = 0;
-		while (pid[j])
+		while ((*pid)[j])
 		{
-			if (pid[j] == pid_wait)
+			if ((*pid)[j] == pid_wait)
 				break ;
 			j++;
 		}
@@ -97,6 +83,8 @@ void	getting_exit_status(t_mini *mini, int *pid)
 			mini->exit_int = WEXITSTATUS(wstat);
 		i++;
 	}
+	if (*pid)
+		free(*pid);
 }
 
 int		pipes(t_mini *mini, int cmd)
@@ -105,7 +93,12 @@ int		pipes(t_mini *mini, int cmd)
 	int		i;
 
 	i = 0;
-	set_in_out(mini, cmd, &pid);
+	mini->fd_out = 1;
+	tokenizer(mini->c[cmd].tokens, mini->c[cmd].tok_amount, mini);
+	pid = ft_calloc(mini->pipe_cmds, sizeof(int));
+	mini->main_in = dup(STDIN_FILENO);
+	mini->main_out = dup(STDOUT_FILENO);
+	mini->fd_in = dup(mini->main_in);
 	while (i < mini->pipe_cmds)
 	{
 		valid_input_redir(&mini->pipes_c[i], mini);
@@ -118,8 +111,6 @@ int		pipes(t_mini *mini, int cmd)
 	dup2(mini->main_out, STDOUT_FILENO);
 	close(mini->main_in);
 	close(mini->main_out);
-	getting_exit_status(mini, pid);
-	if (pid)
-		free(pid);
+	set_exit_status(mini, &pid);
 	return (0);
 }
