@@ -2,15 +2,12 @@
 
 int		check_redir_end(int *i, char *str, t_mini *mini)
 {
-	if (str[*i] == ';' && str[*i + 1] == ';')
-	{
-		err("syntax error near unexpected token `;;'", "", 0, mini);
-		return (-1);
-	}
 	if (str[*i] == '>' || str[*i] == '<')
 	{
-		while ((is_whitespace(str[*i]) && str[*i] != '\0') ||
-		(str[*i] == '>' || str[*i] == '<'))
+		(*i)++;
+		if (str[*i] == '>')
+			(*i)++;
+		while (is_whitespace(str[*i]) && str[*i] != '\0')
 			(*i)++;
 		if (str[*i] == '\0')
 		{
@@ -23,17 +20,25 @@ int		check_redir_end(int *i, char *str, t_mini *mini)
 
 int		check_pip_redir(int *i, char *s, t_mini *mini)
 {
-	if (s[*i] == '|' && s[*i + 1] == '|')
-	{
-		err("syntax error near unexpected token `|'", "", 0, mini);
+	char deli[4];
+	int	old_i;
+	char delimiter;
+
+	old_i = *i;
+	if (check_redir_end(i, s, mini) == -1)
 		return (-1);
-	}
-	else if (s[*i] == '<' && s[*i + 1] == '<')
+	*i = old_i;
+	while (s[*i] != '\0')
 	{
-		err("syntax error near unexpected token `<'", "", 0, mini);
-		return (-1);
+		if (s[*i] == ';' && s[*i + 1] == ';')
+		{
+			err("syntax error near unexpected token `;;'", "", 0, mini);
+			return (-1);
+		}
+		(*i)++;
 	}
-	else if (s[*i] == '>' && s[*i + 1] == '>' && s[*i + 2] == '>')
+	*i = old_i;
+	if (s[*i] == '>' && s[*i + 1] == '>' && s[*i + 2] == '>')
 	{
 		if (s[*i + 3] == '>')
 			err("syntax error near unexpected token `>>'", "", 0, mini);
@@ -41,12 +46,54 @@ int		check_pip_redir(int *i, char *s, t_mini *mini)
 			err("syntax error near unexpected token `>'", "", 0, mini);
 		return (-1);
 	}
-	else if (s[*i] == '>' && s[*i + 1] == '<')
+	else if (s[*i] == '>' && s[*i + 1] == '>')
 	{
-		err("syntax error near unexpected token `<'", "", 0, mini);
-		return (-1);
+		(*i)++;
+		while (s[*i + 1] != '\0' && is_whitespace(s[*i + 1]))
+			(*i)++;
+		if (is_delimiter(s[*i + 1]) == 1)
+		{
+			deli[0] = '`';
+			deli[1] = s[*i + 1];
+			deli[2] = '\'';
+			deli[3] = '\0';
+			err("syntax error near unexpected token ", deli, 0, mini);
+			return (-1);
+		}
 	}
-	return (check_redir_end(i, s, mini));
+	if (is_delimiter(s[*i]) || s[*i] == ';')
+	{
+		delimiter = s[*i];
+		(*i)++;
+		while (s[*i] != '\0' && is_whitespace(s[*i]))
+			(*i)++;
+		if ((is_delimiter(s[*i]) == 1 || s[*i] == ';') && (delimiter != '|' || s[*i] == '|'))
+		{
+			deli[0] = '`';
+			deli[1] = s[*i];
+			deli[2] = '\'';
+			deli[3] = '\0';
+			err("syntax error near unexpected token ", deli, 0, mini);
+			return (-1);
+		}
+	}
+	// if (s[*i] == '|')
+	// {
+	// 	while (is_whitespace())
+	// 	err("syntax error near unexpected token `|'", "", 0, mini);
+	// 	return (-1);
+	// }
+	// else if (s[*i] == '<' && s[*i + 1] == '<')
+	// {
+	// 	err("syntax error near unexpected token `<'", "", 0, mini);
+	// 	return (-1);
+	// }
+	// else if (s[*i] == '>' && s[*i + 1] == '<')
+	// {
+	// 	err("syntax error near unexpected token `<'", "", 0, mini);
+	// 	return (-1);
+	// }
+	return (0);
 }
 
 int		check_pipes_redirect(char *s, t_mini *mini)

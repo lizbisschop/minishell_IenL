@@ -46,7 +46,7 @@ char	*fill_string(int len, char **s, t_mini *mini)
 	str = (char *)malloc(sizeof(char) * (len - mini->n_quotes + 1));
 	if (!str)
 	{
-		ft_putstr_fd("malloc failed\n", mini->main_out);
+		ft_putstr_fd("malloc failed\n", 2);
 		exit(1);
 	}
 	fill_str_char(s, &str, &i, &j);

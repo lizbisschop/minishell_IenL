@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-int		pipe_amount(char **tokens, int tok_amount)
+int		pipe_amount(char **tokens, int tok_amount, t_mini *mini)
 {
 	int		i;
 	int		n;
@@ -13,6 +13,12 @@ int		pipe_amount(char **tokens, int tok_amount)
 		&& ft_strlen(tokens[i]) == 1)
 			n++;
 		i++;
+	}
+	if (n > PID_MAX)
+	{
+		ft_putstr_fd("bash: fork: Resource temporarily unavailable\n", 2);
+		mini->exit_int = 128;
+		return (-1);
 	}
 	return (n + 1);
 }
@@ -64,7 +70,9 @@ int		tokenizer(char **tokens, int tok_amount, t_mini *mini)
 
 	i = 0;
 	k = 0;
-	mini->pipe_cmds = pipe_amount(tokens, tok_amount);
+	mini->pipe_cmds = pipe_amount(tokens, tok_amount, mini);
+	if (mini->pipe_cmds == -1)
+		return (-1);
 	mini->pipes_c = (t_command *)malloc(sizeof(t_command) *
 	(mini->pipe_cmds + 1));
 	if (mini->pipes_c == (void*)-1)

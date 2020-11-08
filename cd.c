@@ -67,6 +67,7 @@ int		check_tilde(t_mini *mini, char **home, char **tokens)
 int		cd(char **tokens, int tok_amount, t_mini *mini)
 {
 	char	*home;
+	char	*pwd;
 
 	home = get_home(mini);
 	if (tok_amount == 1)
@@ -78,6 +79,27 @@ int		cd(char **tokens, int tok_amount, t_mini *mini)
 	else if (ft_strncmp("/root", tokens[1], 5) == 0 &&
 	ft_strlen(tokens[1]) == 5)
 		chdir("/root");
+	else if (ft_strncmp(".", tokens[1], 1) == 0 && ft_strlen(tokens[1]) == 1)
+	{
+		pwd = get_pwd();
+		if (pwd == 0)
+		{
+			err("cd: ", "", 1, mini);
+			mini->exit_int = 1;
+			if (home)
+				free(home);
+			return (-1);
+		}
+		pwd = gnl_strjoin(pwd, "/.");
+		if (chdir(pwd) == -1)
+		{
+			err("cd: ", pwd, 1, mini);
+			mini->exit_int = 1;
+			if (home)
+				free(home);
+			return (-1);
+		}
+	}
 	else if (chdir(tokens[1]) == -1)
 	{
 		err("cd: ", tokens[1], 1, mini);

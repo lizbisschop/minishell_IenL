@@ -16,6 +16,7 @@
 # include "./gnl/get_next_line.h"
 
 # define EXT_ALPHABET_SIZE 63
+# define PID_MAX 709
 
 //REMOVE!!!
 #include <stdio.h>

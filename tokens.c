@@ -3,7 +3,11 @@
 int		check_tok_end(char *s, int *i)
 {
 	if (s[*i] == '\'' || s[*i] == '"')
+	{
 		skip_quoted(s, i);
+		if (is_delimiter(s[*i]))
+			return (1);
+	}
 	else if (is_delimiter(s[*i]))
 	{
 		*i = (s[*i] == '>' && s[*i + 1] == '>') ? *i + 2 : *i + 1;
@@ -49,7 +53,11 @@ int		tok_end(char *s, int i)
 	while (s[i] != '\0')
 	{
 		if (s[i] == '\'' || s[i] == '"')
+		{
 			skip_quoted(s, &i);
+			if (is_delimiter(s[i]))
+				return (i);
+		}
 		else if (is_delimiter(s[i]))
 		{
 			if (s[i] == '>' && s[i + 1] == '>')

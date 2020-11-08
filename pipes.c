@@ -6,7 +6,7 @@ void	dup_and_child(t_mini *mini, int *pid, int i)
 	close(mini->fd_out);
 	pid[i] = fork();
 	if (pid[i] == -1)
-		ft_putstr_fd("fork went wrong\n", mini->main_out);
+		ft_putstr_fd("fork went wrong\n", 2);
 	if (pid[i] == 0)
 	{
 		close(mini->main_in);
@@ -94,7 +94,8 @@ int		pipes(t_mini *mini, int cmd)
 
 	i = 0;
 	mini->fd_out = 1;
-	tokenizer(mini->c[cmd].tokens, mini->c[cmd].tok_amount, mini);
+	if (tokenizer(mini->c[cmd].tokens, mini->c[cmd].tok_amount, mini) == -1)
+		return (-1);
 	pid = ft_calloc(mini->pipe_cmds, sizeof(int));
 	mini->main_in = dup(STDIN_FILENO);
 	mini->main_out = dup(STDOUT_FILENO);

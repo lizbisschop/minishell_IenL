@@ -46,8 +46,8 @@ char	*read_line(void)
 	ret = get_next_line(0, &line);
 	if (ret == 0 && ft_strlen(line) == 0)
 	{
-		ft_putstr_fd("exit\n", 1);
-		exit(1);
+		ft_putstr_fd("exit\n", 2);
+		exit(1); //dit gaat soms nog fout met return values
 	}
 	while (ret == 0)
 	{

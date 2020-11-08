@@ -96,7 +96,8 @@ void	which_command(t_mini *mini)
 		if (any_pipes(mini->c[cmd]))
 		{
 			mini->piped = 1;
-			pipes(mini, cmd);
+			if (pipes(mini, cmd) == -1)
+				break ;
 			free_pipes_c(mini);
 		}
 		else if (mini->c[cmd].tok_amount > 0)
