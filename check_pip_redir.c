@@ -22,6 +22,7 @@ int		check_semicolon(char *s, t_mini *mini, int *i)
 {
 	while (s[*i] != '\0')
 	{
+		skip_quoted(s, i);
 		if (s[*i] == ';' && s[*i + 1] == ';')
 		{
 			err("syntax error near unexpected token `;;'", "", 0, mini);
