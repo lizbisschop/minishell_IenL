@@ -28,7 +28,8 @@ system("ls -la /proc/$$/fd");
 [ ] exit values kloppend maken
 [ ] builtins met hoofdletters
 [ ] sefault when touch '>>'
-[ ] 
+[ ] cat ctrl+d leaks!!!
+[ ] ctrl+d echo $? should be 0
 
 Testing unset-------------------------------------------------------
 [V] unset PATH
