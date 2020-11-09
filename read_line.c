@@ -47,7 +47,7 @@ char	*read_line(void)
 	if (ret == 0 && ft_strlen(line) == 0)
 	{
 		ft_putstr_fd("exit\n", 2);
-		exit(1); //dit gaat soms nog fout met return values
+		exit(0);
 	}
 	while (ret == 0)
 	{

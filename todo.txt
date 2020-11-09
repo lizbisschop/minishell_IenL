@@ -13,21 +13,22 @@ system("ls -la /proc/$$/fd");
 [V] segfault multiple pipes??
 [V] Exit with a number should remember the number
 [V] ctrl+c new process //detachen van main process en terminal niet mogelijk
-[ ] builtins met hoofdletters
-[ ] exit values kloppend maken
 [V] cd sdklgh, echo ||| lksghl, cd ksjdg segfault
 [V] ./test.c: permission denied + holds de rest van de string?
 [V] >< only / with echo
 [V] <| only (wrong error) / echo <| echo hee (segfault)
 [V] echo <> hoi / echo <> test.c -> '<>' is redirection operator (both R and WR)
 [V] ft_strncmp: altijd lengte checken
-[ ] malloc fails checken && exit(1)
 [V] <> or ending with delimiter
-[ ] altijd als we erroren (mallocs f.e.) free stuff aanroepen?
 [V] alle messages naar fd 2 printen
 [V] echo hoi '|'| echo hey should seperate |
 [V] echo |> echo hey should be seen as command
+[ ] malloc fails checken && exit(1)
+[ ] altijd als we erroren (mallocs f.e.) free stuff aanroepen?
+[ ] exit values kloppend maken
+[ ] builtins met hoofdletters
 [ ] sefault when touch '>>'
+[ ] 
 
 Testing unset-------------------------------------------------------
 [V] unset PATH
@@ -63,7 +64,6 @@ Testing pipes-------------------------------------------------------
 [V] pwd | cat > out
 [V] | //ours: multiline command, real: syntax error near '|'
 [V] na 1x output redirection: fd 6,7,8 etc. blijft vol zitten
-[ ] malloc pipesfd!!
 [V] more than 709 pipes (ulimitis -u = max nbr of processes)
 
 Testing pipes and redirections-------------------------------------
@@ -105,4 +105,3 @@ Testing for leaks
 Tests liewe----------------------------------------------------------
 [V] cat /dev/urandom | head -c10 //should not hang
 [V] cat | grep 42 //reoutput only if you give 42 in string
-

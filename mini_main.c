@@ -45,10 +45,10 @@ int		main(void)
 
 	mini.env = copy_env();
 	mini.exit_int = 0;
+	signal(SIGQUIT, &handle_sigquit);
+	signal(SIGINT, &handle_sigint);
 	while (1)
 	{
-		signal(SIGQUIT, &handle_sigquit);
-		signal(SIGINT, &handle_sigint);
 		set_struct(&mini);
 		show_command_prompt();
 		mini.input = read_line();
