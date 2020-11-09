@@ -56,8 +56,8 @@ int		check_output_redir(char *s, t_mini *mini, int *i)
 
 int		check_delimiter(char *s, t_mini *mini, int *i)
 {
-    char deli[4];
-    char delimiter;
+	char	deli[4];
+	char	delimiter;
 
 	if (is_delimiter(s[*i]) || s[*i] == ';')
 	{
