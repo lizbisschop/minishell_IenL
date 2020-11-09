@@ -87,7 +87,7 @@ Tests github--------------------------------------------------------
 [V] echo $~
 [V] export hoi = hallo should not go into env
 [ ] leaked s in exec_cmd??
-[ ] echo -n -n -nnnnnnnnnn -nnnnnn should not print
+[V] echo -n -n -nnnnnnnnnn -nnnnnn should not print
 [ ] everything norm
 
 Testing for leaks

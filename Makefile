@@ -36,7 +36,8 @@ SRCS = ./gnl/get_next_line.c \
 	check_for_dollar.c \
 	ft_split_commands.c \
 	insertion_sort.c \
-	save_commands.c
+	save_commands.c \
+	check_pip_redir.c
 	
 
 FLAGS = -Wall -Werror -Wextra

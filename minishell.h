@@ -113,5 +113,10 @@ int		find_substr(char *s, t_mini *mini);
 void	check_quotes(char *s, t_mini *mini);
 void	insertion_sort(int end, int start, int *arr, char **env);
 int		save_commands(t_mini *mini, char *s);
+int		check_pip_redir(int *i, char *s, t_mini *mini);
+int		check_delimiter(char *s, t_mini *mini, int *i);
+int		check_output_redir(char *s, t_mini *mini, int *i);
+int		check_semicolon(char *s, t_mini *mini, int *i);
+int		check_redir_end(int *i, char *str, t_mini *mini);
 
 #endif
