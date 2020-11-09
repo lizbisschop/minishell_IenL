@@ -81,7 +81,7 @@ char	**copy_env(void);
 void	ft_export(char **tokens, int tok_amount, t_mini *mini);
 void	set_env(char *s, t_mini *mini);
 int		*sort_env(char **env);
-char	*read_line(void);
+char	*read_line(t_mini *mini);
 void	exec_cmd(char **tokens, char *s, t_mini *mini);
 char	*ft_strjoin_read(char *s1, char *s2);
 char	*ft_strdup_free(char **s1);
