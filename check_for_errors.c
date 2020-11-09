@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   check_for_errors.c                                 :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: iboeters <iboeters@student.codam.nl>         +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2020/11/09 18:16:19 by iboeters      #+#    #+#                 */
+/*   Updated: 2020/11/09 18:16:21 by iboeters      ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 int		check_pipes_redirect(char *s, t_mini *mini)

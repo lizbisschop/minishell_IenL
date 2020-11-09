@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   ft_split_commands.c                                :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: iboeters <iboeters@student.codam.nl>         +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2020/11/09 18:18:05 by iboeters      #+#    #+#                 */
+/*   Updated: 2020/11/09 18:18:06 by iboeters      ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 void	check_slash_semicolon(char *s, int *i, int *empty, int *semicolon)

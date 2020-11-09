@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   exec_exit.c                                        :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: iboeters <iboeters@student.codam.nl>         +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2020/11/09 18:17:48 by iboeters      #+#    #+#                 */
+/*   Updated: 2020/11/09 18:17:49 by iboeters      ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 void	exit_alpha_num(char **tokens, t_mini *mini, int tok_amount)

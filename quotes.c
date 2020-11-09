@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   quotes.c                                           :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: iboeters <iboeters@student.codam.nl>         +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2020/11/09 18:18:39 by iboeters      #+#    #+#                 */
+/*   Updated: 2020/11/09 18:21:16 by iboeters      ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 void	else_slash(char **s, char **str, int *i, int *j)
@@ -88,7 +100,7 @@ char	*unquote(char **s, t_mini *mini)
 	return (fill_string(i, s, mini));
 }
 
-void		quotes(char **tokens, t_mini *mini)
+void	quotes(char **tokens, t_mini *mini)
 {
 	int	i;
 

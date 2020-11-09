@@ -39,7 +39,6 @@ SRCS = ./gnl/get_next_line.c \
 	save_commands.c \
 	check_pip_redir.c \
 	tokens_utils.c
-	
 
 FLAGS = -Wall -Werror -Wextra
 
@@ -64,11 +63,11 @@ $(LIBFT):
 	cp ./libft/libft.a .
 
 clean:
-	# @make clean -C ./libft
+	@make clean -C ./libft
 	rm -rf $(OBJ)
 
 fclean: clean
-	# rm -rf $(LIBFT)
+	rm -rf $(LIBFT)
 	rm -rf $(NAME)
 
 re: fclean all

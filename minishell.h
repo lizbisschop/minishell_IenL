@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   minishell.h                                        :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: iboeters <iboeters@student.codam.nl>         +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2020/11/09 18:19:53 by iboeters      #+#    #+#                 */
+/*   Updated: 2020/11/09 18:22:46 by iboeters      ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
@@ -14,12 +26,8 @@
 # include <dirent.h>
 # include "./libft/libft.h"
 # include "./gnl/get_next_line.h"
-
 # define EXT_ALPHABET_SIZE 63
 # define PID_MAX 709
-
-//REMOVE!!!
-#include <stdio.h>
 
 typedef	struct	s_command{
 	int			tok_amount;
@@ -57,70 +65,71 @@ typedef	struct	s_mini{
 	t_command	*pipes_c;
 }				t_mini;
 
-void	show_command_prompt(void);
-char	*get_input(void);
-void	skip_whitespaces(char *str, t_mini *mini);
-void	echo(char **tokens, int tok_amount, t_mini *mini);
-void	which_command(t_mini *mini);
-void	pwd(t_mini *mini);
-int		cd(char **tokens, int tok_amount, t_mini *mini);
-void	set_envp(t_mini *mini);
-int		multi_lines(char *str);
-char	*unquote(char **s, t_mini *mini);
-int		env_command(int check, t_mini *mini);
-char	**ft_split_minishell(char const *s, char c, t_mini *mini);
-int		ft_split_commands(char *s, t_mini *mini);
-int		string_count(t_mini *mini, char *s);
-int		check_for_errors(char *s, t_mini *mini);
-int		tokens(t_mini *mini);
-void	skip_wspaces(char *s, int *i);
-int		is_whitespace(char c);
-int		is_delimiter(char c);
-void	free_stuff(t_mini *mini);
-char	**copy_env(void);
-void	ft_export(char **tokens, int tok_amount, t_mini *mini);
-void	set_env(char *s, t_mini *mini);
-int		*sort_env(char **env);
-char	*read_line(t_mini *mini);
-void	exec_cmd(char **tokens, char *s, t_mini *mini);
-char	*ft_strjoin_read(char *s1, char *s2);
-char	*ft_strdup_free(char **s1);
-void	check_for_dollar(char **token, t_mini *mini);
-int		pipes(t_mini *mini, int cmd);
-void	unset(char **tokens, t_mini *mini);
-int		multi_line_pipe(t_mini *mini);
-void	find_command(char **tokens, int tok_amount, t_mini *mini);
-int		check_redir(char ***tokens, int *tok_amount, t_mini *mini);
-int		valid_input_redir(t_command *command, t_mini *mini);
-int		tokenizer(char **tokens, int tok_amount, t_mini *mini);
-char	*get_pwd(void);
-void	free_env_export(t_mini *mini);
-void	free_pipes_c(t_mini *mini);
-char	*get_home(t_mini *mini);
-char	*get_path(char *cmd, t_mini *mini);
-void	err(char *function, char *input, int fd, t_mini *mini);
-int		exec_child(char **tokens, char *s, t_mini *mini);
-void	error_multi_line_pipe(int i, int cmd, t_command command, t_mini *mini);
-int		multi_line_pipe(t_mini *mini);
-int		multi_lines(char *str);
-void	exec_exit(t_mini *mini, int tok_amount, char **tokens);
-void	free_env(t_mini *mini);
-char	**add_to_env(char *s, t_mini *mini);
-void	if_quote(int *k, int *j, t_mini *mini);
-void	find_right_env(t_mini *mini, int *i, int *j, int *k);
-void	skip_quoted(char *s, int *i);
-void	print_export(t_mini *mini);
-int		find_substr(char *s, t_mini *mini);
-void	check_quotes(char *s, t_mini *mini);
-void	insertion_sort(int end, int start, int *arr, char **env);
-int		save_commands(t_mini *mini, char *s);
-int		check_pip_redir(int *i, char *s, t_mini *mini);
-int		check_delimiter(char *s, t_mini *mini, int *i);
-int		check_output_redir(char *s, t_mini *mini, int *i);
-int		check_semicolon(char *s, t_mini *mini, int *i);
-int		check_redir_end(int *i, char *str, t_mini *mini);
-void	quotes(char **tokens, t_mini *mini);
-void	var_sub(char **tokens, t_mini *mini);
-int		ret_del(char *s, int i);
+void			show_command_prompt(void);
+char			*get_input(void);
+void			skip_whitespaces(char *str, t_mini *mini);
+void			echo(char **tokens, int tok_amount, t_mini *mini);
+void			which_command(t_mini *mini);
+void			pwd(t_mini *mini);
+int				cd(char **tokens, int tok_amount, t_mini *mini);
+void			set_envp(t_mini *mini);
+int				multi_lines(char *str);
+char			*unquote(char **s, t_mini *mini);
+int				env_command(int check, t_mini *mini);
+char			**ft_split_minishell(char const *s, char c, t_mini *mini);
+int				ft_split_commands(char *s, t_mini *mini);
+int				string_count(t_mini *mini, char *s);
+int				check_for_errors(char *s, t_mini *mini);
+int				tokens(t_mini *mini);
+void			skip_wspaces(char *s, int *i);
+int				is_whitespace(char c);
+int				is_delimiter(char c);
+void			free_stuff(t_mini *mini);
+char			**copy_env(void);
+void			ft_export(char **tokens, int tok_amount, t_mini *mini);
+void			set_env(char *s, t_mini *mini);
+int				*sort_env(char **env);
+char			*read_line(t_mini *mini);
+void			exec_cmd(char **tokens, char *s, t_mini *mini);
+char			*ft_strjoin_read(char *s1, char *s2);
+char			*ft_strdup_free(char **s1);
+void			check_for_dollar(char **token, t_mini *mini);
+int				pipes(t_mini *mini, int cmd);
+void			unset(char **tokens, t_mini *mini);
+int				multi_line_pipe(t_mini *mini);
+void			find_command(char **tokens, int tok_amount, t_mini *mini);
+int				check_redir(char ***tokens, int *tok_amount, t_mini *mini);
+int				valid_input_redir(t_command *command, t_mini *mini);
+int				tokenizer(char **tokens, int tok_amount, t_mini *mini);
+char			*get_pwd(void);
+void			free_env_export(t_mini *mini);
+void			free_pipes_c(t_mini *mini);
+char			*get_home(t_mini *mini);
+char			*get_path(char *cmd, t_mini *mini);
+void			err(char *function, char *input, int fd, t_mini *mini);
+int				exec_child(char **tokens, char *s, t_mini *mini);
+void			error_multi_line_pipe(int i, int cmd, t_command command,
+t_mini *mini);
+int				multi_line_pipe(t_mini *mini);
+int				multi_lines(char *str);
+void			exec_exit(t_mini *mini, int tok_amount, char **tokens);
+void			free_env(t_mini *mini);
+char			**add_to_env(char *s, t_mini *mini);
+void			if_quote(int *k, int *j, t_mini *mini);
+void			find_right_env(t_mini *mini, int *i, int *j, int *k);
+void			skip_quoted(char *s, int *i);
+void			print_export(t_mini *mini);
+int				find_substr(char *s, t_mini *mini);
+void			check_quotes(char *s, t_mini *mini);
+void			insertion_sort(int end, int start, int *arr, char **env);
+int				save_commands(t_mini *mini, char *s);
+int				check_pip_redir(int *i, char *s, t_mini *mini);
+int				check_delimiter(char *s, t_mini *mini, int *i);
+int				check_output_redir(char *s, t_mini *mini, int *i);
+int				check_semicolon(char *s, t_mini *mini, int *i);
+int				check_redir_end(int *i, char *str, t_mini *mini);
+void			quotes(char **tokens, t_mini *mini);
+void			var_sub(char **tokens, t_mini *mini);
+int				ret_del(char *s, int i);
 
 #endif
