@@ -23,6 +23,7 @@ void		echo(char **tokens, int tok_amount, t_mini *mini)
 	int		n_flag;
 
 	i = 1;
+	n_flag = 0;
 	if (tok_amount > 1)
 	{
 		set_n_flag(&n_flag, &i, tokens);

@@ -55,6 +55,8 @@ int		main(void)
 		mini.input = read_line(&mini);
 		if (ft_split_commands(mini.input, &mini) != -1)
 		{
+			if (mini.sp_input[0][0] == '$')
+				check_for_dollar(&(mini.sp_input[0]), &mini);
 			tokens(&mini);
 			if (multi_line_pipe(&mini) != -1)
 				which_command(&mini);

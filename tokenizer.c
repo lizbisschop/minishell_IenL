@@ -41,6 +41,7 @@ int		tok_amount_pipes(char **tokens, int i, int tok_amount)
 
 void	create_tokens_pipes(t_command *cmd, int *i, int *j, char **tokens)
 {
+	cmd->error_redir = 0;
 	cmd->tokens = (char **)malloc((cmd->tok_amount + 1) * sizeof(char *));
 	if (!cmd->tokens)
 	{
@@ -84,7 +85,6 @@ int		tokenizer(char **tokens, int tok_amount, t_mini *mini)
 	{
 		j = 0;
 		mini->pipes_c[k].invalid_redir = 0;
-		mini->pipes_c[k].error_redir = 0;
 		mini->pipes_c[k].tok_amount = tok_amount_pipes(tokens, i, tok_amount);
 		create_tokens_pipes(&(mini->pipes_c[k]), &i, &j, tokens);
 		k++;

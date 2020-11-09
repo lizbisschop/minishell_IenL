@@ -89,6 +89,7 @@ void		check_for_dollar(char **token, t_mini *mini)
 {
 	char *str;
 
+	mini->nbr = NULL;
 	str = ft_strdup("");
 	if (ft_strchr(*token, '$'))
 	{

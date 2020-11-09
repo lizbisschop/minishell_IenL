@@ -4,7 +4,7 @@ void	var_sub(char **tokens, t_mini *mini)
 {
 	int	i;
 
-	i = 1;
+	i = 0;
 	while (tokens[i])
 	{
 		check_for_dollar(&(tokens[i]), mini);
