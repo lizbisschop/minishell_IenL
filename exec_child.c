@@ -5,7 +5,7 @@ void	find_executable(char ***tokens, char **s, t_mini *mini)
 	char			*path;
 	extern char		**environ;
 
-	path = get_path((*tokens)[0]);
+	path = get_path((*tokens)[0], mini);
 	if (path != 0 && ft_strlen((*tokens)[0]))
 	{
 		if ((*tokens)[0])

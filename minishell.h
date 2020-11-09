@@ -97,7 +97,7 @@ char	*get_pwd(void);
 void	free_env_export(t_mini *mini);
 void	free_pipes_c(t_mini *mini);
 char	*get_home(t_mini *mini);
-char	*get_path(char *cmd);
+char	*get_path(char *cmd, t_mini *mini);
 void	err(char *function, char *input, int fd, t_mini *mini);
 int		exec_child(char **tokens, char *s, t_mini *mini);
 void	error_multi_line_pipe(int i, int cmd, t_command command, t_mini *mini);
