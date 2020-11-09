@@ -1,41 +1,39 @@
 #include "minishell.h"
 
-char	*get_path_entry(int i, int *j, char *cmd)
+char	*get_path_entry(int i, int *j, char *cmd, t_mini *mini)
 {
 	int			len;
-	extern char **environ;
 	char		*str;
 
 	len = 0;
-	while (environ[i][*j] != '\0' && environ[i][*j] != ':')
+	while (mini->env[i][*j] != '\0' && mini->env[i][*j] != ':')
 	{
 		(*j)++;
 		len++;
 	}
-	str = ft_substr(environ[i], *j - len, len);
+	str = ft_substr(mini->env[i], *j - len, len);
 	if (cmd[0] != '/')
 		str = gnl_strjoin(str, "/");
 	str = gnl_strjoin(str, cmd);
 	return (str);
 }
 
-char	*get_path(char *cmd)
+char	*get_path(char *cmd, t_mini *mini)
 {
 	int			i;
 	int			j;
 	char		*str;
-	extern char	**environ;
 	struct stat	buf;
 
 	i = 0;
-	while (environ[i])
+	while (mini->env[i])
 	{
-		if (ft_strncmp(environ[i], "PATH=", 5) == 0)
+		if (ft_strncmp(mini->env[i], "PATH=", 5) == 0)
 		{
 			j = 5;
-			while (environ[i][j] != '\0')
+			while (mini->env[i][j] != '\0')
 			{
-				str = get_path_entry(i, &j, cmd);
+				str = get_path_entry(i, &j, cmd, mini);
 				if (stat(str, &buf) != -1)
 					return (str);
 				if (str)
