@@ -11,7 +11,8 @@ void	dup_and_child(t_mini *mini, int *pid, int i)
 	{
 		close(mini->main_in);
 		close(mini->fd_in);
-		if (mini->pipes_c[i].invalid_redir == 0)
+		if (mini->pipes_c[i].invalid_redir != 1 &&
+		mini->pipes_c[i].error_redir != 1)
 			find_command(mini->pipes_c[i].tokens,
 			mini->pipes_c[i].tok_amount, mini);
 		else
@@ -44,8 +45,10 @@ int		execute_pipe(t_mini *mini, int *pid, int cmd)
 	j = 0;
 	while (i < mini->pipe_cmds)
 	{
-		check_redir(&(mini->pipes_c[i].tokens),
-		&(mini->pipes_c[i].tok_amount), mini);
+		if (check_redir(&(mini->pipes_c[i].tokens),
+		&(mini->pipes_c[i].tok_amount), mini) == -1)
+			mini->c[cmd].error_redir = 1;
+		var_sub(mini->pipes_c[i].tokens, mini);
 		dup2(mini->fd_in, STDIN_FILENO);
 		close(mini->fd_in);
 		if (i == mini->pipe_cmds - 1 && mini->out_redir == 0)

@@ -87,3 +87,15 @@ char	*unquote(char **s, t_mini *mini)
 	}
 	return (fill_string(i, s, mini));
 }
+
+void		quotes(char **tokens, t_mini *mini)
+{
+	int	i;
+
+	i = 0;
+	while (tokens[i])
+	{
+		tokens[i] = unquote(&(tokens[i]), mini);
+		i++;
+	}
+}

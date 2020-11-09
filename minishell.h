@@ -25,6 +25,7 @@ typedef	struct	s_command{
 	int			tok_amount;
 	char		**tokens;
 	int			invalid_redir;
+	int			error_redir;
 }				t_command;
 
 typedef	struct	s_mini{
@@ -61,7 +62,7 @@ void	skip_whitespaces(char *str, t_mini *mini);
 void	echo(char **tokens, int tok_amount, t_mini *mini);
 void	which_command(t_mini *mini);
 void	pwd(t_mini *mini);
-int		quotes(t_mini *mini, char c, char *line);
+// int		quotes(t_mini *mini, char c, char *line);
 int		cd(char **tokens, int tok_amount, t_mini *mini);
 void	set_envp(t_mini *mini);
 int		multi_lines(char *str);
@@ -89,7 +90,7 @@ int		pipes(t_mini *mini, int cmd);
 void	unset(char **tokens, t_mini *mini);
 int		multi_line_pipe(t_mini *mini);
 void	find_command(char **tokens, int tok_amount, t_mini *mini);
-void	check_redir(char ***tokens, int *tok_amount, t_mini *mini);
+int		check_redir(char ***tokens, int *tok_amount, t_mini *mini);
 int		valid_input_redir(t_command *command, t_mini *mini);
 int		tokenizer(char **tokens, int tok_amount, t_mini *mini);
 char	*get_pwd(void);
@@ -118,5 +119,7 @@ int		check_delimiter(char *s, t_mini *mini, int *i);
 int		check_output_redir(char *s, t_mini *mini, int *i);
 int		check_semicolon(char *s, t_mini *mini, int *i);
 int		check_redir_end(int *i, char *str, t_mini *mini);
+void	quotes(char **tokens, t_mini *mini);
+void	var_sub(char **tokens, t_mini *mini);
 
 #endif

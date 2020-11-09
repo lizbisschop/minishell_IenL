@@ -20,6 +20,7 @@ void	trim_tokens(int i, char ***tokens, int *tok_amount, t_mini *mini)
 
 int		output_redir(int i, char ***tokens, int *tok_amount, t_mini *mini)
 {
+	(*tokens)[i + 1] = unquote(&((*tokens)[i + 1]), mini);
 	if (mini->found_out == 1)
 		close(mini->fd);
 	mini->found_out = 1;
@@ -28,19 +29,26 @@ int		output_redir(int i, char ***tokens, int *tok_amount, t_mini *mini)
 	else
 		mini->fd = open((*tokens)[i + 1], O_RDWR | O_CREAT | O_APPEND, 0644);
 	if (mini->fd == -1)
+	{
+		err((*tokens)[i + 1], "", 1, mini);
 		return (-1);
+	}
 	trim_tokens(i, tokens, tok_amount, mini);
 	return (0);
 }
 
 int		input_redir(int i, char ***tokens, int *tok_amount, t_mini *mini)
 {
+	(*tokens)[i + 1] = unquote(&((*tokens)[i + 1]), mini);
 	if (mini->found_in == 1)
 		close(mini->fd2);
 	mini->found_in = 1;
 	mini->fd2 = open(((*tokens)[i + 1]), O_RDONLY);
 	if (mini->fd2 == -1)
+	{
+		err((*tokens)[i + 1], "", 1, mini);
 		return (-1);
+	}
 	trim_tokens(i, tokens, tok_amount, mini);
 	return (0);
 }
@@ -64,7 +72,7 @@ void	set_in_and_out(t_mini *mini)
 	}
 }
 
-void	check_redir(char ***tokens, int *tok_amount, t_mini *mini)
+int		check_redir(char ***tokens, int *tok_amount, t_mini *mini)
 {
 	int		i;
 	int		ret;
@@ -87,7 +95,8 @@ void	check_redir(char ***tokens, int *tok_amount, t_mini *mini)
 		else
 			i++;
 		if (ret == -1)
-			return ;
+			return (-1);
 	}
 	set_in_and_out(mini);
+	return (0);
 }

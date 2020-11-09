@@ -45,13 +45,13 @@ Testing cat---------------------------------------------------------
 [V] cat $HOME
 
 Testing other commands----------------------------------------------
-[ ] ./
-[ ] //
-[ ] /
-[ ] ''
-[ ] ""
-[ ] touch >
-[ ] rm >
+[V] ./
+[V] //
+[V] /
+[V] ''
+[V] ""
+[V] touch >
+[V] rm >
 
 Testing pipes-------------------------------------------------------
 [V] ./github_minishell/gnl/ > outfile //stderror redir needed
@@ -73,6 +73,15 @@ Testing pipes and redirections-------------------------------------
 [V] ls >> file3 | cat < file3 //first: bash error && second time : file3 exists
 [V] cat > output < output //error cat: input file is output file - should result in empty outfile
 [V] cat > outfile | cat < outfile
+[V] touch '>'; cat > '>'; cat '>'
+[V] rm '>'
+[V] echo hoi > gnl
+[V] echo hoi < gnl
+[V] echo hoi > $HOME
+
+
+
+
 Tests github--------------------------------------------------------
 [V] cat mini_main.c > out | grep if
 [V] cat mini_main.c > out | > out1

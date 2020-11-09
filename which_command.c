@@ -1,17 +1,13 @@
 #include "minishell.h"
 
-void	var_sub_and_unquote(char **tokens, t_mini *mini)
+void	var_sub(char **tokens, t_mini *mini)
 {
 	int	i;
 
-	i = 0;
+	i = 1;
 	while (tokens[i])
 	{
-		if (i != 0)
-		{
-			check_for_dollar(&(tokens[i]), mini);
-		}
-		tokens[i] = unquote(&(tokens[i]), mini);
+		check_for_dollar(&(tokens[i]), mini);
 		i++;
 	}
 }
@@ -23,8 +19,7 @@ void	find_command(char **tokens, int tok_amount, t_mini *mini)
 	if (!tokens[0])
 		return ;
 	len = ft_strlen(tokens[0]);
-	if (mini->piped == 1)
-		var_sub_and_unquote(tokens, mini);
+	quotes(tokens, mini);
 	if (ft_strncmp("echo", tokens[0], 4) == 0 && len == 4)
 		echo(tokens, tok_amount, mini);
 	else if (ft_strncmp("pwd", tokens[0], 3) == 0 && len == 3)
@@ -67,15 +62,16 @@ void	no_pipes_cmd(int cmd, t_mini *mini)
 	mini->fd_in = dup(mini->main_in);
 	mini->fd_out = dup(mini->main_out);
 	mini->c[cmd].invalid_redir = 0;
+	mini->c[cmd].error_redir = 0;
 	valid_input_redir(&mini->c[cmd], mini);
-	check_redir(&(mini->c[cmd].tokens), &(mini->c[cmd].tok_amount),
-	mini);
-	//unquote?
+	if (check_redir(&(mini->c[cmd].tokens), &(mini->c[cmd].tok_amount),
+	mini) == -1)
+		mini->c[cmd].error_redir = 1;
 	dup2(mini->fd_in, STDIN_FILENO);
 	dup2(mini->fd_out, STDOUT_FILENO);
 	close(mini->fd_in);
 	close(mini->fd_out);
-	if (mini->c[cmd].invalid_redir != 1)
+	if (mini->c[cmd].invalid_redir != 1 && mini->c[cmd].error_redir != 1)
 		find_command(mini->c[cmd].tokens, mini->c[cmd].tok_amount, mini);
 	dup2(mini->main_in, STDIN_FILENO);
 	dup2(mini->main_out, STDOUT_FILENO);
@@ -103,7 +99,7 @@ void	which_command(t_mini *mini)
 		}
 		else if (mini->c[cmd].tok_amount > 0)
 		{
-			var_sub_and_unquote(mini->c[cmd].tokens, mini);
+			var_sub(mini->c[cmd].tokens, mini);
 			no_pipes_cmd(cmd, mini);
 		}
 		cmd++;
