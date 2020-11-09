@@ -46,9 +46,7 @@ char	*get_home(t_mini *mini)
 		i++;
 	}
 	if (!mini->env[i])
-	{
 		check_home_environ(&home);
-	}
 	if (i == 0)
 		return ((void*)0);
 	return (home);
@@ -73,13 +71,43 @@ int		check_tilde(t_mini *mini, char **home, char **tokens)
 			free(*home);
 		return (-1);
 	}
+	if (*home)
+		free(*home);
+	return (0);
+}
+
+int		compare_dot(char **tokens, t_mini *mini, char **home)
+{
+	mini->pwd = NULL;
+	if (ft_strncmp(".", tokens[1], 1) == 0 && ft_strlen(tokens[1]) == 1)
+	{
+		mini->pwd = get_pwd();
+		if (mini->pwd == 0)
+		{
+			err("cd: ", "", 1, mini);
+			if (*home)
+				free(*home);
+			return (-1);
+		}
+		mini->pwd = gnl_strjoin(mini->pwd, "/.");
+		if (chdir(mini->pwd) == -1)
+		{
+			err("cd: ", mini->pwd, 1, mini);
+			if (*home)
+				free(*home);
+			if (mini->pwd)
+				free(mini->pwd);
+			return (-1);
+		}
+	}
+	if (mini->pwd)
+		free(mini->pwd);
 	return (0);
 }
 
 int		cd(char **tokens, int tok_amount, t_mini *mini)
 {
 	char	*home;
-	char	*pwd;
 
 	home = get_home(mini);
 	if (tok_amount == 1)
@@ -91,31 +119,11 @@ int		cd(char **tokens, int tok_amount, t_mini *mini)
 	else if (ft_strncmp("/root", tokens[1], 5) == 0 &&
 	ft_strlen(tokens[1]) == 5)
 		chdir("/root");
-	else if (ft_strncmp(".", tokens[1], 1) == 0 && ft_strlen(tokens[1]) == 1)
-	{
-		pwd = get_pwd();
-		if (pwd == 0)
-		{
-			err("cd: ", "", 1, mini);
-			mini->exit_int = 1;
-			if (home)
-				free(home);
-			return (-1);
-		}
-		pwd = gnl_strjoin(pwd, "/.");
-		if (chdir(pwd) == -1)
-		{
-			err("cd: ", pwd, 1, mini);
-			mini->exit_int = 1;
-			if (home)
-				free(home);
-			return (-1);
-		}
-	}
+	else if (compare_dot(tokens, mini, &home) == -1)
+		return (-1);
 	else if (chdir(tokens[1]) == -1)
 	{
 		err("cd: ", tokens[1], 1, mini);
-		mini->exit_int = 1;
 		if (home)
 			free(home);
 		return (-1);

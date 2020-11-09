@@ -19,6 +19,7 @@ int		check_pipes_redirect(char *s, t_mini *mini)
 	i = 0;
 	while ((is_whitespace(s[i]) && s[i] != '\0') || s[i] == ';')
 	{
+		skip_quoted(s, &i);
 		if (s[i] == ';')
 		{
 			err("syntax error near unexpected token `;'", "", 0, mini);

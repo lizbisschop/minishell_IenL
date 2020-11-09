@@ -61,6 +61,7 @@ typedef	struct	s_mini{
 	int			check_export;
 	char		*export_str;
 	char		*nbr;
+	char		*pwd;
 	t_command	*c;
 	t_command	*pipes_c;
 }				t_mini;
