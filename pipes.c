@@ -11,7 +11,7 @@ void	dup_and_child(t_mini *mini, int *pid, int i)
 	{
 		close(mini->main_in);
 		close(mini->fd_in);
-		if (mini->pipes_c[i].invalid_input == 0)
+		if (mini->pipes_c[i].invalid_redir == 0)
 			find_command(mini->pipes_c[i].tokens,
 			mini->pipes_c[i].tok_amount, mini);
 		else

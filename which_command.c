@@ -66,15 +66,16 @@ void	no_pipes_cmd(int cmd, t_mini *mini)
 	mini->main_out = dup(STDOUT_FILENO);
 	mini->fd_in = dup(mini->main_in);
 	mini->fd_out = dup(mini->main_out);
-	mini->c[cmd].invalid_input = 0;
+	mini->c[cmd].invalid_redir = 0;
 	valid_input_redir(&mini->c[cmd], mini);
 	check_redir(&(mini->c[cmd].tokens), &(mini->c[cmd].tok_amount),
 	mini);
+	//unquote?
 	dup2(mini->fd_in, STDIN_FILENO);
 	dup2(mini->fd_out, STDOUT_FILENO);
 	close(mini->fd_in);
 	close(mini->fd_out);
-	if (mini->c[cmd].invalid_input != 1)
+	if (mini->c[cmd].invalid_redir != 1)
 		find_command(mini->c[cmd].tokens, mini->c[cmd].tok_amount, mini);
 	dup2(mini->main_in, STDIN_FILENO);
 	dup2(mini->main_out, STDOUT_FILENO);

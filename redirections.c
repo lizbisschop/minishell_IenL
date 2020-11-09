@@ -28,11 +28,7 @@ int		output_redir(int i, char ***tokens, int *tok_amount, t_mini *mini)
 	else
 		mini->fd = open((*tokens)[i + 1], O_RDWR | O_CREAT | O_APPEND, 0644);
 	if (mini->fd == -1)
-	{
-		err((*tokens)[i + 1], "", 1, mini);
-		mini->out_redir = -1;
 		return (-1);
-	}
 	trim_tokens(i, tokens, tok_amount, mini);
 	return (0);
 }
