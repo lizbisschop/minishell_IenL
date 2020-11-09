@@ -63,7 +63,6 @@ void	skip_whitespaces(char *str, t_mini *mini);
 void	echo(char **tokens, int tok_amount, t_mini *mini);
 void	which_command(t_mini *mini);
 void	pwd(t_mini *mini);
-// int		quotes(t_mini *mini, char c, char *line);
 int		cd(char **tokens, int tok_amount, t_mini *mini);
 void	set_envp(t_mini *mini);
 int		multi_lines(char *str);
