@@ -27,6 +27,7 @@ system("ls -la /proc/$$/fd");
 [ ] alle messages naar fd 2 printen
 [V] echo hoi '|'| echo hey should seperate |
 [V] echo |> echo hey should be seen as command
+[ ] sefault when touch '>>'
 
 Testing unset-------------------------------------------------------
 [V] unset PATH

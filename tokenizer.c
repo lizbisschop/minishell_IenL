@@ -83,7 +83,7 @@ int		tokenizer(char **tokens, int tok_amount, t_mini *mini)
 	while (k < mini->pipe_cmds)
 	{
 		j = 0;
-		mini->pipes_c[k].invalid_input = 0;
+		mini->pipes_c[k].invalid_redir = 0;
 		mini->pipes_c[k].tok_amount = tok_amount_pipes(tokens, i, tok_amount);
 		create_tokens_pipes(&(mini->pipes_c[k]), &i, &j, tokens);
 		k++;

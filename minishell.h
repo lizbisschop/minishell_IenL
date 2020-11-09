@@ -24,7 +24,7 @@
 typedef	struct	s_command{
 	int			tok_amount;
 	char		**tokens;
-	int			invalid_input;
+	int			invalid_redir;
 }				t_command;
 
 typedef	struct	s_mini{
