@@ -37,6 +37,7 @@ void	set_struct(t_mini *mini)
 	mini->in_redir = 0;
 	mini->out_redir = 0;
 	mini->c = (void*)(0);
+	mini->input = NULL;
 }
 
 int		main(void)
@@ -51,7 +52,7 @@ int		main(void)
 		signal(SIGINT, &handle_sigint);
 		set_struct(&mini);
 		show_command_prompt();
-		mini.input = read_line();
+		mini.input = read_line(&mini);
 		if (ft_split_commands(mini.input, &mini) != -1)
 		{
 			tokens(&mini);

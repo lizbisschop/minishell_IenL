@@ -35,23 +35,24 @@ char	*ft_strjoin_read(char *s1, char *s2)
 	return (str3);
 }
 
-char	*read_line(void)
+char	*read_line(t_mini *mini)
 {
 	char	*line;
 	int		ret;
 	char	*old_line;
 
-	line = NULL;
 	ret = 0;
 	ret = get_next_line(0, &line);
 	if (ret == 0 && ft_strlen(line) == 0)
 	{
 		ft_putstr_fd("exit\n", 2);
-		exit(1); //dit gaat soms nog fout met return values
+		exit(0);
 	}
 	while (ret == 0)
 	{
 		old_line = ft_strdup(line);
+		if (line)
+			free(line);
 		ret = get_next_line(0, &line);
 		line = ft_strjoin_read(old_line, line);
 		if (old_line)
