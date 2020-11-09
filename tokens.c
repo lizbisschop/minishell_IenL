@@ -59,13 +59,7 @@ int		tok_end(char *s, int i)
 				return (i);
 		}
 		else if (is_delimiter(s[i]))
-		{
-			if (s[i] == '>' && s[i + 1] == '>')
-				i = i + 2;
-			else
-				i++;
-			return (i);
-		}
+			return (ret_del(s, i));
 		else if (ft_isascii(s[i]))
 		{
 			while (s[i] != '\0' && ft_isascii(s[i]) && s[i] != '\'' &&

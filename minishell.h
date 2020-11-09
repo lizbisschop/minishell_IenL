@@ -121,5 +121,6 @@ int		check_semicolon(char *s, t_mini *mini, int *i);
 int		check_redir_end(int *i, char *str, t_mini *mini);
 void	quotes(char **tokens, t_mini *mini);
 void	var_sub(char **tokens, t_mini *mini);
+int		ret_del(char *s, int i);
 
 #endif
