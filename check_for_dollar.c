@@ -71,7 +71,8 @@ int			dollar_type(char **token, t_mini *mini, char **str)
 		set_open_q((*token)[i], &q, &n_quotes);
 		if ((*token)[i] == '$' && (*token)[i + 1] == '?' && q != '\'')
 		{
-			*str = gnl_strjoin(*str, ft_itoa(mini->exit_int));
+			mini->nbr = ft_itoa(mini->exit_int);
+			*str = gnl_strjoin(*str, mini->nbr);
 			i += 2;
 		}
 		else if ((*token)[i] == '$' && !ft_isalnum((*token)[i + 1]))
@@ -98,6 +99,8 @@ void		check_for_dollar(char **token, t_mini *mini)
 		(*token) = ft_strdup(str);
 		if (str)
 			free(str);
+		if (mini->nbr)
+			free(mini->nbr);
 	}
 	else
 	{
