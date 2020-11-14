@@ -6,7 +6,7 @@
 /*   By: iboeters <iboeters@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/09 18:16:11 by iboeters      #+#    #+#                 */
-/*   Updated: 2020/11/14 13:52:59 by lbisscho      ########   odam.nl         */
+/*   Updated: 2020/11/14 18:21:39 by lbisscho      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,25 +16,34 @@ void		get_env_var(int *i, char **token, t_mini *mini, char **str)
 {
 	int		var_length;
 	int		j;
+	char	*s;
 
 	var_length = 0;
 	j = 0;
 	(*i)++;
-	// if ((*token)[*i] == '_')
-	// {
-	// 	*token = ft_strdup("");
-	// 	return ;
-	// }
-	while ((*token)[(*i) + var_length] != '\0' && (ft_isalnum((*token)[(*i) +
-	var_length]) || (*token)[(*i) +
-	var_length] == '_'))
-		var_length++;
-	while (mini->env[j])
+	if ((*token)[*i] == '"' || (*token)[*i] == '\'')
 	{
-		if (ft_strncmp(&(*token)[(*i)], mini->env[j], var_length) == 0 &&
-		mini->env[j][var_length] == '=')
-			(*str) = gnl_strjoin((*str), &(mini->env[j][var_length + 1]));
-		j++;
+		// if open quote -> alleen $ stringjoinen, zoals bij echo hoi"bla$"
+		while ((*token)[(*i) + var_length] != '\0' &&
+		(*token)[(*i) + var_length] != '$')
+			var_length++;
+		s = ft_substr(*token, *i, var_length);
+		(*str) = gnl_strjoin((*str), s);
+		if (s)
+			free(s);
+	}
+	else
+	{
+		while ((*token)[(*i) + var_length] != '\0' && (ft_isalnum((*token)[(*i)
+		+ var_length]) || (*token)[(*i) + var_length] == '_'))
+			var_length++;
+		while (mini->env[j])
+		{
+			if (ft_strncmp(&(*token)[(*i)], mini->env[j], var_length) == 0 &&
+			mini->env[j][var_length] == '=')
+				(*str) = gnl_strjoin((*str), &(mini->env[j][var_length + 1]));
+			j++;
+		}
 	}
 	(*i) += var_length;
 }
@@ -88,7 +97,8 @@ int			dollar_type(char **token, t_mini *mini, char **str)
 			*str = gnl_strjoin(*str, mini->nbr);
 			i += 2;
 		}
-		else if ((*token)[i] == '$' && (!ft_isalnum((*token)[i + 1]) && (*token)[i + 1] != '_'))
+		else if ((*token)[i] == '$' && !(ft_isalnum((*token)[i + 1]) ||
+		(*token)[i + 1] == '"' || (*token)[i + 1] == '\'') && (*token)[i + 1] != '_')
 			return (-1);
 		else if ((*token)[i] == '$' && (*token)[i + 1] && q != '\'')
 			get_env_var(&i, token, mini, str);
