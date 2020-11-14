@@ -26,10 +26,20 @@ system("ls -la /proc/$$/fd");
 [ ] malloc fails checken && exit(1)
 [ ] altijd als we erroren (mallocs f.e.) free stuff aanroepen?
 [ ] exit values kloppend maken
-[ ] builtins met hoofdletters
-[ ] sefault when touch '>>'
+[V] builtins met hoofdletters: dit hoeft niet, soms wel, soms niet
+[V] sefault when touch '>>'
 [ ] cat ctrl+d leaks!!!
 [ ] ctrl+d echo $? should be 0
+[ ] exit with word: add bash before error
+[ ] exit 1 hoi: always putstr exit first
+[ ] exit with first words / first number etc. error handling
+[ ] run cat + cntrl \
+[ ] run cat + cntrl c
+[ ] run cat + cntrl d
+[ ] cat "\""; en uberhaubt \ in double quotes
+[ ] ~: cat ~/usr/etc.
+[ ] type awk: error without path to executable
+[ ] 
 
 Testing unset-------------------------------------------------------
 [V] unset PATH
