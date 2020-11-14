@@ -6,7 +6,7 @@
 /*   By: iboeters <iboeters@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/09 18:16:11 by iboeters      #+#    #+#                 */
-/*   Updated: 2020/11/09 18:16:14 by iboeters      ########   odam.nl         */
+/*   Updated: 2020/11/14 13:52:59 by lbisscho      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,14 @@ void		get_env_var(int *i, char **token, t_mini *mini, char **str)
 	var_length = 0;
 	j = 0;
 	(*i)++;
-	if ((*token)[*i] == '_')
-	{
-		*token = ft_strdup("");
-		return ;
-	}
-	while ((*token)[(*i) + var_length] != '\0' && ft_isalnum((*token)[(*i) +
-	var_length]))
+	// if ((*token)[*i] == '_')
+	// {
+	// 	*token = ft_strdup("");
+	// 	return ;
+	// }
+	while ((*token)[(*i) + var_length] != '\0' && (ft_isalnum((*token)[(*i) +
+	var_length]) || (*token)[(*i) +
+	var_length] == '_'))
 		var_length++;
 	while (mini->env[j])
 	{
@@ -87,7 +88,7 @@ int			dollar_type(char **token, t_mini *mini, char **str)
 			*str = gnl_strjoin(*str, mini->nbr);
 			i += 2;
 		}
-		else if ((*token)[i] == '$' && !ft_isalnum((*token)[i + 1]))
+		else if ((*token)[i] == '$' && (!ft_isalnum((*token)[i + 1]) && (*token)[i + 1] != '_'))
 			return (-1);
 		else if ((*token)[i] == '$' && (*token)[i + 1] && q != '\'')
 			get_env_var(&i, token, mini, str);
@@ -106,7 +107,11 @@ void		check_for_dollar(char **token, t_mini *mini)
 	if (ft_strchr(*token, '$'))
 	{
 		if (dollar_type(token, mini, &str) == -1)
+		{
+			if (str)
+				free(str);
 			return ;
+		}
 		if (*token)
 			free(*token);
 		(*token) = ft_strdup(str);

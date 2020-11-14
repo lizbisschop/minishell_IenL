@@ -39,7 +39,7 @@ system("ls -la /proc/$$/fd");
 [ ] cat "\""; en uberhaubt \ in double quotes
 [ ] ~: cat ~/usr/etc.
 [ ] type awk: error without path to executable
-[ ] 
+[ ] echo $"hallo" wrong output
 
 Testing unset-------------------------------------------------------
 [V] unset PATH
