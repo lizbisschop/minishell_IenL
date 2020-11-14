@@ -6,7 +6,7 @@
 /*   By: iboeters <iboeters@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/09 18:18:16 by iboeters      #+#    #+#                 */
-/*   Updated: 2020/11/09 18:18:17 by iboeters      ########   odam.nl         */
+/*   Updated: 2020/11/14 15:19:56 by iboeters      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ void	err(char *s1, char *s2, int sterr, t_mini *mini)
 
 void	handle_sigint(int signal)
 {
+	write(2, "\b \b\b \b", 6);
 	ft_putchar_fd('\n', 1);
 	show_command_prompt();
 	(void)signal;
@@ -37,6 +38,7 @@ void	handle_sigint(int signal)
 
 void	handle_sigquit(int signal)
 {
+	write(2, "\b \b\b \b", 6);
 	(void)signal;
 }
 
@@ -59,10 +61,10 @@ int		main(void)
 
 	mini.env = copy_env();
 	mini.exit_int = 0;
-	signal(SIGQUIT, &handle_sigquit);
-	signal(SIGINT, &handle_sigint);
 	while (1)
 	{
+		signal(SIGQUIT, &handle_sigquit);
+		signal(SIGINT, &handle_sigint);
 		set_struct(&mini);
 		show_command_prompt();
 		mini.input = read_line(&mini);
@@ -75,7 +77,7 @@ int		main(void)
 				which_command(&mini);
 			free_stuff(&mini);
 		}
-		if (mini.input)
+		else if (mini.input)
 			free(mini.input);
 	}
 	return (0);

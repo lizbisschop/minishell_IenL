@@ -6,7 +6,7 @@
 /*   By: iboeters <iboeters@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/09 18:16:45 by iboeters      #+#    #+#                 */
-/*   Updated: 2020/11/09 18:16:46 by iboeters      ########   odam.nl         */
+/*   Updated: 2020/11/14 15:14:31 by iboeters      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ void		exec_cmd(char **tokens, char *s, t_mini *mini)
 		child_process(tokens, s, mini);
 	close(mini->fd_in);
 	close(mini->fd_out);
+	if (mini->input != NULL)
+		signal_child();
 	wait(&wstat);
 	if (WIFEXITED(wstat))
 		mini->exit_int = WEXITSTATUS(wstat);

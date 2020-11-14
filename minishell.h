@@ -6,7 +6,7 @@
 /*   By: iboeters <iboeters@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/09 18:19:53 by iboeters      #+#    #+#                 */
-/*   Updated: 2020/11/09 18:22:46 by iboeters      ########   odam.nl         */
+/*   Updated: 2020/11/14 12:01:23 by iboeters      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,5 +132,6 @@ int				check_redir_end(int *i, char *str, t_mini *mini);
 void			quotes(char **tokens, t_mini *mini);
 void			var_sub(char **tokens, t_mini *mini);
 int				ret_del(char *s, int i);
+void			signal_child(void);
 
 #endif

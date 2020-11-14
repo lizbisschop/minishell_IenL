@@ -28,14 +28,14 @@ system("ls -la /proc/$$/fd");
 [ ] exit values kloppend maken
 [V] builtins met hoofdletters: dit hoeft niet, soms wel, soms niet
 [V] sefault when touch '>>'
-[ ] cat ctrl+d leaks!!!
-[ ] ctrl+d echo $? should be 0
+[V] cat ctrl+d leaks!!!
+[V] ctrl+d echo $? should be 0
 [ ] exit with word: add bash before error
 [ ] exit 1 hoi: always putstr exit first
 [ ] exit with first words / first number etc. error handling
-[ ] run cat + cntrl \
-[ ] run cat + cntrl c
-[ ] run cat + cntrl d
+[V] run cat + cntrl \
+[V] run cat + cntrl c
+[V] run cat + cntrl d
 [ ] cat "\""; en uberhaubt \ in double quotes
 [ ] ~: cat ~/usr/etc.
 [ ] type awk: error without path to executable

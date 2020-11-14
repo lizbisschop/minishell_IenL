@@ -6,7 +6,7 @@
 /*   By: iboeters <iboeters@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/09 18:16:40 by iboeters      #+#    #+#                 */
-/*   Updated: 2020/11/09 18:16:41 by iboeters      ########   odam.nl         */
+/*   Updated: 2020/11/14 15:38:53 by iboeters      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,9 @@ void	find_executable(char ***tokens, char **s, t_mini *mini)
 		if (*s)
 			free(*s);
 		close(mini->main_out);
+		if (mini->input)
+			free(mini->input);
+		mini->input = NULL;
 		execve((*tokens)[0], (*tokens), environ);
 		err((*tokens)[0], "", 1, mini);
 		exit(1);
@@ -86,6 +89,9 @@ void	check_dir_and_exec(char ***tokens, char **s, t_mini *mini)
 	else if (stat((*tokens)[0], &buf) != -1)
 	{
 		close_and_free(mini, s);
+		if (mini->input)
+			free(mini->input);
+		mini->input = NULL;
 		execve((*tokens)[0], (*tokens), environ);
 		err(*s, "", 1, mini);
 		exit(126);

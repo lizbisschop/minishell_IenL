@@ -6,7 +6,7 @@
 /*   By: iboeters <iboeters@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/09 18:18:01 by iboeters      #+#    #+#                 */
-/*   Updated: 2020/11/09 18:18:02 by iboeters      ########   odam.nl         */
+/*   Updated: 2020/11/14 15:20:14 by iboeters      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,4 +92,6 @@ void	free_stuff(t_mini *mini)
 	free_sp_input(mini);
 	if (mini->sp_input)
 		free(mini->sp_input);
+	if (mini->input)
+		free(mini->input);
 }

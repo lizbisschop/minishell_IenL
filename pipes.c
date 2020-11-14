@@ -6,7 +6,7 @@
 /*   By: iboeters <iboeters@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/09 18:18:33 by iboeters      #+#    #+#                 */
-/*   Updated: 2020/11/09 18:18:34 by iboeters      ########   odam.nl         */
+/*   Updated: 2020/11/14 15:14:43 by iboeters      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,8 @@ void	set_exit_status(t_mini *mini, int **pid)
 	pid_t	pid_wait;
 
 	i = 0;
+	if (mini->input != NULL)
+		signal_child();
 	while (i < mini->pipe_cmds)
 	{
 		pid_wait = wait(&wstat);
