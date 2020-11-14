@@ -6,7 +6,7 @@
 /*   By: iboeters <iboeters@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/09 18:19:12 by iboeters      #+#    #+#                 */
-/*   Updated: 2020/11/09 18:19:13 by iboeters      ########   odam.nl         */
+/*   Updated: 2020/11/14 14:35:56 by lbisscho      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,13 @@ void	unset(char **tokens, t_mini *mini)
 	while (tokens[tok])
 	{
 		i = 0;
+		if (!ft_isalpha(tokens[tok][0]))
+		{
+			ft_putstr_fd("bash: unset: `", 2);
+			ft_putstr_fd(tokens[tok], 2);
+			ft_putstr_fd("': not a valid identifier\n", 2);
+			mini->exit_int = 1;
+		}
 		len = ft_strlen(tokens[tok]);
 		while (mini->env[i])
 		{
@@ -62,5 +69,4 @@ void	unset(char **tokens, t_mini *mini)
 		}
 		tok++;
 	}
-	mini->exit_int = 0;
 }

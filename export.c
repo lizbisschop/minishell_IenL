@@ -6,7 +6,7 @@
 /*   By: iboeters <iboeters@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/09 18:17:51 by iboeters      #+#    #+#                 */
-/*   Updated: 2020/11/09 18:17:52 by iboeters      ########   odam.nl         */
+/*   Updated: 2020/11/14 14:17:26 by lbisscho      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,5 +115,4 @@ void	ft_export(char **tokens, int tok_amount, t_mini *mini)
 	}
 	if (i == 1)
 		print_export(mini);
-	mini->exit_int = 0;
 }
