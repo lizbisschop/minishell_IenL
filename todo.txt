@@ -41,7 +41,8 @@ system("ls -la /proc/$$/fd");
 [V] /: cat /Users/iboeters/minishell/github_minishell/test.c
 [V] error: //Users/iboeters/minishell/github_minishell/test.c
 [ ] type awk: error without path to executable
-[ ] echo $"hallo" wrong output
+[V] echo $"hallo" wrong output
+[ ]echo $"HOME$"
 
 Testing unset-------------------------------------------------------
 [V] unset PATH

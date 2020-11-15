@@ -6,7 +6,7 @@
 /*   By: iboeters <iboeters@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/09 18:16:11 by iboeters      #+#    #+#                 */
-/*   Updated: 2020/11/15 15:32:40 by lbisscho      ########   odam.nl         */
+/*   Updated: 2020/11/15 18:08:31 by lbisscho      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,9 @@ int			dollar_type(char **token, t_mini *mini, char **str)
 		!(ft_isalnum((*token)[i + 1]) || (*token)[i + 1] == '"' ||
 		(*token)[i + 1] == '\'') && (*token)[i + 1] != '_')
 			return (-1);
-		else if ((*token)[i] == '$' && (*token)[i + 1] &&
-		q != '\'' && !((*token)[i + 1] == '"' && mini->n_quotes % 2 != 0))
+		else if ((*token)[i] == '$' && (*token)[i + 1] != '\0' &&
+		(q != '\'' || mini->n_quotes % 2 == 0) &&
+		!((*token)[i + 1] == '"' && mini->n_quotes % 2 != 0))
 			get_env_var(&i, token, mini, str);
 		else
 			strjoin_char(&i, str, token);
