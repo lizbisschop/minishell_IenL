@@ -38,11 +38,14 @@ system("ls -la /proc/$$/fd");
 [V] /: cat /Users/iboeters/minishell/github_minishell/test.c
 [V] error: //Users/iboeters/minishell/github_minishell/test.c
 [V] type awk: error without path to executable
-[ ] echo $"hallo" wrong output
-[ ] ctrl + d opvangen: alleen als line empty is exitten!
-[ ] cat "\""; en uberhaubt \ in double quotes
+[V] echo $"hallo" wrong output
 [V] ~: cat ~/minishell/github_minishell/test.c
-[ ] altijd als we erroren (mallocs f.e.) free stuff aanroepen?
+[V] ctrl + d opvangen: alleen als line empty is exitten!
+[V] echo $"hallo" wrong output
+[V] altijd als we erroren (mallocs f.e.) free stuff aanroepen?
+[V] type awk: error without path to executable
+[ ] cat "\""; en uberhaubt \ in double quotes
+[ ]echo $"HOME$"
 
 Testing unset-------------------------------------------------------
 [V] unset PATH
