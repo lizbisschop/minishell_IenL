@@ -6,7 +6,7 @@
 /*   By: iboeters <iboeters@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/09 18:16:40 by iboeters      #+#    #+#                 */
-/*   Updated: 2020/11/15 15:35:41 by iboeters      ########   odam.nl         */
+/*   Updated: 2020/11/15 17:22:13 by iboeters      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,8 @@ void	substitute_token(char ***tokens, char **s, t_mini *mini)
 	if ((*tokens)[0][0] == '~')
 	{
 		home = get_home(mini);
-		if ((*s)[1])
-			home = gnl_strjoin(home, s[1]);
+		if (&((*s)[1]))
+			home = gnl_strjoin(home, &((*s)[1]));
 		if (*s)
 			free(*s);
 		*s = ft_strdup(home);

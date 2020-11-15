@@ -6,7 +6,7 @@
 /*   By: iboeters <iboeters@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/09 18:17:51 by iboeters      #+#    #+#                 */
-/*   Updated: 2020/11/15 14:48:02 by iboeters      ########   odam.nl         */
+/*   Updated: 2020/11/15 17:06:38 by iboeters      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,9 +70,9 @@ void	correct_export(char **tokens, t_mini *mini, int i)
 {
 	if (tokens[i][0] == '=')
 	{
-		ft_putstr_fd("bash: export: ", 2);
+		ft_putstr_fd("bash: export: `", 2);
 		ft_putstr_fd(tokens[i], 2);
-		ft_putstr_fd(" not a valid identifier\n", 2);
+		ft_putstr_fd("': not a valid identifier\n", 2);
 		mini->exit_int = 1;
 		return ;
 	}
@@ -87,9 +87,9 @@ int		is_al_num_export(char **tokens, t_mini *mini, int i, int *j)
 		if ((ft_isalnum(tokens[i][*j]) == 0 && tokens[i][*j] != '_')
 		|| (ft_isdigit(tokens[i][*j]) == 1 && *j == 0))
 		{
-			ft_putstr_fd("bash: export: ", 2);
+			ft_putstr_fd("bash: export: `", 2);
 			ft_putstr_fd(tokens[i], 2);
-			ft_putstr_fd(" not a valid identifier\n", 2);
+			ft_putstr_fd("': not a valid identifier\n", 2);
 			mini->exit_int = 1;
 			return (1);
 		}
