@@ -6,7 +6,7 @@
 /*   By: lbisscho <lbisscho@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/14 12:01:27 by lbisscho      #+#    #+#                 */
-/*   Updated: 2020/11/07 14:02:29 by lbisscho      ########   odam.nl         */
+/*   Updated: 2020/11/15 14:58:18 by iboeters      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,14 +113,14 @@ char			**ft_split(char const *s, char c)
 	str_count = ft_string_count(s, c);
 	str_ar = (char**)malloc(sizeof(char*) * (str_count + 1));
 	if (!str_ar)
-		return (0);
+		malloc_error();
 	while (k < str_count)
 	{
 		str_ar[k] = (char*)malloc(sizeof(char) * ft_string_len(s, c, k));
 		if (!str_ar[k])
 		{
 			ft_free_split(str_ar, k);
-			return (0);
+			malloc_error();
 		}
 		str_ar[k] = ft_make_string(str_ar[k], s, c, k);
 		k++;

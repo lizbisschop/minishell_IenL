@@ -6,7 +6,7 @@
 /*   By: iboeters <iboeters@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/09 18:16:06 by iboeters      #+#    #+#                 */
-/*   Updated: 2020/11/09 18:16:08 by iboeters      ########   odam.nl         */
+/*   Updated: 2020/11/15 15:21:08 by iboeters      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,9 +116,6 @@ int		cd(char **tokens, int tok_amount, t_mini *mini)
 		return (check_tilde(mini, &home, tokens));
 	else if (tokens[1][0] == '/' && ft_strlen(tokens[1]) == 1)
 		chdir("//");
-	else if (ft_strncmp("/root", tokens[1], 5) == 0 &&
-	ft_strlen(tokens[1]) == 5)
-		chdir("/root");
 	else if (compare_dot(tokens, mini, &home) == -1)
 		return (-1);
 	else if (chdir(tokens[1]) == -1)

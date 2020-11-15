@@ -6,7 +6,7 @@
 /*   By: lbisscho <lbisscho@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/01 13:04:21 by lbisscho      #+#    #+#                 */
-/*   Updated: 2020/11/07 14:02:35 by lbisscho      ########   odam.nl         */
+/*   Updated: 2020/11/15 14:58:32 by iboeters      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ char	*ft_strdup(const char *s1)
 
 	s2 = (char *)malloc(sizeof(char) * (ft_strlen(s1) + 1));
 	if (!s2)
-		return (0);
+		malloc_error();
 	i = 0;
 	while (s1[i] != '\0')
 	{

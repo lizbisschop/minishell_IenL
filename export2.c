@@ -6,7 +6,7 @@
 /*   By: iboeters <iboeters@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/09 18:17:54 by iboeters      #+#    #+#                 */
-/*   Updated: 2020/11/09 18:17:55 by iboeters      ########   odam.nl         */
+/*   Updated: 2020/11/15 14:48:35 by iboeters      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,8 @@ void	print_export(t_mini *mini)
 		ft_putstr_fd("declare -x ", 1);
 		mini->export_str = (char *)malloc(sizeof(char)
 		* ft_strlen(mini->env[mini->arr[i]]) + 3);
+		if (!mini->export_str)
+			malloc_error();
 		add_quotes(mini, i);
 		ft_putstr_fd(mini->export_str, 1);
 		ft_putchar_fd('\n', 1);

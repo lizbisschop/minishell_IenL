@@ -6,7 +6,7 @@
 /*   By: iboeters <iboeters@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/09 18:19:09 by iboeters      #+#    #+#                 */
-/*   Updated: 2020/11/09 18:19:10 by iboeters      ########   odam.nl         */
+/*   Updated: 2020/11/15 15:00:05 by iboeters      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,10 +98,7 @@ void	create_tokens(int cmd, t_mini *mini)
 	mini->c[cmd].tokens = (char **)malloc(sizeof(char *) *
 	(mini->c[cmd].tok_amount + 1));
 	if (!(mini->c[cmd].tokens))
-	{
-		ft_putstr_fd("bash: Malloc fail\n", 2);
-		exit(1);
-	}
+		malloc_error();
 	while (j < mini->c[cmd].tok_amount)
 	{
 		skip_wspaces(mini->sp_input[cmd], &i);
@@ -121,10 +118,7 @@ int		tokens(t_mini *mini)
 	cmd = 0;
 	mini->c = (t_command *)malloc(sizeof(t_command) * (mini->cmds + 1));
 	if (mini->c == (void*)-1)
-	{
-		ft_putstr_fd("bash: Malloc fail\n", 2);
-		exit(1);
-	}
+		malloc_error();
 	while (cmd < mini->cmds)
 	{
 		create_tokens(cmd, mini);

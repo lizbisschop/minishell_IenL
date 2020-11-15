@@ -6,7 +6,7 @@
 /*   By: iboeters <iboeters@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/09 18:17:51 by iboeters      #+#    #+#                 */
-/*   Updated: 2020/11/14 14:17:26 by lbisscho      ########   odam.nl         */
+/*   Updated: 2020/11/15 14:48:02 by iboeters      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,8 @@ int		check_over_write(char *s, t_mini *mini)
 	while (s[i] != '\0' && s[i] != '=')
 		i++;
 	str = (char *)malloc(sizeof(char) * i + 1);
+	if (!str)
+		malloc_error();
 	i = 0;
 	while (s[i] != '\0' && s[i] != '=')
 	{

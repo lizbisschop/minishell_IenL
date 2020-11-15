@@ -39,7 +39,7 @@ SRCS = ./gnl/get_next_line.c \
 	save_commands.c \
 	check_pip_redir.c \
 	tokens_utils.c \
-	signal_child.c
+	signal_handlers.c
 
 FLAGS = -Wall -Werror -Wextra
 
@@ -68,6 +68,7 @@ clean:
 	rm -rf $(OBJ)
 
 fclean: clean
+	@make fclean -C ./libft
 	rm -rf $(LIBFT)
 	rm -rf $(NAME)
 

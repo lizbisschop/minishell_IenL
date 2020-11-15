@@ -6,7 +6,7 @@
 /*   By: iboeters <iboeters@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/09 18:19:53 by iboeters      #+#    #+#                 */
-/*   Updated: 2020/11/14 12:01:23 by iboeters      ########   odam.nl         */
+/*   Updated: 2020/11/15 14:51:45 by iboeters      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,5 +133,8 @@ void			quotes(char **tokens, t_mini *mini);
 void			var_sub(char **tokens, t_mini *mini);
 int				ret_del(char *s, int i);
 void			signal_child(void);
+void			handle_sigint(int signal);
+void			handle_sigquit(int signal);
+void			malloc_error(void);
 
 #endif

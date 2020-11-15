@@ -6,7 +6,7 @@
 /*   By: lbisscho <lbisscho@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/05 10:49:36 by lbisscho      #+#    #+#                 */
-/*   Updated: 2020/11/07 14:01:26 by lbisscho      ########   odam.nl         */
+/*   Updated: 2020/11/15 14:57:06 by iboeters      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ char			*ft_itoa(int n)
 	i = len(num);
 	str = (char *)malloc(sizeof(char) * (i + 1));
 	if (!str)
-		return (0);
+		malloc_error();
 	str[i] = '\0';
 	i--;
 	if (num < 0)

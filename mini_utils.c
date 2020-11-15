@@ -6,7 +6,7 @@
 /*   By: iboeters <iboeters@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/09 18:18:20 by iboeters      #+#    #+#                 */
-/*   Updated: 2020/11/09 18:18:21 by iboeters      ########   odam.nl         */
+/*   Updated: 2020/11/15 14:59:25 by iboeters      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ char	*ft_strdup_free(char **s1)
 
 	s2 = (char *)malloc(sizeof(char) * (ft_strlen(*s1) + 1));
 	if (!s2)
-		return (0);
+		malloc_error();
 	i = 0;
 	while ((*s1)[i] != '\0')
 	{

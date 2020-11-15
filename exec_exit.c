@@ -6,7 +6,7 @@
 /*   By: iboeters <iboeters@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/09 18:17:48 by iboeters      #+#    #+#                 */
-/*   Updated: 2020/11/14 12:03:39 by lbisscho      ########   odam.nl         */
+/*   Updated: 2020/11/15 14:11:03 by iboeters      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	exit_alpha_num(char **tokens, t_mini *mini, int tok_amount)
 			if (!ft_isdigit(tokens[1][i]))
 			{
 				ft_putstr_fd("exit\n", 2);
-				ft_putstr_fd("exit: ", 2);
+				ft_putstr_fd("bash: exit: ", 2);
 				ft_putstr_fd(tokens[1], 2);
 				ft_putstr_fd(": numeric argument required\n", 2);
 				mini->exit_int = 255;
@@ -33,7 +33,7 @@ void	exit_alpha_num(char **tokens, t_mini *mini, int tok_amount)
 			i++;
 		}
 		ft_putstr_fd("exit\n", 2);
-		ft_putstr_fd("exit: ", 2);
+		ft_putstr_fd("bash: exit: ", 2);
 		ft_putstr_fd("too many arguments\n", 2);
 		mini->exit_int = 1;
 	}
@@ -65,7 +65,7 @@ void	exec_exit(t_mini *mini, int tok_amount, char **tokens)
 		if (!ft_isdigit(tokens[1][i]))
 		{
 			ft_putstr_fd("exit\n", 2);
-			ft_putstr_fd("exit: ", 2);
+			ft_putstr_fd("bash: exit: ", 2);
 			ft_putstr_fd(tokens[1], 2);
 			ft_putstr_fd(": numeric argument required\n", 2);
 			mini->exit_int = 255;

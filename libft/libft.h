@@ -6,7 +6,7 @@
 /*   By: lbisscho <lbisscho@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/31 15:51:13 by lbisscho      #+#    #+#                 */
-/*   Updated: 2020/11/07 14:03:15 by lbisscho      ########   odam.nl         */
+/*   Updated: 2020/11/15 15:08:55 by iboeters      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include <stdlib.h>
 # include <unistd.h>
+# include "../minishell.h"
 
 int		ft_atoi(const char *str);
 void	ft_bzero(void *s, size_t n);

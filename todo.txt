@@ -23,21 +23,23 @@ system("ls -la /proc/$$/fd");
 [V] alle messages naar fd 2 printen
 [V] echo hoi '|'| echo hey should seperate |
 [V] echo |> echo hey should be seen as command
-[ ] malloc fails checken && exit(1)
+[V] malloc fails checken && exit(1)
 [ ] altijd als we erroren (mallocs f.e.) free stuff aanroepen?
-[ ] exit values kloppend maken
+[V] exit values kloppend maken
 [V] builtins met hoofdletters: dit hoeft niet, soms wel, soms niet
 [V] sefault when touch '>>'
 [V] cat ctrl+d leaks!!!
 [V] ctrl+d echo $? should be 0
-[ ] exit with word: add bash before error
-[ ] exit 1 hoi: always putstr exit first
-[ ] exit with first words / first number etc. error handling
+[V] exit with word: add bash before error
+[V] exit 1 hoi: always putstr exit first
+[V] exit with first words / first number etc. error handling
 [V] run cat + cntrl \
 [V] run cat + cntrl c
 [V] run cat + cntrl d
 [ ] cat "\""; en uberhaubt \ in double quotes
-[ ] ~: cat ~/usr/etc.
+[ ] ~: cat ~/minishell/github_minishell/test.c
+[V] /: cat /Users/iboeters/minishell/github_minishell/test.c
+[V] error: //Users/iboeters/minishell/github_minishell/test.c
 [ ] type awk: error without path to executable
 [ ] echo $"hallo" wrong output
 

@@ -6,7 +6,7 @@
 /*   By: iboeters <iboeters@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/09 18:19:03 by iboeters      #+#    #+#                 */
-/*   Updated: 2020/11/09 18:19:04 by iboeters      ########   odam.nl         */
+/*   Updated: 2020/11/15 14:59:53 by iboeters      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,16 +56,13 @@ void	create_tokens_pipes(t_command *cmd, int *i, int *j, char **tokens)
 	cmd->error_redir = 0;
 	cmd->tokens = (char **)malloc((cmd->tok_amount + 1) * sizeof(char *));
 	if (!cmd->tokens)
-	{
-		ft_putstr_fd("bash: Malloc fail\n", 2);
-		exit(-1);
-	}
+		malloc_error();
 	while (*j < cmd->tok_amount)
 	{
 		cmd->tokens[*j] = ft_strdup(tokens[*i]);
 		if (!cmd->tokens[*j])
 		{
-			ft_putstr_fd("bash: Malloc fail\n", 2);
+			ft_putstr_fd("bash: malloc fail\n", 2);
 			exit(1);
 		}
 		(*i)++;
@@ -89,10 +86,7 @@ int		tokenizer(char **tokens, int tok_amount, t_mini *mini)
 	mini->pipes_c = (t_command *)malloc(sizeof(t_command) *
 	(mini->pipe_cmds + 1));
 	if (mini->pipes_c == (void*)-1)
-	{
-		ft_putstr_fd("bash: Malloc fail\n", 2);
-		exit(1);
-	}
+		malloc_error();
 	while (k < mini->pipe_cmds)
 	{
 		j = 0;

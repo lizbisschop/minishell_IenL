@@ -6,7 +6,7 @@
 /*   By: iboeters <iboeters@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/09 18:18:16 by iboeters      #+#    #+#                 */
-/*   Updated: 2020/11/14 16:29:08 by iboeters      ########   odam.nl         */
+/*   Updated: 2020/11/15 14:47:52 by iboeters      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,18 +28,10 @@ void	err(char *s1, char *s2, int sterr, t_mini *mini)
 	mini->exit_int = 1;
 }
 
-void	handle_sigint(int signal)
+void	malloc_error(void)
 {
-	write(2, "\b \b\b \b", 6);
-	ft_putchar_fd('\n', 1);
-	show_command_prompt();
-	(void)signal;
-}
-
-void	handle_sigquit(int signal)
-{
-	write(2, "\b \b\b \b", 6);
-	(void)signal;
+	ft_putstr_fd("bash: malloc fail\n", 2);
+	exit(1);
 }
 
 void	set_struct(t_mini *mini)

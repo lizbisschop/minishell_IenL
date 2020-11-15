@@ -6,7 +6,7 @@
 /*   By: iboeters <iboeters@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/09 18:18:05 by iboeters      #+#    #+#                 */
-/*   Updated: 2020/11/09 18:18:06 by iboeters      ########   odam.nl         */
+/*   Updated: 2020/11/15 14:48:42 by iboeters      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,10 +71,7 @@ int		ft_split_commands(char *s, t_mini *mini)
 	mini->sp_input = (char **)malloc(sizeof(char *) * (mini->cmds + 1));
 	mini->sp_input[mini->cmds] = NULL;
 	if (!mini->sp_input)
-	{
-		err("malloc has failed", "", 0, mini);
-		return (-1);
-	}
+		malloc_error();
 	if (check_for_errors(s, mini) == -1)
 	{
 		if (mini->sp_input)

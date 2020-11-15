@@ -6,7 +6,7 @@
 /*   By: lbisscho <lbisscho@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/02 10:27:49 by lbisscho      #+#    #+#                 */
-/*   Updated: 2020/11/07 14:03:01 by lbisscho      ########   odam.nl         */
+/*   Updated: 2020/11/15 14:59:10 by iboeters      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ char		*ft_strtrim(char const *s1, char const *set)
 		return (ft_strdup(""));
 	str3 = malloc(sizeof(char) * (j - i + 2));
 	if (!str3)
-		return (0);
+		malloc_error();
 	while (i <= j)
 	{
 		str3[k] = s1[i];

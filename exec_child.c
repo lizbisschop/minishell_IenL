@@ -6,7 +6,7 @@
 /*   By: iboeters <iboeters@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/09 18:16:40 by iboeters      #+#    #+#                 */
-/*   Updated: 2020/11/14 16:56:56 by lbisscho      ########   odam.nl         */
+/*   Updated: 2020/11/15 15:35:41 by iboeters      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ void	check_dir_and_exec(char ***tokens, char **s, t_mini *mini)
 	}
 	else if (stat((*tokens)[0], &buf) != -1)
 	{
-		close_and_free(mini, s);
+		close(mini->main_out);
 		if (mini->input)
 			free(mini->input);
 		mini->input = NULL;

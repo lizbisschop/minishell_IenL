@@ -6,7 +6,7 @@
 /*   By: lbisscho <lbisscho@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/01 14:52:44 by lbisscho      #+#    #+#                 */
-/*   Updated: 2020/11/07 14:03:03 by lbisscho      ########   odam.nl         */
+/*   Updated: 2020/11/15 14:59:19 by iboeters      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 		len = ft_strlen(s) - start;
 	str2 = malloc(sizeof(char) * len + 1);
 	if (!str2)
-		return (0);
+		malloc_error();
 	while (s[i] != '\0' && j < len)
 	{
 		str2[j] = s[i];

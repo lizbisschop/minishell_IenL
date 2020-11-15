@@ -6,7 +6,7 @@
 /*   By: lbisscho <lbisscho@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/05 14:56:33 by lbisscho      #+#    #+#                 */
-/*   Updated: 2020/11/07 14:02:50 by lbisscho      ########   odam.nl         */
+/*   Updated: 2020/11/15 14:58:53 by iboeters      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 		return (0);
 	str = (char*)malloc(sizeof(char) * ft_strlen(s) + 1);
 	if (!str)
-		return (0);
+		malloc_error();
 	i = 0;
 	while (s[i] != '\0')
 	{

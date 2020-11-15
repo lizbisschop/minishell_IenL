@@ -6,7 +6,7 @@
 /*   By: iboeters <iboeters@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/09 18:18:39 by iboeters      #+#    #+#                 */
-/*   Updated: 2020/11/14 12:49:21 by lbisscho      ########   odam.nl         */
+/*   Updated: 2020/11/15 14:59:32 by iboeters      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,10 +58,7 @@ char	*fill_string(int len, char **s, t_mini *mini)
 	q = '\0';
 	str = (char *)malloc(sizeof(char) * (len - mini->n_quotes + 1));
 	if (!str)
-	{
-		ft_putstr_fd("malloc failed\n", 2);
-		exit(1);
-	}
+		malloc_error();
 	fill_str_char(s, &str, &i, &j);
 	str[j] = '\0';
 	if (*s)
