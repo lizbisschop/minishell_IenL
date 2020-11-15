@@ -6,7 +6,7 @@
 /*   By: iboeters <iboeters@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/09 18:16:19 by iboeters      #+#    #+#                 */
-/*   Updated: 2020/11/09 18:16:21 by iboeters      ########   odam.nl         */
+/*   Updated: 2020/11/15 14:07:01 by lbisscho      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ int		check_pipes_redirect(char *s, t_mini *mini)
 		if (s[i] == ';')
 		{
 			err("syntax error near unexpected token `;'", "", 0, mini);
+			mini->exit_int = 258;
 			return (-1);
 		}
 		i++;

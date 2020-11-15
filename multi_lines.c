@@ -6,7 +6,7 @@
 /*   By: iboeters <iboeters@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/09 18:18:28 by iboeters      #+#    #+#                 */
-/*   Updated: 2020/11/09 18:18:29 by iboeters      ########   odam.nl         */
+/*   Updated: 2020/11/15 14:09:56 by lbisscho      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,23 @@
 void	error_multi_line_pipe(int i, int cmd, t_command command, t_mini *mini)
 {
 	if (command.tokens[i][0] == '|' && i == 0)
+	{
 		err("syntax error near unexpected token `|'", "", 0, mini);
+		mini->exit_int = 258;
+	}
 	else if (i == command.tok_amount - 1)
 	{
 		if (cmd == mini->cmds - 1)
 			err("multiline command", "", 0, mini);
 		else
 			err("syntax error near unexpected token `;'", "", 0, mini);
+		mini->exit_int = 258;
 	}
 	else
+	{
 		err("syntax error near unexpected token `|'", "", 0, mini);
+		mini->exit_int = 258;
+	}
 }
 
 int		multi_line_pipe(t_mini *mini)
