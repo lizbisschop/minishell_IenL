@@ -6,49 +6,13 @@
 /*   By: iboeters <iboeters@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/09 18:16:11 by iboeters      #+#    #+#                 */
-/*   Updated: 2020/11/14 18:21:39 by lbisscho      ########   odam.nl         */
+/*   Updated: 2020/11/15 15:32:40 by lbisscho      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void		get_env_var(int *i, char **token, t_mini *mini, char **str)
-{
-	int		var_length;
-	int		j;
-	char	*s;
-
-	var_length = 0;
-	j = 0;
-	(*i)++;
-	if ((*token)[*i] == '"' || (*token)[*i] == '\'')
-	{
-		// if open quote -> alleen $ stringjoinen, zoals bij echo hoi"bla$"
-		while ((*token)[(*i) + var_length] != '\0' &&
-		(*token)[(*i) + var_length] != '$')
-			var_length++;
-		s = ft_substr(*token, *i, var_length);
-		(*str) = gnl_strjoin((*str), s);
-		if (s)
-			free(s);
-	}
-	else
-	{
-		while ((*token)[(*i) + var_length] != '\0' && (ft_isalnum((*token)[(*i)
-		+ var_length]) || (*token)[(*i) + var_length] == '_'))
-			var_length++;
-		while (mini->env[j])
-		{
-			if (ft_strncmp(&(*token)[(*i)], mini->env[j], var_length) == 0 &&
-			mini->env[j][var_length] == '=')
-				(*str) = gnl_strjoin((*str), &(mini->env[j][var_length + 1]));
-			j++;
-		}
-	}
-	(*i) += var_length;
-}
-
-void		set_open_q(char token, char *q, int *n_quotes)
+void		set_open_q(char token, char *q, t_mini *mini)
 {
 	char	anti_q;
 	char	temp;
@@ -58,10 +22,10 @@ void		set_open_q(char token, char *q, int *n_quotes)
 	else
 		anti_q = '\'';
 	if (token == q[0])
-		(*n_quotes)++;
-	else if (token == anti_q && (*n_quotes) % 2 == 0)
+		(mini->n_quotes)++;
+	else if (token == anti_q && (mini->n_quotes) % 2 == 0)
 	{
-		(*n_quotes)++;
+		mini->n_quotes++;
 		temp = q[0];
 		q[0] = anti_q;
 		anti_q = temp;
@@ -78,29 +42,33 @@ void		strjoin_char(int *i, char **str, char **token)
 	(*i)++;
 }
 
+void		dollar_questionmark(t_mini *mini, char **str, int *i)
+{
+	mini->nbr = ft_itoa(mini->exit_int);
+	*str = gnl_strjoin(*str, mini->nbr);
+	*i += 2;
+}
+
 int			dollar_type(char **token, t_mini *mini, char **str)
 {
 	int		i;
 	char	q;
-	int		n_quotes;
 	char	c[2];
 
 	i = 0;
 	q = '"';
-	n_quotes = 0;
+	mini->n_quotes = 0;
 	while ((*token)[i] != '\0')
 	{
-		set_open_q((*token)[i], &q, &n_quotes);
+		set_open_q((*token)[i], &q, mini);
 		if ((*token)[i] == '$' && (*token)[i + 1] == '?' && q != '\'')
-		{
-			mini->nbr = ft_itoa(mini->exit_int);
-			*str = gnl_strjoin(*str, mini->nbr);
-			i += 2;
-		}
-		else if ((*token)[i] == '$' && !(ft_isalnum((*token)[i + 1]) ||
-		(*token)[i + 1] == '"' || (*token)[i + 1] == '\'') && (*token)[i + 1] != '_')
+			dollar_questionmark(mini, str, &i);
+		else if ((*token)[i] == '$' && (*token)[i + 1] != '\0' &&
+		!(ft_isalnum((*token)[i + 1]) || (*token)[i + 1] == '"' ||
+		(*token)[i + 1] == '\'') && (*token)[i + 1] != '_')
 			return (-1);
-		else if ((*token)[i] == '$' && (*token)[i + 1] && q != '\'')
+		else if ((*token)[i] == '$' && (*token)[i + 1] &&
+		q != '\'' && !((*token)[i + 1] == '"' && mini->n_quotes % 2 != 0))
 			get_env_var(&i, token, mini, str);
 		else
 			strjoin_char(&i, str, token);

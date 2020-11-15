@@ -6,7 +6,11 @@
 /*   By: iboeters <iboeters@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/09 18:19:53 by iboeters      #+#    #+#                 */
+<<<<<<< HEAD
 /*   Updated: 2020/11/15 14:51:45 by iboeters      ########   odam.nl         */
+=======
+/*   Updated: 2020/11/15 15:36:14 by lbisscho      ########   odam.nl         */
+>>>>>>> 15f32c2e6e4dab6c3235c546ec4f9d78bc956e5d
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +62,7 @@ typedef	struct	s_mini{
 	int			in_redir;
 	int			out_redir;
 	int			exit_int;
+	char		q;
 	int			check_export;
 	char		*export_str;
 	char		*nbr;
@@ -136,5 +141,7 @@ void			signal_child(void);
 void			handle_sigint(int signal);
 void			handle_sigquit(int signal);
 void			malloc_error(void);
+void			get_env_var(int *i, char **token, t_mini *mini, char **str);
+int				dollar_quote(int *i, char **token, t_mini *mini, char **str);
 
 #endif
