@@ -6,7 +6,7 @@
 /*   By: iboeters <iboeters@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/15 14:46:10 by iboeters      #+#    #+#                 */
-/*   Updated: 2020/11/15 14:46:12 by iboeters      ########   odam.nl         */
+/*   Updated: 2020/11/16 10:22:17 by iboeters      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 void	handle_sig_child(int signal)
 {
-	(void)signal;
 	if (signal == SIGINT)
 	{
 		ft_putstr_fd("\n", 2);

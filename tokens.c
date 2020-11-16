@@ -6,7 +6,7 @@
 /*   By: iboeters <iboeters@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/09 18:19:09 by iboeters      #+#    #+#                 */
-/*   Updated: 2020/11/15 15:00:05 by iboeters      ########   odam.nl         */
+/*   Updated: 2020/11/16 09:56:23 by iboeters      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ void	create_tokens(int cmd, t_mini *mini)
 	mini->c[cmd].tokens[j] = NULL;
 }
 
-int		tokens(t_mini *mini)
+void	tokens(t_mini *mini)
 {
 	int		end;
 	int		cmd;
@@ -124,5 +124,4 @@ int		tokens(t_mini *mini)
 		create_tokens(cmd, mini);
 		cmd++;
 	}
-	return (0);
 }

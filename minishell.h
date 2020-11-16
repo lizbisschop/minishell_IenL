@@ -6,7 +6,7 @@
 /*   By: iboeters <iboeters@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/09 18:19:53 by iboeters      #+#    #+#                 */
-/*   Updated: 2020/11/15 15:43:59 by iboeters      ########   odam.nl         */
+/*   Updated: 2020/11/16 09:56:30 by iboeters      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ char			**ft_split_minishell(char const *s, char c, t_mini *mini);
 int				ft_split_commands(char *s, t_mini *mini);
 int				string_count(t_mini *mini, char *s);
 int				check_for_errors(char *s, t_mini *mini);
-int				tokens(t_mini *mini);
+void			tokens(t_mini *mini);
 void			skip_wspaces(char *s, int *i);
 int				is_whitespace(char c);
 int				is_delimiter(char c);

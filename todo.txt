@@ -44,13 +44,17 @@ system("ls -la /proc/$$/fd");
 [V] echo $"hallo" wrong output
 [V] altijd als we erroren (mallocs f.e.) free stuff aanroepen?
 [V] type awk: error without path to executable
-[ ] cat "\""; en uberhaubt \ in double quotes
-[ ]echo $"HOME$"
+[V] cat "\""; en 
+[ ] \ in double quotes
+[ ] echo $"HOME$"
+[ ] echo $1234
+[ ] cd "\$HOME"
+[ ] read, pipe, fork, signal etc. protecten
 
 Testing unset-------------------------------------------------------
 [V] unset PATH
 [V] unset blabla
-[ ] unset $PATH / $LESS: first do check for dollar
+[V] unset $PATH / $LESS: first do check for dollar
 
 Testing echo--------------------------------------------------------
 [V] echo -n hoi
