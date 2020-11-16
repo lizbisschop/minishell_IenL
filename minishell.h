@@ -6,7 +6,7 @@
 /*   By: iboeters <iboeters@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/09 18:19:53 by iboeters      #+#    #+#                 */
-/*   Updated: 2020/11/15 15:43:59 by iboeters      ########   odam.nl         */
+/*   Updated: 2020/11/16 10:19:38 by lbisscho      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,5 +139,6 @@ void			handle_sigquit(int signal);
 void			malloc_error(void);
 void			get_env_var(int *i, char **token, t_mini *mini, char **str);
 int				dollar_quote(int *i, char **token, t_mini *mini, char **str);
+void			dollar_questionmark(t_mini *mini, char **str, int *i);
 
 #endif
