@@ -6,7 +6,7 @@
 /*   By: lbisscho <lbisscho@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/15 14:35:03 by lbisscho      #+#    #+#                 */
-/*   Updated: 2020/11/16 10:19:21 by lbisscho      ########   odam.nl         */
+/*   Updated: 2020/11/16 20:10:28 by lbisscho      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,9 +55,23 @@ void		get_env_var(int *i, char **token, t_mini *mini, char **str)
 		{
 			if (ft_strncmp(&(*token)[(*i)], mini->env[j], var_length) == 0 &&
 			mini->env[j][var_length] == '=')
-				(*str) = gnl_strjoin((*str), &(mini->env[j][var_length + 1]));
+			{
+				if (mini->n_quotes % 2 != 0)
+					(*str) = gnl_strjoin((*str), &(mini->env[j][var_length + 1]));
+				//if not quoted expand_tokens again
+				else
+				{
+					// if (mini->piped == 1)
+					// {
+					// 	expand_tokens_pipes(mini, str, *i - 1, &(mini->env[j][var_length + 1]));
+					// }
+					if (mini->piped == 0)
+						expand_tokens(mini, str, *i - 1, &(mini->env[j][var_length + 1]));
+				}
+			}
 			j++;
 		}
+		//if not found->trim tokens.
 	}
 	(*i) += var_length;
 }

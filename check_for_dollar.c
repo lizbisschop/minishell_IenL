@@ -6,7 +6,7 @@
 /*   By: iboeters <iboeters@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/09 18:16:11 by iboeters      #+#    #+#                 */
-/*   Updated: 2020/11/16 10:27:20 by lbisscho      ########   odam.nl         */
+/*   Updated: 2020/11/16 19:04:37 by lbisscho      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,13 @@ int			dollar_type(char **token, t_mini *mini, char **str)
 	while ((*token)[i] != '\0')
 	{
 		set_open_q((*token)[i], mini);
-		if ((*token)[i] == '$' && (*token)[i + 1] == '?' && mini->q != '\'')
+		if ((*token)[i] == '\\' && mini->q == '"')
+		{
+			i++;
+			if ((*token)[i] == '$')
+				strjoin_char(&i, str, token);
+		}
+		else if ((*token)[i] == '$' && (*token)[i + 1] == '?' && mini->q != '\'')
 			dollar_questionmark(mini, str, &i);
 		else if ((*token)[i] == '$' && (*token)[i + 1] != '\0' &&
 		!(ft_isalnum((*token)[i + 1]) || (*token)[i + 1] == '"' ||
@@ -107,6 +113,10 @@ void		check_for_dollar(char **token, t_mini *mini)
 		if (*token)
 			free(*token);
 		(*token) = ft_strdup(str);
+		if (ft_strlen(*token) == 0)
+		{
+			//trim tokens: if env doesnt exist, remove token
+		}
 		if (str)
 			free(str);
 		if (mini->nbr)

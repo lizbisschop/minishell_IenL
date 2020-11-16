@@ -6,7 +6,7 @@
 /*   By: iboeters <iboeters@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/09 18:19:53 by iboeters      #+#    #+#                 */
-/*   Updated: 2020/11/16 10:30:44 by iboeters      ########   odam.nl         */
+/*   Updated: 2020/11/16 19:44:27 by lbisscho      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@
 # include <sys/types.h>
 # include <sys/wait.h>
 # include <sys/stat.h>
-# include <signal.h>
 # include <signal.h>
 # include <errno.h>
 # include <limits.h>
@@ -63,6 +62,9 @@ typedef	struct	s_mini{
 	char		*export_str;
 	char		*nbr;
 	char		*pwd;
+	int			i_tok;
+	int			array_len;
+	int			cmd;
 	t_command	*c;
 	t_command	*pipes_c;
 }				t_mini;
@@ -131,7 +133,7 @@ int				check_output_redir(char *s, t_mini *mini, int *i);
 int				check_semicolon(char *s, t_mini *mini, int *i);
 int				check_redir_end(int *i, char *str, t_mini *mini);
 void			quotes(char **tokens, t_mini *mini);
-void			var_sub(char **tokens, t_mini *mini);
+void			var_sub(char **tokens, t_mini *mini, int cmd);
 int				ret_del(char *s, int i);
 void			signal_child(void);
 void			handle_sigint(int signal);
@@ -140,5 +142,9 @@ void			malloc_error(void);
 void			get_env_var(int *i, char **token, t_mini *mini, char **str);
 int				dollar_quote(int *i, char **token, t_mini *mini, char **str);
 void			dollar_questionmark(t_mini *mini, char **str, int *i);
+void			expand_tokens(t_mini *mini, char **str, int i, char *env);
+void			add_tokens(char **array, int array_len, t_mini *mini,
+char *env, char *str);
+void			expand_tokens_pipes(t_mini *mini, char **str, int i, char *env);
 
 #endif

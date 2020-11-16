@@ -6,7 +6,7 @@
 /*   By: iboeters <iboeters@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/09 18:18:33 by iboeters      #+#    #+#                 */
-/*   Updated: 2020/11/14 15:14:43 by iboeters      ########   odam.nl         */
+/*   Updated: 2020/11/16 15:26:19 by lbisscho      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int		execute_pipe(t_mini *mini, int *pid, int cmd)
 		if (check_redir(&(mini->pipes_c[i].tokens),
 		&(mini->pipes_c[i].tok_amount), mini) == -1)
 			mini->c[cmd].error_redir = 1;
-		var_sub(mini->pipes_c[i].tokens, mini);
+		var_sub(mini->pipes_c[i].tokens, mini, i);
 		dup2(mini->fd_in, STDIN_FILENO);
 		close(mini->fd_in);
 		if (i == mini->pipe_cmds - 1 && mini->out_redir == 0)

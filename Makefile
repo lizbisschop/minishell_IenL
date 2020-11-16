@@ -40,7 +40,9 @@ SRCS = ./gnl/get_next_line.c \
 	check_pip_redir.c \
 	tokens_utils.c \
 	signal_handlers.c \
-	get_env_var.c
+	get_env_var.c \
+	expand_tokens.c \
+	expand_tokens_pipes.c
 
 FLAGS = -Wall -Werror -Wextra
 

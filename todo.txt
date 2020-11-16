@@ -45,11 +45,13 @@ system("ls -la /proc/$$/fd");
 [V] altijd als we erroren (mallocs f.e.) free stuff aanroepen?
 [V] type awk: error without path to executable
 [V] cat "\""; en 
+[V] echo $1234
 [ ] \ in double quotes
 [ ] echo $"HOME$"
-[ ] echo $1234
 [ ] cd "\$HOME"
 [ ] read, pipe, fork, signal etc. protecten
+[ ] norm maken
+[ ] export LS="ls -la"; export hoi="$LS echo"; $hoi
 
 Testing unset-------------------------------------------------------
 [V] unset PATH
