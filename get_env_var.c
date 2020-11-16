@@ -6,11 +6,18 @@
 /*   By: lbisscho <lbisscho@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/15 14:35:03 by lbisscho      #+#    #+#                 */
-/*   Updated: 2020/11/15 16:49:55 by lbisscho      ########   odam.nl         */
+/*   Updated: 2020/11/16 10:19:21 by lbisscho      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void		dollar_questionmark(t_mini *mini, char **str, int *i)
+{
+	mini->nbr = ft_itoa(mini->exit_int);
+	*str = gnl_strjoin(*str, mini->nbr);
+	*i += 2;
+}
 
 int			dollar_quote(int *i, char **token, t_mini *mini, char **str)
 {

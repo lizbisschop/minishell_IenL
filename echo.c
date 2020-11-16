@@ -6,7 +6,7 @@
 /*   By: iboeters <iboeters@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/09 18:16:31 by iboeters      #+#    #+#                 */
-/*   Updated: 2020/11/14 12:37:12 by lbisscho      ########   odam.nl         */
+/*   Updated: 2020/11/16 10:10:14 by lbisscho      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void		echo(char **tokens, int tok_amount, t_mini *mini)
 		while (i < tok_amount)
 		{
 			ft_putstr_fd(tokens[i], 1);
-			if (i < tok_amount - 1)
+			if (i < tok_amount - 1 && ft_strlen(tokens[i]) != 0)
 				ft_putchar_fd(' ', 1);
 			i++;
 		}

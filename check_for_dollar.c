@@ -6,28 +6,28 @@
 /*   By: iboeters <iboeters@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/09 18:16:11 by iboeters      #+#    #+#                 */
-/*   Updated: 2020/11/15 18:08:31 by lbisscho      ########   odam.nl         */
+/*   Updated: 2020/11/16 10:27:20 by lbisscho      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void		set_open_q(char token, char *q, t_mini *mini)
+void		set_open_q(char token, t_mini *mini)
 {
 	char	anti_q;
 	char	temp;
 
-	if (q[0] == '\'')
+	if (mini->q == '\'')
 		anti_q = '"';
 	else
 		anti_q = '\'';
-	if (token == q[0])
+	if (token == mini->q)
 		(mini->n_quotes)++;
 	else if (token == anti_q && (mini->n_quotes) % 2 == 0)
 	{
 		mini->n_quotes++;
-		temp = q[0];
-		q[0] = anti_q;
+		temp = mini->q;
+		mini->q = anti_q;
 		anti_q = temp;
 	}
 }
@@ -42,33 +42,46 @@ void		strjoin_char(int *i, char **str, char **token)
 	(*i)++;
 }
 
-void		dollar_questionmark(t_mini *mini, char **str, int *i)
+void		dollar_num(char **token, int *i, t_mini *mini, char **str)
 {
-	mini->nbr = ft_itoa(mini->exit_int);
-	*str = gnl_strjoin(*str, mini->nbr);
-	*i += 2;
+	int		var_length;
+	char	*s;
+
+	var_length = 0;
+	(*i) += 2;
+	while ((*token)[*i + var_length] != '\0' &&
+	(*token)[*i + var_length] != '$')
+		var_length++;
+	s = ft_substr(*token, *i, var_length);
+	if (!s)
+		malloc_error();
+	(*str) = gnl_strjoin(*str, s);
+	if (s)
+		free(s);
+	(*i) += var_length;
 }
 
 int			dollar_type(char **token, t_mini *mini, char **str)
 {
 	int		i;
-	char	q;
-	char	c[2];
 
 	i = 0;
-	q = '"';
+	mini->q = '"';
 	mini->n_quotes = 0;
 	while ((*token)[i] != '\0')
 	{
-		set_open_q((*token)[i], &q, mini);
-		if ((*token)[i] == '$' && (*token)[i + 1] == '?' && q != '\'')
+		set_open_q((*token)[i], mini);
+		if ((*token)[i] == '$' && (*token)[i + 1] == '?' && mini->q != '\'')
 			dollar_questionmark(mini, str, &i);
 		else if ((*token)[i] == '$' && (*token)[i + 1] != '\0' &&
 		!(ft_isalnum((*token)[i + 1]) || (*token)[i + 1] == '"' ||
 		(*token)[i + 1] == '\'') && (*token)[i + 1] != '_')
 			return (-1);
+		else if ((*token)[i] == '$' && ft_isdigit((*token)[i + 1])
+		&& (mini->q != '\'' || mini->n_quotes % 2 == 0))
+			dollar_num(token, &i, mini, str);
 		else if ((*token)[i] == '$' && (*token)[i + 1] != '\0' &&
-		(q != '\'' || mini->n_quotes % 2 == 0) &&
+		(mini->q != '\'' || mini->n_quotes % 2 == 0) &&
 		!((*token)[i + 1] == '"' && mini->n_quotes % 2 != 0))
 			get_env_var(&i, token, mini, str);
 		else
