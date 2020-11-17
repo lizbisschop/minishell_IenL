@@ -51,8 +51,8 @@ system("ls -la /proc/$$/fd");
 [ ] cd "\$HOME"
 [ ] read, pipe, fork, signal etc. protecten
 [ ] norm maken
-[ ] export LS="ls -la"; export hoi="$LS echo"; $hoi : begin dus weer te loopen vanaf wat je hebt geexpand
-[ ] pipes werkend krijgen voor $LS: export LS="ls -la"; echo hoi | $LS
+[V] export LS="ls -la"; export hoi="$LS echo"; $hoi : begin dus weer te loopen vanaf wat je hebt geexpand
+[V] pipes werkend krijgen voor $LS: export LS="ls -la"; echo hoi | $LS
 [ ] $LS$LS
 
 Testing unset-------------------------------------------------------
