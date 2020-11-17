@@ -6,7 +6,7 @@
 /*   By: iboeters <iboeters@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/09 18:19:20 by iboeters      #+#    #+#                 */
-/*   Updated: 2020/11/16 19:48:27 by lbisscho      ########   odam.nl         */
+/*   Updated: 2020/11/17 12:18:01 by liz           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ void	var_sub(char **tokens, t_mini *mini, int cmd)
 		mini->array_len = 0;
 		mini->i_tok = i;
 		check_for_dollar(&(tokens[i]), mini);
-		// printf("tokens after dollar check = %s\n", mini->c[cmd].tokens[i]);
 		i++;
 	}
 	i = 0;
@@ -119,11 +118,11 @@ void	which_command(t_mini *mini)
 			var_sub(mini->c[cmd].tokens, mini, cmd);
 			int i;
 			i = 0;
-			while (mini->c[mini->cmd].tokens[i])
-			{
-				printf("+%s+\n", mini->c[mini->cmd].tokens[i]);
-				i++;
-			}
+			// while (mini->c[mini->cmd].tokens[i])
+			// {
+			// 	printf("+%s+\n", mini->c[mini->cmd].tokens[i]);
+			// 	i++;
+			// }
 			no_pipes_cmd(cmd, mini);
 		}
 		cmd++;

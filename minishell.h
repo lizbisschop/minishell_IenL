@@ -6,7 +6,7 @@
 /*   By: iboeters <iboeters@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/09 18:19:53 by iboeters      #+#    #+#                 */
-/*   Updated: 2020/11/16 19:44:27 by lbisscho      ########   odam.nl         */
+/*   Updated: 2020/11/17 11:41:52 by liz           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,10 @@
 # include <dirent.h>
 # include "./libft/libft.h"
 # include "./gnl/get_next_line.h"
+
+//remove!!!
+#include "stdio.h"
+
 # define EXT_ALPHABET_SIZE 63
 # define PID_MAX 709
 

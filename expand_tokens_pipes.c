@@ -6,7 +6,7 @@
 /*   By: lbisscho <lbisscho@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/16 19:36:29 by lbisscho      #+#    #+#                 */
-/*   Updated: 2020/11/16 19:56:00 by lbisscho      ########   odam.nl         */
+/*   Updated: 2020/11/17 12:17:26 by liz           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	add_tokens_pipes(char **array, int array_len, t_mini *mini, char *env, char
 	(mini->pipes_c[mini->cmd].tok_amount + 1));
 	if (env[0] == ' ')
 	{
-		printf("{%s}\n", str);
+		// printf("{%s}\n", str);
 		while (mini->pipes_c[mini->cmd].tokens[i])
 		{
 			if (i == mini->i_tok)
@@ -55,7 +55,7 @@ void	add_tokens_pipes(char **array, int array_len, t_mini *mini, char *env, char
 					new_tokens[j] = ft_strdup(str);
 					j++;
 				}
-				printf("%d\n", mini->i_tok);
+				// printf("%d\n", mini->i_tok);
 				while (array[k])
 				{
 					new_tokens[j] = ft_strdup(array[k]);
@@ -101,7 +101,7 @@ void	add_tokens_pipes(char **array, int array_len, t_mini *mini, char *env, char
 	i = 0;
 	while (mini->pipes_c[mini->cmd].tokens[i])
 	{
-		printf("+%s+\n", mini->pipes_c[mini->cmd].tokens[i]);
+		// printf("+%s+\n", mini->pipes_c[mini->cmd].tokens[i]);
 		i++;
 	}
 }
@@ -114,7 +114,6 @@ void	expand_tokens_pipes(t_mini *mini, char **str, int i, char *env)
 	array_len = 0;
 	(*str) = gnl_strjoin(*str, env);
 	array = ft_split(&(*str)[i], ' ');
-    printf("zit erin\n");
 	if (env[0] != ' ')
 	{
 		array[0] = ft_strjoin_read(ft_substr(*str, 0, i), array[0]);
@@ -125,9 +124,7 @@ void	expand_tokens_pipes(t_mini *mini, char **str, int i, char *env)
 	}
 	while (array[array_len])
 	{
-		printf("token = [%s]\n", array[array_len]);
 		array_len++;
 	}
-	printf("|%s|\n", *str);
 	add_tokens_pipes(array, array_len, mini, env, *str);
 }

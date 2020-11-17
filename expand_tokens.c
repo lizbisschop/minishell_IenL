@@ -6,7 +6,7 @@
 /*   By: lbisscho <lbisscho@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/16 14:34:35 by lbisscho      #+#    #+#                 */
-/*   Updated: 2020/11/16 19:56:09 by lbisscho      ########   odam.nl         */
+/*   Updated: 2020/11/17 12:17:53 by liz           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ void	add_tokens(char **array, int array_len, t_mini *mini, char *env, char *str)
 	(mini->c[mini->cmd].tok_amount + 1));
 	if (env[0] == ' ')
 	{
-		printf("{%s}\n", str);
 		while (mini->c[mini->cmd].tokens[i])
 		{
 			if (i == mini->i_tok)
@@ -55,7 +54,6 @@ void	add_tokens(char **array, int array_len, t_mini *mini, char *env, char *str)
 					new_tokens[j] = ft_strdup(str);
 					j++;
 				}
-				printf("%d\n", mini->i_tok);
 				while (array[k])
 				{
 					new_tokens[j] = ft_strdup(array[k]);
@@ -100,10 +98,7 @@ void	add_tokens(char **array, int array_len, t_mini *mini, char *env, char *str)
 	mini->c[mini->cmd].tokens = new_tokens;
 	i = 0;
 	while (mini->c[mini->cmd].tokens[i])
-	{
-		printf("+%s+\n", mini->c[mini->cmd].tokens[i]);
 		i++;
-	}
 }
 
 void	expand_tokens(t_mini *mini, char **str, int i, char *env)
@@ -125,10 +120,6 @@ void	expand_tokens(t_mini *mini, char **str, int i, char *env)
 		(*str) = ft_substr(*str, 0, i);
 	}
 	while (array[array_len])
-	{
-		printf("token = [%s]\n", array[array_len]);
 		array_len++;
-	}
-	printf("|%s|\n", *str);
 	add_tokens(array, array_len, mini, env, *str);
 }
