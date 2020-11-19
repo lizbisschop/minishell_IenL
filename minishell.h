@@ -6,7 +6,7 @@
 /*   By: iboeters <iboeters@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/09 18:19:53 by iboeters      #+#    #+#                 */
-/*   Updated: 2020/11/17 11:41:52 by liz           ########   odam.nl         */
+/*   Updated: 2020/11/19 12:00:42 by liz           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,8 +147,6 @@ void			get_env_var(int *i, char **token, t_mini *mini, char **str);
 int				dollar_quote(int *i, char **token, t_mini *mini, char **str);
 void			dollar_questionmark(t_mini *mini, char **str, int *i);
 void			expand_tokens(t_mini *mini, char **str, int i, char *env);
-void			add_tokens(char **array, int array_len, t_mini *mini,
-char *env, char *str);
 void			expand_tokens_pipes(t_mini *mini, char **str, int i, char *env);
 
 #endif

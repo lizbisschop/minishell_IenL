@@ -6,7 +6,7 @@
 /*   By: iboeters <iboeters@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/09 18:16:11 by iboeters      #+#    #+#                 */
-/*   Updated: 2020/11/16 19:04:37 by lbisscho      ########   odam.nl         */
+/*   Updated: 2020/11/19 17:09:54 by liz           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,12 +113,13 @@ void		check_for_dollar(char **token, t_mini *mini)
 		if (*token)
 			free(*token);
 		(*token) = ft_strdup(str);
+		printf("[%s]\n", *token);
 		if (ft_strlen(*token) == 0)
 		{
 			//trim tokens: if env doesnt exist, remove token
 		}
-		if (str)
-			free(str);
+		// if (str)
+		// 	free(str);
 		if (mini->nbr)
 			free(mini->nbr);
 	}

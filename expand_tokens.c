@@ -6,7 +6,7 @@
 /*   By: lbisscho <lbisscho@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/16 14:34:35 by lbisscho      #+#    #+#                 */
-/*   Updated: 2020/11/17 12:17:53 by liz           ########   odam.nl         */
+/*   Updated: 2020/11/19 16:27:48 by liz           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	free_tokens(t_mini *mini)
 		free(mini->c[mini->cmd].tokens);
 }
 
-void	add_tokens(char **array, int array_len, t_mini *mini, char *env, char *str)
+void	add_tokens(char **array, int array_len, t_mini *mini, char *env, char **str)
 {
 	char	**new_tokens;
 	int		i;
@@ -37,7 +37,7 @@ void	add_tokens(char **array, int array_len, t_mini *mini, char *env, char *str)
 	i = 0;
 	j = 0;
 	k = 0;
-	if (env[0] == ' ' && ft_strlen(str) != 0)
+	if (env[0] == ' ' && ft_strlen(*str) != 0)
 		array_len++;
 	mini->array_len = array_len;
 	mini->c[mini->cmd].tok_amount += array_len;
@@ -49,9 +49,9 @@ void	add_tokens(char **array, int array_len, t_mini *mini, char *env, char *str)
 		{
 			if (i == mini->i_tok)
 			{
-				if (ft_strlen(str) != 0)
+				if (ft_strlen(*str) != 0)
 				{
-					new_tokens[j] = ft_strdup(str);
+					new_tokens[j] = ft_strdup(*str);
 					j++;
 				}
 				while (array[k])
@@ -84,7 +84,6 @@ void	add_tokens(char **array, int array_len, t_mini *mini, char *env, char *str)
 				}
 				i++;
 			}
-			// printf("%s\n", mini->c[mini->cmd].tokens[i]);
 			else
 			{
 				new_tokens[j] = ft_strdup(mini->c[mini->cmd].tokens[i]);
@@ -93,12 +92,15 @@ void	add_tokens(char **array, int array_len, t_mini *mini, char *env, char *str)
 			}
 		}
 	}
+	if (array[array_len - 1])
+	{
+		if (*str)
+			free(*str);
+		(*str) = ft_strdup(array[array_len - 1]);
+	}
 	new_tokens[j] = NULL;
-	// free_tokens(mini);
 	mini->c[mini->cmd].tokens = new_tokens;
-	i = 0;
-	while (mini->c[mini->cmd].tokens[i])
-		i++;
+	mini->i_tok += array_len - 1;
 }
 
 void	expand_tokens(t_mini *mini, char **str, int i, char *env)
@@ -107,19 +109,15 @@ void	expand_tokens(t_mini *mini, char **str, int i, char *env)
 	int		array_len;
 
 	array_len = 0;
-	// if (env[0] == ' ')
-		(*str) = gnl_strjoin(*str, env);
-	// printf("str[%s]\n", *str);
+	if (ft_strlen(env) == 0)
+		return ;
+	(*str) = gnl_strjoin(*str, env);
 	array = ft_split(&(*str)[i], ' ');
-	if (env[0] != ' ')
-	{
-		array[0] = ft_strjoin_read(ft_substr(*str, 0, i), array[0]);
-	}
-	else
-	{
+	if (env[0] == ' ')
 		(*str) = ft_substr(*str, 0, i);
-	}
+	else
+		array[0] = ft_strjoin_read(ft_substr(*str, 0, i), array[0]);
 	while (array[array_len])
 		array_len++;
-	add_tokens(array, array_len, mini, env, *str);
+	add_tokens(array, array_len, mini, env, str);
 }
