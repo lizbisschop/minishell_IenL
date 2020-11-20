@@ -6,7 +6,7 @@
 /*   By: lbisscho <lbisscho@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/16 14:34:35 by lbisscho      #+#    #+#                 */
-/*   Updated: 2020/11/19 16:27:48 by liz           ########   odam.nl         */
+/*   Updated: 2020/11/20 17:57:03 by iboeters      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,16 +27,77 @@ void	free_tokens(t_mini *mini)
 		free(mini->c[mini->cmd].tokens);
 }
 
-void	add_tokens(char **array, int array_len, t_mini *mini, char *env, char **str)
+void	fill_tokens_with_str(char **array, char **new_tokens, t_mini *mini, char **str)
 {
-	char	**new_tokens;
-	int		i;
-	int		j;
-	int		k;
+	int i;
+	int j;
+	int k;
 
 	i = 0;
 	j = 0;
 	k = 0;
+	while (mini->c[mini->cmd].tokens[i])
+	{
+		if (i == mini->i_tok)
+		{
+			if (ft_strlen(*str) != 0)
+			{
+				new_tokens[j] = ft_strdup(*str);
+				j++;
+			}
+			while (array[k])
+			{
+				new_tokens[j] = ft_strdup(array[k]);
+				k++;
+				j++;
+			}
+			i++;
+		}
+		else
+		{
+			new_tokens[j] = ft_strdup(mini->c[mini->cmd].tokens[i]);
+			i++;
+			j++;
+		}
+	}
+	new_tokens[j] = NULL;
+}
+
+void	fill_tokens(char **array, char **new_tokens, t_mini *mini)
+{
+	int i;
+	int j;
+	int k;
+
+	i = 0;
+	j = 0;
+	k = 0;
+	while (mini->c[mini->cmd].tokens[i])
+	{
+		if (i == mini->i_tok)
+		{
+			while (array[k])
+			{
+				new_tokens[j] = ft_strdup(array[k]);
+				k++;
+				j++;
+			}
+			i++;
+		}
+		else
+		{
+			new_tokens[j] = ft_strdup(mini->c[mini->cmd].tokens[i]);
+			i++;
+			j++;
+		}
+	}
+	new_tokens[j] = NULL;
+}
+
+void	add_tokens(char **array, int array_len, t_mini *mini, char *env, char **str)
+{
+	char	**new_tokens;
+
 	if (env[0] == ' ' && ft_strlen(*str) != 0)
 		array_len++;
 	mini->array_len = array_len;
@@ -44,61 +105,15 @@ void	add_tokens(char **array, int array_len, t_mini *mini, char *env, char **str
 	new_tokens = (char **)malloc(sizeof(char *) *
 	(mini->c[mini->cmd].tok_amount + 1));
 	if (env[0] == ' ')
-	{
-		while (mini->c[mini->cmd].tokens[i])
-		{
-			if (i == mini->i_tok)
-			{
-				if (ft_strlen(*str) != 0)
-				{
-					new_tokens[j] = ft_strdup(*str);
-					j++;
-				}
-				while (array[k])
-				{
-					new_tokens[j] = ft_strdup(array[k]);
-					k++;
-					j++;
-				}
-				i++;
-			}
-			else
-			{
-				new_tokens[j] = ft_strdup(mini->c[mini->cmd].tokens[i]);
-				i++;
-				j++;
-			}
-		}
-	}
+		fill_tokens_with_str(array, new_tokens, mini, str);
 	else
-	{
-		while (mini->c[mini->cmd].tokens[i])
-		{
-			if (i == mini->i_tok)
-			{
-				while (array[k])
-				{
-					new_tokens[j] = ft_strdup(array[k]);
-					k++;
-					j++;
-				}
-				i++;
-			}
-			else
-			{
-				new_tokens[j] = ft_strdup(mini->c[mini->cmd].tokens[i]);
-				i++;
-				j++;
-			}
-		}
-	}
+		fill_tokens(array, new_tokens, mini);
 	if (array[array_len - 1])
 	{
 		if (*str)
 			free(*str);
 		(*str) = ft_strdup(array[array_len - 1]);
 	}
-	new_tokens[j] = NULL;
 	mini->c[mini->cmd].tokens = new_tokens;
 	mini->i_tok += array_len - 1;
 }

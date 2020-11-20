@@ -6,7 +6,7 @@
 /*   By: lbisscho <lbisscho@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/15 14:35:03 by lbisscho      #+#    #+#                 */
-/*   Updated: 2020/11/19 16:13:51 by liz           ########   odam.nl         */
+/*   Updated: 2020/11/20 18:33:45 by iboeters      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,8 @@ void		get_env_var(int *i, char **token, t_mini *mini, char **str)
 
 	var_length = 0;
 	j = 0;
-	(*i)++;
+	(*i)++; // for $
+	// $"LS"
 	if ((*token)[*i] == '"' || (*token)[*i] == '\'')
 		var_length = dollar_quote(i, token, mini, str);
 	else
@@ -56,14 +57,17 @@ void		get_env_var(int *i, char **token, t_mini *mini, char **str)
 			if (ft_strncmp(&(*token)[(*i)], mini->env[j], var_length) == 0 &&
 			mini->env[j][var_length] == '=')
 			{
-				if (mini->n_quotes % 2 != 0 || (ft_strncmp(mini->c[mini->cmd].tokens[0], "export", 6) == 0 && ft_strlen(mini->c[mini->cmd].tokens[0]) == 6))
+				// if env is "$LS", env remains 1 token
+				if (mini->n_quotes % 2 != 0 ||
+				(ft_strncmp(mini->c[mini->cmd].tokens[0], "export", 6) == 0
+				&& ft_strlen(mini->c[mini->cmd].tokens[0]) == 6))
 					(*str) = gnl_strjoin((*str), &(mini->env[j][var_length + 1]));
-				//if not quoted and not export: expand_tokens again
+				// else: expand_tokens
 				else
 				{
 					if (mini->piped == 1)
 						expand_tokens_pipes(mini, str, *i - 1, &(mini->env[j][var_length + 1]));
-					if (mini->piped == 0)
+					else
 						expand_tokens(mini, str, *i - 1, &(mini->env[j][var_length + 1]));
 				}
 			}
@@ -73,5 +77,13 @@ void		get_env_var(int *i, char **token, t_mini *mini, char **str)
 			// free(*str);
 		//if not found->trim tokens.
 	}
+	j = 0;
+	while (mini->c[mini->cmd].tokens[j])
+	{
+		printf("[%s]\n", mini->c[mini->cmd].tokens[j]);
+		j++;
+	}
+	printf("[%s]left in string\n", *str);
 	(*i) += var_length;
+	printf("[%d]*i [%d]var_length\n", *i, var_length);
 }

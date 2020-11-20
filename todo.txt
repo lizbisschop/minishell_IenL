@@ -53,7 +53,12 @@ system("ls -la /proc/$$/fd");
 [ ] norm maken
 [V] export LS="ls -la"; export hoi="$LS echo"; $hoi : begin dus weer te loopen vanaf wat je hebt geexpand
 [V] pipes werkend krijgen voor $LS: export LS="ls -la"; echo hoi | $LS
-[ ] $LS$LS
+[V] $LS$LS
+
+Testing export------------------------------------------------------
+[V] export var=hoi 1errorrrr var2=ookhoi //export both var and var2 + give error on 1errorrrr
+[V] $SHELL > file //contains the output of child process/shell
+[ ] export hoi=$LS; export LS="ls -la"; $hoi // should not show anything
 
 Testing unset-------------------------------------------------------
 [V] unset PATH
