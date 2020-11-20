@@ -58,7 +58,8 @@ system("ls -la /proc/$$/fd");
 Testing export------------------------------------------------------
 [V] export var=hoi 1errorrrr var2=ookhoi //export both var and var2 + give error on 1errorrrr
 [V] $SHELL > file //contains the output of child process/shell
-[ ] export hoi=$LS; export LS="ls -la"; $hoi // should not show anything
+[V] export hoi=$LS; export LS="ls -la"; $hoi // should not show anything
+[V] echo hoi$HOME---
 
 Testing unset-------------------------------------------------------
 [V] unset PATH
