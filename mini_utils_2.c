@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   tokens_utils.c                                     :+:    :+:            */
+/*   mini_utils_2.c                                     :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: iboeters <iboeters@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/09 18:19:06 by iboeters      #+#    #+#                 */
-/*   Updated: 2020/11/09 18:19:07 by iboeters      ########   odam.nl         */
+/*   Updated: 2020/11/21 12:44:22 by iboeters      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,4 +19,24 @@ int		ret_del(char *s, int i)
 	else
 		i++;
 	return (i);
+}
+
+void		set_open_q(char token, t_mini *mini)
+{
+	char	anti_q;
+	char	temp;
+
+	if (mini->q == '\'')
+		anti_q = '"';
+	else
+		anti_q = '\'';
+	if (token == mini->q)
+		(mini->n_quotes)++;
+	else if (token == anti_q && (mini->n_quotes) % 2 == 0)
+	{
+		mini->n_quotes++;
+		temp = mini->q;
+		mini->q = anti_q;
+		anti_q = temp;
+	}
 }

@@ -48,7 +48,7 @@ system("ls -la /proc/$$/fd");
 [V] echo $1234
 [ ] \ in double quotes
 [ ] echo $"HOME$"
-[ ] cd "\$HOME"
+[V] cd "\$HOME"
 [ ] read, pipe, fork, signal etc. protecten
 [ ] norm maken
 [V] export LS="ls -la"; export hoi="$LS echo"; $hoi : begin dus weer te loopen vanaf wat je hebt geexpand

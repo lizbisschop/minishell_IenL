@@ -6,7 +6,7 @@
 /*   By: iboeters <iboeters@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/09 18:19:53 by iboeters      #+#    #+#                 */
-/*   Updated: 2020/11/21 10:03:01 by iboeters      ########   odam.nl         */
+/*   Updated: 2020/11/21 15:43:20 by iboeters      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ typedef	struct	s_mini{
 	int			array_len;
 	int			use_string;
 	int			cmd;
+	int			env_i;
 	t_command	*c;
 	t_command	*pipes_c;
 }				t_mini;
@@ -149,5 +150,9 @@ int				dollar_quote(int *i, char **token, t_mini *mini, char **str);
 void			dollar_questionmark(t_mini *mini, char **str, int *i);
 void			expand_tokens(t_mini *mini, char **str, int i, char *env);
 void			expand_tokens_pipes(t_mini *mini, char **str, int i, char *env);
+void			set_open_q(char token, t_mini *mini);
+void			remove_empty_tokens(t_mini *mini);
+void			remove_empty_tokens_pipes(t_mini *mini);
+
 
 #endif
