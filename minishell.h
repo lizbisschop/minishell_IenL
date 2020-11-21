@@ -6,11 +6,7 @@
 /*   By: iboeters <iboeters@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/09 18:19:53 by iboeters      #+#    #+#                 */
-<<<<<<< HEAD
-/*   Updated: 2020/11/21 12:44:36 by iboeters      ########   odam.nl         */
-=======
-/*   Updated: 2020/11/21 12:20:08 by lbisscho      ########   odam.nl         */
->>>>>>> f3a9fd5f33409170b8bf66bce47daf9bd6605ef5
+/*   Updated: 2020/11/21 12:51:10 by iboeters      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
