@@ -6,7 +6,7 @@
 /*   By: iboeters <iboeters@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/09 18:19:20 by iboeters      #+#    #+#                 */
-/*   Updated: 2020/11/21 15:40:31 by lbisscho      ########   odam.nl         */
+/*   Updated: 2020/11/21 15:55:44 by iboeters      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,19 @@
 
 void	var_sub(char **tokens, t_mini *mini, int cmd)
 {
-	int	i;
+	int		i;
+	char	*old_token;
 
 	i = 0;
 	mini->cmd = cmd;
 	while (tokens[i])
 	{
+		old_token = ft_strdup(tokens[i]);
 		mini->array_len = 0;
 		mini->i_tok = i;
-		check_for_dollar(&(tokens[i]), mini);
+		check_for_dollar(&old_token, mini);
+		if (old_token)
+			free(old_token);
 		i++;
 	}
 	if (mini->piped == 1)

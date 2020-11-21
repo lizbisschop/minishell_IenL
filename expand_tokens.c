@@ -6,13 +6,13 @@
 /*   By: lbisscho <lbisscho@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/16 14:34:35 by lbisscho      #+#    #+#                 */
-/*   Updated: 2020/11/21 15:38:25 by lbisscho      ########   odam.nl         */
+/*   Updated: 2020/11/21 16:12:54 by iboeters      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	free_tokens(t_mini *mini)
+void	free_tokens(t_mini *mini, char **array)
 {
 	int i;
 
@@ -23,6 +23,15 @@ void	free_tokens(t_mini *mini)
 			free(mini->c[mini->cmd].tokens[i]);
 		i++;
 	}
+	i = 0;
+	while (array[i])
+	{
+		if (array[i])
+			free(array[i]);
+		i++;
+	}
+	if (array)
+		free(array);
 	if (mini->c[mini->cmd].tokens)
 		free(mini->c[mini->cmd].tokens);
 }
@@ -88,7 +97,7 @@ void	create_new_tokens(char **array, t_mini *mini, char *env, char **str)
 			free(*str);
 		(*str) = ft_strdup(array[mini->array_len - 1]);
 	}
-	// free_tokens(mini);
+	free_tokens(mini, array);
 	mini->c[mini->cmd].tokens = new_tokens;
 	mini->i_tok += mini->array_len - 1;
 }
@@ -97,6 +106,7 @@ void	expand_tokens(t_mini *mini, char **str, int i, char *env)
 {
 	char	**array;
 	int		array_len;
+	char	*old_str;
 
 	array_len = 0;
 	if (ft_strlen(env) == 0)
@@ -104,9 +114,21 @@ void	expand_tokens(t_mini *mini, char **str, int i, char *env)
 	(*str) = gnl_strjoin(*str, env);
 	array = ft_split(&(*str)[i], ' ');
 	if (env[0] == ' ')
-		(*str) = ft_substr(*str, 0, i);
+	{
+		old_str = ft_substr(*str, 0, i);
+		if (*str)
+			free(*str);
+		(*str) = ft_strdup(old_str);
+		if (old_str)
+			free(old_str);
+	}
 	else
-		array[0] = ft_strjoin_read(ft_substr(*str, 0, i), array[0]);
+	{
+		old_str = ft_substr(*str, 0, i);
+		array[0] = ft_strjoin_read(old_str, array[0]);
+		if (old_str)
+			free(old_str);
+	}
 	while (array[array_len])
 		array_len++;
 	mini->array_len = array_len;

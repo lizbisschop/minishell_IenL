@@ -6,7 +6,7 @@
 /*   By: iboeters <iboeters@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/09 18:16:11 by iboeters      #+#    #+#                 */
-/*   Updated: 2020/11/21 14:58:29 by lbisscho      ########   odam.nl         */
+/*   Updated: 2020/11/21 16:11:14 by iboeters      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,9 +81,17 @@ int			dollar_type(char **token, t_mini *mini, char **str)
 			return (-1);
 	}
 	if (mini->piped == 1)
+	{
+		if (mini->pipes_c[mini->cmd].tokens[mini->i_tok])
+			free(mini->pipes_c[mini->cmd].tokens[mini->i_tok]);
 		mini->pipes_c[mini->cmd].tokens[mini->i_tok] = ft_strdup(*str);
+	}
 	else
+	{
+		if (mini->c[mini->cmd].tokens[mini->i_tok])
+			free(mini->c[mini->cmd].tokens[mini->i_tok]);
 		mini->c[mini->cmd].tokens[mini->i_tok] = ft_strdup(*str);
+	}
 	return (0);
 }
 
@@ -101,9 +109,8 @@ void		check_for_dollar(char **token, t_mini *mini)
 				free(str);
 			return ;
 		}
-		if (*token)
-			free(*token);
-		(*token) = ft_strdup(str);
+		if (str)
+			free(str);
 		if (mini->nbr)
 			free(mini->nbr);
 	}
