@@ -6,7 +6,11 @@
 /*   By: iboeters <iboeters@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/09 18:19:53 by iboeters      #+#    #+#                 */
+<<<<<<< HEAD
 /*   Updated: 2020/11/21 12:44:36 by iboeters      ########   odam.nl         */
+=======
+/*   Updated: 2020/11/21 12:20:08 by lbisscho      ########   odam.nl         */
+>>>>>>> f3a9fd5f33409170b8bf66bce47daf9bd6605ef5
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,8 +154,8 @@ int				dollar_quote(int *i, char **token, t_mini *mini, char **str);
 void			dollar_questionmark(t_mini *mini, char **str, int *i);
 void			expand_tokens(t_mini *mini, char **str, int i, char *env);
 void			expand_tokens_pipes(t_mini *mini, char **str, int i, char *env);
-void			remove_empty_tokens(t_mini *mini, int i, int j);
-void			remove_empty_tokens_pipes(t_mini *mini, int i, int j);
 void			set_open_q(char token, t_mini *mini);
+void			remove_empty_tokens(t_mini *mini);
+void			remove_empty_tokens_pipes(t_mini *mini);
 
 #endif

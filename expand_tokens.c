@@ -6,7 +6,7 @@
 /*   By: lbisscho <lbisscho@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/16 14:34:35 by lbisscho      #+#    #+#                 */
-/*   Updated: 2020/11/21 11:57:35 by lbisscho      ########   odam.nl         */
+/*   Updated: 2020/11/21 12:43:28 by lbisscho      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	free_tokens(t_mini *mini)
 	int i;
 
 	i = 0;
-	while (i < mini->c[mini->cmd].tok_amount)
+	while (mini->c[mini->cmd].tokens[i])
 	{
 		if (mini->c[mini->cmd].tokens[i])
 			free(mini->c[mini->cmd].tokens[i]);
@@ -88,7 +88,7 @@ void	create_new_tokens(char **array, t_mini *mini, char *env, char **str)
 			free(*str);
 		(*str) = ft_strdup(array[mini->array_len - 1]);
 	}
-	// free_tokens(mini);
+	free_tokens(mini);
 	mini->c[mini->cmd].tokens = new_tokens;
 	mini->i_tok += mini->array_len - 1;
 }
