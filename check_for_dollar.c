@@ -6,7 +6,7 @@
 /*   By: iboeters <iboeters@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/09 18:16:11 by iboeters      #+#    #+#                 */
-/*   Updated: 2020/11/20 19:07:20 by iboeters      ########   odam.nl         */
+/*   Updated: 2020/11/21 10:30:01 by iboeters      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,6 @@ int			dollar_type(char **token, t_mini *mini, char **str)
 	mini->n_quotes = 0;
 	while ((*token)[i] != '\0')
 	{
-		printf("[%c] CHECKFORDOLLAR\n", (*token)[i]);
 		set_open_q((*token)[i], mini);
 		if ((*token)[i] == '\\' && mini->q == '"')
 		{
@@ -94,7 +93,10 @@ int			dollar_type(char **token, t_mini *mini, char **str)
 		else
 			strjoin_char(&i, str, token);
 	}
-	mini->c[mini->cmd].tokens[mini->i_tok] = ft_strdup(*str);
+	if (mini->piped == 1)
+		mini->pipes_c[mini->cmd].tokens[mini->i_tok] = ft_strdup(*str);
+	else
+		mini->c[mini->cmd].tokens[mini->i_tok] = ft_strdup(*str);
 	printf("[%s]string end\n", *str);
 	return (0);
 }
