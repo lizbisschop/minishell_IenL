@@ -6,7 +6,7 @@
 /*   By: iboeters <iboeters@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/09 18:16:11 by iboeters      #+#    #+#                 */
-/*   Updated: 2020/11/21 10:30:01 by iboeters      ########   odam.nl         */
+/*   Updated: 2020/11/21 11:56:47 by iboeters      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,6 @@ int			dollar_type(char **token, t_mini *mini, char **str)
 		mini->pipes_c[mini->cmd].tokens[mini->i_tok] = ft_strdup(*str);
 	else
 		mini->c[mini->cmd].tokens[mini->i_tok] = ft_strdup(*str);
-	printf("[%s]string end\n", *str);
 	return (0);
 }
 

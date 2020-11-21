@@ -6,7 +6,7 @@
 /*   By: iboeters <iboeters@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/09 18:19:53 by iboeters      #+#    #+#                 */
-/*   Updated: 2020/11/21 10:03:01 by iboeters      ########   odam.nl         */
+/*   Updated: 2020/11/21 11:43:04 by iboeters      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ typedef	struct	s_mini{
 	int			array_len;
 	int			use_string;
 	int			cmd;
+	int			env_i;
 	t_command	*c;
 	t_command	*pipes_c;
 }				t_mini;
