@@ -6,7 +6,7 @@
 /*   By: iboeters <iboeters@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/09 18:16:11 by iboeters      #+#    #+#                 */
-/*   Updated: 2020/11/21 10:30:01 by iboeters      ########   odam.nl         */
+/*   Updated: 2020/11/21 11:29:13 by lbisscho      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,8 +96,18 @@ int			dollar_type(char **token, t_mini *mini, char **str)
 	if (mini->piped == 1)
 		mini->pipes_c[mini->cmd].tokens[mini->i_tok] = ft_strdup(*str);
 	else
+	{
+		// int i;
+
+		// i = 0;
 		mini->c[mini->cmd].tokens[mini->i_tok] = ft_strdup(*str);
-	printf("[%s]string end\n", *str);
+		// while (mini->c[mini->cmd].tokens[i])
+		// {
+		// 	printf("[%s] | %d\n", mini->c[mini->cmd].tokens[i], mini->c[mini->cmd].tok_amount);
+		// 	i++;		
+		// }
+	}
+	// printf("[%s]string end\n", *str);
 	return (0);
 }
 
@@ -118,10 +128,6 @@ void		check_for_dollar(char **token, t_mini *mini)
 		if (*token)
 			free(*token);
 		(*token) = ft_strdup(str);
-		if (ft_strlen(*token) == 0)
-		{
-			//trim tokens: if env doesnt exist, remove token
-		}
 		// if (str)
 		// 	free(str);
 		if (mini->nbr)

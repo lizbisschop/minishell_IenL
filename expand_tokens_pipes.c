@@ -6,7 +6,7 @@
 /*   By: lbisscho <lbisscho@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/16 19:36:29 by lbisscho      #+#    #+#                 */
-/*   Updated: 2020/11/21 10:23:47 by iboeters      ########   odam.nl         */
+/*   Updated: 2020/11/21 11:20:38 by lbisscho      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ void	create_new_tokens_pipes(char **array, t_mini *mini, char *env, char **str)
 	mini->use_string = 0;
 	if (env[0] == ' ' && ft_strlen(*str) != 0)
 		mini->array_len++;
-	mini->pipes_c[mini->cmd].tok_amount += mini->array_len;
+	mini->pipes_c[mini->cmd].tok_amount += mini->array_len - 1;
 	new_tokens = (char **)malloc(sizeof(char *) *
 	(mini->pipes_c[mini->cmd].tok_amount + 1));
 	if (env[0] == ' ')

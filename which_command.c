@@ -6,7 +6,7 @@
 /*   By: iboeters <iboeters@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/09 18:19:20 by iboeters      #+#    #+#                 */
-/*   Updated: 2020/11/19 16:43:49 by liz           ########   odam.nl         */
+/*   Updated: 2020/11/21 11:53:20 by lbisscho      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,10 @@ void	var_sub(char **tokens, t_mini *mini, int cmd)
 		check_for_dollar(&(tokens[i]), mini);
 		i++;
 	}
+	if (mini->piped == 1)
+		remove_empty_tokens_pipes(mini, 0, 0);
+	else
+		remove_empty_tokens(mini, 0, 0);
 }
 
 void	find_command(char **tokens, int tok_amount, t_mini *mini)
