@@ -6,26 +6,11 @@
 /*   By: lbisscho <lbisscho@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/16 19:36:29 by lbisscho      #+#    #+#                 */
-/*   Updated: 2020/11/21 11:20:38 by lbisscho      ########   odam.nl         */
+/*   Updated: 2020/11/21 17:24:20 by lbisscho      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-void	free_tokens_pipes(t_mini *mini)
-{
-	int i;
-
-	i = 0;
-	while (mini->pipes_c[mini->cmd].tokens[i])
-	{
-		if (mini->pipes_c[mini->cmd].tokens[i])
-			free(mini->pipes_c[mini->cmd].tokens[i]);
-		i++;
-	}
-	if (mini->pipes_c[mini->cmd].tokens)
-		free(mini->pipes_c[mini->cmd].tokens);
-}
 
 void	insert_array_pipes(int *j, char **array, char **new_tokens)
 {
@@ -40,7 +25,8 @@ void	insert_array_pipes(int *j, char **array, char **new_tokens)
 	}
 }
 
-void	fill_tokens_pipes(char **array, char **new_tokens, t_mini *mini, char **str)
+void	fill_tokens_pipes(char **array, char **new_tokens,
+t_mini *mini, char **str)
 {
 	int i;
 	int j;
@@ -69,7 +55,8 @@ void	fill_tokens_pipes(char **array, char **new_tokens, t_mini *mini, char **str
 	new_tokens[j] = NULL;
 }
 
-void	create_new_tokens_pipes(char **array, t_mini *mini, char *env, char **str)
+void	create_new_tokens_pipes(char **array,
+t_mini *mini, char *env, char **str)
 {
 	char	**new_tokens;
 
@@ -88,14 +75,26 @@ void	create_new_tokens_pipes(char **array, t_mini *mini, char *env, char **str)
 			free(*str);
 		(*str) = ft_strdup(array[mini->array_len - 1]);
 	}
+	free_tokens_pipes(mini, array);
 	mini->pipes_c[mini->cmd].tokens = new_tokens;
 	mini->i_tok += mini->array_len - 1;
+}
+
+void	check_space_env_pipes(char **old_str, char **str, int i)
+{
+	*old_str = ft_substr(*str, 0, i);
+	if (*str)
+		free(*str);
+	(*str) = ft_strdup(*old_str);
+	if (*old_str)
+		free(*old_str);
 }
 
 void	expand_tokens_pipes(t_mini *mini, char **str, int i, char *env)
 {
 	char	**array;
 	int		array_len;
+	char	*old_str;
 
 	array_len = 0;
 	if (ft_strlen(env) == 0)
@@ -103,9 +102,14 @@ void	expand_tokens_pipes(t_mini *mini, char **str, int i, char *env)
 	(*str) = gnl_strjoin(*str, env);
 	array = ft_split(&(*str)[i], ' ');
 	if (env[0] == ' ')
-		(*str) = ft_substr(*str, 0, i);
+		check_space_env_pipes(&old_str, str, i);
 	else
-		array[0] = ft_strjoin_read(ft_substr(*str, 0, i), array[0]);
+	{
+		old_str = ft_substr(*str, 0, i);
+		array[0] = ft_strjoin_read(old_str, array[0]);
+		if (old_str)
+			free(old_str);
+	}
 	while (array[array_len])
 		array_len++;
 	mini->array_len = array_len;

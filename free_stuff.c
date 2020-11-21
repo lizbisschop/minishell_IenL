@@ -6,11 +6,25 @@
 /*   By: iboeters <iboeters@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/09 18:18:01 by iboeters      #+#    #+#                 */
-/*   Updated: 2020/11/14 15:20:14 by iboeters      ########   odam.nl         */
+/*   Updated: 2020/11/21 17:00:29 by lbisscho      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	free_old_tokens(char ***old_tokens)
+{
+	int i;
+
+	i = 0;
+	while ((*old_tokens)[i])
+	{
+		if ((*old_tokens)[i])
+			free((*old_tokens)[i]);
+		i++;
+	}
+	free(*old_tokens);
+}
 
 void	free_mini_c(t_mini *mini)
 {

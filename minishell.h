@@ -6,7 +6,7 @@
 /*   By: iboeters <iboeters@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/09 18:19:53 by iboeters      #+#    #+#                 */
-/*   Updated: 2020/11/21 15:43:20 by iboeters      ########   odam.nl         */
+/*   Updated: 2020/11/21 17:25:19 by lbisscho      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,6 +153,8 @@ void			expand_tokens_pipes(t_mini *mini, char **str, int i, char *env);
 void			set_open_q(char token, t_mini *mini);
 void			remove_empty_tokens(t_mini *mini);
 void			remove_empty_tokens_pipes(t_mini *mini);
-
+void			free_old_tokens(char ***old_tokens);
+void			free_tokens(t_mini *mini, char **array);
+void			free_tokens_pipes(t_mini *mini, char **array);
 
 #endif

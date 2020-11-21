@@ -6,13 +6,13 @@
 /*   By: iboeters <iboeters@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/09 18:19:06 by iboeters      #+#    #+#                 */
-/*   Updated: 2020/11/21 12:44:22 by iboeters      ########   odam.nl         */
+/*   Updated: 2020/11/21 17:17:39 by lbisscho      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int		ret_del(char *s, int i)
+int			ret_del(char *s, int i)
 {
 	if (s[i] == '>' && s[i + 1] == '>')
 		i = i + 2;
