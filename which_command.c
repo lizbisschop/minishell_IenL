@@ -6,7 +6,7 @@
 /*   By: iboeters <iboeters@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/09 18:19:20 by iboeters      #+#    #+#                 */
-/*   Updated: 2020/11/21 12:11:06 by lbisscho      ########   odam.nl         */
+/*   Updated: 2020/11/21 15:40:31 by lbisscho      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,3 +124,4 @@ void	which_command(t_mini *mini)
 		cmd++;
 	}
 }
+
