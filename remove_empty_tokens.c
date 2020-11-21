@@ -6,7 +6,7 @@
 /*   By: lbisscho <lbisscho@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/21 11:34:46 by lbisscho      #+#    #+#                 */
-/*   Updated: 2020/11/21 12:18:16 by lbisscho      ########   odam.nl         */
+/*   Updated: 2020/11/21 12:31:33 by lbisscho      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ void	remove_token_pipes(t_mini *mini, int *old_i, int *i, int *j)
 			free(mini->pipes_c[mini->cmd].tokens[*i]);
 		mini->pipes_c[mini->cmd].tokens[*i] =
 		ft_strdup(mini->pipes_c[mini->cmd].tokens[*j]);
+		if (!mini->pipes_c[mini->cmd].tokens[*i])
+			malloc_error();
 		(*i)++;
 		(*j)++;
 	}
@@ -70,6 +72,8 @@ void	remove_token(t_mini *mini, int *old_i, int *i, int *j)
 			free(mini->c[mini->cmd].tokens[*i]);
 		mini->c[mini->cmd].tokens[*i] =
 		ft_strdup(mini->c[mini->cmd].tokens[*j]);
+		if (!mini->c[mini->cmd].tokens[*i])
+			malloc_error();
 		(*i)++;
 		(*j)++;
 	}
