@@ -6,7 +6,7 @@
 /*   By: lbisscho <lbisscho@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/20 13:28:36 by lbisscho      #+#    #+#                 */
-/*   Updated: 2020/11/15 14:56:36 by iboeters      ########   odam.nl         */
+/*   Updated: 2020/11/22 16:39:09 by lbisscho      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ static char	*ft_fill_tmp(char *tmp, int *ret)
 
 static void	ft_read_join(int fd, char **buf, char **tmp, int *ret)
 {
+	write(2, "  \b\b", 4);
 	*buf = malloc(BUFFER_SIZE + 1);
 	if (!(*buf))
 		malloc_error();

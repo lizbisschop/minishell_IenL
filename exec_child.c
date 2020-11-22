@@ -6,7 +6,7 @@
 /*   By: iboeters <iboeters@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/09 18:16:40 by iboeters      #+#    #+#                 */
-/*   Updated: 2020/11/22 14:14:36 by lbisscho      ########   odam.nl         */
+/*   Updated: 2020/11/22 16:41:33 by lbisscho      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,12 +102,6 @@ void	check_dir_and_exec(char ***tokens, char **s, t_mini *mini)
 
 int		exec_child(char **tokens, char *s, t_mini *mini)
 {
-	if (ft_strlen(tokens[0]) == 0)
-	{
-		if (s)
-			free(s);
-		exit(0);
-	}
 	if (!(tokens[0][0] == '.' && tokens[0][1] && tokens[0][1] == '/') &&
 	!(tokens[0][0] == '~' && tokens[0][1] && tokens[0][1] == '/') &&
 	!(tokens[0][0] == '~' && !tokens[0][1]) &&

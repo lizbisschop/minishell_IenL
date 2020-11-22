@@ -57,13 +57,15 @@ system("ls -la /proc/$$/fd"); //shows open fd's
 [V] \ in double quotes
 [ ] error echo hoi | >< fout
 [ ] read, pipe, fork, signal etc. protecten
-[ ] norm maken
-[ ] cntrl + d: weghalen
-[ ] run cat + cntrl \
+[V] norm maken
+[V] cntrl + d: weghalen
+[V] run cat + cntrl \
 [V] run cat + cntrl c
-[ ] run cat + cntrl d
-[ ] ''
-[ ] ""
+[V] run cat + cntrl d
+[V] cat "\"" : error fout /bin/cat
+[V] echo hoi$HOME $HOME //output minishell: hoi/home/iboeters $HOME
+[V] ''
+[V] ""
 
 Testing export------------------------------------------------------
 [V] export var=hoi 1errorrrr var2=ookhoi //export both var and var2 + give error on 1errorrrr
