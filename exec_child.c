@@ -6,7 +6,7 @@
 /*   By: iboeters <iboeters@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/09 18:16:40 by iboeters      #+#    #+#                 */
-/*   Updated: 2020/11/17 12:16:45 by liz           ########   odam.nl         */
+/*   Updated: 2020/11/22 14:14:36 by lbisscho      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,11 +65,12 @@ void	substitute_token(char ***tokens, char **s, t_mini *mini)
 	}
 }
 
-void	close_and_free(t_mini *mini, char **s)
+void	is_dir(t_mini *mini, DIR **dir, char **s)
 {
-	close(mini->main_out);
-	if (*s)
-		free(*s);
+	closedir(*dir);
+	err(*s, ": is a directory", 0, mini);
+	close_and_free(mini, s);
+	exit(126);
 }
 
 void	check_dir_and_exec(char ***tokens, char **s, t_mini *mini)
@@ -80,12 +81,7 @@ void	check_dir_and_exec(char ***tokens, char **s, t_mini *mini)
 
 	dir = opendir((*tokens)[0]);
 	if (dir != NULL)
-	{
-		closedir(dir);
-		err(*s, ": is a directory", 0, mini);
-		close_and_free(mini, s);
-		exit(126);
-	}
+		is_dir(mini, &dir, s);
 	else if (stat((*tokens)[0], &buf) != -1)
 	{
 		close(mini->main_out);

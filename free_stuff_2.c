@@ -6,7 +6,7 @@
 /*   By: lbisscho <lbisscho@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/21 17:24:07 by lbisscho      #+#    #+#                 */
-/*   Updated: 2020/11/21 17:24:40 by lbisscho      ########   odam.nl         */
+/*   Updated: 2020/11/22 12:28:29 by lbisscho      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,4 +58,11 @@ void	free_tokens_pipes(t_mini *mini, char **array)
 		free(array);
 	if (mini->pipes_c[mini->cmd].tokens)
 		free(mini->pipes_c[mini->cmd].tokens);
+}
+
+void	close_and_free(t_mini *mini, char **s)
+{
+	close(mini->main_out);
+	if (*s)
+		free(*s);
 }
