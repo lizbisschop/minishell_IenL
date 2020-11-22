@@ -145,3 +145,10 @@ Testing for leaks
 Tests liewe----------------------------------------------------------
 [V] cat /dev/urandom | head -c10 //should not hang
 [V] cat | grep 42 //reoutput only if you give 42 in string
+[V] cat | grep [x] == open command
+
+Laatste test ronde---------------------------------------------------
+[ ] echo \"bin""
+echo hoi "bin\""  ; echo hee
+echo hoi "bin\"hoi"   ; echo hee
+[ ] OLDPWD

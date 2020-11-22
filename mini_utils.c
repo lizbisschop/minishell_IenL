@@ -6,7 +6,7 @@
 /*   By: iboeters <iboeters@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/09 18:18:20 by iboeters      #+#    #+#                 */
-/*   Updated: 2020/11/15 14:59:25 by iboeters      ########   odam.nl         */
+/*   Updated: 2020/11/22 20:05:57 by iboeters      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,20 +37,24 @@ void	skip_wspaces(char *s, int *i)
 
 void	skip_quoted(char *s, int *i)
 {
-	if (s[*i] == '\'')
+	if (s[*i] == '"')
+	{
+		(*i)++;
+		while (s[*i] != '\0' && s[*i] != '"')
+		{
+			if (s[*i] == '\\' && s[*i + 1] != '\0')
+				(*i)++;
+			(*i)++;
+		}
+		if (s[*i] == '"')
+			(*i)++;
+	}
+	else if (s[*i] == '\'')
 	{
 		(*i)++;
 		while (s[*i] != '\0' && s[*i] != '\'')
 			(*i)++;
 		if (s[*i] == '\'')
-			(*i)++;
-	}
-	else if (s[*i] == '"')
-	{
-		(*i)++;
-		while (s[*i] != '\0' && s[*i] != '"')
-			(*i)++;
-		if (s[*i] == '"')
 			(*i)++;
 	}
 }

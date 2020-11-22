@@ -6,7 +6,7 @@
 /*   By: iboeters <iboeters@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/09 18:19:53 by iboeters      #+#    #+#                 */
-/*   Updated: 2020/11/22 16:42:57 by lbisscho      ########   odam.nl         */
+/*   Updated: 2020/11/22 19:54:11 by iboeters      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,7 +125,6 @@ void			if_quote(int *k, int *j, t_mini *mini);
 void			find_right_env(t_mini *mini, int *i, int *j, int *k);
 void			skip_quoted(char *s, int *i);
 void			print_export(t_mini *mini);
-int				find_substr(char *s, t_mini *mini);
 void			check_quotes(char *s, t_mini *mini);
 void			insertion_sort(int end, int start, int *arr, char **env);
 int				save_commands(t_mini *mini, char *s);
@@ -136,7 +135,6 @@ int				check_semicolon(char *s, t_mini *mini, int *i);
 int				check_redir_end(int *i, char *str, t_mini *mini);
 void			quotes(char **tokens, t_mini *mini);
 void			var_sub(char **tokens, t_mini *mini, int cmd);
-int				ret_del(char *s, int i);
 void			signal_child(void);
 void			handle_sigint(int signal);
 void			handle_sigquit(int signal);

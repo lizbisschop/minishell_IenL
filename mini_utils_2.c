@@ -6,20 +6,11 @@
 /*   By: iboeters <iboeters@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/09 18:19:06 by iboeters      #+#    #+#                 */
-/*   Updated: 2020/11/22 16:47:24 by iboeters      ########   odam.nl         */
+/*   Updated: 2020/11/22 19:53:56 by iboeters      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-int			ret_del(char *s, int i)
-{
-	if (s[i] == '>' && s[i + 1] == '>')
-		i = i + 2;
-	else
-		i++;
-	return (i);
-}
 
 void		set_open_q(char token, t_mini *mini)
 {
@@ -41,7 +32,7 @@ void		set_open_q(char token, t_mini *mini)
 	}
 }
 
-void	malloc_error(void)
+void		malloc_error(void)
 {
 	ft_putstr_fd("bash: malloc fail\n", 2);
 	exit(1);

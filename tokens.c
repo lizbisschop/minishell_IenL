@@ -6,7 +6,7 @@
 /*   By: iboeters <iboeters@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/09 18:19:09 by iboeters      #+#    #+#                 */
-/*   Updated: 2020/11/16 09:56:23 by iboeters      ########   odam.nl         */
+/*   Updated: 2020/11/22 20:08:08 by iboeters      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,10 @@ int		tok_end(char *s, int i)
 				return (i);
 		}
 		else if (is_delimiter(s[i]))
-			return (ret_del(s, i));
+		{
+			i = (s[i] == '>' && s[i + 1] == '>') ? i + 2 : i + 1;
+			return (i);
+		}
 		else if (ft_isascii(s[i]))
 		{
 			while (s[i] != '\0' && ft_isascii(s[i]) && s[i] != '\'' &&

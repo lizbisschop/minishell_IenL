@@ -1,8 +1,18 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         ::::::::             #
+#    Makefile                                           :+:    :+:             #
+#                                                      +:+                     #
+#    By: iboeters <iboeters@student.codam.nl>         +#+                      #
+#                                                    +#+                       #
+#    Created: 2020/11/22 16:52:37 by iboeters      #+#    #+#                  #
+#    Updated: 2020/11/22 19:33:46 by iboeters      ########   odam.nl          #
+#                                                                              #
+# **************************************************************************** #
+
 NAME = minishell
 
 LIBFT = libft.a
-
-GNL = ./gnl/get_next_line.c ./gnl/get_next_line_utils.c
 
 SRCS = ./gnl/get_next_line.c \
 	./gnl/get_next_line_utils.c \
@@ -12,7 +22,6 @@ SRCS = ./gnl/get_next_line.c \
 	pwd.c \
 	quotes.c \
 	envp.c \
-	find_substr.c \
 	tokens.c \
 	check_for_errors.c \
 	mini_utils.c \
@@ -60,10 +69,7 @@ endif
 all: $(NAME)
 
 $(NAME): $(LIBFT) $(OBJ)
-	gcc $(FLAGS) $^ $(INCL) $(LIBFT) -o $(NAME) -g
-
-# %.o: %.c
-# 	gcc -Wall -Werror -Wextra -c $< -o $@
+	gcc $(FLAGS) $^ $(INCL) $(LIBFT) -o $(NAME)
 
 $(LIBFT):
 	make -C ./libft
