@@ -7,7 +7,7 @@ system("ls -la /proc/$$/fd");
 [V] fds worden steeds groter naarmate je meer commands achter elkaar uitvoerd && gebeurt niet bij pipes
 [V] exit codes?
 [V] env variables $PA shouldn't give path && only [$] works
-[V] ~/bin/ //home substitution at ~
+[V] ~/bin/ //home substitution at ~ // tilde is not needed
 [V] test.c/: Not a directory
 [V] /test.c/: No such file or directory
 [V] segfault multiple pipes??
@@ -39,7 +39,7 @@ system("ls -la /proc/$$/fd");
 [V] error: //Users/iboeters/minishell/github_minishell/test.c
 [V] type awk: error without path to executable
 [V] echo $"hallo" wrong output
-[V] ~: cat ~/minishell/github_minishell/test.c
+[V] ~: cat ~/minishell/github_minishell/test.c //tilde hoeft niet
 [V] ctrl + d opvangen: alleen als line empty is exitten!
 [V] echo $"hallo" wrong output
 [V] altijd als we erroren (mallocs f.e.) free stuff aanroepen?
@@ -54,6 +54,16 @@ system("ls -la /proc/$$/fd");
 [V] export LS="ls -la"; export hoi="$LS echo"; $hoi : begin dus weer te loopen vanaf wat je hebt geexpand
 [V] pipes werkend krijgen voor $LS: export LS="ls -la"; echo hoi | $LS
 [V] $LS$LS
+[ ] cntrl + d: weghalen
+[ ] segfault echo hoi | > of echo hoi | < of 
+[ ] error echo hoi | >< fout
+[ ] run cat + cntrl \
+[ ] run cat + cntrl c
+[ ] run cat + cntrl d
+[ ] cat "\"" : error fout /bin/cat
+[ ] echo hoi$HOME $HOME //output minishell: hoi/home/iboeters $HOME
+[ ] ''
+[ ] ""
 
 Testing export------------------------------------------------------
 [V] export var=hoi 1errorrrr var2=ookhoi //export both var and var2 + give error on 1errorrrr
@@ -109,9 +119,6 @@ Testing pipes and redirections-------------------------------------
 [V] echo hoi > gnl
 [V] echo hoi < gnl
 [V] echo hoi > $HOME
-
-
-
 
 Tests github--------------------------------------------------------
 [V] cat mini_main.c > out | grep if
