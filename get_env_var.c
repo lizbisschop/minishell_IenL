@@ -6,7 +6,7 @@
 /*   By: lbisscho <lbisscho@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/15 14:35:03 by lbisscho      #+#    #+#                 */
-/*   Updated: 2020/11/21 17:37:53 by lbisscho      ########   odam.nl         */
+/*   Updated: 2020/11/22 14:22:57 by lbisscho      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,10 +68,10 @@ void		get_env_var(int *i, char **token, t_mini *mini, char **str)
 	var_length = 0;
 	(*i)++;
 	mini->env_i = 0;
-	if ((*token)[*i] == '"' || (*token)[*i] == '\'')
-		var_length = dollar_quote(i, token, mini, str);
-	else
-	{
+	// if ((*token)[*i] == '"' || (*token)[*i] == '\'')
+	// 	var_length = dollar_quote(i, token, mini, str);
+	// else
+	// {
 		while ((*token)[(*i) + var_length] != '\0' && (ft_isalnum((*token)[(*i)
 		+ var_length]) || (*token)[(*i) + var_length] == '_'))
 			var_length++;
@@ -82,6 +82,6 @@ void		get_env_var(int *i, char **token, t_mini *mini, char **str)
 				env_found(mini, var_length, str, i);
 			mini->env_i++;
 		}
-	}
+	// }
 	(*i) += var_length;
 }

@@ -6,7 +6,7 @@
 /*   By: iboeters <iboeters@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/09 18:16:25 by iboeters      #+#    #+#                 */
-/*   Updated: 2020/11/15 14:08:05 by lbisscho      ########   odam.nl         */
+/*   Updated: 2020/11/22 15:22:32 by lbisscho      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,29 @@ int		check_output_redir(char *s, t_mini *mini, int *i)
 	return (0);
 }
 
+int		piped_deli(t_mini *mini, char *s, int *i, char delimiter)
+{
+	char deli[4];
+
+	if (delimiter == '|' && (is_delimiter(s[*i]) == 1 || s[*i] == ';'))
+	{
+		deli[0] = '`';
+		deli[1] = s[*i];
+		deli[2] = '\'';
+		deli[3] = '\0';
+		(*i)++;
+		while (s[*i] != '\0' && is_whitespace(s[*i]))
+			(*i)++;
+		if (s[*i] == '\0' || is_delimiter(s[*i]))
+		{
+			err("syntax error near unexpected token ", deli, 0, mini);
+			mini->exit_int = 258;
+			return (-1);
+		}
+	}
+	return (0);
+}
+
 int		check_delimiter(char *s, t_mini *mini, int *i)
 {
 	char	deli[4];
@@ -92,6 +115,8 @@ int		check_delimiter(char *s, t_mini *mini, int *i)
 			mini->exit_int = 258;
 			return (-1);
 		}
+		else if (piped_deli(mini, s, i, delimiter) == - 1)
+				return (-1);
 	}
 	return (0);
 }
