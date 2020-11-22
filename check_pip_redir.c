@@ -6,7 +6,7 @@
 /*   By: iboeters <iboeters@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/09 18:16:25 by iboeters      #+#    #+#                 */
-/*   Updated: 2020/11/22 15:22:32 by lbisscho      ########   odam.nl         */
+/*   Updated: 2020/11/22 16:42:30 by lbisscho      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,22 +27,6 @@ int		check_redir_end(int *i, char *str, t_mini *mini)
 			mini->exit_int = 258;
 			return (-1);
 		}
-	}
-	return (0);
-}
-
-int		check_semicolon(char *s, t_mini *mini, int *i)
-{
-	while (s[*i] != '\0')
-	{
-		skip_quoted(s, i);
-		if (s[*i] == ';' && s[*i + 1] == ';')
-		{
-			err("syntax error near unexpected token `;;'", "", 0, mini);
-			mini->exit_int = 258;
-			return (-1);
-		}
-		(*i)++;
 	}
 	return (0);
 }
@@ -115,8 +99,8 @@ int		check_delimiter(char *s, t_mini *mini, int *i)
 			mini->exit_int = 258;
 			return (-1);
 		}
-		else if (piped_deli(mini, s, i, delimiter) == - 1)
-				return (-1);
+		else if (piped_deli(mini, s, i, delimiter) == -1)
+			return (-1);
 	}
 	return (0);
 }

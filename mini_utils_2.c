@@ -6,7 +6,7 @@
 /*   By: iboeters <iboeters@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/09 18:19:06 by iboeters      #+#    #+#                 */
-/*   Updated: 2020/11/21 17:17:39 by lbisscho      ########   odam.nl         */
+/*   Updated: 2020/11/22 16:41:52 by lbisscho      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,4 +39,20 @@ void		set_open_q(char token, t_mini *mini)
 		mini->q = anti_q;
 		anti_q = temp;
 	}
+}
+
+int			check_semicolon(char *s, t_mini *mini, int *i)
+{
+	while (s[*i] != '\0')
+	{
+		skip_quoted(s, i);
+		if (s[*i] == ';' && s[*i + 1] == ';')
+		{
+			err("syntax error near unexpected token `;;'", "", 0, mini);
+			mini->exit_int = 258;
+			return (-1);
+		}
+		(*i)++;
+	}
+	return (0);
 }

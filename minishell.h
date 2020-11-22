@@ -6,7 +6,7 @@
 /*   By: iboeters <iboeters@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/09 18:19:53 by iboeters      #+#    #+#                 */
-/*   Updated: 2020/11/22 12:28:45 by lbisscho      ########   odam.nl         */
+/*   Updated: 2020/11/22 16:42:57 by lbisscho      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,6 @@
 # include <dirent.h>
 # include "./libft/libft.h"
 # include "./gnl/get_next_line.h"
-
-//remove!!!
-#include "stdio.h"
-
 # define EXT_ALPHABET_SIZE 63
 # define PID_MAX 709
 
@@ -151,12 +147,13 @@ void			dollar_questionmark(t_mini *mini, char **str, int *i);
 void			expand_tokens(t_mini *mini, char **str, int i, char *env);
 void			expand_tokens_pipes(t_mini *mini, char **str, int i, char *env);
 void			set_open_q(char token, t_mini *mini);
-void			remove_empty_tokens(t_mini *mini);
-void			remove_empty_tokens_pipes(t_mini *mini);
+void			remove_empty_token(t_mini *mini, int remove);
+void			remove_empty_token_pipes(t_mini *mini, int remove);
 void			free_old_tokens(char ***old_tokens);
 void			free_tokens(t_mini *mini, char **array);
 void			free_tokens_pipes(t_mini *mini, char **array);
 void			var_sub(char **tokens, t_mini *mini, int cmd);
 void			close_and_free(t_mini *mini, char **s);
+int				check_semicolon(char *s, t_mini *mini, int *i);
 
 #endif

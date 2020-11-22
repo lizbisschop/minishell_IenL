@@ -6,7 +6,7 @@
 /*   By: lbisscho <lbisscho@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/22 12:21:00 by lbisscho      #+#    #+#                 */
-/*   Updated: 2020/11/22 13:59:59 by lbisscho      ########   odam.nl         */
+/*   Updated: 2020/11/22 16:00:13 by lbisscho      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,11 +49,11 @@ void	var_sub(char **tokens, t_mini *mini, int cmd)
 		check_for_dollar(&old_token, mini);
 		if (old_token)
 			free(old_token);
+		if (mini->piped == 1)
+			remove_empty_token_pipes(mini, mini->i_tok);
+		else
+			remove_empty_token(mini, mini->i_tok);
 		i++;
 	}
-	if (mini->piped == 1)
-		remove_empty_tokens_pipes(mini);
-	else
-		remove_empty_tokens(mini);
 	free_old_tokens(&old_tokens);
 }
