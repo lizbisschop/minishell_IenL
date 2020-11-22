@@ -66,6 +66,7 @@ system("ls -la /proc/$$/fd"); //shows open fd's
 [V] echo hoi$HOME $HOME //output minishell: hoi/home/iboeters $HOME
 [V] ''
 [V] ""
+[ ] /binls | echo $? //processen lopen door elkaar
 
 Testing export------------------------------------------------------
 [V] export var=hoi 1errorrrr var2=ookhoi //export both var and var2 + give error on 1errorrrr

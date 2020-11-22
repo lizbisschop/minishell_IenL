@@ -1,8 +1,18 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         ::::::::             #
+#    Makefile                                           :+:    :+:             #
+#                                                      +:+                     #
+#    By: lbisscho <lbisscho@student.codam.nl>         +#+                      #
+#                                                    +#+                       #
+#    Created: 2020/11/22 16:52:42 by lbisscho      #+#    #+#                  #
+#    Updated: 2020/11/22 20:31:26 by lbisscho      ########   odam.nl          #
+#                                                                              #
+# **************************************************************************** #
+
 NAME = minishell
 
 LIBFT = libft.a
-
-GNL = ./gnl/get_next_line.c ./gnl/get_next_line_utils.c
 
 SRCS = ./gnl/get_next_line.c \
 	./gnl/get_next_line_utils.c \
@@ -60,10 +70,7 @@ endif
 all: $(NAME)
 
 $(NAME): $(LIBFT) $(OBJ)
-	gcc $(FLAGS) $^ $(INCL) $(LIBFT) -o $(NAME) -g
-
-# %.o: %.c
-# 	gcc -Wall -Werror -Wextra -c $< -o $@
+	gcc $(FLAGS) $^ $(INCL) $(LIBFT) -o $(NAME)
 
 $(LIBFT):
 	make -C ./libft
