@@ -3,10 +3,10 @@
 #                                                         ::::::::             #
 #    Makefile                                           :+:    :+:             #
 #                                                      +:+                     #
-#    By: iboeters <iboeters@student.codam.nl>         +#+                      #
+#    By: lbisscho <lbisscho@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
-#    Created: 2020/11/22 16:52:37 by iboeters      #+#    #+#                  #
-#    Updated: 2020/11/22 19:33:46 by iboeters      ########   odam.nl          #
+#    Created: 2020/11/22 16:52:42 by lbisscho      #+#    #+#                  #
+#    Updated: 2020/11/22 20:32:37 by iboeters      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
