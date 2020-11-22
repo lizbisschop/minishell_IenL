@@ -6,7 +6,7 @@
 /*   By: iboeters <iboeters@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/09 18:18:16 by iboeters      #+#    #+#                 */
-/*   Updated: 2020/11/21 11:31:01 by iboeters      ########   odam.nl         */
+/*   Updated: 2020/11/22 15:27:04 by iboeters      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,6 @@ void	err(char *s1, char *s2, int sterr, t_mini *mini)
 	}
 	ft_putstr_fd("\n", 2);
 	mini->exit_int = 1;
-}
-
-void	malloc_error(void)
-{
-	ft_putstr_fd("bash: malloc fail\n", 2);
-	exit(1);
 }
 
 void	set_struct(t_mini *mini)

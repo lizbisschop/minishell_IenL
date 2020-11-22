@@ -6,7 +6,7 @@
 /*   By: iboeters <iboeters@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/09 18:19:06 by iboeters      #+#    #+#                 */
-/*   Updated: 2020/11/21 17:17:39 by lbisscho      ########   odam.nl         */
+/*   Updated: 2020/11/22 15:27:15 by iboeters      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,4 +39,10 @@ void		set_open_q(char token, t_mini *mini)
 		mini->q = anti_q;
 		anti_q = temp;
 	}
+}
+
+void	malloc_error(void)
+{
+	ft_putstr_fd("bash: malloc fail\n", 2);
+	exit(1);
 }

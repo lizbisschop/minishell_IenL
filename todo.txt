@@ -1,4 +1,4 @@
-system("ls -la /proc/$$/fd");
+system("ls -la /proc/$$/fd"); //shows open fd's
 [V] more than 3 >>> error : syntax error near '>>'
 [V] malloc: double free bij >>>
 [V] file with quotes: open file without quotes
@@ -46,22 +46,22 @@ system("ls -la /proc/$$/fd");
 [V] type awk: error without path to executable
 [V] cat "\""; en 
 [V] echo $1234
-[ ] \ in double quotes
-[ ] echo $"HOME$"
+[V] echo hoi$HOME $HOME //output minishell: hoi/home/iboeters $HOME
+[V] echo $"HOME$"
 [V] cd "\$HOME"
-[ ] read, pipe, fork, signal etc. protecten
-[ ] norm maken
 [V] export LS="ls -la"; export hoi="$LS echo"; $hoi : begin dus weer te loopen vanaf wat je hebt geexpand
 [V] pipes werkend krijgen voor $LS: export LS="ls -la"; echo hoi | $LS
 [V] $LS$LS
-[ ] cntrl + d: weghalen
-[ ] segfault echo hoi | > of echo hoi | < of 
+[V] segfault echo hoi | > of echo hoi | < of 
+[V] cat "\"" : error fout /bin/cat // alleen op mijn eigen computer
+[V] \ in double quotes
 [ ] error echo hoi | >< fout
+[ ] read, pipe, fork, signal etc. protecten
+[ ] norm maken
+[ ] cntrl + d: weghalen
 [ ] run cat + cntrl \
-[ ] run cat + cntrl c
+[V] run cat + cntrl c
 [ ] run cat + cntrl d
-[ ] cat "\"" : error fout /bin/cat
-[ ] echo hoi$HOME $HOME //output minishell: hoi/home/iboeters $HOME
 [ ] ''
 [ ] ""
 
