@@ -6,18 +6,18 @@
 /*   By: iboeters <iboeters@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/09 18:16:31 by iboeters      #+#    #+#                 */
-/*   Updated: 2020/11/21 11:25:18 by lbisscho      ########   odam.nl         */
+/*   Updated: 2020/11/21 17:10:45 by lbisscho      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void		set_n_flag(int *n_flag, int *i, char **tokens)
+void		set_n_flag(int *n_flag, int *i, char **tokens, int tok_amount)
 {
 	int		j;
 
 	*n_flag = 0;
-	while (ft_strncmp("-n", tokens[*i], 2) == 0)
+	while (*i < tok_amount && ft_strncmp("-n", tokens[*i], 2) == 0)
 	{
 		j = 2;
 		while (tokens[*i][j] == 'n')
@@ -38,7 +38,7 @@ void		echo(char **tokens, int tok_amount, t_mini *mini)
 	n_flag = 0;
 	if (tok_amount > 1)
 	{
-		set_n_flag(&n_flag, &i, tokens);
+		set_n_flag(&n_flag, &i, tokens, tok_amount);
 		while (i < tok_amount)
 		{
 			ft_putstr_fd(tokens[i], 1);

@@ -43,7 +43,8 @@ SRCS = ./gnl/get_next_line.c \
 	get_env_var.c \
 	expand_tokens.c \
 	expand_tokens_pipes.c \
-	remove_empty_tokens.c
+	remove_empty_tokens.c \
+	free_stuff_2.c
 
 FLAGS = -Wall -Werror -Wextra
 

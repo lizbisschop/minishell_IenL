@@ -6,35 +6,11 @@
 /*   By: lbisscho <lbisscho@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/16 14:34:35 by lbisscho      #+#    #+#                 */
-/*   Updated: 2020/11/21 16:12:54 by iboeters      ########   odam.nl         */
+/*   Updated: 2020/11/21 17:24:32 by lbisscho      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-void	free_tokens(t_mini *mini, char **array)
-{
-	int i;
-
-	i = 0;
-	while (mini->c[mini->cmd].tokens[i])
-	{
-		if (mini->c[mini->cmd].tokens[i])
-			free(mini->c[mini->cmd].tokens[i]);
-		i++;
-	}
-	i = 0;
-	while (array[i])
-	{
-		if (array[i])
-			free(array[i]);
-		i++;
-	}
-	if (array)
-		free(array);
-	if (mini->c[mini->cmd].tokens)
-		free(mini->c[mini->cmd].tokens);
-}
 
 void	insert_array(int *j, char **array, char **new_tokens)
 {
@@ -102,6 +78,16 @@ void	create_new_tokens(char **array, t_mini *mini, char *env, char **str)
 	mini->i_tok += mini->array_len - 1;
 }
 
+void	check_space_env(char **old_str, char **str, int i)
+{
+	*old_str = ft_substr(*str, 0, i);
+	if (*str)
+		free(*str);
+	(*str) = ft_strdup(*old_str);
+	if (*old_str)
+		free(*old_str);
+}
+
 void	expand_tokens(t_mini *mini, char **str, int i, char *env)
 {
 	char	**array;
@@ -114,14 +100,7 @@ void	expand_tokens(t_mini *mini, char **str, int i, char *env)
 	(*str) = gnl_strjoin(*str, env);
 	array = ft_split(&(*str)[i], ' ');
 	if (env[0] == ' ')
-	{
-		old_str = ft_substr(*str, 0, i);
-		if (*str)
-			free(*str);
-		(*str) = ft_strdup(old_str);
-		if (old_str)
-			free(old_str);
-	}
+		check_space_env(&old_str, str, i);
 	else
 	{
 		old_str = ft_substr(*str, 0, i);
