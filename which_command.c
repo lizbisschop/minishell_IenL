@@ -6,7 +6,7 @@
 /*   By: iboeters <iboeters@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/09 18:19:20 by iboeters      #+#    #+#                 */
-/*   Updated: 2020/11/21 16:28:39 by iboeters      ########   odam.nl         */
+/*   Updated: 2020/11/21 16:30:36 by iboeters      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	var_sub(char **tokens, t_mini *mini, int cmd)
 	mini->cmd = cmd;
 	while (tokens[i])
 	{
-			printf("[%s]\n", tokens[i]);
+		printf("[%s]\n", tokens[i]);
 		old_token = ft_strdup(tokens[i]);
 		mini->array_len = 0;
 		mini->i_tok = i;
