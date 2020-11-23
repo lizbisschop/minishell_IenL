@@ -149,7 +149,10 @@ Tests liewe----------------------------------------------------------
 [V] cat | grep [x] == open command
 
 Laatste test ronde---------------------------------------------------
-[ ] echo \"bin""
-echo hoi "bin\""  ; echo hee
-echo hoi "bin\"hoi"   ; echo hee
+[V] echo \"bin""
+[V] echo hoi "bin\""  ; echo hee
+[V] echo hoi "bin\"hoi"   ; echo hee
 [ ] OLDPWD
+[V] echo \"
+[V] echo $2$%
+[V] echo "\\$USER"

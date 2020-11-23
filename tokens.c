@@ -6,7 +6,7 @@
 /*   By: iboeters <iboeters@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/09 18:19:09 by iboeters      #+#    #+#                 */
-/*   Updated: 2020/11/22 20:08:08 by iboeters      ########   odam.nl         */
+/*   Updated: 2020/11/23 13:46:49 by iboeters      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int		check_tok_end(char *s, int *i)
 	{
 		while (s[*i] != '\0' && s[*i] != '\'' && s[*i] != '"' &&
 		!is_delimiter(s[*i]) && !is_whitespace(s[*i]) && ft_isascii(s[*i]))
-			(*i)++;
+			(*i) = (s[*i] == '\\' && s[*i + 1] != '\0') ? *i + 2 : *i + 1;
 		if (s[*i] != '\'' && s[*i] != '"')
 			return (1);
 	}
@@ -79,7 +79,7 @@ int		tok_end(char *s, int i)
 		{
 			while (s[i] != '\0' && ft_isascii(s[i]) && s[i] != '\'' &&
 			s[i] != '"' && !is_delimiter(s[i]) && !is_whitespace(s[i]))
-				i++;
+				i = (s[i] == '\\' && s[i + 1] != '\0') ? i + 2 : i + 1;
 			if (s[i] != '\'' && s[i] != '"')
 				return (i);
 		}

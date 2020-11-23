@@ -6,14 +6,16 @@
 /*   By: iboeters <iboeters@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/09 18:18:39 by iboeters      #+#    #+#                 */
-/*   Updated: 2020/11/22 14:36:03 by lbisscho      ########   odam.nl         */
+/*   Updated: 2020/11/23 13:42:22 by iboeters      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	else_slash(char **s, char **str, int *i, int *j)
+void	save_char(char **s, char **str, int *i, int *j)
 {
+	if ((*s)[*i] == '\\')
+		(*i)++;
 	(*str)[*j] = (*s)[*i];
 	(*j)++;
 }
@@ -40,8 +42,8 @@ void	fill_str_char(char **s, char **str, int *i, int *j)
 				*i = ((*s)[*i] != '\0') ? *i + 1 : *i;
 			}
 		}
-		else if ((*s)[*i] != '\\')
-			else_slash(s, str, i, j);
+		else
+			save_char(s, str, i, j);
 		(*i)++;
 	}
 }
@@ -73,29 +75,29 @@ char	*unquote(char **s, t_mini *mini)
 {
 	char	q;
 	char	anti_q;
-	char	temp;
 	int		i;
+	int		slash;
 
 	i = 0;
 	q = '\'';
 	anti_q = '"';
+	slash = 0;
 	mini->n_quotes = 0;
 	while ((*s)[i] != '\0')
 	{
 		if ((*s)[i] == q)
 			mini->n_quotes++;
-		else if ((*s)[i] == '\\' && (*s)[i + 1] != '\0')
-			i++;
-		else if ((*s)[i] == anti_q && mini->n_quotes % 2 == 0)
+		else if ((*s)[i] == '\\' && (*s)[i + 1] != '\0' &&
+		!(q == '\'' && mini->n_quotes % 2 != 0))
 		{
-			mini->n_quotes++;
-			temp = q;
-			q = anti_q;
-			anti_q = temp;
+			slash++;
+			i++;
 		}
+		else if ((*s)[i] == anti_q && mini->n_quotes % 2 == 0)
+			switch_quotes(mini, &q, &anti_q);
 		i++;
 	}
-	return (fill_string(i, s, mini));
+	return (fill_string(i - slash, s, mini));
 }
 
 void	quotes(char **tokens, t_mini *mini)

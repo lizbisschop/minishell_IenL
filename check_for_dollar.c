@@ -6,7 +6,7 @@
 /*   By: iboeters <iboeters@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/09 18:16:11 by iboeters      #+#    #+#                 */
-/*   Updated: 2020/11/22 15:56:08 by lbisscho      ########   odam.nl         */
+/*   Updated: 2020/11/23 13:31:06 by iboeters      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ void		dollar_num(char **token, int *i, t_mini *mini, char **str)
 
 	var_length = 0;
 	(*i) += 2;
+	if ((*token)[*i] == '$')
+		return ;
 	while ((*token)[*i + var_length] != '\0' &&
 	(*token)[*i + var_length] != '$')
 		var_length++;
@@ -43,10 +45,12 @@ void		dollar_num(char **token, int *i, t_mini *mini, char **str)
 
 int			find_dollar_type(char **token, t_mini *mini, char **str, int *i)
 {
-	if ((*token)[*i] == '\\' && mini->q == '"')
+	if ((*token)[*i] == '\\' && mini->q != '\'')
 	{
 		(*i)++;
-		if ((*token)[*i] == '$')
+		if ((*token)[*i] == '\\')
+			strjoin_char(i, str, token);
+		else if ((*token)[*i] == '$')
 			strjoin_char(i, str, token);
 	}
 	else if ((*token)[*i] == '$' && (*token)[*i + 1] == '?' && mini->q != '\'')
@@ -54,7 +58,7 @@ int			find_dollar_type(char **token, t_mini *mini, char **str, int *i)
 	else if ((*token)[*i] == '$' && (*token)[*i + 1] != '\0' &&
 	!(ft_isalnum((*token)[*i + 1]) || (*token)[*i + 1] == '"' ||
 	(*token)[*i + 1] == '\'') && (*token)[*i + 1] != '_')
-		return (-1);
+		strjoin_char(i, str, token);
 	else if ((*token)[*i] == '$' && ft_isdigit((*token)[*i + 1])
 	&& (mini->q != '\'' || mini->n_quotes % 2 == 0))
 		dollar_num(token, i, mini, str);
@@ -77,8 +81,7 @@ int			dollar_type(char **token, t_mini *mini, char **str)
 	while ((*token)[i] != '\0')
 	{
 		set_open_q((*token)[i], mini);
-		if (find_dollar_type(token, mini, str, &i) == -1)
-			return (-1);
+		find_dollar_type(token, mini, str, &i);
 	}
 	if (mini->piped == 1)
 	{

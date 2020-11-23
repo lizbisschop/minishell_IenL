@@ -6,7 +6,7 @@
 /*   By: iboeters <iboeters@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/09 18:19:53 by iboeters      #+#    #+#                 */
-/*   Updated: 2020/11/22 19:54:11 by iboeters      ########   odam.nl         */
+/*   Updated: 2020/11/23 13:43:02 by iboeters      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,5 +153,6 @@ void			free_tokens_pipes(t_mini *mini, char **array);
 void			var_sub(char **tokens, t_mini *mini, int cmd);
 void			close_and_free(t_mini *mini, char **s);
 int				check_semicolon(char *s, t_mini *mini, int *i);
+void			switch_quotes(t_mini *mini, char *q, char *anti_q);
 
 #endif

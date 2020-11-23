@@ -6,7 +6,7 @@
 /*   By: iboeters <iboeters@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/09 18:18:28 by iboeters      #+#    #+#                 */
-/*   Updated: 2020/11/15 14:09:56 by lbisscho      ########   odam.nl         */
+/*   Updated: 2020/11/23 13:15:01 by iboeters      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ int		multi_lines(char *str)
 	i = 0;
 	while (str[i] != '\0')
 	{
-		if (str[i] == '\\' && str[i + 1] != '\'' && str[i + 1] != '\0')
+		if (str[i] == '\\' && (single_q % 2) == 0 && str[i + 1] != '\0')
 			i++;
 		else if (str[i] == '\'' && (double_q % 2) == 0)
 			single_q++;
